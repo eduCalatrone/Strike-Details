@@ -54,14 +54,6 @@
   /* ---------- chevron signature element ---------- */
   .chev{width:16px; height:16px; flex-shrink:0; display:inline-block;}
   .chev-svg{display:block;}
-  .chev-mark{
-    display:inline-flex;
-    flex-direction:column;
-    gap:3px;
-  }
-  .chev-mark .chev{
-    width:16px; height:9px;
-  }
 
   /* ---------- NAV ---------- */
   header{
@@ -138,7 +130,8 @@
     color:var(--white); text-decoration:none;
     font-family:'Anton',sans-serif; font-size:26px; text-transform:uppercase;
   }
-  .mobile-menu .btn{align-self:flex-start; margin-top:10px;}
+  .mobile-menu .btn{align-self:flex-start; margin-top:10px; font-family:'Inter',sans-serif; font-size:13px; text-transform:uppercase;}
+  .mobile-menu .btn-primary{color:var(--black);}
 
   @media (max-width:800px){
     .navlinks{display:none;}
@@ -306,7 +299,7 @@
     display:flex; align-items:center; justify-content:center;
     position:relative;
   }
-  .carbon-card .chev-mark{transform:scale(3.4); opacity:.9;}
+  .protocol-icon{width:46%; height:auto; color:var(--white); opacity:.92;}
 
   /* ---------- BOOKING (signature interactive area) ---------- */
   .booking{border-bottom:1px solid var(--line);}
@@ -493,7 +486,7 @@
     .protocol-card{padding:18px;}
     .protocol-step{font-size:13px;}
     .carbon-card{aspect-ratio:16/10;}
-    .carbon-card .chev-mark{transform:scale(2.2);}
+    .protocol-icon{width:38%;}
 
     .step{padding:24px 20px;}
     select, input[type="date"]{font-size:16px;}
@@ -550,9 +543,8 @@
       VITRIFICAÇÃO · POLIMENTO · REVESTIMENTO
     </div>
     <h1>PADRÃO <em>STRIKE</em><br>DE CUIDADO</h1>
-    <p class="sub">Vitrificação, revestimento em couro e polimento técnico executados com precisão.</p>
     <div class="hero-ctas">
-      <a href="#agendar" class="btn btn-primary">Montar meu pedido</a>
+      <a href="#agendar" class="btn btn-primary">Agendar serviço</a>
       <a id="heroWhats" href="#" target="_blank" class="btn btn-ghost">Falar no WhatsApp</a>
     </div>
   </div>
@@ -568,7 +560,7 @@
   <div class="wrap">
     <div class="section-head">
       <div>
-        <div class="eyebrow"><svg class="chev"><use href="#chevron"/></svg>O que fazemos</div>
+        <div class="eyebrow">O que fazemos</div>
         <h2>Serviços</h2>
       </div>
       <p>Quatro frentes de trabalho, cada uma com seu processo técnico.</p>
@@ -601,7 +593,7 @@
 <section class="about" id="diferenciais">
   <div class="wrap about-grid">
     <div>
-      <div class="eyebrow"><svg class="chev"><use href="#chevron"/></svg>Como trabalhamos</div>
+      <div class="eyebrow">Como trabalhamos</div>
       <h2>Um protocolo pra cada carro.</h2>
       <p>Da entrada até a entrega, cada etapa do serviço é acompanhada de perto, do jeito que seu carro merece.</p>
       <div class="protocol-card">
@@ -612,10 +604,16 @@
       </div>
     </div>
     <div class="carbon-card">
-      <div class="chev-mark">
-        <svg class="chev"><use href="#chevron"/></svg>
-        <svg class="chev"><use href="#chevron"/></svg>
-      </div>
+      <svg class="protocol-icon" viewBox="0 0 120 100" xmlns="http://www.w3.org/2000/svg">
+        <path d="M40 16 L43.5 25 L52 28.5 L43.5 32 L40 41 L36.5 32 L28 28.5 L36.5 25 Z" fill="currentColor"/>
+        <path d="M80 8 L82 13.5 L87.5 15.5 L82 17.5 L80 23 L78 17.5 L72.5 15.5 L78 13.5 Z" fill="currentColor"/>
+        <path d="M18 78 Q18 69 27 67 L34 67 L43 52 Q46.5 47 53 47 L74 47 Q80.5 47 84 52 L93 67 L100 67 Q109 69 109 78 L109 83.5 Q109 88 104.5 88 L98 88 Q98 97 89 97 Q80 97 80 88 L47 88 Q47 97 38 97 Q29 97 29 88 L22.5 88 Q18 88 18 83.5 Z" fill="currentColor"/>
+        <path d="M47 67 L53.5 54 L73.5 54 L80 67 Z" fill="var(--surface)"/>
+        <circle cx="38" cy="88" r="8.5" fill="var(--surface)"/>
+        <circle cx="38" cy="88" r="4" fill="currentColor"/>
+        <circle cx="89" cy="88" r="8.5" fill="var(--surface)"/>
+        <circle cx="89" cy="88" r="4" fill="currentColor"/>
+      </svg>
     </div>
   </div>
 </section>
@@ -624,7 +622,7 @@
   <div class="wrap">
     <div class="section-head">
       <div>
-        <div class="eyebrow"><svg class="chev"><use href="#chevron"/></svg>Monte seu pedido</div>
+        <div class="eyebrow">Monte seu pedido</div>
         <h2>Escolha e envie pelo WhatsApp</h2>
       </div>
       <p>Três passos. No final, a mensagem já sai pronta no seu WhatsApp.</p>
@@ -670,7 +668,7 @@
 <section class="closing">
   <div class="closing-photo"></div>
   <div class="wrap closing-inner">
-    <div class="eyebrow"><svg class="chev"><use href="#chevron"/></svg>Estrutura própria</div>
+    <div class="eyebrow">Estrutura própria</div>
     <h2>Seu carro merece esse tratamento.</h2>
     <a id="closingWhats" href="#" target="_blank" class="btn btn-primary">Falar no WhatsApp</a>
   </div>
