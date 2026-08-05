@@ -62,30 +62,18 @@
             height: 4px;
             background: rgba(255,255,255,.35);
             border-radius: 50%;
-            animation: float 14s linear infinite;
+            pointer-events:none;
+            animation: float 12s linear infinite;
+            will-change: transform;
             z-index: -1;
         }
 
         @keyframes float {
 
-            from {
-                transform: translateY(100vh);
-                opacity: 0;
-            }
-
-            20% {
-                opacity: 1;
-            }
-
-            80% {
-                opacity: 1;
-            }
-
-            to {
-                transform: translateY(-100px);
-                opacity: 0;
-            }
-
+            0%{transform: translateY(110vh);opacity:0;}
+            10%{opacity:1;}
+            90%{opacity:1;}
+            100%{transform: translateY(-120px);opacity:0;}
         }
 
         .container {
@@ -124,12 +112,17 @@
             box-shadow: 0 15px 40px rgba(56,189,248,.35);
         }
 
-        h1 {
-            font-size: clamp(2.4rem,8vw,5rem);
-            text-transform: uppercase;
-            letter-spacing: 4px;
-            margin-bottom: 20px;
-        }
+        h1{
+    font-size: clamp(2rem, 6vw, 5rem);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    line-height: 1.1;
+    margin-bottom: 20px;
+    white-space: normal;
+    word-break: normal;
+    overflow-wrap: normal;
+    hyphens: none;
+}
 
         .subtitle {
             font-size: clamp(1rem,3vw,1.4rem);
@@ -205,6 +198,11 @@
 
         @media(max-width:600px){
 
+            body{padding:20px 0;}
+
+            .container{width:95%;padding:25px 18px;}
+
+
             .logo{
                 width:70px;
                 height:70px;
@@ -220,6 +218,7 @@
             footer{
                 font-size:.85rem;
             }
+        
 
         }
 
@@ -231,12 +230,12 @@
 
     <!-- Partículas -->
 
-    <span class="particle" style="left:10%; animation-delay:0s;"></span>
-    <span class="particle" style="left:25%; animation-delay:2s;"></span>
-    <span class="particle" style="left:45%; animation-delay:5s;"></span>
-    <span class="particle" style="left:65%; animation-delay:7s;"></span>
-    <span class="particle" style="left:80%; animation-delay:10s;"></span>
-    <span class="particle" style="left:92%; animation-delay:4s;"></span>
+    <span class="particle" style="left:10%; animation-delay:-1s;"></span>
+    <span class="particle" style="left:25%; animation-delay:-3s;"></span>
+    <span class="particle" style="left:45%; animation-delay:-5s;"></span>
+    <span class="particle" style="left:65%; animation-delay:-7s;"></span>
+    <span class="particle" style="left:80%; animation-delay:-9s;"></span>
+    <span class="particle" style="left:92%; animation-delay:-11s;"></span>
 
     <div class="container">
 
