@@ -312,7 +312,7 @@
     display:flex; align-items:center; gap:8px;
     margin-bottom:18px;
   }
-  select, input[type="date"]{
+  select, input[type="date"], input[type="text"]{
     width:100%;
     background:transparent;
     border:none;
@@ -327,7 +327,9 @@
   }
   select option{background:var(--surface-2); color:var(--white);}
   input[type="date"]::-webkit-calendar-picker-indicator{filter:invert(1); cursor:pointer;}
-  select:focus, input[type="date"]:focus{outline:none; border-bottom-color:var(--white);}
+  select:focus, input[type="date"]:focus, input[type="text"]:focus{outline:none; border-bottom-color:var(--white);}
+  input[type="text"]::placeholder{color:var(--gray); font-weight:500;}
+  .modelo-field{margin-top:18px;}
 
   .date-field{position:relative;}
   .date-field input[type="date"]{position:relative; z-index:1; background:transparent;}
@@ -611,16 +613,27 @@
       <div class="booking-steps">
         <div class="step">
           <div class="step-label"><svg class="chev" style="width:12px;height:7px"><use href="#chevron"/></svg>01 · Marca do Veículo</div>
-          <input type="text" name="nome" placeholder="Digite seu nome aqui">
-          <select id="categoria">
-            <option value="" disabled selected>Selecionar categoria</option>
-            <option value="Hatch">Hatch</option>
-            <option value="Sedã">Sedã</option>
-            <option value="SUV / Picape">Picape</option>
-            <option value="SUV">SUV</option>
-            <option value="Utilitário / Van">Utilitário / Van</option>
-            <option value="Esportivo">Esportivo</option>
+          <select id="marca">
+            <option value="" disabled selected>Selecionar marca</option>
+            <option value="BMW">BMW</option>
+            <option value="Mercedes-Benz">Mercedes-Benz</option>
+            <option value="Audi">Audi</option>
+            <option value="Land Rover">Land Rover</option>
+            <option value="Porsche">Porsche</option>
+            <option value="Chevrolet">Chevrolet</option>
+            <option value="Fiat">Fiat</option>
+            <option value="Volkswagen">Volkswagen</option>
+            <option value="Ford">Ford</option>
+            <option value="Toyota">Toyota</option>
+            <option value="Honda">Honda</option>
+            <option value="Hyundai">Hyundai</option>
+            <option value="Renault">Renault</option>
+            <option value="Jeep">Jeep</option>
+            <option value="Peugeot">Peugeot</option>
+            <option value="Mitsubishi">Mitsubishi</option>
+            <option value="Outros">Outros</option>
           </select>
+          <input type="text" id="modelo" class="modelo-field" placeholder="Modelo/Ano (opcional)">
         </div>
         <div class="step">
           <div class="step-label"><svg class="chev" style="width:12px;height:7px"><use href="#chevron"/></svg>02 · Serviço desejado</div>
@@ -680,12 +693,16 @@
   const WHATS_NUMBER = "5569993615454"; // confirmado pelo Instagram: 69 99361-5454
 
   function buildMessage(){
-    const cat = document.getElementById('categoria').value;
+    const marca = document.getElementById('marca').value;
+    const modelo = document.getElementById('modelo').value.trim();
     const data = document.getElementById('data').value;
     const checks = Array.from(document.querySelectorAll('.checks input:checked')).map(c => c.value);
 
     let msg = "Olá! Vim pelo site da Strike Details e gostaria de um orçamento.\n";
-    msg += "Categoria do veículo: *" + (cat || "-") + "*\n";
+    msg += "Marca do veículo: *" + (marca || "-") + "*\n";
+    if(modelo){
+      msg += "Modelo/Ano: *" + modelo + "*\n";
+    }
     msg += "Serviço(s): *" + (checks.length ? checks.join(", ") : "-") + "*\n";
     if(data){
       const [y,m,d] = data.split('-');
@@ -697,10 +714,10 @@
   }
 
   function refresh(){
-    const cat = document.getElementById('categoria').value;
+    const marca = document.getElementById('marca').value;
     const checks = Array.from(document.querySelectorAll('.checks input:checked')).map(c => c.value);
     const data = document.getElementById('data').value;
-    const ready = cat && checks.length && data;
+    const ready = marca && checks.length && data;
 
     const preview = document.getElementById('preview');
     const sendBtn = document.getElementById('sendBtn');
@@ -710,7 +727,7 @@
       sendBtn.href = "https://wa.me/" + WHATS_NUMBER + "?text=" + encodeURIComponent(buildMessage());
       sendBtn.removeAttribute('aria-disabled');
     } else {
-      preview.textContent = "Preencha categoria, serviço e data pra liberar o envio.";
+      preview.textContent = "Preencha marca, serviço e data pra liberar o envio.";
       sendBtn.href = "#";
       sendBtn.setAttribute('aria-disabled','true');
     }
@@ -722,7 +739,8 @@
     fallback.style.display = val ? 'none' : 'block';
   }
 
-  document.getElementById('categoria').addEventListener('change', refresh);
+  document.getElementById('marca').addEventListener('change', refresh);
+  document.getElementById('modelo').addEventListener('input', refresh);
   document.getElementById('data').addEventListener('change', () => { refresh(); refreshDateFallback(); });
   document.getElementById('data').addEventListener('input', refreshDateFallback);
   document.querySelectorAll('.checks input').forEach(c => c.addEventListener('change', refresh));
