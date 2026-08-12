@@ -31,6 +31,13 @@
 
         body {
             background-color: var(--bg-black);
+            background-image:
+                linear-gradient(45deg, rgba(255,255,255,0.02) 25%, transparent 25%, transparent 75%, rgba(255,255,255,0.02) 75%),
+                linear-gradient(45deg, rgba(255,255,255,0.02) 25%, transparent 25%, transparent 75%, rgba(255,255,255,0.02) 75%),
+                linear-gradient(rgba(0,0,0,0.3) 100%, rgba(0,0,0,0.3) 100%),
+                linear-gradient(90deg, rgba(0,0,0,0.15) 50%, rgba(20,20,22,0.15) 50%);
+            background-size: 10px 10px, 10px 10px, 20px 20px, 20px 20px;
+            background-position: 0 0, 5px 5px, 0 0, 0 0;
             color: var(--text-primary);
             font-family: 'Inter', sans-serif;
             line-height: 1.6;
@@ -43,15 +50,16 @@
             letter-spacing: -0.5px;
         }
 
-        /* TEXTURA FIBRA DE CARBONO DISCRETA */
+        /* TEXTURA FIBRA DE CARBONO - WEAVE XADREZ 3D (DISFARÇADO) */
         .carbon-pattern {
-            background: 
-                radial-gradient(black 15%, transparent 16%) 0 0,
-                radial-gradient(black 15%, transparent 16%) 8px 8px,
-                radial-gradient(rgba(255,255,255,0.03) 15%, transparent 20%) 0 1px,
-                radial-gradient(rgba(255,255,255,0.03) 15%, transparent 20%) 8px 9px;
-            background-color: #0b0b0c;
-            background-size: 16px 16px;
+            background-color: #0c0c0d;
+            background-image:
+                linear-gradient(45deg, rgba(255,255,255,0.025) 25%, transparent 25%, transparent 75%, rgba(255,255,255,0.025) 75%),
+                linear-gradient(45deg, rgba(255,255,255,0.025) 25%, transparent 25%, transparent 75%, rgba(255,255,255,0.025) 75%),
+                linear-gradient(rgba(0,0,0,0.3) 100%, rgba(0,0,0,0.3) 100%),
+                linear-gradient(90deg, rgba(0,0,0,0.18) 50%, rgba(20,20,22,0.18) 50%);
+            background-size: 10px 10px, 10px 10px, 20px 20px, 20px 20px;
+            background-position: 0 0, 5px 5px, 0 0, 0 0;
         }
 
         /* HEADER LOGO */
@@ -284,6 +292,69 @@
             .hero h1 { font-size: 2.6rem; }
             .book-wrapper { width: 250px; height: 350px; }
         }
+
+        /* GANCHO DE VENDA - ALERTA DE DEFEITO DE FÁBRICA */
+        .hook-alert {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.7rem;
+            text-align: left;
+            width: 100%;
+            max-width: 560px;
+            margin: 0 auto 1.8rem auto;
+            padding: 0.9rem 1rem;
+            background: rgba(63, 138, 92, 0.08);
+            border: 1px solid var(--accent-green);
+            border-left: 4px solid var(--accent-green);
+        }
+
+        .hook-alert .hook-icon {
+            font-size: 1.3rem;
+            line-height: 1;
+            flex-shrink: 0;
+            color: var(--accent-green);
+        }
+
+        .hook-alert .hook-number {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 900;
+            font-size: 1.05rem;
+            color: #fff;
+            letter-spacing: -0.3px;
+            display: block;
+            margin-bottom: 0.2rem;
+        }
+
+        .hook-alert .hook-number span {
+            color: var(--accent-green);
+            font-size: 1.3em;
+        }
+
+        .hook-alert p {
+            font-size: 0.82rem;
+            color: var(--text-secondary);
+            margin: 0;
+            max-width: none;
+        }
+
+        @media (min-width: 768px) {
+            .hook-alert { padding: 1.1rem 1.4rem; }
+            .hook-alert .hook-number { font-size: 1.2rem; }
+        }
+        /* EMBED INSTAGRAM */
+        .insta-embed-wrap {
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto 2rem auto;
+            display: flex;
+            justify-content: center;
+        }
+
+        .insta-embed-wrap blockquote.instagram-media {
+            margin: 0 !important;
+            width: 100% !important;
+            min-width: 0 !important;
+        }
     </style>
 </head>
 <body>
@@ -300,6 +371,22 @@
         <h1>Método Cabine Blindada <span>Strike</span></h1>
         
         <p>O processo completo de vedação definitiva contra poeira na Fiat Strada. Desmontagem, isolamento e montagem documentados sem enrolação.</p>
+
+        <!-- GANCHO DE VENDA -->
+        <div class="hook-alert">
+            <span class="hook-icon">⚠</span>
+            <div>
+                <span class="hook-number"><span>+100 MIL</span> FIAT STRADA RODANDO COM O MESMO DEFEITO DE FÁBRICA</span>
+                <p>Poeira entrando na cabine não é falha de uso. É um ponto vulnerável de projeto presente em toda a linha Strada, de qualquer ano. A fábrica não corrige. Domine o método e ofereça a correção — seja no seu carro ou como serviço para qualquer cliente que chegar até você.</p>
+            </div>
+        </div>
+
+        <!-- VÍDEO DO PROBLEMA - INSTAGRAM -->
+        <div class="insta-embed-wrap">
+            <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/reel/DbpDvGPOavM/" data-instgrm-version="14" style="background:#0b0b0c; border:1px solid var(--border-color); border-radius:4px; margin:0; max-width:400px; width:100%;">
+            </blockquote>
+        </div>
+        <script async src="//www.instagram.com/embed.js"></script>
 
         <!-- E-BOOK 3D ANIMADO -->
         <div class="ebook-container">
