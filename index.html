@@ -648,7 +648,8 @@
             <option value="Ferrari">
             <option value="Lamborghini">
           </datalist>
-          <input type="text" id="modelo" class="modelo-field" placeholder="Modelo/Ano (opcional)">
+          <input type="text" id="modelo" class="modelo-field" list="modelosList" placeholder="Modelo/Ano (opcional)" autocomplete="off">
+          <datalist id="modelosList"></datalist>
         </div>
         <div class="step">
           <div class="step-label"><svg class="chev" style="width:12px;height:7px"><use href="#chevron"/></svg>02 · Serviço desejado</div>
@@ -754,8 +755,53 @@
     fallback.style.display = val ? 'none' : 'block';
   }
 
+  const MODELOS_POR_MARCA = {
+    "bmw": ["118i","320i","Série 3","X1","X3","X5","X6"],
+    "mercedes-benz": ["Classe A","Classe C","Classe E","GLA","GLC","GLE","CLA"],
+    "audi": ["A3","A4","A5","Q3","Q5","Q7"],
+    "land rover": ["Range Rover Evoque","Range Rover Velar","Range Rover Sport","Discovery Sport","Defender"],
+    "porsche": ["Macan","Cayenne","Panamera","911","Taycan"],
+    "chevrolet": ["Onix","Onix Plus","Tracker","S10","Spin","Cruze"],
+    "fiat": ["Strada","Argo","Mobi","Toro","Pulse","Cronos"],
+    "volkswagen": ["Polo","T-Cross","Nivus","Virtus","Saveiro","Amarok"],
+    "ford": ["Ranger","Territory","Bronco Sport","Maverick"],
+    "toyota": ["Corolla","Corolla Cross","Hilux","Yaris","SW4","RAV4"],
+    "honda": ["HR-V","Civic","City","CR-V","Fit"],
+    "hyundai": ["HB20","Creta","Tucson","Santa Fe"],
+    "renault": ["Kwid","Duster","Sandero","Logan","Oroch"],
+    "jeep": ["Renegade","Compass","Commander","Wrangler"],
+    "peugeot": ["208","2008","3008","408"],
+    "mitsubishi": ["L200 Triton","Outlander","ASX","Pajero Sport"],
+    "nissan": ["Kicks","Versa","Frontier","Sentra"],
+    "kia": ["Sportage","Cerato","Sorento","Stonic"],
+    "citroën": ["C3","C4 Cactus","Aircross"],
+    "citroen": ["C3","C4 Cactus","Aircross"],
+    "volvo": ["XC60","XC40","XC90","S60"],
+    "ram": ["1500","2500","Rampage"],
+    "subaru": ["Forester","Outback","Crosstrek"],
+    "suzuki": ["Jimny","S-Cross","Vitara"],
+    "chery": ["Tiggo 5x","Tiggo 7","Tiggo 8","Arrizo 6"],
+    "gwm": ["Haval H6","Ora 03","Poer"],
+    "byd": ["Dolphin","Song Plus","Yuan Plus","Seal"],
+    "jaguar": ["F-Pace","E-Pace","XE"],
+    "mini": ["Cooper","Countryman"],
+    "lexus": ["NX","RX","UX"],
+    "maserati": ["Ghibli","Levante","Grecale"],
+    "ferrari": ["Portofino","Roma","296"],
+    "lamborghini": ["Urus","Huracán"]
+  };
+
+  function refreshModelosList(){
+    const marca = document.getElementById('marca').value.trim().toLowerCase();
+    const datalist = document.getElementById('modelosList');
+    const modelos = MODELOS_POR_MARCA[marca] || [];
+    datalist.innerHTML = modelos.map(m => '<option value="' + m + '">').join('');
+  }
+
   document.getElementById('marca').addEventListener('change', refresh);
   document.getElementById('marca').addEventListener('input', refresh);
+  document.getElementById('marca').addEventListener('input', refreshModelosList);
+  document.getElementById('marca').addEventListener('change', refreshModelosList);
   document.getElementById('modelo').addEventListener('input', refresh);
   document.getElementById('data').addEventListener('change', () => { refresh(); refreshDateFallback(); });
   document.getElementById('data').addEventListener('input', refreshDateFallback);
