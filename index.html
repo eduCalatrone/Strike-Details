@@ -529,7 +529,7 @@
     <h1>PADRÃO <em>STRIKE</em><br>DE CUIDADO</h1>
     <div class="hero-ctas">
       <a href="#agendar" class="btn btn-primary">Agendar serviço</a>
-      <a href="ebook.html" target="_blank" class="btn btn-ghost">Ebook</a>
+      <a href="Ebook/ebook.html" target="_blank" class="btn btn-ghost">Ebook</a>
     </div>
   </div>
   <div class="wrap hero-strip">
@@ -613,26 +613,25 @@
       <div class="booking-steps">
         <div class="step">
           <div class="step-label"><svg class="chev" style="width:12px;height:7px"><use href="#chevron"/></svg>01 · Marca do Veículo</div>
-          <select id="marca">
-            <option value="" disabled selected>Selecionar marca</option>
-            <option value="BMW">BMW</option>
-            <option value="Mercedes-Benz">Mercedes-Benz</option>
-            <option value="Audi">Audi</option>
-            <option value="Land Rover">Land Rover</option>
-            <option value="Porsche">Porsche</option>
-            <option value="Chevrolet">Chevrolet</option>
-            <option value="Fiat">Fiat</option>
-            <option value="Volkswagen">Volkswagen</option>
-            <option value="Ford">Ford</option>
-            <option value="Toyota">Toyota</option>
-            <option value="Honda">Honda</option>
-            <option value="Hyundai">Hyundai</option>
-            <option value="Renault">Renault</option>
-            <option value="Jeep">Jeep</option>
-            <option value="Peugeot">Peugeot</option>
-            <option value="Mitsubishi">Mitsubishi</option>
-            <option value="Outros">Outros</option>
-          </select>
+          <input type="text" id="marca" list="marcasList" placeholder="Marca do Veículo" autocomplete="off">
+          <datalist id="marcasList">
+            <option value="BMW">
+            <option value="Mercedes-Benz">
+            <option value="Audi">
+            <option value="Land Rover">
+            <option value="Porsche">
+            <option value="Chevrolet">
+            <option value="Fiat">
+            <option value="Volkswagen">
+            <option value="Ford">
+            <option value="Toyota">
+            <option value="Honda">
+            <option value="Hyundai">
+            <option value="Renault">
+            <option value="Jeep">
+            <option value="Peugeot">
+            <option value="Mitsubishi">
+          </datalist>
           <input type="text" id="modelo" class="modelo-field" placeholder="Modelo/Ano (opcional)">
         </div>
         <div class="step">
@@ -740,6 +739,7 @@
   }
 
   document.getElementById('marca').addEventListener('change', refresh);
+  document.getElementById('marca').addEventListener('input', refresh);
   document.getElementById('modelo').addEventListener('input', refresh);
   document.getElementById('data').addEventListener('change', () => { refresh(); refreshDateFallback(); });
   document.getElementById('data').addEventListener('input', refreshDateFallback);
@@ -752,7 +752,6 @@
 
   // header/hero/footer generic whatsapp links (no pre-filled message)
   const genericWhats = "https://wa.me/" + WHATS_NUMBER;
-  document.getElementById('heroWhats').href = genericWhats;
   document.getElementById('footerWhats').href = genericWhats;
   document.getElementById('closingWhats').href = genericWhats;
 
