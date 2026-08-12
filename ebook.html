@@ -118,21 +118,13 @@
         }
 
         /* MOCKUP CENTRAL E-BOOK */
-        .ebook-stage {
-            position: relative;
-            width: 100%;
-            margin: 2rem 0 4.5rem 0;
-            display: flex;
-            justify-content: center;
-        }
-
         .ebook-container {
             perspective: 1000px;
+            margin: 2rem 0 4.5rem 0;
             width: 100%;
             display: flex;
             justify-content: center;
             position: relative;
-            z-index: 1;
         }
 
         /* ANIMAÇÃO DE FLUTUAÇÃO 3D */
@@ -189,35 +181,6 @@
             100% { transform: translateX(-15%); }
         }
 
-        @keyframes floatGlow {
-            0% {
-                transform: translateX(-50%) translateY(0px) scale(0.95);
-            }
-            50% {
-                transform: translateX(-50%) translateY(10px) scale(1.1);
-            }
-            100% {
-                transform: translateX(-50%) translateY(0px) scale(0.95);
-            }
-        }
-
-        .book-glow {
-            position: absolute;
-            bottom: 0px;
-            left: 50%;
-            width: 320px;
-            height: 220px;
-            background: radial-gradient(ellipse at center,
-                rgba(110, 220, 150, 0.9) 0%,
-                rgba(90, 195, 130, 0.55) 25%,
-                rgba(63, 138, 92, 0.28) 45%,
-                rgba(63, 138, 92, 0.1) 65%,
-                rgba(63, 138, 92, 0) 80%);
-            animation: floatGlow 6.5s cubic-bezier(0.45, 0, 0.55, 1) infinite;
-            z-index: 0;
-            pointer-events: none;
-        }
-
         .book-wrapper {
             position: relative;
             width: 210px;
@@ -225,7 +188,6 @@
             transform-style: preserve-3d;
             border-radius: 4px;
             animation: floatBook 6.5s cubic-bezier(0.45, 0, 0.55, 1) infinite;
-            z-index: 1;
         }
 
         .book-title-box {
@@ -429,9 +391,7 @@
         <script async src="//www.instagram.com/embed.js"></script>
 
         <!-- E-BOOK 3D ANIMADO -->
-        <div class="ebook-stage">
-            <div class="book-glow"></div>
-            <div class="ebook-container">
+        <div class="ebook-container">
             <div class="book-wrapper">
                 <div class="book-cover carbon-pattern">
                     <div style="text-align: center;">
@@ -445,7 +405,6 @@
                         Manual de Procedimento
                     </div>
                 </div>
-            </div>
             </div>
         </div>
 
