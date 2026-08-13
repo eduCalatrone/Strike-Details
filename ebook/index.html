@@ -380,6 +380,56 @@
         @media (min-width: 768px) {
             .stats-strip .stat-value { font-size: 2rem; }
         }
+        /* LISTA DE BENEFÍCIOS */
+        .benefits-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+            width: 100%;
+            max-width: 560px;
+            margin: 0 auto 1.8rem auto;
+        }
+
+        .benefit-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.8rem;
+            text-align: left;
+            padding: 0.9rem 1rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+        }
+
+        .benefit-item .benefit-icon {
+            flex-shrink: 0;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: var(--accent-green-glow);
+            color: var(--accent-green);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            font-weight: 800;
+        }
+
+        .benefit-item .benefit-title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            font-size: 0.9rem;
+            color: #fff;
+            display: block;
+            margin-bottom: 0.15rem;
+        }
+
+        .benefit-item p {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            margin: 0;
+            max-width: none;
+        }
+
         /* VÍDEO LOCAL */
         .insta-embed-wrap {
             width: 100%;
@@ -412,6 +462,17 @@
         <h1>Método Cabine Blindada <span>Strike</span></h1>
         
         <p>O processo completo de vedação definitiva contra poeira na Fiat Strada. Desmontagem, isolamento e montagem documentados sem enrolação.</p>
+
+        <!-- BENEFÍCIOS -->
+        <div class="benefits-list">
+            <div class="benefit-item">
+                <span class="benefit-icon">✓</span>
+                <div>
+                    <span class="benefit-title">Grupo exclusivo no WhatsApp</span>
+                    <p>Acesso a um grupo fechado só para quem adquiriu o e-book, direto com a equipe Strike, para tirar dúvidas durante a execução do método.</p>
+                </div>
+            </div>
+        </div>
 
         <!-- GANCHO DE VENDA -->
         <div class="hook-alert">
