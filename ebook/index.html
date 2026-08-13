@@ -119,10 +119,15 @@
 
         /* MOCKUP CENTRAL E-BOOK */
         .ebook-container {
+            --book-w: 210px;
+            --book-h: 300px;
+            --book-d: 26px;
             perspective: 1000px;
             margin: 2rem 0 4.5rem 0;
             width: 100%;
             display: flex;
+            flex-direction: column;
+            align-items: center;
             justify-content: center;
             position: relative;
         }
@@ -148,19 +153,67 @@
 
 
 
-        .book-cover {
+        /* CAMADA EXTERNA: mantém a flutuação automática */
+        .book-wrapper {
+            position: relative;
+            width: var(--book-w);
+            height: var(--book-h);
+            transform-style: preserve-3d;
+            animation: floatBook 6.5s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+        }
+
+        /* CAMADA INTERNA: recebe o giro 360° do arraste */
+        .book-3d {
             position: absolute;
-            width: 100%;
-            height: 100%;
-            border-radius: 4px;
+            inset: 0;
+            transform-style: preserve-3d;
+            transform: rotateY(var(--spin-y, 0deg)) rotateX(var(--spin-x, 0deg));
+            cursor: grab;
+            touch-action: none;
+        }
+
+        .book-3d.is-grabbing {
+            cursor: grabbing;
+        }
+
+        .book-face {
+            position: absolute;
+            box-sizing: border-box;
+            backface-visibility: hidden;
+        }
+
+        /* CAPA E CONTRACAPA */
+        .book-cover {
+            width: var(--book-w);
+            height: var(--book-h);
+            border-radius: 3px;
             background: linear-gradient(145deg, #181818, #080808);
             border: 1px solid #333;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
             padding: 1.5rem 1.2rem;
-            box-sizing: border-box;
             overflow: hidden;
+        }
+
+        .book-front {
+            transform: translateZ(calc(var(--book-d) / 2));
+        }
+
+        .book-back {
+            transform: rotateY(180deg) translateZ(calc(var(--book-d) / 2));
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            text-align: center;
+        }
+
+        .book-back .back-note {
+            font-size: 0.6rem;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            line-height: 1.7;
         }
 
         .book-cover::after {
@@ -181,13 +234,76 @@
             100% { transform: translateX(-15%); }
         }
 
-        .book-wrapper {
-            position: relative;
-            width: 210px;
-            height: 300px;
-            transform-style: preserve-3d;
-            border-radius: 4px;
-            animation: floatBook 6.5s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+        /* LOMBADA (esquerda) */
+        .book-spine {
+            width: var(--book-d);
+            height: var(--book-h);
+            left: calc((var(--book-w) - var(--book-d)) / 2);
+            transform: rotateY(-90deg) translateZ(calc(var(--book-w) / 2));
+            background: linear-gradient(90deg, #060606, #1a1a1a 45%, #0a0a0a);
+            border-top: 1px solid #333;
+            border-bottom: 1px solid #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .book-spine span {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            font-size: 0.55rem;
+            letter-spacing: 2px;
+            color: var(--accent-green);
+            white-space: nowrap;
+            transform: rotate(90deg);
+            text-transform: uppercase;
+        }
+
+        /* MIOLO / PÁGINAS (direita) */
+        .book-pages {
+            width: var(--book-d);
+            height: var(--book-h);
+            left: calc((var(--book-w) - var(--book-d)) / 2);
+            transform: rotateY(90deg) translateZ(calc(var(--book-w) / 2));
+            background:
+                repeating-linear-gradient(90deg, #d9d7d0 0px, #d9d7d0 1px, #b8b5ad 1px, #b8b5ad 2.5px);
+            border-top: 1px solid #333;
+            border-bottom: 1px solid #333;
+        }
+
+        /* TOPO E BASE */
+        .book-top,
+        .book-bottom {
+            width: var(--book-w);
+            height: var(--book-d);
+            top: calc((var(--book-h) - var(--book-d)) / 2);
+            background:
+                repeating-linear-gradient(0deg, #d9d7d0 0px, #d9d7d0 1px, #b8b5ad 1px, #b8b5ad 2.5px);
+        }
+
+        .book-top {
+            transform: rotateX(90deg) translateZ(calc(var(--book-h) / 2));
+        }
+
+        .book-bottom {
+            transform: rotateX(-90deg) translateZ(calc(var(--book-h) / 2));
+        }
+
+        /* DICA DE INTERAÇÃO */
+        .drag-hint {
+            margin-top: 1.4rem;
+            font-size: 0.68rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            transition: opacity 0.4s;
+        }
+
+        .drag-hint.is-hidden {
+            opacity: 0;
         }
 
         .book-title-box {
@@ -292,7 +408,7 @@
 
         @media (min-width: 768px) {
             .hero h1 { font-size: 2.6rem; }
-            .book-wrapper { width: 250px; height: 350px; }
+            .ebook-container { --book-w: 250px; --book-h: 350px; --book-d: 32px; }
         }
 
         /* GANCHO DE VENDA - ALERTA DE DEFEITO DE FÁBRICA */
@@ -473,7 +589,7 @@
     <section class="hero carbon-pattern">
         <h1>Manual Técnico Cabine Blindada <span>Strike</span></h1>
         
-        <p>O processo completo de vedação definitiva contra poeira na Fiat Strada. Desmontagem, isolamento e montagem documentados.</p>
+        <p>O processo completo de vedação definitiva contra poeira na Fiat Strada. Desmontagem, isolamento e montagem documentados sem enrolação.</p>
 
         <!-- GANCHO DE VENDA -->
         <div class="hook-alert">
@@ -500,21 +616,48 @@
             </div>
         </div>
 
-        <!-- E-BOOK 3D ANIMADO -->
+        <!-- E-BOOK 3D ANIMADO + GIRO 360° -->
         <div class="ebook-container">
             <div class="book-wrapper">
-                <div class="book-cover carbon-pattern">
-                    <div style="text-align: center;">
-                        <img src="logo.png" alt="Strike" style="width: 80%; opacity: 0.9;">
+                <div class="book-3d" id="book3d">
+                    <!-- CAPA -->
+                    <div class="book-face book-cover book-front carbon-pattern">
+                        <div style="text-align: center;">
+                            <img src="logo.png" alt="Strike" style="width: 80%; opacity: 0.9;" draggable="false">
+                        </div>
+                        <div class="book-title-box">
+                            <h3>CABINE BLINDADA</h3>
+                            <p>VEDAÇÃO DE POEIRA FIAT STRADA</p>
+                        </div>
+                        <div style="font-size: 0.55rem; color: #555; text-align: left; text-transform: uppercase;">
+                            Manual de Procedimento
+                        </div>
                     </div>
-                    <div class="book-title-box">
-                        <h3>CABINE BLINDADA</h3>
-                        <p>VEDAÇÃO DE POEIRA FIAT STRADA</p>
+
+                    <!-- CONTRACAPA -->
+                    <div class="book-face book-cover book-back carbon-pattern">
+                        <img src="logo.png" alt="Strike" style="width: 55%; opacity: 0.55;" draggable="false">
+                        <div class="back-note">
+                            Manual Técnico Oficial<br>
+                            Strike Details<br>
+                            Estética Automotiva
+                        </div>
                     </div>
-                    <div style="font-size: 0.55rem; color: #555; text-align: left; text-transform: uppercase;">
-                        Manual de Procedimento
+
+                    <!-- LOMBADA -->
+                    <div class="book-face book-spine">
+                        <span>Cabine Blindada · Strike</span>
                     </div>
+
+                    <!-- MIOLO -->
+                    <div class="book-face book-pages"></div>
+                    <div class="book-face book-top"></div>
+                    <div class="book-face book-bottom"></div>
                 </div>
+            </div>
+
+            <div class="drag-hint" id="dragHint">
+                <span>⟲</span> Arraste para girar 360°
             </div>
         </div>
 
@@ -535,7 +678,7 @@
                     <span class="benefit-icon">✓</span>
                     <div>
                         <span class="benefit-title">Manual Técnico Passo a Passo</span>
-                        <p>Conteúdo completo e organizado, do início ao fim, para você executar o método com segurança.</p>
+                        <p>Conteúdo completo e organizado, do início ao fim, sem enrolação, para você executar o método com segurança.</p>
                     </div>
                 </div>
                 <div class="benefit-item">
@@ -562,6 +705,85 @@
             <p style="font-size: 0.7rem; color: #555; margin-top: 1.5rem;">STRIKE DETAILS · ESTÉTICA AUTOMOTIVA © 2026</p>
         </div>
     </footer>
+
+    <!-- INTERAÇÃO 360° DO E-BOOK -->
+    <script>
+    (function () {
+        var book = document.getElementById('book3d');
+        var hint = document.getElementById('dragHint');
+        if (!book) return;
+
+        var spinY = 0, spinX = 0;
+        var velY = 0, velX = 0;
+        var lastX = 0, lastY = 0;
+        var dragging = false;
+        var pointerId = null;
+        var rafId = null;
+
+        function apply() {
+            book.style.setProperty('--spin-y', spinY.toFixed(2) + 'deg');
+            book.style.setProperty('--spin-x', spinX.toFixed(2) + 'deg');
+        }
+
+        function inertia() {
+            if (dragging) return;
+            velY *= 0.94;
+            velX *= 0.94;
+            spinY += velY;
+            spinX = Math.max(-30, Math.min(30, spinX + velX));
+            apply();
+            if (Math.abs(velY) > 0.02 || Math.abs(velX) > 0.02) {
+                rafId = requestAnimationFrame(inertia);
+            }
+        }
+
+        book.addEventListener('pointerdown', function (e) {
+            dragging = true;
+            pointerId = e.pointerId;
+            lastX = e.clientX;
+            lastY = e.clientY;
+            velY = velX = 0;
+            if (rafId) cancelAnimationFrame(rafId);
+            book.classList.add('is-grabbing');
+            book.setPointerCapture(e.pointerId);
+            if (hint) hint.classList.add('is-hidden');
+        });
+
+        book.addEventListener('pointermove', function (e) {
+            if (!dragging || e.pointerId !== pointerId) return;
+            var dx = e.clientX - lastX;
+            var dy = e.clientY - lastY;
+            lastX = e.clientX;
+            lastY = e.clientY;
+
+            velY = dx * 0.45;
+            velX = -dy * 0.25;
+
+            spinY += velY;
+            spinX = Math.max(-30, Math.min(30, spinX + velX));
+            apply();
+        });
+
+        function endDrag(e) {
+            if (!dragging || (e.pointerId !== undefined && e.pointerId !== pointerId)) return;
+            dragging = false;
+            book.classList.remove('is-grabbing');
+            rafId = requestAnimationFrame(inertia);
+        }
+
+        book.addEventListener('pointerup', endDrag);
+        book.addEventListener('pointercancel', endDrag);
+        book.addEventListener('lostpointercapture', endDrag);
+
+        // Clique simples (sem arrastar) gira meia volta
+        book.addEventListener('click', function () {
+            if (Math.abs(velY) > 1) return;
+            velY = 9;
+            if (rafId) cancelAnimationFrame(rafId);
+            rafId = requestAnimationFrame(inertia);
+        });
+    })();
+    </script>
 
 </body>
 </html>
