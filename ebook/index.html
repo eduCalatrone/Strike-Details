@@ -659,7 +659,7 @@
             </div>
 
             <div class="drag-hint" id="dragHint">
-                <span>⟲</span> Deslize na horizontal para girar 360°
+                <span>⟲</span> Arraste para girar 360°
             </div>
         </div>
 
@@ -733,11 +733,9 @@
             velY *= 0.94;
             velX *= 0.94;
             spinY += velY;
-            spinX = Math.max(-30, Math.min(30, spinX + velX));
-            // no toque o eixo vertical volta sozinho ao repouso
-            if (isTouch) spinX *= 0.88;
+            spinX = Math.max(-35, Math.min(35, spinX + velX));
             apply();
-            if (Math.abs(velY) > 0.02 || Math.abs(velX) > 0.02 || (isTouch && Math.abs(spinX) > 0.05)) {
+            if (Math.abs(velY) > 0.02 || Math.abs(velX) > 0.02) {
                 rafId = requestAnimationFrame(inertia);
             }
         }
@@ -745,8 +743,8 @@
         book.addEventListener('pointerdown', function (e) {
             dragging = true;
             isTouch = (e.pointerType === 'touch' || e.pointerType === 'pen');
-            axisLocked = false;
-            isRotating = !isTouch;   // mouse gira de imediato; toque espera definir o eixo
+            axisLocked = !isTouch;   // mouse não precisa de trava de eixo
+            isRotating = !isTouch;
             moved = 0;
             pointerId = e.pointerId;
             startX = lastX = e.clientX;
@@ -754,7 +752,7 @@
             velY = velX = 0;
             if (rafId) cancelAnimationFrame(rafId);
             book.classList.add('is-grabbing');
-            if (!isTouch) book.setPointerCapture(e.pointerId);
+            book.setPointerCapture(e.pointerId);
             if (hint) hint.classList.add('is-hidden');
         });
 
@@ -765,20 +763,24 @@
             var dy = e.clientY - lastY;
             moved += Math.abs(dx) + Math.abs(dy);
 
-            // TOQUE: decide o eixo no primeiro movimento relevante
-            if (isTouch && !axisLocked) {
-                var totalX = Math.abs(e.clientX - startX);
-                var totalY = Math.abs(e.clientY - startY);
-                if (totalX < 6 && totalY < 6) { lastX = e.clientX; lastY = e.clientY; return; }
+            // TOQUE: decide o eixo já no primeiro movimento perceptível
+            if (!axisLocked) {
+                var totalX = e.clientX - startX;
+                var totalY = e.clientY - startY;
+                if (Math.abs(totalX) < 3 && Math.abs(totalY) < 3) return;
+
                 axisLocked = true;
-                isRotating = totalX > totalY;      // horizontal = girar, vertical = rolar a página
-                if (isRotating) {
-                    book.setPointerCapture(e.pointerId);
-                } else {
-                    dragging = false;              // solta o gesto para o navegador rolar
+                isRotating = Math.abs(totalX) >= Math.abs(totalY);
+
+                if (!isRotating) {
+                    dragging = false;              // gesto vertical: devolve a rolagem ao navegador
                     book.classList.remove('is-grabbing');
                     return;
                 }
+
+                // recupera todo o movimento já feito para não parecer travado
+                dx = totalX;
+                dy = totalY;
             }
 
             if (!isRotating) return;
@@ -786,14 +788,12 @@
             lastX = e.clientX;
             lastY = e.clientY;
 
-            // dedo precisa de curso maior que o mouse
-            velY = dx * (isTouch ? 0.75 : 0.45);
-            spinY += velY;
+            var sens = isTouch ? 0.75 : 0.45;
+            velY = dx * sens;
+            velX = -dy * (isTouch ? 0.4 : 0.25);
 
-            if (!isTouch) {
-                velX = -dy * 0.25;
-                spinX = Math.max(-30, Math.min(30, spinX + velX));
-            }
+            spinY += velY;
+            spinX = Math.max(-35, Math.min(35, spinX + velX));
 
             apply();
         });
