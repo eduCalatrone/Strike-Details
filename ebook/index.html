@@ -380,7 +380,7 @@
         @media (min-width: 768px) {
             .stats-strip .stat-value { font-size: 2rem; }
         }
-        /* EMBED INSTAGRAM */
+        /* VÍDEO LOCAL */
         .insta-embed-wrap {
             width: 100%;
             max-width: 400px;
@@ -389,10 +389,12 @@
             justify-content: center;
         }
 
-        .insta-embed-wrap blockquote.instagram-media {
-            margin: 0 !important;
-            width: 100% !important;
-            min-width: 0 !important;
+        .insta-embed-wrap video {
+            width: 100%;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            display: block;
+            background: #0b0b0c;
         }
     </style>
 </head>
@@ -420,12 +422,13 @@
             </div>
         </div>
 
-        <!-- VÍDEO DO PROBLEMA - INSTAGRAM -->
+        <!-- VÍDEO DO PROBLEMA - LOCAL -->
         <div class="insta-embed-wrap">
-            <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/reel/DbpDvGPOavM/" data-instgrm-version="14" style="background:#0b0b0c; border:1px solid var(--border-color); border-radius:4px; margin:0; max-width:400px; width:100%;">
-            </blockquote>
+            <video controls playsinline preload="metadata">
+                <source src="Apresentação.mp4" type="video/mp4">
+                Seu navegador não suporta reprodução de vídeo.
+            </video>
         </div>
-        <script async src="//www.instagram.com/embed.js"></script>
 
         <!-- FAIXA DE ESTATÍSTICAS -->
         <div class="stats-strip">
@@ -455,8 +458,8 @@
 
         <!-- CARD DE OFERTA DE LANÇAMENTO -->
         <div class="price-card">
-            <div class="old-price">subtext</div>
-            <div class="current-price">R$ 1420<span>,00</span></div>
+            <div class="old-price">Preço Normal R$ --,--</div>
+            <div class="current-price">R$ --<span>,00</span></div>
             <div class="cta-note">Acesso imediato</div>
             
             <a href="https://google.com" class="btn-cta">Garantir Manual Técnico</a>
