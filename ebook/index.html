@@ -169,7 +169,9 @@
             transform-style: preserve-3d;
             transform: rotateY(var(--spin-y, 0deg)) rotateX(var(--spin-x, 0deg));
             cursor: grab;
-            touch-action: none;
+            /* pan-y = rolagem vertical continua funcionando no celular,
+               o giro horizontal fica por conta do JS */
+            touch-action: pan-y;
         }
 
         .book-3d.is-grabbing {
@@ -657,7 +659,7 @@
             </div>
 
             <div class="drag-hint" id="dragHint">
-                <span>⟲</span> Arraste para girar 360°
+                <span>⟲</span> Deslize na horizontal para girar 360°
             </div>
         </div>
 
@@ -715,8 +717,9 @@
 
         var spinY = 0, spinX = 0;
         var velY = 0, velX = 0;
-        var lastX = 0, lastY = 0;
-        var dragging = false;
+        var startX = 0, startY = 0, lastX = 0, lastY = 0;
+        var dragging = false, isTouch = false, axisLocked = false, isRotating = false;
+        var moved = 0;
         var pointerId = null;
         var rafId = null;
 
@@ -731,53 +734,89 @@
             velX *= 0.94;
             spinY += velY;
             spinX = Math.max(-30, Math.min(30, spinX + velX));
+            // no toque o eixo vertical volta sozinho ao repouso
+            if (isTouch) spinX *= 0.88;
             apply();
-            if (Math.abs(velY) > 0.02 || Math.abs(velX) > 0.02) {
+            if (Math.abs(velY) > 0.02 || Math.abs(velX) > 0.02 || (isTouch && Math.abs(spinX) > 0.05)) {
                 rafId = requestAnimationFrame(inertia);
             }
         }
 
         book.addEventListener('pointerdown', function (e) {
             dragging = true;
+            isTouch = (e.pointerType === 'touch' || e.pointerType === 'pen');
+            axisLocked = false;
+            isRotating = !isTouch;   // mouse gira de imediato; toque espera definir o eixo
+            moved = 0;
             pointerId = e.pointerId;
-            lastX = e.clientX;
-            lastY = e.clientY;
+            startX = lastX = e.clientX;
+            startY = lastY = e.clientY;
             velY = velX = 0;
             if (rafId) cancelAnimationFrame(rafId);
             book.classList.add('is-grabbing');
-            book.setPointerCapture(e.pointerId);
+            if (!isTouch) book.setPointerCapture(e.pointerId);
             if (hint) hint.classList.add('is-hidden');
         });
 
         book.addEventListener('pointermove', function (e) {
             if (!dragging || e.pointerId !== pointerId) return;
+
             var dx = e.clientX - lastX;
             var dy = e.clientY - lastY;
+            moved += Math.abs(dx) + Math.abs(dy);
+
+            // TOQUE: decide o eixo no primeiro movimento relevante
+            if (isTouch && !axisLocked) {
+                var totalX = Math.abs(e.clientX - startX);
+                var totalY = Math.abs(e.clientY - startY);
+                if (totalX < 6 && totalY < 6) { lastX = e.clientX; lastY = e.clientY; return; }
+                axisLocked = true;
+                isRotating = totalX > totalY;      // horizontal = girar, vertical = rolar a página
+                if (isRotating) {
+                    book.setPointerCapture(e.pointerId);
+                } else {
+                    dragging = false;              // solta o gesto para o navegador rolar
+                    book.classList.remove('is-grabbing');
+                    return;
+                }
+            }
+
+            if (!isRotating) return;
+
             lastX = e.clientX;
             lastY = e.clientY;
 
-            velY = dx * 0.45;
-            velX = -dy * 0.25;
-
+            // dedo precisa de curso maior que o mouse
+            velY = dx * (isTouch ? 0.75 : 0.45);
             spinY += velY;
-            spinX = Math.max(-30, Math.min(30, spinX + velX));
+
+            if (!isTouch) {
+                velX = -dy * 0.25;
+                spinX = Math.max(-30, Math.min(30, spinX + velX));
+            }
+
             apply();
         });
 
         function endDrag(e) {
-            if (!dragging || (e.pointerId !== undefined && e.pointerId !== pointerId)) return;
+            if (!dragging || (e && e.pointerId !== undefined && e.pointerId !== pointerId)) return;
             dragging = false;
             book.classList.remove('is-grabbing');
             rafId = requestAnimationFrame(inertia);
         }
 
         book.addEventListener('pointerup', endDrag);
-        book.addEventListener('pointercancel', endDrag);
         book.addEventListener('lostpointercapture', endDrag);
+        book.addEventListener('pointercancel', function (e) {
+            // navegador assumiu o gesto (rolagem) - não gira nada
+            velY = velX = 0;
+            dragging = false;
+            book.classList.remove('is-grabbing');
+        });
 
-        // Clique simples (sem arrastar) gira meia volta
+        // Toque/clique curto sem arrasto: gira meia volta
         book.addEventListener('click', function () {
-            if (Math.abs(velY) > 1) return;
+            if (moved > 10) return;
             velY = 9;
             if (rafId) cancelAnimationFrame(rafId);
             rafId = requestAnimationFrame(inertia);
