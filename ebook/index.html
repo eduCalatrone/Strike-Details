@@ -756,8 +756,8 @@
             lastX = e.clientX;
             lastY = e.clientY;
 
-            velY = dx * 0.45;
-            velX = -dy * 0.25;
+            velY = dx * 0.30;
+            velX = -dy * 0.17;
 
             spinY += velY;
             spinX = Math.max(-30, Math.min(30, spinX + velX));
@@ -778,7 +778,7 @@
         // Clique simples (sem arrastar) gira meia volta
         book.addEventListener('click', function () {
             if (Math.abs(velY) > 1) return;
-            velY = 9;
+            velY = 6;
             if (rafId) cancelAnimationFrame(rafId);
             rafId = requestAnimationFrame(inertia);
         });
