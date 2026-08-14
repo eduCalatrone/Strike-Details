@@ -806,7 +806,7 @@
             <div class="video-frame" id="videoFrame">
                 <div class="video-tag"><i></i> Strike Details</div>
 
-                <video id="strikeVideo" playsinline muted preload="metadata" loop>
+                <video id="strikeVideo" playsinline preload="metadata" loop>
                     <source src="Apresentação.mp4" type="video/mp4">
                     Seu navegador não suporta reprodução de vídeo.
                 </video>
@@ -817,11 +817,11 @@
 
                 <div class="video-bar">
                     <div class="video-progress"><i id="videoProgress"></i></div>
-                    <button class="video-sound is-muted" id="videoSound" type="button">🔇 Som</button>
+                    <button class="video-sound" id="videoSound" type="button">🔊 Som</button>
                 </div>
             </div>
 
-            <p class="video-caption">Toque no vídeo para ativar o som</p>
+            <p class="video-caption">Áudio ativado — toque para silenciar</p>
         </div>
 
         <!-- FAIXA DE ESTATÍSTICAS -->
@@ -1027,18 +1027,9 @@
             bar.style.width = ((video.currentTime / video.duration) * 100) + '%';
         });
 
-        // clicar no vídeo: liga o som na primeira vez, depois pausa/retoma
+        // clicar no vídeo: pausa/retoma
         frame.addEventListener('click', function (e) {
             if (e.target.closest('#videoSound')) return;
-
-            if (video.muted) {
-                video.muted = false;
-                soundBtn.classList.remove('is-muted');
-                soundBtn.textContent = '🔊 Som';
-                if (video.paused) video.play().catch(function () {});
-                userPaused = false;
-                return;
-            }
 
             if (video.paused) {
                 userPaused = false;
@@ -1055,6 +1046,8 @@
             video.muted = !video.muted;
             soundBtn.classList.toggle('is-muted', video.muted);
             soundBtn.textContent = video.muted ? '🔇 Som' : '🔊 Som';
+            var caption = frame.parentElement.querySelector('.video-caption');
+            if (caption) caption.textContent = video.muted ? 'Toque no vídeo para ativar o som' : 'Áudio ativado — toque para silenciar';
         });
 
         // AUTOPLAY AO ROLAR ATÉ O VÍDEO
@@ -1063,8 +1056,18 @@
                 entries.forEach(function (entry) {
                     if (entry.isIntersecting) {
                         if (!userPaused && video.paused) {
-                            video.muted = true;   // exigência dos navegadores para autoplay
-                            video.play().catch(function () {});
+                            var p = video.play();
+                            if (p && p.catch) {
+                                p.catch(function () {
+                                    // navegador bloqueou autoplay com som: cai para mudo
+                                    video.muted = true;
+                                    soundBtn.classList.add('is-muted');
+                                    soundBtn.textContent = '🔇 Som';
+                                    var caption = frame.parentElement.querySelector('.video-caption');
+                                    if (caption) caption.textContent = 'Toque no vídeo para ativar o som';
+                                    video.play().catch(function () {});
+                                });
+                            }
                         }
                     } else if (!video.paused) {
                         video.pause();
