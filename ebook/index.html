@@ -560,21 +560,220 @@
             max-width: none;
         }
 
-        /* VÍDEO LOCAL */
-        .insta-embed-wrap {
+        /* PLAYER DE VÍDEO STRIKE */
+        .video-showcase {
             width: 100%;
             max-width: 400px;
             margin: 0 auto 2rem auto;
-            display: flex;
-            justify-content: center;
         }
 
-        .insta-embed-wrap video {
-            width: 100%;
+        .video-label {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-bottom: 0.7rem;
+            font-size: 0.62rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--accent-green);
+        }
+
+        .video-label::before,
+        .video-label::after {
+            content: '';
+            height: 1px;
+            width: 32px;
+            background: linear-gradient(90deg, transparent, var(--accent-green));
+        }
+
+        .video-label::after {
+            background: linear-gradient(90deg, var(--accent-green), transparent);
+        }
+
+        .video-frame {
+            position: relative;
             border: 1px solid var(--border-color);
             border-radius: 4px;
+            overflow: hidden;
+            background: #000;
+            box-shadow: 0 18px 40px rgba(0,0,0,.55);
+            cursor: pointer;
+        }
+
+        /* cantos técnicos */
+        .video-frame::before,
+        .video-frame::after {
+            content: '';
+            position: absolute;
+            width: 18px;
+            height: 18px;
+            border: 2px solid var(--accent-green);
+            z-index: 3;
+            pointer-events: none;
+            opacity: .8;
+        }
+
+        .video-frame::before {
+            top: 8px; left: 8px;
+            border-right: none; border-bottom: none;
+        }
+
+        .video-frame::after {
+            bottom: 8px; right: 8px;
+            border-left: none; border-top: none;
+        }
+
+        .video-frame video {
+            width: 100%;
             display: block;
-            background: #0b0b0c;
+            background: #000;
+        }
+
+        /* selo ao vivo / etiqueta sobre o vídeo */
+        .video-tag {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            z-index: 3;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.3rem 0.6rem;
+            background: rgba(0,0,0,.65);
+            border: 1px solid var(--border-color);
+            border-radius: 2px;
+            font-size: 0.55rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--text-primary);
+            backdrop-filter: blur(4px);
+            pointer-events: none;
+        }
+
+        .video-tag i {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--accent-green);
+            animation: tagPulse 1.8s ease-in-out infinite;
+        }
+
+        @keyframes tagPulse {
+            0%, 100% { opacity: 1; box-shadow: 0 0 0 0 var(--accent-green-glow); }
+            50% { opacity: .5; box-shadow: 0 0 0 6px rgba(63,138,92,0); }
+        }
+
+        /* botão central de play */
+        .video-play {
+            position: absolute;
+            inset: 0;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0,0,0,.35);
+            transition: opacity .35s ease;
+        }
+
+        .video-play.is-hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .video-play span {
+            width: 62px;
+            height: 62px;
+            border-radius: 50%;
+            border: 2px solid var(--accent-green);
+            background: rgba(11,11,12,.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 0 0 var(--accent-green-glow);
+            animation: playPulse 2.4s ease-out infinite;
+        }
+
+        .video-play span::after {
+            content: '';
+            border-left: 16px solid var(--accent-green);
+            border-top: 10px solid transparent;
+            border-bottom: 10px solid transparent;
+            margin-left: 5px;
+        }
+
+        @keyframes playPulse {
+            0% { box-shadow: 0 0 0 0 var(--accent-green-glow); }
+            70% { box-shadow: 0 0 0 18px rgba(63,138,92,0); }
+            100% { box-shadow: 0 0 0 0 rgba(63,138,92,0); }
+        }
+
+        /* barra inferior de controles */
+        .video-bar {
+            position: absolute;
+            left: 0; right: 0; bottom: 0;
+            z-index: 3;
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+            padding: 1.6rem 0.8rem 0.7rem 0.8rem;
+            background: linear-gradient(0deg, rgba(0,0,0,.85), transparent);
+            opacity: 0;
+            transition: opacity .3s ease;
+        }
+
+        .video-frame.is-playing .video-bar,
+        .video-frame:hover .video-bar {
+            opacity: 1;
+        }
+
+        .video-progress {
+            flex: 1;
+            height: 3px;
+            background: rgba(245,245,243,.18);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .video-progress i {
+            display: block;
+            height: 100%;
+            width: 0%;
+            background: var(--accent-green);
+            box-shadow: 0 0 8px var(--accent-green);
+        }
+
+        .video-sound {
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            gap: 0.35rem;
+            padding: 0.28rem 0.55rem;
+            border: 1px solid var(--border-color);
+            border-radius: 2px;
+            background: rgba(0,0,0,.5);
+            color: var(--text-primary);
+            font-size: 0.55rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        .video-sound.is-muted {
+            color: var(--accent-green);
+            border-color: var(--accent-green);
+        }
+
+        .video-caption {
+            margin-top: 0.7rem;
+            text-align: center;
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
         }
     </style>
 </head>
@@ -600,12 +799,29 @@
             </div>
         </div>
 
-        <!-- VÍDEO DO PROBLEMA - LOCAL -->
-        <div class="insta-embed-wrap">
-            <video controls playsinline preload="metadata">
-                <source src="Apresentação.mp4" type="video/mp4">
-                Seu navegador não suporta reprodução de vídeo.
-            </video>
+        <!-- VÍDEO DO PROBLEMA - PLAYER STRIKE -->
+        <div class="video-showcase">
+            <div class="video-label">Veja o problema na prática</div>
+
+            <div class="video-frame" id="videoFrame">
+                <div class="video-tag"><i></i> Strike Details</div>
+
+                <video id="strikeVideo" playsinline muted preload="metadata" loop>
+                    <source src="Apresentação.mp4" type="video/mp4">
+                    Seu navegador não suporta reprodução de vídeo.
+                </video>
+
+                <div class="video-play" id="videoPlay">
+                    <span></span>
+                </div>
+
+                <div class="video-bar">
+                    <div class="video-progress"><i id="videoProgress"></i></div>
+                    <button class="video-sound is-muted" id="videoSound" type="button">🔇 Som</button>
+                </div>
+            </div>
+
+            <p class="video-caption">Toque no vídeo para ativar o som</p>
         </div>
 
         <!-- FAIXA DE ESTATÍSTICAS -->
@@ -782,6 +998,82 @@
             if (rafId) cancelAnimationFrame(rafId);
             rafId = requestAnimationFrame(inertia);
         });
+    })();
+    </script>
+
+    <!-- PLAYER DE VÍDEO STRIKE -->
+    <script>
+    (function () {
+        var frame = document.getElementById('videoFrame');
+        var video = document.getElementById('strikeVideo');
+        var playBtn = document.getElementById('videoPlay');
+        var soundBtn = document.getElementById('videoSound');
+        var bar = document.getElementById('videoProgress');
+        if (!frame || !video) return;
+
+        var userPaused = false;
+
+        function setPlayingUI(playing) {
+            frame.classList.toggle('is-playing', playing);
+            playBtn.classList.toggle('is-hidden', playing);
+        }
+
+        video.addEventListener('play', function () { setPlayingUI(true); });
+        video.addEventListener('pause', function () { setPlayingUI(false); });
+
+        // barra de progresso
+        video.addEventListener('timeupdate', function () {
+            if (!video.duration) return;
+            bar.style.width = ((video.currentTime / video.duration) * 100) + '%';
+        });
+
+        // clicar no vídeo: liga o som na primeira vez, depois pausa/retoma
+        frame.addEventListener('click', function (e) {
+            if (e.target.closest('#videoSound')) return;
+
+            if (video.muted) {
+                video.muted = false;
+                soundBtn.classList.remove('is-muted');
+                soundBtn.textContent = '🔊 Som';
+                if (video.paused) video.play().catch(function () {});
+                userPaused = false;
+                return;
+            }
+
+            if (video.paused) {
+                userPaused = false;
+                video.play().catch(function () {});
+            } else {
+                userPaused = true;
+                video.pause();
+            }
+        });
+
+        // botão de som
+        soundBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            video.muted = !video.muted;
+            soundBtn.classList.toggle('is-muted', video.muted);
+            soundBtn.textContent = video.muted ? '🔇 Som' : '🔊 Som';
+        });
+
+        // AUTOPLAY AO ROLAR ATÉ O VÍDEO
+        if ('IntersectionObserver' in window) {
+            var obs = new IntersectionObserver(function (entries) {
+                entries.forEach(function (entry) {
+                    if (entry.isIntersecting) {
+                        if (!userPaused && video.paused) {
+                            video.muted = true;   // exigência dos navegadores para autoplay
+                            video.play().catch(function () {});
+                        }
+                    } else if (!video.paused) {
+                        video.pause();
+                    }
+                });
+            }, { threshold: 0.55 });
+
+            obs.observe(frame);
+        }
     })();
     </script>
 
