@@ -1,1083 +1,850 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Método Cabine Blindada | Strike Details</title>
-    
-    <!-- Fontes Premium: Montserrat & Inter -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
-
-    <style>
-        :root {
-            --bg-black: #0b0b0c;
-            --bg-dark-gray: #151517;
-            --bg-card: #1e1e21;
-            --accent-green: #3f8a5c; 
-            --accent-green-glow: rgba(63, 138, 92, 0.25);
-            --text-primary: #f5f5f3;
-            --text-secondary: #8a8a8e;
-            --border-color: rgba(245,245,243,.12);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        body {
-            background-color: var(--bg-black);
-            background-image:
-                linear-gradient(45deg, rgba(255,255,255,0.02) 25%, transparent 25%, transparent 75%, rgba(255,255,255,0.02) 75%),
-                linear-gradient(45deg, rgba(255,255,255,0.02) 25%, transparent 25%, transparent 75%, rgba(255,255,255,0.02) 75%),
-                linear-gradient(rgba(0,0,0,0.3) 100%, rgba(0,0,0,0.3) 100%),
-                linear-gradient(90deg, rgba(0,0,0,0.15) 50%, rgba(20,20,22,0.15) 50%);
-            background-size: 10px 10px, 10px 10px, 20px 20px, 20px 20px;
-            background-position: 0 0, 5px 5px, 0 0, 0 0;
-            color: var(--text-primary);
-            font-family: 'Inter', sans-serif;
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-
-        h1, h2, h3, h4, .font-title {
-            font-family: 'Montserrat', sans-serif;
-            text-transform: uppercase;
-            letter-spacing: -0.5px;
-        }
-
-        /* TEXTURA FIBRA DE CARBONO - WEAVE XADREZ 3D (DISFARÇADO) */
-        .carbon-pattern {
-            background-color: #0c0c0d;
-            background-image:
-                linear-gradient(45deg, rgba(255,255,255,0.025) 25%, transparent 25%, transparent 75%, rgba(255,255,255,0.025) 75%),
-                linear-gradient(45deg, rgba(255,255,255,0.025) 25%, transparent 25%, transparent 75%, rgba(255,255,255,0.025) 75%),
-                linear-gradient(rgba(0,0,0,0.3) 100%, rgba(0,0,0,0.3) 100%),
-                linear-gradient(90deg, rgba(0,0,0,0.18) 50%, rgba(20,20,22,0.18) 50%);
-            background-size: 10px 10px, 10px 10px, 20px 20px, 20px 20px;
-            background-position: 0 0, 5px 5px, 0 0, 0 0;
-        }
-
-        /* HEADER LOGO */
-        header {
-            padding: 1.5rem 1rem;
-            text-align: center;
-            border-bottom: 1px solid var(--border-color);
-            background-color: var(--bg-black);
-        }
-
-        .logo-img {
-            max-width: 210px;
-            width: 75%;
-            height: auto;
-        }
-
-        /* HERO SECTION */
-        .hero {
-            padding: 2.5rem 1.2rem 4rem 1.2rem;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-height: 80vh;
-        }
-
-        .tag-badge {
-            display: inline-block;
-            border: 1px solid var(--accent-green);
-            color: var(--accent-green);
-            padding: 0.3rem 0.8rem;
-            font-size: 0.7rem;
-            font-weight: 700;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-            margin-bottom: 1.2rem;
-            background: rgba(0, 0, 0, 0.5);
-        }
-
-        .hero h1 {
-            font-size: 1.8rem;
-            font-weight: 900;
-            line-height: 1.25;
-            margin-bottom: 1rem;
-        }
-
-        .hero h1 span {
-            color: var(--accent-green);
-        }
-
-        .hero p {
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-            max-width: 500px;
-            margin-bottom: 2rem;
-        }
-
-        /* MOCKUP CENTRAL E-BOOK */
-        .ebook-container {
-            --book-w: 210px;
-            --book-h: 300px;
-            --book-d: 26px;
-            perspective: 1000px;
-            margin: 2rem 0 4.5rem 0;
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-        }
-
-        /* ANIMAÇÃO DE FLUTUAÇÃO 3D */
-        @keyframes floatBook {
-            0% {
-                transform: translateY(0px) rotateY(-18deg) rotateX(8deg) rotateZ(0deg);
-            }
-            25% {
-                transform: translateY(-8px) rotateY(-21deg) rotateX(10deg) rotateZ(0.6deg);
-            }
-            50% {
-                transform: translateY(-14px) rotateY(-25deg) rotateX(13deg) rotateZ(0deg);
-            }
-            75% {
-                transform: translateY(-8px) rotateY(-21deg) rotateX(10deg) rotateZ(-0.6deg);
-            }
-            100% {
-                transform: translateY(0px) rotateY(-18deg) rotateX(8deg) rotateZ(0deg);
-            }
-        }
-
-
-
-        /* CAMADA EXTERNA: mantém a flutuação automática */
-        .book-wrapper {
-            position: relative;
-            width: var(--book-w);
-            height: var(--book-h);
-            transform-style: preserve-3d;
-            animation: floatBook 6.5s cubic-bezier(0.45, 0, 0.55, 1) infinite;
-        }
-
-        /* CAMADA INTERNA: recebe o giro 360° do arraste */
-        .book-3d {
-            position: absolute;
-            inset: 0;
-            transform-style: preserve-3d;
-            transform: rotateY(var(--spin-y, 0deg)) rotateX(var(--spin-x, 0deg));
-            cursor: grab;
-            touch-action: none;
-        }
-
-        .book-3d.is-grabbing {
-            cursor: grabbing;
-        }
-
-        .book-face {
-            position: absolute;
-            box-sizing: border-box;
-            backface-visibility: hidden;
-        }
-
-        /* CAPA E CONTRACAPA */
-        .book-cover {
-            width: var(--book-w);
-            height: var(--book-h);
-            border-radius: 3px;
-            background: linear-gradient(145deg, #181818, #080808);
-            border: 1px solid #333;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            padding: 1.5rem 1.2rem;
-            overflow: hidden;
-        }
-
-        .book-front {
-            transform: translateZ(calc(var(--book-d) / 2));
-        }
-
-        .book-back {
-            transform: rotateY(180deg) translateZ(calc(var(--book-d) / 2));
-            justify-content: center;
-            align-items: center;
-            gap: 1rem;
-            text-align: center;
-        }
-
-        .book-back .back-note {
-            font-size: 0.6rem;
-            color: #666;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            line-height: 1.7;
-        }
-
-        .book-cover::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 200%;
-            height: 100%;
-            background: linear-gradient(115deg, rgba(255,255,255,0.14) 0%, rgba(255,255,255,0) 35%, rgba(255,255,255,0) 100%);
-            pointer-events: none;
-            animation: shineSweep 6.5s cubic-bezier(0.45, 0, 0.55, 1) infinite;
-        }
-
-        @keyframes shineSweep {
-            0% { transform: translateX(-15%); }
-            50% { transform: translateX(-32%); }
-            100% { transform: translateX(-15%); }
-        }
-
-        /* LOMBADA (esquerda) */
-        .book-spine {
-            width: var(--book-d);
-            height: var(--book-h);
-            left: calc((var(--book-w) - var(--book-d)) / 2);
-            transform: rotateY(-90deg) translateZ(calc(var(--book-w) / 2));
-            background: linear-gradient(90deg, #060606, #1a1a1a 45%, #0a0a0a);
-            border-top: 1px solid #333;
-            border-bottom: 1px solid #333;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .book-spine span {
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 800;
-            font-size: 0.55rem;
-            letter-spacing: 2px;
-            color: var(--accent-green);
-            white-space: nowrap;
-            transform: rotate(90deg);
-            text-transform: uppercase;
-        }
-
-        /* MIOLO / PÁGINAS (direita) */
-        .book-pages {
-            width: var(--book-d);
-            height: var(--book-h);
-            left: calc((var(--book-w) - var(--book-d)) / 2);
-            transform: rotateY(90deg) translateZ(calc(var(--book-w) / 2));
-            background:
-                repeating-linear-gradient(90deg, #d9d7d0 0px, #d9d7d0 1px, #b8b5ad 1px, #b8b5ad 2.5px);
-            border-top: 1px solid #333;
-            border-bottom: 1px solid #333;
-        }
-
-        /* TOPO E BASE */
-        .book-top,
-        .book-bottom {
-            width: var(--book-w);
-            height: var(--book-d);
-            top: calc((var(--book-h) - var(--book-d)) / 2);
-            background:
-                repeating-linear-gradient(0deg, #d9d7d0 0px, #d9d7d0 1px, #b8b5ad 1px, #b8b5ad 2.5px);
-        }
-
-        .book-top {
-            transform: rotateX(90deg) translateZ(calc(var(--book-h) / 2));
-        }
-
-        .book-bottom {
-            transform: rotateX(-90deg) translateZ(calc(var(--book-h) / 2));
-        }
-
-        /* DICA DE INTERAÇÃO */
-        .drag-hint {
-            margin-top: 1.4rem;
-            font-size: 0.68rem;
-            color: var(--text-secondary);
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            display: flex;
-            align-items: center;
-            gap: 0.4rem;
-            transition: opacity 0.4s;
-        }
-
-        .drag-hint.is-hidden {
-            opacity: 0;
-        }
-
-        .book-title-box {
-            text-align: left;
-            margin-top: 1rem;
-        }
-
-        .book-title-box h3 {
-            font-size: 1.1rem;
-            color: #fff;
-            line-height: 1.1;
-            margin-bottom: 4px;
-        }
-
-        .book-title-box p {
-            font-size: 0.65rem;
-            color: var(--accent-green);
-            font-weight: 700;
-            letter-spacing: 1px;
-        }
-
-        /* PRICE CARD */
-        .price-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            padding: 1.8rem 1.5rem;
-            width: 100%;
-            max-width: 480px;
-            text-align: center;
-            border-top: 3px solid var(--accent-green);
-        }
-
-        .old-price {
-            color: var(--text-secondary);
-            text-decoration: line-through;
-            font-size: 0.85rem;
-        }
-
-        .current-price {
-            font-size: 2.4rem;
-            font-weight: 900;
-            color: #fff;
-            margin: 0.2rem 0;
-            font-family: 'Montserrat', sans-serif;
-        }
-
-        .current-price span {
-            font-size: 1.1rem;
-        }
-
-        .cta-note {
-            color: var(--accent-green);
-            font-size: 0.8rem;
-            font-weight: 600;
-            margin-bottom: 1.2rem;
-        }
-
-        .btn-cta {
-            display: block;
-            width: 100%;
-            background: var(--accent-green);
-            color: #fff;
-            text-decoration: none;
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 800;
-            font-size: 1rem;
-            padding: 1.1rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: opacity 0.2s;
-            border: none;
-            cursor: pointer;
-        }
-
-        .btn-cta:active {
-            opacity: 0.85;
-        }
-
-        /* FOOTER */
-        footer {
-            padding: 2rem 1.2rem;
-            border-top: 1px solid var(--border-color);
-            background-color: var(--bg-black);
-            text-align: center;
-        }
-
-        .footer-info {
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-            margin-top: 1rem;
-        }
-
-        .footer-info a {
-            color: var(--text-primary);
-            text-decoration: none;
-            font-weight: 600;
-        }
-
-        .footer-info a:hover {
-            color: var(--accent-green);
-        }
-
-        @media (min-width: 768px) {
-            .hero h1 { font-size: 2.6rem; }
-            .ebook-container { --book-w: 250px; --book-h: 350px; --book-d: 32px; }
-        }
-
-        /* GANCHO DE VENDA - ALERTA DE DEFEITO DE FÁBRICA */
-        .hook-alert {
-            display: flex;
-            align-items: flex-start;
-            gap: 0.7rem;
-            text-align: left;
-            width: 100%;
-            max-width: 560px;
-            margin: 0 auto 1.8rem auto;
-            padding: 0.9rem 1rem;
-            background: rgba(63, 138, 92, 0.08);
-            border: 1px solid var(--accent-green);
-            border-left: 4px solid var(--accent-green);
-        }
-
-        .hook-alert .hook-icon {
-            font-size: 1.3rem;
-            line-height: 1;
-            flex-shrink: 0;
-            color: var(--accent-green);
-        }
-
-        .hook-alert .hook-number {
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 900;
-            font-size: 1.05rem;
-            color: #fff;
-            letter-spacing: -0.3px;
-            display: block;
-            margin-bottom: 0.2rem;
-        }
-
-        .hook-alert .hook-number span {
-            color: var(--accent-green);
-            font-size: 1.3em;
-        }
-
-        .hook-alert p {
-            font-size: 0.82rem;
-            color: var(--text-secondary);
-            margin: 0;
-            max-width: none;
-        }
-
-        @media (min-width: 768px) {
-            .hook-alert { padding: 1.1rem 1.4rem; }
-            .hook-alert .hook-number { font-size: 1.2rem; }
-        }
-
-        /* FAIXA DE ESTATÍSTICAS */
-        .stats-strip {
-            display: flex;
-            justify-content: center;
-            width: 100%;
-            max-width: 560px;
-            margin: 0 auto 2rem auto;
-            border: 1px solid var(--border-color);
-        }
-
-        .stats-strip .stat-item {
-            text-align: center;
-            padding: 1rem 2rem;
-        }
-
-        .stats-strip .stat-value {
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 900;
-            font-size: 1.6rem;
-            color: var(--accent-green);
-            display: block;
-            line-height: 1.1;
-        }
-
-        .stats-strip .stat-label {
-            font-size: 0.68rem;
-            color: var(--text-secondary);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-top: 0.3rem;
-            display: block;
-        }
-
-        @media (min-width: 768px) {
-            .stats-strip .stat-value { font-size: 2rem; }
-        }
-        /* SEÇÃO SEUS BENEFÍCIOS */
-        .benefits-section {
-            width: 100%;
-            max-width: 480px;
-            margin: 2.2rem auto 0 auto;
-        }
-
-        .benefits-heading {
-            font-size: 1.1rem;
-            font-weight: 800;
-            color: #fff;
-            text-align: center;
-            margin-bottom: 1.2rem;
-        }
-
-        /* LISTA DE BENEFÍCIOS */
-        .benefits-list {
-            display: flex;
-            flex-direction: column;
-            gap: 0.8rem;
-            width: 100%;
-            margin: 0 auto;
-        }
-
-        .benefit-item {
-            display: flex;
-            align-items: flex-start;
-            gap: 0.8rem;
-            text-align: left;
-            padding: 0.9rem 1rem;
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-        }
-
-        .benefit-item .benefit-icon {
-            flex-shrink: 0;
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
-            background: var(--accent-green-glow);
-            color: var(--accent-green);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.85rem;
-            font-weight: 800;
-        }
-
-        .benefit-item .benefit-title {
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 800;
-            font-size: 0.9rem;
-            color: #fff;
-            display: block;
-            margin-bottom: 0.15rem;
-        }
-
-        .benefit-item p {
-            font-size: 0.8rem;
-            color: var(--text-secondary);
-            margin: 0;
-            max-width: none;
-        }
-
-        /* PLAYER DE VÍDEO STRIKE */
-        .video-showcase {
-            width: 100%;
-            max-width: 400px;
-            margin: 0 auto 2rem auto;
-        }
-
-        .video-label {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-            margin-bottom: 0.7rem;
-            font-size: 0.62rem;
-            font-weight: 700;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            color: var(--accent-green);
-        }
-
-        .video-label::before,
-        .video-label::after {
-            content: '';
-            height: 1px;
-            width: 32px;
-            background: linear-gradient(90deg, transparent, var(--accent-green));
-        }
-
-        .video-label::after {
-            background: linear-gradient(90deg, var(--accent-green), transparent);
-        }
-
-        .video-frame {
-            position: relative;
-            border: 1px solid var(--border-color);
-            border-radius: 4px;
-            overflow: hidden;
-            background: #000;
-            box-shadow: 0 18px 40px rgba(0,0,0,.55);
-            cursor: pointer;
-        }
-
-        /* cantos técnicos */
-        .video-frame::before,
-        .video-frame::after {
-            content: '';
-            position: absolute;
-            width: 18px;
-            height: 18px;
-            border: 2px solid var(--accent-green);
-            z-index: 3;
-            pointer-events: none;
-            opacity: .8;
-        }
-
-        .video-frame::before {
-            top: 8px; left: 8px;
-            border-right: none; border-bottom: none;
-        }
-
-        .video-frame::after {
-            bottom: 8px; right: 8px;
-            border-left: none; border-top: none;
-        }
-
-        .video-frame video {
-            width: 100%;
-            display: block;
-            background: #000;
-        }
-
-        /* selo ao vivo / etiqueta sobre o vídeo */
-        .video-tag {
-            position: absolute;
-            top: 12px;
-            right: 12px;
-            z-index: 3;
-            display: flex;
-            align-items: center;
-            gap: 0.4rem;
-            padding: 0.3rem 0.6rem;
-            background: rgba(0,0,0,.65);
-            border: 1px solid var(--border-color);
-            border-radius: 2px;
-            font-size: 0.55rem;
-            font-weight: 700;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-            color: var(--text-primary);
-            backdrop-filter: blur(4px);
-            pointer-events: none;
-        }
-
-        .video-tag i {
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            background: var(--accent-green);
-            animation: tagPulse 1.8s ease-in-out infinite;
-        }
-
-        @keyframes tagPulse {
-            0%, 100% { opacity: 1; box-shadow: 0 0 0 0 var(--accent-green-glow); }
-            50% { opacity: .5; box-shadow: 0 0 0 6px rgba(63,138,92,0); }
-        }
-
-        /* botão central de play */
-        .video-play {
-            position: absolute;
-            inset: 0;
-            z-index: 2;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(0,0,0,.35);
-            transition: opacity .35s ease;
-        }
-
-        .video-play.is-hidden {
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        .video-play span {
-            width: 62px;
-            height: 62px;
-            border-radius: 50%;
-            border: 2px solid var(--accent-green);
-            background: rgba(11,11,12,.7);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 0 0 0 var(--accent-green-glow);
-            animation: playPulse 2.4s ease-out infinite;
-        }
-
-        .video-play span::after {
-            content: '';
-            border-left: 16px solid var(--accent-green);
-            border-top: 10px solid transparent;
-            border-bottom: 10px solid transparent;
-            margin-left: 5px;
-        }
-
-        @keyframes playPulse {
-            0% { box-shadow: 0 0 0 0 var(--accent-green-glow); }
-            70% { box-shadow: 0 0 0 18px rgba(63,138,92,0); }
-            100% { box-shadow: 0 0 0 0 rgba(63,138,92,0); }
-        }
-
-        /* barra inferior de controles */
-        .video-bar {
-            position: absolute;
-            left: 0; right: 0; bottom: 0;
-            z-index: 3;
-            display: flex;
-            align-items: center;
-            gap: 0.7rem;
-            padding: 1.6rem 0.8rem 0.7rem 0.8rem;
-            background: linear-gradient(0deg, rgba(0,0,0,.85), transparent);
-            opacity: 0;
-            transition: opacity .3s ease;
-        }
-
-        .video-frame.is-playing .video-bar,
-        .video-frame:hover .video-bar {
-            opacity: 1;
-        }
-
-        .video-progress {
-            flex: 1;
-            height: 3px;
-            background: rgba(245,245,243,.18);
-            border-radius: 2px;
-            overflow: hidden;
-        }
-
-        .video-progress i {
-            display: block;
-            height: 100%;
-            width: 0%;
-            background: var(--accent-green);
-            box-shadow: 0 0 8px var(--accent-green);
-        }
-
-        .video-sound {
-            flex-shrink: 0;
-            display: flex;
-            align-items: center;
-            gap: 0.35rem;
-            padding: 0.28rem 0.55rem;
-            border: 1px solid var(--border-color);
-            border-radius: 2px;
-            background: rgba(0,0,0,.5);
-            color: var(--text-primary);
-            font-size: 0.55rem;
-            font-weight: 700;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            cursor: pointer;
-            white-space: nowrap;
-        }
-
-        .video-sound.is-muted {
-            color: var(--accent-green);
-            border-color: var(--accent-green);
-        }
-
-        .video-caption {
-            margin-top: 0.7rem;
-            text-align: center;
-            font-size: 0.7rem;
-            color: var(--text-secondary);
-            line-height: 1.6;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0a0b0a">
+<title>Torne-se um Aplicador Autorizado | Método Cabine Blindada — Strike</title>
+<meta name="description" content="Programa de Autorização Strike: torne-se um Aplicador Autorizado do Método Cabine Blindada, o procedimento técnico de vedação definitiva contra poeira na Fiat Strada.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --ink:#0a0b0a;
+  --panel:#111311;
+  --card:#171a17;
+  --line:rgba(255,255,255,.10);
+  --line-2:rgba(255,255,255,.06);
+  --green:#3f8a5c;
+  --green-hi:#56a878;
+  --green-dim:rgba(63,138,92,.16);
+  --txt:#f2f4f0;
+  --txt-2:#9aa096;
+  --red:#e05252;
+  --radius:14px;
+  --pad:1.15rem;
+  --bar:76px; /* altura da barra fixa mobile */
+}
+
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth}
+section[id]{scroll-margin-top:74px}
+body{
+  background:var(--ink);
+  color:var(--txt);
+  font-family:'Inter',system-ui,sans-serif;
+  font-size:16px;
+  line-height:1.6;
+  overflow-x:hidden;
+  padding-bottom:var(--bar);
+  -webkit-font-smoothing:antialiased;
+}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+
+h1,h2,h3,h4,.dsp{
+  font-family:'Barlow Condensed','Inter',sans-serif;
+  text-transform:uppercase;
+  font-weight:800;
+  line-height:1.03;
+  letter-spacing:.4px;
+}
+
+/* ---------- TEXTURA CARBONO ---------- */
+.carbon{
+  background-color:#0c0d0c;
+  background-image:
+    linear-gradient(45deg,rgba(255,255,255,.022) 25%,transparent 25%,transparent 75%,rgba(255,255,255,.022) 75%),
+    linear-gradient(45deg,rgba(255,255,255,.022) 25%,transparent 25%,transparent 75%,rgba(255,255,255,.022) 75%),
+    linear-gradient(rgba(0,0,0,.3) 100%,rgba(0,0,0,.3) 100%),
+    linear-gradient(90deg,rgba(0,0,0,.18) 50%,rgba(20,20,22,.18) 50%);
+  background-size:10px 10px,10px 10px,20px 20px,20px 20px;
+  background-position:0 0,5px 5px,0 0,0 0;
+}
+
+/* ---------- BASE DE SEÇÃO ---------- */
+section{padding:3.2rem var(--pad);position:relative}
+.wrap{max-width:1120px;margin:0 auto}
+.eyebrow{
+  display:inline-flex;align-items:center;gap:.5rem;
+  font-size:.68rem;font-weight:700;letter-spacing:2.2px;text-transform:uppercase;
+  color:var(--green);margin-bottom:.9rem;
+}
+.eyebrow::before{content:"";width:22px;height:1px;background:var(--green);opacity:.7}
+h2.sec{font-size:1.85rem;margin-bottom:.75rem}
+h2.sec em{color:var(--green);font-style:normal}
+.lead{color:var(--txt-2);font-size:.95rem;max-width:56ch}
+
+/* ---------- TOPBAR ---------- */
+.topbar{
+  position:sticky;top:0;z-index:60;
+  display:flex;align-items:center;justify-content:space-between;gap:1rem;
+  padding:.7rem var(--pad);
+  background:rgba(10,11,10,.86);
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--line-2);
+}
+.topbar img{width:112px;height:auto;max-height:34px;object-fit:contain}
+.topbar .btn-sm{
+  font-family:'Barlow Condensed',sans-serif;font-weight:700;text-transform:uppercase;
+  font-size:.82rem;letter-spacing:.6px;
+  background:var(--green);color:#0b1005;
+  padding:.55rem .85rem;border-radius:9px;white-space:nowrap;
+}
+.nav-desk{display:none}
+.header-link{
+  font-family:'Barlow Condensed',sans-serif;font-weight:700;text-transform:uppercase;
+  font-size:.72rem;letter-spacing:.8px;color:var(--green);white-space:nowrap;
+  border:1px solid rgba(63,138,92,.4);border-radius:100px;padding:.4rem .75rem;
+}
+
+/* ---------- BOTÕES ---------- */
+.btn{
+  display:flex;align-items:center;justify-content:center;gap:.55rem;
+  width:100%;min-height:56px;padding:.9rem 1.1rem;
+  font-family:'Barlow Condensed',sans-serif;font-weight:800;text-transform:uppercase;
+  font-size:1.12rem;letter-spacing:.8px;line-height:1.1;text-align:center;
+  color:#0b1005;background:linear-gradient(180deg,var(--green-hi),var(--green));
+  border:none;border-radius:12px;cursor:pointer;
+  box-shadow:0 10px 26px rgba(63,138,92,.22);
+  transition:transform .15s ease,box-shadow .15s ease;
+}
+.btn:active{transform:translateY(2px);box-shadow:0 4px 14px rgba(63,138,92,.18)}
+.btn-ghost{
+  background:transparent;color:var(--txt);border:1px solid var(--line);
+  box-shadow:none;font-size:.95rem;min-height:48px;
+}
+
+/* ---------- HERO ---------- */
+.hero{padding-top:2.2rem;padding-bottom:2.4rem;overflow:hidden}
+.hero::after{
+  content:"";position:absolute;inset:auto -30% -45% -30%;height:70%;
+  background:radial-gradient(ellipse at center,rgba(63,138,92,.10),transparent 65%);
+  pointer-events:none;
+}
+.badge{
+  display:inline-block;font-size:.65rem;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;
+  color:var(--green);border:1px solid rgba(63,138,92,.4);background:var(--green-dim);
+  padding:.35rem .7rem;border-radius:100px;margin-bottom:1.1rem;
+}
+.hero h1{font-size:2.35rem;margin-bottom:1rem}
+.hero h1 .g{color:var(--green);display:block}
+.hero p.sub{color:var(--txt-2);font-size:1rem;margin-bottom:1.6rem;max-width:44ch}
+.hero .btn{margin-bottom:.6rem}
+.micro{font-size:.72rem;color:var(--txt-2);text-align:center;letter-spacing:.3px}
+
+.pillars{
+  display:flex;gap:.6rem;margin:1.8rem 0 1.4rem;
+  overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;
+  scrollbar-width:none;
+}
+.pillars::-webkit-scrollbar{display:none}
+.pillar{
+  background:var(--card);border:1px solid var(--line-2);border-radius:12px;
+  padding:.85rem .7rem;text-align:center;
+  flex:0 0 auto;width:132px;scroll-snap-align:start;
+}
+.pillar svg{margin:0 auto .45rem;stroke:var(--green)}
+.pillar span{
+  display:block;font-size:.63rem;font-weight:700;letter-spacing:.8px;text-transform:uppercase;
+  color:#cfd4ca;line-height:1.3;
+}
+
+.market{
+  border:1px solid rgba(63,138,92,.28);border-radius:var(--radius);
+  padding:1.1rem;background:linear-gradient(160deg,rgba(63,138,92,.07),rgba(0,0,0,.4));
+}
+.market .n{font-family:'Barlow Condensed',sans-serif;font-size:2.5rem;font-weight:800;color:var(--green);line-height:1}
+.market .d{font-size:.78rem;color:#cfd4ca;text-transform:uppercase;letter-spacing:.8px;margin-top:.15rem}
+.market hr{border:none;border-top:1px solid var(--line);margin:.85rem 0}
+.market .src{font-size:.62rem;color:#6b7066;margin-top:.5rem}
+
+/* ---------- STATS ---------- */
+.stats{padding-top:0}
+.stats-grid{display:grid;gap:.6rem}
+.stat{
+  background:var(--card);border:1px solid var(--line-2);border-left:3px solid var(--green);
+  border-radius:12px;padding:.95rem 1rem;
+  display:flex;align-items:center;gap:.9rem;
+}
+.stat b{font-family:'Barlow Condensed',sans-serif;font-size:1.9rem;font-weight:800;color:var(--green);line-height:1;white-space:nowrap}
+.stat span{font-size:.75rem;color:var(--txt-2);text-transform:uppercase;letter-spacing:.7px;line-height:1.35}
+
+/* ---------- PROBLEMA ---------- */
+.split h2.sec{margin-bottom:1rem}
+.point-list{display:grid;gap:.7rem;margin-top:1.5rem}
+.point{
+  background:var(--panel);border:1px solid var(--line-2);border-radius:12px;padding:1rem;
+}
+.point h4{font-size:1.02rem;color:var(--txt);margin-bottom:.3rem;letter-spacing:.5px}
+.point p{font-size:.87rem;color:var(--txt-2)}
+.point .num{
+  font-family:'Barlow Condensed',sans-serif;font-size:.7rem;font-weight:700;
+  color:var(--green);letter-spacing:1.5px;display:block;margin-bottom:.35rem;
+}
+
+/* ---------- PROGRAMA ---------- */
+.kit{
+  display:flex;gap:.65rem;margin-top:1.5rem;
+  overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;
+  scrollbar-width:none;
+}
+.kit::-webkit-scrollbar{display:none}
+.kit-item{
+  background:var(--card);border:1px solid var(--line-2);border-radius:12px;padding:.95rem .8rem;
+  flex:0 0 76%;scroll-snap-align:start;
+}
+.kit-item svg{stroke:var(--green);margin-bottom:.6rem}
+.kit-item h4{font-size:.82rem;letter-spacing:.6px;margin-bottom:.3rem;color:var(--txt)}
+.kit-item p{font-size:.75rem;color:var(--txt-2);line-height:1.45}
+.carousel-hint{font-size:.68rem;color:var(--txt-2);text-transform:uppercase;letter-spacing:1px;margin-top:.6rem;text-align:center}
+
+/* ---------- LIVRO FECHADO 3D (GIRÁVEL) ---------- */
+.ebook-container{
+  --book-w:200px;--book-h:280px;--book-d:24px;
+  perspective:1000px;
+  margin:1.4rem 0 1.4rem;width:100%;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  position:relative;
+}
+@keyframes floatBook{
+  0%{transform:translateY(0px) rotateY(-18deg) rotateX(8deg) rotateZ(0deg)}
+  25%{transform:translateY(-8px) rotateY(-21deg) rotateX(10deg) rotateZ(.6deg)}
+  50%{transform:translateY(-14px) rotateY(-25deg) rotateX(13deg) rotateZ(0deg)}
+  75%{transform:translateY(-8px) rotateY(-21deg) rotateX(10deg) rotateZ(-.6deg)}
+  100%{transform:translateY(0px) rotateY(-18deg) rotateX(8deg) rotateZ(0deg)}
+}
+.book-wrapper{
+  position:relative;width:var(--book-w);height:var(--book-h);
+  transform-style:preserve-3d;
+  animation:floatBook 6.5s cubic-bezier(.45,0,.55,1) infinite;
+}
+.book-3d{
+  position:absolute;inset:0;transform-style:preserve-3d;
+  transform:rotateY(var(--spin-y,0deg)) rotateX(var(--spin-x,0deg));
+  cursor:grab;touch-action:none;
+}
+.book-3d.is-grabbing{cursor:grabbing}
+.book-face{position:absolute;box-sizing:border-box;backface-visibility:hidden}
+.book-cover{
+  width:var(--book-w);height:var(--book-h);border-radius:3px;
+  background:linear-gradient(145deg,#181818,#080808);border:1px solid #333;
+  display:flex;flex-direction:column;justify-content:space-between;padding:1.3rem 1.1rem;
+  overflow:hidden;
+}
+.book-front{transform:translateZ(calc(var(--book-d) / 2))}
+.book-back{transform:rotateY(180deg) translateZ(calc(var(--book-d) / 2));justify-content:center;align-items:center;gap:1rem;text-align:center}
+.book-back .back-note{font-size:.6rem;color:#666;text-transform:uppercase;letter-spacing:1.5px;line-height:1.7}
+.book-cover::after{
+  content:'';position:absolute;top:0;left:0;width:200%;height:100%;
+  background:linear-gradient(115deg,rgba(255,255,255,.14) 0%,rgba(255,255,255,0) 35%,rgba(255,255,255,0) 100%);
+  pointer-events:none;animation:shineSweep 6.5s cubic-bezier(.45,0,.55,1) infinite;
+}
+@keyframes shineSweep{0%{transform:translateX(-15%)}50%{transform:translateX(-32%)}100%{transform:translateX(-15%)}}
+.book-spine{
+  width:var(--book-d);height:var(--book-h);left:calc((var(--book-w) - var(--book-d)) / 2);
+  transform:rotateY(-90deg) translateZ(calc(var(--book-w) / 2));
+  background:linear-gradient(90deg,#060606,#1a1a1a 45%,#0a0a0a);
+  border-top:1px solid #333;border-bottom:1px solid #333;
+  display:flex;align-items:center;justify-content:center;
+}
+.book-spine span{
+  font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:.55rem;letter-spacing:2px;
+  color:var(--green);white-space:nowrap;transform:rotate(90deg);text-transform:uppercase;
+}
+.book-pages{
+  width:var(--book-d);height:var(--book-h);left:calc((var(--book-w) - var(--book-d)) / 2);
+  transform:rotateY(90deg) translateZ(calc(var(--book-w) / 2));
+  background:repeating-linear-gradient(90deg,#d9d7d0 0px,#d9d7d0 1px,#b8b5ad 1px,#b8b5ad 2.5px);
+  border-top:1px solid #333;border-bottom:1px solid #333;
+}
+.book-top,.book-bottom{
+  width:var(--book-w);height:var(--book-d);top:calc((var(--book-h) - var(--book-d)) / 2);
+  background:repeating-linear-gradient(0deg,#d9d7d0 0px,#d9d7d0 1px,#b8b5ad 1px,#b8b5ad 2.5px);
+}
+.book-top{transform:rotateX(90deg) translateZ(calc(var(--book-h) / 2))}
+.book-bottom{transform:rotateX(-90deg) translateZ(calc(var(--book-h) / 2))}
+.drag-hint{
+  margin-top:1.2rem;font-size:.68rem;color:var(--txt-2);text-transform:uppercase;
+  letter-spacing:1.5px;display:flex;align-items:center;gap:.4rem;transition:opacity .4s;
+}
+.drag-hint.is-hidden{opacity:0}
+.book-title-box{text-align:left;margin-top:1rem}
+.book-title-box h3{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.05rem;color:#fff;line-height:1.1;margin-bottom:4px;text-transform:uppercase}
+.book-title-box p{font-size:.62rem;color:var(--green);font-weight:700;letter-spacing:1px}
+
+/* checklist do conhecimento */
+.checks{display:grid;gap:.55rem;margin-top:1.3rem}
+.check{
+  display:flex;align-items:center;gap:.7rem;
+  background:var(--panel);border:1px solid var(--line-2);border-radius:10px;padding:.75rem .85rem;
+  font-size:.82rem;font-weight:600;letter-spacing:.4px;text-transform:uppercase;
+  font-family:'Barlow Condensed',sans-serif;font-size:.95rem;
+}
+.check i{
+  width:20px;height:20px;flex:none;border-radius:50%;border:1.5px solid var(--green);
+  display:grid;place-items:center;
+}
+.check i::after{content:"";width:8px;height:4px;border-left:1.5px solid var(--green);border-bottom:1.5px solid var(--green);transform:rotate(-45deg) translate(1px,-1px)}
+
+/* ---------- JORNADA ---------- */
+.journey{
+  display:flex;gap:.7rem;margin-top:1.6rem;position:relative;
+  overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;
+  scrollbar-width:none;
+}
+.journey::-webkit-scrollbar{display:none}
+.step{
+  flex:0 0 68%;scroll-snap-align:start;
+  background:var(--panel);border:1px solid var(--line-2);border-radius:14px;
+  padding:1.1rem 1rem;
+}
+.step .dot{
+  width:40px;height:40px;border-radius:50%;margin-bottom:.8rem;
+  border:1px solid rgba(63,138,92,.45);background:rgba(63,138,92,.07);
+  display:grid;place-items:center;
+  font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:.95rem;color:var(--green);
+}
+.step.final{border-color:rgba(63,138,92,.5);background:linear-gradient(160deg,rgba(63,138,92,.1),var(--panel))}
+.step.final .dot{background:var(--green);color:#0b1005;border-color:var(--green);box-shadow:0 0 0 5px rgba(63,138,92,.15)}
+.step h4{font-size:1.02rem;letter-spacing:.6px;margin-bottom:.3rem}
+.step p{font-size:.83rem;color:var(--txt-2)}
+
+/* ---------- REDE ---------- */
+.network{background:var(--panel);border-top:1px solid var(--line-2);border-bottom:1px solid var(--line-2)}
+.map-card{
+  margin-top:1.4rem;border:1px solid var(--line);border-radius:var(--radius);
+  background:linear-gradient(180deg,rgba(63,138,92,.05),rgba(0,0,0,.35));
+  padding:1rem .8rem 1.1rem;
+}
+.map-card svg{width:100%;height:auto;max-width:340px;margin:0 auto;display:block}
+.br-shape{fill:rgba(63,138,92,.09);stroke:rgba(63,138,92,.55);stroke-width:1.2;stroke-linejoin:round}
+.pin{fill:var(--green)}
+.pin-open{fill:none;stroke:var(--green);stroke-width:1.4;opacity:.75}
+.pulse{transform-box:fill-box;transform-origin:center;animation:pulse 2.6s ease-out infinite}
+.pulse:nth-of-type(2n){animation-delay:.8s}
+.pulse:nth-of-type(3n){animation-delay:1.5s}
+@keyframes pulse{0%{opacity:.75;r:2.5}70%{opacity:0;r:9}100%{opacity:0;r:9}}
+.legend{display:flex;justify-content:center;gap:1.2rem;margin-top:.7rem;font-size:.68rem;color:var(--txt-2);text-transform:uppercase;letter-spacing:.8px}
+.legend span{display:flex;align-items:center;gap:.4rem}
+.legend b{width:8px;height:8px;border-radius:50%;background:var(--green);display:block}
+.legend b.open{background:transparent;border:1.4px solid var(--green)}
+.flow{display:grid;gap:.6rem;margin-top:1.3rem}
+.flow-item{
+  display:flex;gap:.75rem;align-items:flex-start;
+  background:var(--card);border:1px solid var(--line-2);border-radius:12px;padding:.85rem .9rem;
+}
+.flow-item .k{
+  font-family:'Barlow Condensed',sans-serif;font-weight:800;color:var(--green);font-size:1.1rem;line-height:1.2;flex:none;width:24px
+}
+.flow-item p{font-size:.85rem;color:#cfd4ca}
+.flow-item p b{color:var(--txt)}
+.region-note{
+  margin-top:1.1rem;border:1px dashed rgba(63,138,92,.45);border-radius:12px;
+  padding:.9rem 1rem;background:rgba(63,138,92,.06);
+  font-size:.85rem;color:#cfd4ca;
+}
+.region-note b{color:var(--green);text-transform:uppercase;font-family:'Barlow Condensed',sans-serif;letter-spacing:1px;font-size:1rem;display:block;margin-bottom:.2rem}
+
+/* ---------- PARA QUEM ---------- */
+.fit{display:grid;gap:.8rem;margin-top:1.4rem}
+.fit-box{border:1px solid var(--line-2);border-radius:var(--radius);padding:1.05rem;background:var(--card)}
+.fit-box h4{font-size:1.05rem;margin-bottom:.7rem;letter-spacing:.6px}
+.fit-box.yes h4{color:var(--green)}
+.fit-box.no{border-color:rgba(224,82,82,.3)}
+.fit-box.no h4{color:var(--red)}
+.fit-box li{list-style:none;font-size:.86rem;color:#cfd4ca;padding:.32rem 0 .32rem 1.5rem;position:relative}
+.fit-box.yes li::before{content:"✓";position:absolute;left:0;color:var(--green);font-weight:700}
+.fit-box.no li::before{content:"✕";position:absolute;left:0;color:var(--red);font-weight:700}
+
+/* ---------- OFERTA ---------- */
+.offer{text-align:center}
+.offer h2.sec{font-size:2rem}
+.price-card{
+  margin-top:1.4rem;border:1px solid rgba(63,138,92,.35);border-radius:18px;
+  background:linear-gradient(180deg,rgba(63,138,92,.09),rgba(0,0,0,.45));
+  padding:1.5rem 1.1rem 1.2rem;
+}
+.price-card .lbl{font-size:.66rem;letter-spacing:2.5px;text-transform:uppercase;color:var(--txt-2)}
+.price-card .val{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:3.2rem;color:var(--txt);line-height:1;margin:.3rem 0}
+.price-card .val small{font-size:1.4rem;vertical-align:top;color:var(--green)}
+.price-card .inst{color:var(--green);font-weight:600;font-size:.95rem;margin-bottom:1.2rem}
+.price-card .inst span{display:block;color:var(--txt-2);font-size:.75rem;font-weight:400}
+.trust{display:flex;justify-content:center;flex-wrap:wrap;gap:.5rem 1.2rem;margin-top:.9rem;font-size:.7rem;color:var(--txt-2);text-transform:uppercase;letter-spacing:.8px}
+.guarantee{
+  margin-top:1rem;border:1px solid var(--line-2);border-radius:14px;background:var(--card);
+  padding:1.1rem;text-align:left;display:flex;gap:.9rem;align-items:flex-start;
+}
+.guarantee svg{flex:none;stroke:var(--green)}
+.guarantee h4{font-size:1rem;margin-bottom:.25rem}
+.guarantee p{font-size:.82rem;color:var(--txt-2)}
+
+/* ---------- FOOTER ---------- */
+footer{padding:2.4rem var(--pad) 2.8rem;text-align:center;border-top:1px solid var(--line-2);background:#080908}
+footer img{width:130px;margin:0 auto 1rem;opacity:.85}
+footer p{font-size:.78rem;color:var(--txt-2);margin-bottom:.35rem}
+footer a{color:var(--green)}
+.f-marks{display:grid;grid-template-columns:repeat(2,1fr);gap:.6rem;margin:1.4rem 0}
+.f-mark{border:1px solid var(--line-2);border-radius:10px;padding:.7rem .5rem;font-size:.62rem;text-transform:uppercase;letter-spacing:.9px;color:#b9bfb4;line-height:1.35}
+.f-copy{font-size:.66rem;color:#575c53;margin-top:1.4rem}
+
+/* ---------- BARRA FIXA MOBILE ---------- */
+.sticky{
+  position:fixed;left:0;right:0;bottom:0;z-index:70;
+  display:flex;align-items:center;gap:.8rem;
+  padding:.6rem var(--pad) calc(.6rem + env(safe-area-inset-bottom));
+  background:rgba(10,11,10,.94);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  border-top:1px solid var(--line);
+  transform:translateY(105%);transition:transform .3s ease;
+}
+.sticky.on{transform:translateY(0)}
+.sticky .info{flex:1;min-width:0}
+.sticky .info b{display:block;font-family:'Barlow Condensed',sans-serif;font-size:1.25rem;color:var(--txt);line-height:1}
+.sticky .info span{font-size:.66rem;color:var(--txt-2);letter-spacing:.5px}
+.sticky .btn{width:auto;flex:none;min-height:48px;font-size:.92rem;padding:.7rem 1rem}
+
+/* ---------- REVEAL ---------- */
+.mob-only{display:block}
+
+.rv{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease}
+.rv.in{opacity:1;transform:none}
+
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+  .rv{opacity:1;transform:none}
+}
+
+/* ---------- DESKTOP ---------- */
+@media (min-width:820px){
+  :root{--pad:2rem;--bar:0px}
+  body{padding-bottom:0}
+  section{padding:5rem var(--pad)}
+  h2.sec{font-size:2.6rem}
+  .hero h1{font-size:4rem}
+  .hero p.sub{font-size:1.1rem}
+  .nav-desk{display:flex;gap:1.7rem;font-size:.75rem;letter-spacing:1.4px;text-transform:uppercase;color:var(--txt-2);font-weight:600}
+  .nav-desk a:hover{color:var(--green)}
+  .topbar{justify-content:space-between}
+  .topbar img{width:130px}
+  .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:3rem;align-items:center}
+  .hero .btn{width:auto;padding:1rem 2.2rem;display:inline-flex}
+  .micro{text-align:left}
+  .mob-only{display:none}
+  .pillars{display:grid;grid-template-columns:repeat(4,1fr);overflow:visible}
+  .pillar{width:auto}
+  .stats-grid{grid-template-columns:repeat(3,1fr)}
+  .stat{flex-direction:column;align-items:flex-start;gap:.3rem}
+  .split{display:grid;grid-template-columns:.85fr 1.15fr;gap:3rem;align-items:start}
+  .point-list{grid-template-columns:repeat(2,1fr);margin-top:0}
+  .kit{display:grid;grid-template-columns:repeat(4,1fr);overflow:visible}
+  .kit-item{flex:auto}
+  .know{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center}
+  .ebook-container{--book-w:250px;--book-h:350px;--book-d:32px;margin:0 0 1.4rem}
+  .journey{display:grid;grid-template-columns:repeat(4,1fr);gap:1.4rem 1rem;overflow:visible}
+  .step{flex:auto}
+  .net-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center}
+  .map-card{margin-top:0}
+  .map-card svg{max-width:420px}
+  .fit{grid-template-columns:1fr 1fr}
+  .offer-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:2.4rem;align-items:center;text-align:left}
+  .offer-grid h2.sec{font-size:3rem}
+  .price-card{margin-top:0}
+  .f-marks{grid-template-columns:repeat(4,1fr)}
+  .sticky{display:none}
+}
+</style>
 </head>
 <body>
 
-    <!-- CABEÇALHO -->
-    <header>
-        <img src="logo.png" alt="Strike Details - Estética Automotiva" class="logo-img">
-    </header>
+<!-- ================= TOPO ================= -->
+<header class="topbar">
+  <img src="logo.png" alt="Strike Estética Automotiva">
+  <nav class="nav-desk">
+    <a href="#programa">O programa</a>
+    <a href="#jornada">A jornada</a>
+    <a href="#para-quem">Para quem é</a>
+  </nav>
+  <a href="#para-quem" class="header-link mob-only">Para quem é</a>
+</header>
 
-    <!-- HERO PRINCIPAL -->
-    <section class="hero carbon-pattern">
-        <h1>Manual Técnico Cabine Blindada <span>Strike</span></h1>
-        
-        <p>O processo completo de vedação definitiva contra poeira na Fiat Strada. Desmontagem, isolamento e montagem documentado.</p>
+<!-- ================= HERO ================= -->
+<section class="hero carbon">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="badge">Programa de Autorização Strike</span>
+      <h1>Torne-se um <span class="g">Aplicador Autorizado</span> do Método Cabine Blindada.</h1>
+      <p class="sub">Milhares de Stradas, o mesmo problema — e uma nova fonte de renda para quem atende com exclusividade na região.</p>
+      <a href="#autorizacao" class="btn js-checkout">Quero ser um autorizado</a>
+      <p class="micro">Acesso imediato · Compra segura Hotmart</p>
 
-        <!-- GANCHO DE VENDA -->
-        <div class="hook-alert">
-            <span class="hook-icon">⚠</span>
-            <div>
-                <span class="hook-number"><span>+100 MIL</span> FIAT STRADA RODANDO COM O MESMO DEFEITO DE FÁBRICA</span>
-                <p>Poeira entrando na cabine não é falha de uso. É um ponto vulnerável de projeto presente em toda a linha Strada, de qualquer ano. A fábrica não corrige. Domine o método e ofereça a correção — seja no seu carro ou como serviço para qualquer cliente que chegar até você.</p>
+      <div class="pillars">
+        <div class="pillar">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="1.6"><path d="M12 3l7 3v5c0 4.4-2.9 8.3-7 9.5C7.9 19.3 5 15.4 5 11V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg>
+          <span>Procedimento comprovado</span>
+        </div>
+        <div class="pillar">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="1.6"><path d="M3 5.5h6a3 3 0 013 3v10a2.5 2.5 0 00-2.5-2.5H3z"/><path d="M21 5.5h-6a3 3 0 00-3 3v10a2.5 2.5 0 012.5-2.5H21z"/></svg>
+          <span>Manual técnico oficial</span>
+        </div>
+        <div class="pillar">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="1.6"><circle cx="9" cy="8" r="3"/><path d="M3.5 19a5.5 5.5 0 0111 0"/><path d="M16 6.5a3 3 0 010 5.6"/><path d="M18 19a5.4 5.4 0 00-2-4.2"/></svg>
+          <span>Comunidade exclusiva</span>
+        </div>
+        <div class="pillar">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="1.6"><circle cx="12" cy="9" r="5"/><path d="M8.5 13.5L7 21l5-2.4L17 21l-1.5-7.5"/></svg>
+          <span>Certificação e selo</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="market rv">
+      <div class="n">83.037</div>
+      <div class="d">Fiat Stradas emplacadas<br>apenas no 1º semestre de 2026</div>
+      <hr>
+      <div class="n">Nº 1</div>
+      <div class="d">Veículo mais vendido do Brasil</div>
+      <p class="src">*Fonte: Stellantis / FIAT — julho 2026</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PROBLEMA / OPORTUNIDADE ================= -->
+<section class="carbon">
+  <div class="wrap">
+    <div class="rv" style="max-width:60ch">
+      <span class="eyebrow">A oportunidade</span>
+      <h2 class="sec">O problema é real.<br><em>A solução também.</em></h2>
+      <p class="lead">Toda Strada que roda em estrada de chão tem o mesmo destino: poeira dentro da cabine. O dono procura quem resolva de verdade — e quase ninguém sabe resolver no padrão.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= O QUE VOCÊ RECEBE ================= -->
+<section class="carbon" id="programa">
+  <div class="wrap">
+    <span class="eyebrow">O programa</span>
+    <h2 class="sec">O que você recebe ao <em>entrar no programa</em></h2>
+
+    <div class="kit">
+      <div class="kit-item rv">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="1.6"><path d="M4 7h16v13H4z"/><path d="M4 7l4-4h8l4 4"/><path d="M10 12h4"/></svg>
+        <h4>Programa de integração</h4><p>Boas-vindas e preparação para a sua jornada de autorização.</p>
+      </div>
+      <div class="kit-item rv">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="1.6"><path d="M3 5.5h6a3 3 0 013 3v10a2.5 2.5 0 00-2.5-2.5H3z"/><path d="M21 5.5h-6a3 3 0 00-3 3v10a2.5 2.5 0 012.5-2.5H21z"/></svg>
+        <h4>Manual técnico oficial</h4><p>124 páginas, 153 fotos reais e o passo a passo completo do método.</p>
+      </div>
+      <div class="kit-item rv">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="1.6"><circle cx="9" cy="8" r="3"/><path d="M3.5 19a5.5 5.5 0 0111 0"/><path d="M16 6.5a3 3 0 010 5.6"/><path d="M18 19a5.4 5.4 0 00-2-4.2"/></svg>
+        <h4>Comunidade exclusiva</h4><p>Grupo VIP com suporte, troca de experiências e avisos importantes.</p>
+      </div>
+      <div class="kit-item rv">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="1.6"><path d="M12 4L2 9l10 5 10-5-10-5z"/><path d="M6 11.5V16c0 1.7 2.7 3 6 3s6-1.3 6-3v-4.5"/></svg>
+        <h4>Capacitação técnica</h4><p>Orientações para estudar e aplicar o método com segurança.</p>
+      </div>
+      <div class="kit-item rv">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="1.6"><circle cx="12" cy="9" r="5"/><path d="M8.5 13.5L7 21l5-2.4L17 21l-1.5-7.5"/></svg>
+        <h4>Certificado e selo</h4><p>Reconhecimento oficial como Aplicador Autorizado Strike.</p>
+      </div>
+      <div class="kit-item rv">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="1.6"><circle cx="12" cy="12" r="3"/><circle cx="5" cy="6" r="2"/><circle cx="19" cy="6" r="2"/><circle cx="5" cy="18" r="2"/><circle cx="19" cy="18" r="2"/><path d="M6.5 7.5l3.5 3M17.5 7.5L14 10.5M6.5 16.5l3.5-3M17.5 16.5L14 13.5"/></svg>
+        <h4>Rede de aplicadores</h4><p>Entrada na rede e possibilidade de receber clientes encaminhados pela Strike na sua região.</p>
+      </div>
+    </div>
+    <p class="carousel-hint mob-only">← arraste para o lado →</p>
+  </div>
+</section>
+
+<!-- ================= LIVRO + CONHECIMENTO ================= -->
+<section class="carbon">
+  <div class="wrap know">
+    <div>
+      <div class="ebook-container">
+        <div class="book-wrapper">
+          <div class="book-3d" id="book3d">
+            <!-- CAPA -->
+            <div class="book-face book-cover book-front carbon">
+              <div>
+                <img src="logo.png" alt="Strike" style="width:70%;opacity:.9" draggable="false">
+              </div>
+              <div class="book-title-box">
+                <h3>Cabine Blindada</h3>
+                <p>Vedação de poeira Fiat Strada</p>
+              </div>
+              <div style="font-size:.5rem;color:#666;text-align:left;text-transform:uppercase;letter-spacing:1px">
+                Manual Técnico Oficial · Rede Strike
+              </div>
             </div>
-        </div>
 
-        <!-- VÍDEO DO PROBLEMA - PLAYER STRIKE -->
-        <div class="video-showcase">
-            <div class="video-label">Veja o problema na prática</div>
-
-            <div class="video-frame" id="videoFrame">
-                <div class="video-tag"><i></i> Strike Details</div>
-
-                <video id="strikeVideo" playsinline muted preload="metadata" loop>
-                    <source src="Apresentação.mp4" type="video/mp4">
-                    Seu navegador não suporta reprodução de vídeo.
-                </video>
-
-                <div class="video-play" id="videoPlay">
-                    <span></span>
-                </div>
-
-                <div class="video-bar">
-                    <div class="video-progress"><i id="videoProgress"></i></div>
-                    <button class="video-sound is-muted" id="videoSound" type="button">🔇 Som</button>
-                </div>
+            <!-- CONTRACAPA -->
+            <div class="book-face book-cover book-back carbon">
+              <img src="logo.png" alt="Strike" style="width:50%;opacity:.55" draggable="false">
+              <div class="back-note">Rede de Autorizados<br>Strike Details<br>Estética Automotiva</div>
             </div>
 
-            <p class="video-caption" id="videoCaption">Toque no vídeo para ativar o som</p>
+            <!-- LOMBADA -->
+            <div class="book-face book-spine"><span>Cabine Blindada · Strike</span></div>
+
+            <!-- MIOLO -->
+            <div class="book-face book-pages"></div>
+            <div class="book-face book-top"></div>
+            <div class="book-face book-bottom"></div>
+          </div>
         </div>
+        <div class="drag-hint" id="dragHint"><span>⟲</span> Arraste para girar 360°</div>
+      </div>
+    </div>
 
-        <!-- FAIXA DE ESTATÍSTICAS -->
-        <div class="stats-strip">
-            <div class="stat-item">
-                <span class="stat-value">+150</span>
-                <span class="stat-label">Pontos de vedação mapeados</span>
-            </div>
+    <div class="rv">
+      <span class="eyebrow">O conteúdo</span>
+      <h2 class="sec">O conhecimento por trás da <em>autorização</em></h2>
+      <div class="checks">
+        <div class="check"><i></i> 124 páginas de conteúdo técnico</div>
+        <div class="check"><i></i> 153 registros fotográficos</div>
+        <div class="check"><i></i> Procedimentos em veículos reais</div>
+        <div class="check"><i></i> Ferramentas, materiais e fixadores</div>
+        <div class="check"><i></i> Sequência técnica e padrão de execução</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= JORNADA ================= -->
+<section class="carbon" id="jornada">
+  <div class="wrap">
+    <span class="eyebrow">Passo a passo</span>
+    <h2 class="sec">Até se tornar um <em>aplicador autorizado</em></h2>
+    <p class="lead">Sete etapas, do primeiro acesso ao selo na parede da sua oficina.</p>
+
+    <div class="journey">
+      <div class="step rv"><div class="dot">01</div><div><h4>Inscrição</h4><p>Você se inscreve no Programa de Autorização.</p></div></div>
+      <div class="step rv"><div class="dot">02</div><div><h4>Integração</h4><p>Recebe o guia de integração e entra na comunidade.</p></div></div>
+      <div class="step rv"><div class="dot">03</div><div><h4>Preparação</h4><p>Organiza sua operação e se prepara para a fase técnica.</p></div></div>
+      <div class="step rv"><div class="dot">04</div><div><h4>Capacitação</h4><p>Acesso ao Manual Técnico Oficial e estudo do método.</p></div></div>
+      <div class="step rv"><div class="dot">05</div><div><h4>Avaliação</h4><p>Prova de conhecimento para validar sua preparação.</p></div></div>
+      <div class="step rv"><div class="dot">06</div><div><h4>Aprovação</h4><p>Aprovado, você recebe seu certificado e o selo oficial.</p></div></div>
+      <div class="step final rv"><div class="dot">07</div><div><h4>Aplicador autorizado</h4><p>Você passa a integrar a Rede de Aplicadores Strike.</p></div></div>
+    </div>
+    <p class="carousel-hint mob-only">← arraste para o lado →</p>
+  </div>
+</section>
+
+<!-- ================= REDE DE APLICADORES ================= -->
+<section class="network" id="rede">
+  <div class="wrap net-grid">
+    <div class="rv">
+      <span class="eyebrow">O ativo do programa</span>
+      <h2 class="sec">Rede de aplicadores <em>em expansão</em></h2>
+      <p class="lead">Pedidos chegam de todo o Brasil. Quando o cliente está longe de Jaru, o atendimento vai para quem está na rede.</p>
+
+      <div class="flow">
+        <div class="flow-item"><span class="k">01</span><p><b>O cliente procura a Strike.</b> Vem de busca, indicação e redes sociais, de qualquer estado.</p></div>
+        <div class="flow-item"><span class="k">02</span><p><b>A Strike não atende à distância.</b> Serviço é presencial e a agenda é local.</p></div>
+        <div class="flow-item"><span class="k">03</span><p><b>O contato vai para o autorizado da região.</b> Quem está na rede aparece; quem não está, não existe nesse mapa.</p></div>
+      </div>
+
+      <div class="region-note">
+        <b>Sua região ainda está aberta?</b>
+        Cada praça comporta um número limitado de aplicadores para o serviço continuar valendo o preço que vale. Entrar cedo é entrar sozinho.
+      </div>
+    </div>
+
+    <div class="map-card rv">
+      <svg viewBox="0 0 300 300" role="img" aria-label="Mapa do Brasil com a rede de aplicadores Strike em expansão">
+        <path class="br-shape" d="M168 8 L172.5 24.8 L180 43.5 L191 50 L222.8 58.5 L243.8 61.5 L266 67.5 L290 78.8 L294 94 L277.5 122 L266 137.5 L262.5 173 L253 192 L231 211.5 L217.5 219 L191 231 L191 253.5 L164 280 L154.5 292.5 L126 271.5 L123 266 L145.5 232 L120.8 205.5 L123 181.5 L120 162 L101 141 L65 113 L33 121.5 L6 110.3 L0.8 96 L30.8 71.3 L30 58.5 L34.5 47 L31.5 31.5 L52.5 26 L67.5 32 L79.5 10.5 L99.8 6 L105 30 L131 25.5 L135.8 24.8 Z"/>
+
+        <!-- praças já com aplicador -->
+        <circle class="pulse" cx="86" cy="118" r="3" fill="var(--green)"/>
+        <circle class="pin" cx="86" cy="118" r="3.4"/>
+        <circle class="pulse" cx="205.5" cy="216" r="3" fill="var(--green)"/>
+        <circle class="pin" cx="205.5" cy="216" r="2.8"/>
+        <circle class="pulse" cx="195.8" cy="158" r="3" fill="var(--green)"/>
+        <circle class="pin" cx="195.8" cy="158" r="2.8"/>
+        <circle class="pin" cx="231" cy="211.5" r="2.6"/>
+        <circle class="pin" cx="134" cy="156.8" r="2.6"/>
+        <circle class="pin" cx="266" cy="137.3" r="2.6"/>
+        <circle class="pin" cx="105" cy="63" r="2.6"/>
+        <circle class="pin" cx="171" cy="264.8" r="2.6"/>
+
+        <!-- praças abertas -->
+        <circle class="pin-open" cx="225.8" cy="189" r="3"/>
+        <circle class="pin-open" cx="185.3" cy="165" r="3"/>
+        <circle class="pin-open" cx="145.5" cy="192.8" r="3"/>
+        <circle class="pin-open" cx="185.3" cy="230.3" r="3"/>
+        <circle class="pin-open" cx="191" cy="246.8" r="3"/>
+        <circle class="pin-open" cx="289" cy="100" r="3"/>
+        <circle class="pin-open" cx="266" cy="67.5" r="3"/>
+        <circle class="pin-open" cx="191" cy="50.6" r="3"/>
+        <circle class="pin-open" cx="75.8" cy="105.5" r="3"/>
+        <circle class="pin-open" cx="192.8" cy="116" r="3"/>
+        <circle class="pin-open" cx="234" cy="78" r="3"/>
+        <circle class="pin-open" cx="222.8" cy="58.5" r="3"/>
+        <circle class="pin-open" cx="253" cy="192" r="3"/>
+        <circle class="pin-open" cx="287" cy="111.8" r="3"/>
+        <circle class="pin-open" cx="290" cy="83" r="3"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PARA QUEM ================= -->
+<section class="carbon" id="para-quem">
+  <div class="wrap">
+    <span class="eyebrow">Perfil</span>
+    <h2 class="sec">Para quem é <em>este programa</em></h2>
+
+    <div class="fit">
+      <div class="fit-box yes rv" style="grid-column:1/-1">
+        <h4>Para quem é</h4>
+        <ul>
+          <li>Profissionais de estética automotiva</li>
+          <li>Empresas de detalhamento e higienização</li>
+          <li>Oficinas e centros automotivos</li>
+          <li>Empreendedores do setor automotivo</li>
+          <li>Quem tem uma Strada e quer resolver a poeira com a própria mão ou levar o manual a um mecânico de confiança</li>
+          <li>Quem quer oferecer um serviço diferenciado, com procedimento técnico comprovado</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= OFERTA ================= -->
+<section class="carbon offer" id="autorizacao">
+  <div class="wrap offer-grid">
+    <div class="rv">
+      <span class="eyebrow">Autorização</span>
+      <h2 class="sec">Faça parte da rede que resolve o problema de <em>milhares de donos de Fiat Strada</em>.</h2>
+    </div>
+
+    <div>
+      <div class="price-card rv">
+        <span class="lbl">Investimento</span>
+        <div class="val"><small>R$</small>1.428<small>,00</small></div>
+        <a href="#" class="btn js-checkout">Quero ser um autorizado</a>
+        <div class="trust">
+          <span>Compra 100% segura</span>
+          <span>Acesso imediato</span>
+          <span>Hotmart</span>
         </div>
+      </div>
 
-        <!-- E-BOOK 3D ANIMADO + GIRO 360° -->
-        <div class="ebook-container">
-            <div class="book-wrapper">
-                <div class="book-3d" id="book3d">
-                    <!-- CAPA -->
-                    <div class="book-face book-cover book-front carbon-pattern">
-                        <div style="text-align: center;">
-                            <img src="logo.png" alt="Strike" style="width: 80%; opacity: 0.9;" draggable="false">
-                        </div>
-                        <div class="book-title-box">
-                            <h3>CABINE BLINDADA</h3>
-                            <p>VEDAÇÃO DE POEIRA FIAT STRADA</p>
-                        </div>
-                        <div style="font-size: 0.55rem; color: #555; text-align: left; text-transform: uppercase;">
-                            Manual de Procedimento
-                        </div>
-                    </div>
+    </div>
+  </div>
+</section>
 
-                    <!-- CONTRACAPA -->
-                    <div class="book-face book-cover book-back carbon-pattern">
-                        <img src="logo.png" alt="Strike" style="width: 55%; opacity: 0.55;" draggable="false">
-                        <div class="back-note">
-                            Manual Técnico Oficial<br>
-                            Strike Details<br>
-                            Estética Automotiva
-                        </div>
-                    </div>
+<!-- ================= RODAPÉ ================= -->
+<footer>
+  <img src="logo.png" alt="Strike Estética Automotiva">
+  <div class="f-marks">
+    <div class="f-mark">Método comprovado na prática</div>
+    <div class="f-mark">Padrão de execução documentado</div>
+    <div class="f-mark">Suporte e comunidade exclusiva</div>
+    <div class="f-mark">Rede de profissionais autorizados</div>
+  </div>
+  <p>Av. Rio Branco, nº 1500, Centro, Jaru/RO</p>
+  <p><a href="https://wa.me/5569993615454" target="_blank" rel="noopener">WhatsApp (69) 99361-5454</a> · <a href="https://instagram.com/strikedetaills" target="_blank" rel="noopener">@strikedetaills</a></p>
+  <p class="f-copy">© 2026 Strike Estética Automotiva · Todos os direitos reservados</p>
+</footer>
 
-                    <!-- LOMBADA -->
-                    <div class="book-face book-spine">
-                        <span>Cabine Blindada · Strike</span>
-                    </div>
+<!-- ================= BARRA FIXA (MOBILE) ================= -->
+<div class="sticky" id="stickyBar">
+  <div class="info">
+    <b>R$ 1.428,00</b>
+    <span>Programa de Autorização</span>
+  </div>
+  <a href="#" class="btn js-checkout">Quero ser um autorizado</a>
+</div>
 
-                    <!-- MIOLO -->
-                    <div class="book-face book-pages"></div>
-                    <div class="book-face book-top"></div>
-                    <div class="book-face book-bottom"></div>
-                </div>
-            </div>
+<script>
+/* ====== LINK DE CHECKOUT — trocar somente aqui ====== */
+const CHECKOUT_URL = "#"; // ex.: "https://pay.hotmart.com/SEU-PRODUTO"
 
-            <div class="drag-hint" id="dragHint">
-                <span>⟲</span> Arraste para girar 360°
-            </div>
-        </div>
+document.querySelectorAll('.js-checkout').forEach(function(el){
+  if (CHECKOUT_URL && CHECKOUT_URL !== "#") {
+    el.setAttribute('href', CHECKOUT_URL);
+    el.setAttribute('target', '_blank');
+    el.setAttribute('rel', 'noopener');
+  } else if (el.getAttribute('href') === '#') {
+    el.setAttribute('href', '#autorizacao');
+  }
+});
 
-        <!-- CARD DE OFERTA DE LANÇAMENTO -->
-        <div class="price-card">
-            <div class="old-price">Sub Texto</div>
-            <div class="current-price">R$1420<span>,00</span></div>
-            <div class="cta-note">Acesso imediato</div>
-            
-            <a href="https://google.com" class="btn-cta">Garantir Manual Técnico</a>
-        </div>
+/* ====== Barra fixa aparece depois do hero ====== */
+const bar = document.getElementById('stickyBar');
+const hero = document.querySelector('.hero');
+if (bar && hero) {
+  new IntersectionObserver(function(entries){
+    entries.forEach(function(e){ bar.classList.toggle('on', !e.isIntersecting); });
+  }, {rootMargin: '-60px 0px 0px 0px'}).observe(hero);
+}
 
-        <!-- SEUS BENEFÍCIOS -->
-        <div class="benefits-section">
-            <h2 class="benefits-heading">Seus Benefícios</h2>
-            <div class="benefits-list">
-                <div class="benefit-item">
-                    <span class="benefit-icon">✓</span>
-                    <div>
-                        <span class="benefit-title">Manual Técnico Passo a Passo</span>
-                        <p>Conteúdo completo e organizado, do início ao fim, sem enrolação, para você executar o método com segurança.</p>
-                    </div>
-                </div>
-                <div class="benefit-item">
-                    <span class="benefit-icon">✓</span>
-                    <div>
-                        <span class="benefit-title">Grupo exclusivo no WhatsApp</span>
-                        <p>Acesso a um grupo fechado só para quem adquiriu o e-book, direto com a equipe Strike, para tirar dúvidas durante a execução do método.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+/* ====== Interação 360° do livro ====== */
+(function () {
+  var book = document.getElementById('book3d');
+  var hint = document.getElementById('dragHint');
+  if (!book) return;
 
-    <!-- FOOTER COM DADOS DA EMPRESA -->
-    <footer>
-        <img src="logo.png" alt="Strike Details" style="max-width: 150px; margin-bottom: 1rem; opacity: 0.8;">
-        
-        <div class="footer-info">
-            <p>Av. Rio Branco, nº 1500, Centro, Jaru/RO</p>
-            <p style="margin: 0.5rem 0;">
-                <a href="https://wa.me/5569993615454" target="_blank">WhatsApp (69) 99361-5454</a> | 
-                <a href="https://instagram.com/strikedetaills" target="_blank">@strikedetaills</a>
-            </p>
-            <p style="font-size: 0.7rem; color: #555; margin-top: 1.5rem;">STRIKE DETAILS · ESTÉTICA AUTOMOTIVA © 2026</p>
-        </div>
-    </footer>
+  var spinY = 0, spinX = 0, velY = 0, velX = 0;
+  var lastX = 0, lastY = 0, dragging = false, pointerId = null, rafId = null;
 
-    <!-- INTERAÇÃO 360° DO E-BOOK -->
-    <script>
-    (function () {
-        var book = document.getElementById('book3d');
-        var hint = document.getElementById('dragHint');
-        if (!book) return;
+  function apply() {
+    book.style.setProperty('--spin-y', spinY.toFixed(2) + 'deg');
+    book.style.setProperty('--spin-x', spinX.toFixed(2) + 'deg');
+  }
+  function inertia() {
+    if (dragging) return;
+    velY *= 0.94; velX *= 0.94;
+    spinY += velY;
+    spinX = Math.max(-30, Math.min(30, spinX + velX));
+    apply();
+    if (Math.abs(velY) > 0.02 || Math.abs(velX) > 0.02) rafId = requestAnimationFrame(inertia);
+  }
+  book.addEventListener('pointerdown', function (e) {
+    dragging = true; pointerId = e.pointerId; lastX = e.clientX; lastY = e.clientY;
+    velY = velX = 0; if (rafId) cancelAnimationFrame(rafId);
+    book.classList.add('is-grabbing'); book.setPointerCapture(e.pointerId);
+    if (hint) hint.classList.add('is-hidden');
+  });
+  book.addEventListener('pointermove', function (e) {
+    if (!dragging || e.pointerId !== pointerId) return;
+    var dx = e.clientX - lastX, dy = e.clientY - lastY;
+    lastX = e.clientX; lastY = e.clientY;
+    velY = dx * 0.30; velX = -dy * 0.17;
+    spinY += velY; spinX = Math.max(-30, Math.min(30, spinX + velX));
+    apply();
+  });
+  function endDrag(e) {
+    if (!dragging || (e.pointerId !== undefined && e.pointerId !== pointerId)) return;
+    dragging = false; book.classList.remove('is-grabbing');
+    rafId = requestAnimationFrame(inertia);
+  }
+  book.addEventListener('pointerup', endDrag);
+  book.addEventListener('pointercancel', endDrag);
+  book.addEventListener('lostpointercapture', endDrag);
+  book.addEventListener('click', function () {
+    if (Math.abs(velY) > 1) return;
+    velY = 6; if (rafId) cancelAnimationFrame(rafId);
+    rafId = requestAnimationFrame(inertia);
+  });
+})();
 
-        var spinY = 0, spinX = 0;
-        var velY = 0, velX = 0;
-        var lastX = 0, lastY = 0;
-        var dragging = false;
-        var pointerId = null;
-        var rafId = null;
-
-        function apply() {
-            book.style.setProperty('--spin-y', spinY.toFixed(2) + 'deg');
-            book.style.setProperty('--spin-x', spinX.toFixed(2) + 'deg');
-        }
-
-        function inertia() {
-            if (dragging) return;
-            velY *= 0.94;
-            velX *= 0.94;
-            spinY += velY;
-            spinX = Math.max(-30, Math.min(30, spinX + velX));
-            apply();
-            if (Math.abs(velY) > 0.02 || Math.abs(velX) > 0.02) {
-                rafId = requestAnimationFrame(inertia);
-            }
-        }
-
-        book.addEventListener('pointerdown', function (e) {
-            dragging = true;
-            pointerId = e.pointerId;
-            lastX = e.clientX;
-            lastY = e.clientY;
-            velY = velX = 0;
-            if (rafId) cancelAnimationFrame(rafId);
-            book.classList.add('is-grabbing');
-            book.setPointerCapture(e.pointerId);
-            if (hint) hint.classList.add('is-hidden');
-        });
-
-        book.addEventListener('pointermove', function (e) {
-            if (!dragging || e.pointerId !== pointerId) return;
-            var dx = e.clientX - lastX;
-            var dy = e.clientY - lastY;
-            lastX = e.clientX;
-            lastY = e.clientY;
-
-            velY = dx * 0.30;
-            velX = -dy * 0.17;
-
-            spinY += velY;
-            spinX = Math.max(-30, Math.min(30, spinX + velX));
-            apply();
-        });
-
-        function endDrag(e) {
-            if (!dragging || (e.pointerId !== undefined && e.pointerId !== pointerId)) return;
-            dragging = false;
-            book.classList.remove('is-grabbing');
-            rafId = requestAnimationFrame(inertia);
-        }
-
-        book.addEventListener('pointerup', endDrag);
-        book.addEventListener('pointercancel', endDrag);
-        book.addEventListener('lostpointercapture', endDrag);
-
-        // Clique simples (sem arrastar) gira meia volta
-        book.addEventListener('click', function () {
-            if (Math.abs(velY) > 1) return;
-            velY = 6;
-            if (rafId) cancelAnimationFrame(rafId);
-            rafId = requestAnimationFrame(inertia);
-        });
-    })();
-    </script>
-
-    <!-- PLAYER DE VÍDEO STRIKE -->
-    <script>
-    (function () {
-        var frame = document.getElementById('videoFrame');
-        var video = document.getElementById('strikeVideo');
-        var playBtn = document.getElementById('videoPlay');
-        var soundBtn = document.getElementById('videoSound');
-        var bar = document.getElementById('videoProgress');
-        var caption = document.getElementById('videoCaption');
-        if (!frame || !video) return;
-
-        var userPaused = false;
-
-        function setPlayingUI(playing) {
-            frame.classList.toggle('is-playing', playing);
-            playBtn.classList.toggle('is-hidden', playing);
-        }
-
-        video.addEventListener('play', function () { setPlayingUI(true); });
-        video.addEventListener('pause', function () { setPlayingUI(false); });
-
-        // barra de progresso
-        video.addEventListener('timeupdate', function () {
-            if (!video.duration) return;
-            bar.style.width = ((video.currentTime / video.duration) * 100) + '%';
-        });
-
-        // clicar no vídeo: primeiro clique ativa o som, depois só pausa/retoma
-        frame.addEventListener('click', function (e) {
-            if (e.target.closest('#videoSound')) return;
-
-            if (video.muted) {
-                video.muted = false;
-                soundBtn.classList.remove('is-muted');
-                soundBtn.textContent = '🔊 Som';
-                if (caption) caption.textContent = 'Áudio ativado — toque para silenciar';
-                if (video.paused) video.play().catch(function () {});
-                userPaused = false;
-                return;
-            }
-
-            if (video.paused) {
-                userPaused = false;
-                video.play().catch(function () {});
-            } else {
-                userPaused = true;
-                video.pause();
-            }
-        });
-
-        // botão de som
-        soundBtn.addEventListener('click', function (e) {
-            e.stopPropagation();
-            video.muted = !video.muted;
-            soundBtn.classList.toggle('is-muted', video.muted);
-            soundBtn.textContent = video.muted ? '🔇 Som' : '🔊 Som';
-            if (caption) caption.textContent = video.muted ? 'Toque no vídeo para ativar o som' : 'Áudio ativado — toque para silenciar';
-        });
-
-        // AUTOPLAY MUDO AO ROLAR ATÉ O VÍDEO
-        if ('IntersectionObserver' in window) {
-            var obs = new IntersectionObserver(function (entries) {
-                entries.forEach(function (entry) {
-                    if (entry.isIntersecting) {
-                        if (!userPaused && video.paused) {
-                            video.play().catch(function () {});
-                        }
-                    } else if (!video.paused) {
-                        video.pause();
-                    }
-                });
-            }, { threshold: 0.55 });
-
-            obs.observe(frame);
-        }
-    })();
-    </script>
-
+/* ====== Reveal no scroll ====== */
+const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const items = document.querySelectorAll('.rv');
+if (reduce) {
+  items.forEach(function(i){ i.classList.add('in'); });
+} else {
+  const io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, {threshold: .12});
+  items.forEach(function(i){ io.observe(i); });
+}
+</script>
 </body>
 </html>
