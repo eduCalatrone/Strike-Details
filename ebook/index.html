@@ -157,7 +157,7 @@ h2.sec em{color:var(--green);font-style:normal}
 .video-player{
   position:relative;width:100%;border-radius:var(--radius);overflow:hidden;
   background:#000;border:1px solid var(--line);margin:1.6rem 0 1.8rem;
-  aspect-ratio:16/9;box-shadow:0 10px 30px rgba(0,0,0,.4);
+  aspect-ratio:16/9;box-shadow:0 10px 30px rgba(0,0,0,.4);cursor:pointer;
 }
 .video-player video{width:100%;height:100%;object-fit:cover;display:block;background:#000}
 .video-player::after{
@@ -531,7 +531,7 @@ footer a{color:var(--green)}
         </div>
       </div>
 
-      <div class="video-player mob-only" id="apresentacaoPlayer">
+      <div class="video-player" id="apresentacaoPlayer">
         <video id="apresentacaoVideo" src="Apresentação.mp4" playsinline muted loop preload="metadata"></video>
         <button type="button" class="video-play-btn" id="videoPlayBtn" aria-label="Reproduzir vídeo">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
@@ -845,14 +845,22 @@ if (bar && hero) {
     playBtn.classList.remove('is-hidden');
   }
 
-  playBtn.addEventListener('click', function(){
+  playBtn.addEventListener('click', function(e){
+    e.stopPropagation();
     startedByUser = true;
     if (video.paused) { play(); } else { pause(); }
   });
 
-  muteBtn.addEventListener('click', function(){
+  muteBtn.addEventListener('click', function(e){
+    e.stopPropagation();
     video.muted = !video.muted;
     updateMuteIcon();
+  });
+
+  /* clique em qualquer parte do player (vídeo/overlay) alterna play/pause */
+  wrap.addEventListener('click', function(){
+    startedByUser = true;
+    if (video.paused) { play(); } else { pause(); }
   });
 
   video.addEventListener('timeupdate', function(){
@@ -865,11 +873,11 @@ if (bar && hero) {
 
   updateMuteIcon();
 
-  /* toca assim que o player entra na tela; pausa ao sair */
+  /* toca assim que o player entra na tela (apenas na primeira vez, autoplay); pausa ao sair */
   new IntersectionObserver(function (entries) {
     entries.forEach(function (e) {
       if (e.isIntersecting) {
-        play();
+        if (!startedByUser) play();
       } else if (!video.paused) {
         pause();
       }
