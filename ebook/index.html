@@ -153,6 +153,37 @@ h2.sec em{color:var(--green);font-style:normal}
   color:#cfd4ca;line-height:1.3;
 }
 
+/* ---------- PLAYER DE VÍDEO PERSONALIZADO ---------- */
+.video-player{
+  position:relative;width:100%;border-radius:var(--radius);overflow:hidden;
+  background:#000;border:1px solid var(--line);margin:1.6rem 0 1.8rem;
+  aspect-ratio:16/9;box-shadow:0 10px 30px rgba(0,0,0,.4);
+}
+.video-player video{width:100%;height:100%;object-fit:cover;display:block;background:#000}
+.video-player::after{
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(0deg,rgba(0,0,0,.55) 0%,rgba(0,0,0,0) 32%);
+}
+.video-play-btn{
+  position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+  width:58px;height:58px;border-radius:50%;border:1px solid rgba(255,255,255,.25);
+  background:rgba(10,11,10,.55);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+  color:var(--green-hi);display:flex;align-items:center;justify-content:center;
+  z-index:2;transition:opacity .25s,transform .25s;cursor:pointer;
+}
+.video-play-btn svg{margin-left:3px}
+.video-play-btn.is-hidden{opacity:0;pointer-events:none;transform:translate(-50%,-50%) scale(.85)}
+.video-mute-btn{
+  position:absolute;right:.7rem;bottom:.7rem;z-index:2;
+  width:34px;height:34px;border-radius:50%;border:1px solid rgba(255,255,255,.2);
+  background:rgba(10,11,10,.6);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+  color:#f2f4f0;display:flex;align-items:center;justify-content:center;cursor:pointer;
+}
+.video-progress{
+  position:absolute;left:0;right:0;bottom:0;height:3px;background:rgba(255,255,255,.14);z-index:2;
+}
+.video-progress-fill{height:100%;width:0%;background:var(--green);transition:width .1s linear}
+
 .market{
   border:1px solid rgba(63,138,92,.28);border-radius:var(--radius);
   padding:1.1rem;background:linear-gradient(160deg,rgba(63,138,92,.07),rgba(0,0,0,.4));
@@ -499,6 +530,18 @@ footer a{color:var(--green)}
           <span>Certificação e selo</span>
         </div>
       </div>
+
+      <div class="video-player mob-only" id="apresentacaoPlayer">
+        <video id="apresentacaoVideo" src="Apresentação.mp4" playsinline muted loop preload="metadata"></video>
+        <button type="button" class="video-play-btn" id="videoPlayBtn" aria-label="Reproduzir vídeo">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+        </button>
+        <button type="button" class="video-mute-btn" id="videoMuteBtn" aria-label="Ativar som">
+          <svg id="iconMuted" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5 6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+          <svg id="iconUnmuted" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none"><path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="M15.5 8.5a5 5 0 010 7"/><path d="M18.5 5.5a9 9 0 010 13"/></svg>
+        </button>
+        <div class="video-progress"><div class="video-progress-fill" id="videoProgressFill"></div></div>
+      </div>
     </div>
 
     <div class="market rv">
@@ -536,7 +579,7 @@ footer a{color:var(--green)}
       </div>
       <div class="kit-item rv">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="1.6"><path d="M3 5.5h6a3 3 0 013 3v10a2.5 2.5 0 00-2.5-2.5H3z"/><path d="M21 5.5h-6a3 3 0 00-3 3v10a2.5 2.5 0 012.5-2.5H21z"/></svg>
-        <h4>Manual técnico oficial</h4><p>+100 páginas, +150 fotos reais e o passo a passo completo do método.</p>
+        <h4>Manual técnico oficial</h4><p>+100 páginas, 153 fotos reais e o passo a passo completo do método.</p>
       </div>
       <div class="kit-item rv">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="1.6"><circle cx="9" cy="8" r="3"/><path d="M3.5 19a5.5 5.5 0 0111 0"/><path d="M16 6.5a3 3 0 010 5.6"/><path d="M18 19a5.4 5.4 0 00-2-4.2"/></svg>
@@ -629,7 +672,7 @@ footer a{color:var(--green)}
     <div class="rv">
       <span class="eyebrow">O ativo do programa</span>
       <h2 class="sec">Rede de aplicadores <em>em expansão</em></h2>
-      <p class="lead">Pedidos chegam de todo o Brasil. Quando o cliente está longe de Rondônia, o atendimento vai para quem está na rede.</p>
+      <p class="lead">Pedidos chegam de todo o Brasil. Quando o cliente está longe de Jaru, o atendimento vai para quem está na rede.</p>
 
       <div class="flow">
         <div class="flow-item"><span class="k">01</span><p><b>O cliente procura a Strike Details.</b> Vem de busca, indicação ou redes sociais, de qualquer estado.</p></div>
@@ -772,6 +815,67 @@ if (bar && hero) {
     entries.forEach(function(e){ bar.classList.toggle('on', !e.isIntersecting); });
   }, {rootMargin: '-60px 0px 0px 0px'}).observe(hero);
 }
+
+/* ====== Player de vídeo — Apresentação (autoplay ao ficar visível) ====== */
+(function () {
+  var wrap = document.getElementById('apresentacaoPlayer');
+  if (!wrap) return;
+
+  var video   = document.getElementById('apresentacaoVideo');
+  var playBtn = document.getElementById('videoPlayBtn');
+  var muteBtn = document.getElementById('videoMuteBtn');
+  var iconMuted   = document.getElementById('iconMuted');
+  var iconUnmuted = document.getElementById('iconUnmuted');
+  var fill = document.getElementById('videoProgressFill');
+
+  var startedByUser = false;
+
+  function updateMuteIcon(){
+    iconMuted.style.display   = video.muted ? 'block' : 'none';
+    iconUnmuted.style.display = video.muted ? 'none'  : 'block';
+  }
+
+  function play(){
+    video.play().then(function(){
+      playBtn.classList.add('is-hidden');
+    }).catch(function(){ /* autoplay bloqueado — mantém botão visível */ });
+  }
+  function pause(){
+    video.pause();
+    playBtn.classList.remove('is-hidden');
+  }
+
+  playBtn.addEventListener('click', function(){
+    startedByUser = true;
+    if (video.paused) { play(); } else { pause(); }
+  });
+
+  muteBtn.addEventListener('click', function(){
+    video.muted = !video.muted;
+    updateMuteIcon();
+  });
+
+  video.addEventListener('timeupdate', function(){
+    if (video.duration) {
+      fill.style.width = ((video.currentTime / video.duration) * 100) + '%';
+    }
+  });
+  video.addEventListener('play',  function(){ playBtn.classList.add('is-hidden'); });
+  video.addEventListener('pause', function(){ playBtn.classList.remove('is-hidden'); });
+
+  updateMuteIcon();
+
+  /* toca assim que o player entra na tela; pausa ao sair */
+  new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting) {
+        play();
+      } else if (!video.paused) {
+        pause();
+      }
+    });
+  }, { threshold: 0.5 }).observe(wrap);
+})();
 
 /* ====== Interação 360° do livro ====== */
 (function () {
