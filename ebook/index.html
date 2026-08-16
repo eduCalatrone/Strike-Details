@@ -1,6 +1,35 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+<!-- ===== Google Analytics 4 ===== -->
+<!-- Troque G-TKSQ9FLXKJ pelo seu Measurement ID (Admin > Fluxos de dados > seu fluxo, no analytics.google.com) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-TKSQ9FLXKJ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-TKSQ9FLXKJ');
+</script>
+
+<!-- ===== Meta Pixel ===== -->
+<!-- Troque XXXXXXXXXXXXXXX pelo seu Pixel ID (Gerenciador de Eventos, business.facebook.com/events_manager) -->
+<script>
+  !function(f,b,e,v,n,t,s)
+  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)}(window, document,'script',
+  'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', 'XXXXXXXXXXXXXXX');
+  fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+  src="https://www.facebook.com/tr?id=XXXXXXXXXXXXXXX&ev=PageView&noscript=1"
+/></noscript>
+<!-- ===== fim analytics ===== -->
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#0a0b0a">
@@ -806,6 +835,12 @@ document.querySelectorAll('.js-checkout').forEach(function(el){
   } else if (el.getAttribute('href') === '#') {
     el.setAttribute('href', '#autorizacao');
   }
+
+  /* ====== Rastreio de conversão (clique no checkout) ====== */
+  el.addEventListener('click', function(){
+    if (typeof fbq === 'function') { fbq('track', 'Lead'); }
+    if (typeof gtag === 'function') { gtag('event', 'generate_lead', { event_category: 'checkout', event_label: 'Programa de Autorização' }); }
+  });
 });
 
 /* ====== Barra fixa aparece depois do hero ====== */
