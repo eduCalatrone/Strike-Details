@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0a0b0a">
+<title>Rede de Autorizados Strike — Mapa</title>
+<meta name="description" content="Mapa da rede de autorizados Strike Details Estética Automotiva: a matriz em Jaru/RO e as unidades autorizadas pelo Brasil.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --ink:#0a0b0a;
+  --panel:#111311;
+  --card:#171a17;
+  --line:rgba(255,255,255,.10);
+  --line-2:rgba(255,255,255,.06);
+  --green:#3f8a5c;
+  --green-hi:#56a878;
+  --green-dim:rgba(63,138,92,.16);
+  --txt:#f2f4f0;
+  --txt-2:#9aa096;
+  --matriz:#ffffff;
+  --radius:14px;
+  --pad:1.15rem;
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth}
+section[id]{scroll-margin-top:74px}
+body{
+  background:var(--ink);color:var(--txt);
+  font-family:'Inter',system-ui,sans-serif;font-size:16px;line-height:1.6;
+  overflow-x:hidden;-webkit-font-smoothing:antialiased;
+}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+h1,h2,.dsp{
+  font-family:'Barlow Condensed','Inter',sans-serif;text-transform:uppercase;
+  font-weight:800;line-height:1.03;letter-spacing:.4px;
+}
+.carbon{
+  background-color:#0c0d0c;
+  background-image:
+    linear-gradient(45deg,rgba(255,255,255,.022) 25%,transparent 25%,transparent 75%,rgba(255,255,255,.022) 75%),
+    linear-gradient(45deg,rgba(255,255,255,.022) 25%,transparent 25%,transparent 75%,rgba(255,255,255,.022) 75%),
+    linear-gradient(rgba(0,0,0,.3) 100%,rgba(0,0,0,.3) 100%),
+    linear-gradient(90deg,rgba(0,0,0,.18) 50%,rgba(20,20,22,.18) 50%);
+  background-size:10px 10px,10px 10px,20px 20px,20px 20px;
+  background-position:0 0,5px 5px,0 0,0 0;
+}
+section{padding:2.8rem var(--pad);position:relative}
+.wrap{max-width:980px;margin:0 auto}
+.eyebrow{
+  display:inline-flex;align-items:center;gap:.5rem;
+  font-size:.68rem;font-weight:700;letter-spacing:2.2px;text-transform:uppercase;
+  color:var(--green);margin-bottom:.9rem;
+}
+.eyebrow::before{content:"";width:22px;height:1px;background:var(--green);opacity:.7}
+h2.sec{font-size:1.85rem;margin-bottom:.6rem}
+h2.sec em{color:var(--green);font-style:normal}
+.lead{color:var(--txt-2);font-size:.95rem;max-width:56ch}
+
+/* TOPBAR */
+.topbar{
+  position:sticky;top:0;z-index:60;
+  display:flex;align-items:center;justify-content:space-between;gap:1rem;
+  padding:.6rem var(--pad);
+  background:rgba(10,11,10,.86);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--line-2);
+}
+.brandmark img{height:28px;width:auto}
+.btn-sm{
+  font-family:'Barlow Condensed',sans-serif;font-weight:700;text-transform:uppercase;font-size:.78rem;letter-spacing:.6px;
+  background:var(--green);color:#0b1005;padding:.55rem .8rem;border-radius:9px;white-space:nowrap;
+}
+
+/* HERO */
+.hero{padding-top:2rem;padding-bottom:1rem;overflow:hidden}
+.hero::after{
+  content:"";position:absolute;inset:auto -30% -45% -30%;height:70%;
+  background:radial-gradient(ellipse at center,rgba(63,138,92,.10),transparent 65%);pointer-events:none;
+}
+.badge{
+  display:inline-block;font-size:.65rem;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;
+  color:var(--green);border:1px solid rgba(63,138,92,.4);background:var(--green-dim);
+  padding:.35rem .7rem;border-radius:100px;margin-bottom:1.1rem;
+}
+.hero h1{font-size:2rem;margin-bottom:.7rem}
+.hero h1 .g{color:var(--green);display:block}
+.hero p.sub{color:var(--txt-2);font-size:.98rem;max-width:52ch}
+
+/* MAPA */
+.map-card{
+  margin-top:1.8rem;border:1px solid var(--line);border-radius:var(--radius);
+  background:linear-gradient(180deg,rgba(63,138,92,.05),rgba(0,0,0,.35));
+  padding:1.2rem .9rem 1.3rem;
+}
+.map-card svg{width:100%;height:auto;max-width:460px;margin:0 auto;display:block}
+.br-shape{fill:#141a15;stroke:rgba(63,138,92,.55);stroke-width:1;stroke-linejoin:round}
+.state-hl{fill:rgba(63,138,92,.38);stroke:rgba(86,168,120,.8);stroke-width:.8;stroke-linejoin:round}
+.state-matriz{fill:rgba(255,255,255,.20);stroke:rgba(255,255,255,.6);stroke-width:.8;stroke-linejoin:round}
+.pin{fill:var(--green);cursor:pointer;opacity:.45;transition:opacity .2s ease}
+.pin-matriz{fill:var(--matriz);cursor:pointer;opacity:.4;transition:opacity .2s ease}
+.pulse{transform-box:fill-box;transform-origin:center;animation:pulse 2.6s ease-out infinite;pointer-events:none;opacity:.5}
+.pulse.matriz{animation-duration:2.2s}
+.pulse:nth-of-type(3n){animation-delay:.7s}
+@keyframes pulse{0%{opacity:.5;r:2.8}70%{opacity:0;r:11}100%{opacity:0;r:11}}
+.pin-label{
+  font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:8px;fill:#e7ebe4;
+  text-transform:uppercase;letter-spacing:.3px;pointer-events:none;
+  paint-order:stroke;stroke:#0a0b0a;stroke-width:1.1px;stroke-linejoin:round;stroke-opacity:.55;
+}
+.uf-tag{
+  font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:8.5px;
+  letter-spacing:.5px;pointer-events:none;text-anchor:middle;
+}
+.uf-tag.matriz{fill:rgba(255,255,255,.55)}
+.uf-tag.ativo{fill:rgba(86,168,120,.55)}
+.legend{display:flex;justify-content:center;flex-wrap:wrap;gap:1.1rem;margin-top:1rem;font-size:.66rem;color:var(--txt-2);text-transform:uppercase;letter-spacing:.7px}
+.legend span{display:flex;align-items:center;gap:.4rem}
+.legend b{width:8px;height:8px;border-radius:50%;background:var(--green);display:block}
+.legend b.matriz{background:var(--matriz)}
+.legend b.area{width:11px;height:8px;border-radius:2px;background:rgba(63,138,92,.38);border:1px solid rgba(86,168,120,.8)}
+.map-hint{font-size:.68rem;color:var(--txt-2);text-align:center;margin-top:.6rem;letter-spacing:.3px}
+
+/* LISTA AGRUPADA POR ESTADO */
+.unit-groups{margin-top:1.1rem}
+.state-group{margin-top:1.6rem}
+.state-group:first-child{margin-top:0}
+.state-heading{
+  display:flex;align-items:center;gap:.6rem;
+  font-family:'Barlow Condensed',sans-serif;font-weight:800;text-transform:uppercase;
+  font-size:.85rem;letter-spacing:1.4px;color:var(--green);margin-bottom:.7rem;
+}
+.state-heading::after{content:"";flex:1;height:1px;background:var(--line)}
+.state-heading.matriz{color:var(--matriz)}
+.unit-grid{display:grid;gap:.7rem}
+.unit-card{
+  background:var(--card);border:1px solid var(--line-2);border-left:3px solid var(--green);
+  border-radius:12px;padding:1.1rem;display:flex;justify-content:space-between;gap:1rem;align-items:center;
+  transition:background .2s ease,border-color .2s ease;
+}
+.unit-card.matriz{border-left-color:var(--matriz)}
+.unit-card.flash{background:var(--green-dim)}
+.unit-card h3{font-size:1.08rem;letter-spacing:.3px}
+.unit-card .loc{font-size:.78rem;color:var(--txt-2);margin-top:.15rem}
+.unit-card .tel{font-size:.78rem;color:var(--txt-2);margin-top:.35rem}
+.tag{
+  font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.6rem;letter-spacing:1.2px;
+  text-transform:uppercase;padding:.26rem .55rem;border-radius:100px;white-space:nowrap;margin-bottom:.55rem;display:inline-block;
+}
+.tag.matriz{color:var(--matriz);border:1px solid rgba(255,255,255,.5);background:rgba(255,255,255,.08)}
+.tag.autorizada{color:var(--green);border:1px solid rgba(63,138,92,.5);background:var(--green-dim)}
+.card-link{
+  font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.72rem;letter-spacing:.8px;
+  text-transform:uppercase;color:#0b1005;background:linear-gradient(180deg,var(--green-hi),var(--green));
+  border-radius:100px;padding:.55rem .95rem;white-space:nowrap;flex:none;
+}
+
+/* FOOTER */
+footer{padding:2.2rem var(--pad) 2.6rem;text-align:center;border-top:1px solid var(--line-2);background:#080908}
+footer .brandmark img{height:30px;margin:0 auto 1rem}
+footer p{font-size:.78rem;color:var(--txt-2);margin-bottom:.35rem}
+footer a{color:var(--green)}
+.f-copy{font-size:.66rem;color:#575c53;margin-top:1.2rem}
+
+.rv{opacity:0;transform:translateY(16px);transition:opacity .6s ease,transform .6s ease}
+.rv.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
+
+@media (min-width:820px){
+  :root{--pad:2rem}
+  section{padding:4rem var(--pad)}
+  h2.sec{font-size:2.3rem}
+  .hero h1{font-size:2.9rem}
+  .hero p.sub{font-size:1.05rem}
+  .brandmark img{height:32px}
+  .map-card svg{max-width:520px}
+  .unit-grid{grid-template-columns:repeat(2,1fr)}
+  .unit-card{align-items:flex-start;flex-direction:column;gap:.7rem}
+  .card-link{align-self:flex-start}
+}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <a class="brandmark" href="https://strike-details-sigma.vercel.app/ebook">
+    <img src="logo-strike-branco.png" alt="Strike Details Estética Automotiva">
+  </a>
+  <a class="btn-sm" href="https://strike-details-sigma.vercel.app/ebook" target="_blank" rel="noopener">Sobre a autorização</a>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <span class="badge">Rede de Autorizados</span>
+    <h1>Onde a <span class="g">Strike Details</span> já está</h1>
+  </div>
+</section>
+
+<section class="carbon" id="mapa">
+  <div class="wrap">
+    <div class="map-card rv" id="mapCard">
+      <svg viewBox="0 0 340 340" role="img" aria-label="Mapa do Brasil com a matriz e as unidades autorizadas Strike">
+        <path class="br-shape" d="M18.0 116.4 L18.5 115.9 L18.2 114.9 L18.9 115.1 L20.2 114.6 L19.4 113.0 L20.0 112.3 L20.2 110.8 L21.6 109.5 L24.5 108.1 L24.8 107.4 L23.7 105.3 L23.8 104.4 L25.9 101.3 L26.6 97.4 L28.6 96.5 L30.5 94.6 L32.5 93.8 L34.3 92.3 L36.4 91.9 L36.5 92.4 L39.0 91.2 L41.6 91.1 L42.7 89.6 L43.6 89.6 L43.9 89.1 L44.1 89.7 L44.7 89.2 L46.4 89.3 L46.6 90.3 L47.4 90.9 L48.1 90.2 L48.6 90.9 L49.2 90.5 L53.6 65.2 L51.8 62.1 L52.2 61.3 L51.9 60.2 L48.5 57.6 L48.6 51.7 L50.5 51.5 L51.4 50.8 L51.9 51.1 L52.9 50.3 L54.7 51.3 L55.7 50.8 L55.2 50.3 L55.5 49.1 L54.6 47.6 L50.1 47.5 L50.1 42.4 L52.4 41.8 L53.7 42.3 L62.9 42.3 L62.4 41.5 L63.0 40.3 L64.9 41.5 L66.2 39.8 L67.4 40.0 L68.0 38.9 L69.2 38.2 L70.0 41.1 L71.0 41.4 L71.4 42.3 L71.6 46.7 L73.3 46.3 L77.5 50.1 L79.0 50.1 L82.0 48.2 L83.2 48.1 L83.9 49.1 L83.2 50.4 L83.5 50.8 L84.2 50.7 L85.2 48.7 L86.3 48.7 L86.5 47.2 L87.5 47.2 L89.2 45.6 L89.7 46.3 L92.4 43.9 L92.8 44.1 L92.4 45.0 L92.8 45.0 L94.9 42.9 L95.0 40.7 L95.7 40.2 L97.2 40.3 L98.9 39.1 L100.0 39.1 L100.2 38.4 L100.1 36.7 L97.4 37.1 L95.0 36.2 L95.5 34.0 L93.6 31.2 L93.5 28.9 L94.0 27.7 L90.2 24.1 L89.2 22.8 L89.3 21.9 L91.1 23.3 L94.2 23.2 L95.7 25.0 L96.6 24.6 L97.7 24.9 L98.0 24.0 L99.2 25.3 L99.8 25.2 L99.9 24.4 L101.6 24.6 L101.5 25.5 L102.4 25.8 L103.5 27.3 L104.5 26.3 L105.3 26.6 L104.9 25.0 L105.2 23.9 L106.6 23.9 L106.9 23.1 L107.6 22.7 L109.8 23.5 L111.1 22.7 L111.5 23.2 L113.1 22.0 L114.4 22.1 L114.8 20.9 L116.4 20.5 L116.2 19.9 L118.7 20.0 L119.5 18.4 L120.7 18.1 L121.9 16.7 L120.9 14.4 L123.1 14.6 L124.9 14.0 L126.5 15.5 L126.3 18.6 L125.3 20.1 L128.1 20.4 L129.0 21.2 L128.6 22.5 L129.5 23.1 L129.3 23.6 L130.3 24.6 L129.1 26.5 L127.6 27.5 L128.0 29.3 L126.6 32.8 L127.3 37.1 L128.7 37.9 L128.5 41.2 L129.1 41.2 L129.0 42.1 L130.1 42.4 L132.3 45.0 L134.9 45.6 L135.7 46.7 L136.6 45.8 L138.1 45.9 L138.1 44.5 L138.9 44.3 L139.5 43.4 L140.8 43.7 L141.0 44.2 L141.9 44.1 L142.1 42.9 L143.8 42.3 L145.5 42.6 L147.4 40.2 L147.9 40.5 L149.1 39.9 L149.8 40.9 L151.4 41.2 L154.0 40.5 L157.9 41.4 L158.2 39.8 L156.5 38.0 L157.8 35.9 L159.7 36.9 L162.3 36.8 L162.8 36.0 L165.3 35.4 L166.3 36.7 L167.7 36.6 L167.9 37.5 L169.7 38.5 L171.6 38.7 L173.4 38.2 L174.9 37.1 L176.6 38.1 L178.2 37.3 L179.0 38.0 L178.8 38.5 L181.2 38.8 L184.2 36.0 L186.0 30.8 L187.0 29.8 L189.1 25.9 L191.3 23.8 L192.3 20.7 L194.4 22.6 L195.0 24.6 L195.7 25.0 L196.0 31.1 L198.8 38.8 L200.6 38.6 L202.2 41.7 L204.7 42.6 L204.9 46.6 L204.5 48.2 L203.4 50.0 L203.7 53.4 L206.6 53.2 L209.0 56.2 L212.5 58.0 L216.4 58.2 L216.1 60.2 L219.7 61.5 L220.5 60.6 L220.9 60.9 L221.9 60.4 L222.6 61.6 L222.9 60.8 L224.9 60.9 L227.6 61.8 L228.0 62.7 L228.5 62.0 L228.9 62.9 L230.2 62.5 L230.3 63.8 L231.8 63.0 L231.5 63.8 L231.9 63.6 L232.6 64.3 L233.5 63.2 L233.5 64.1 L234.0 64.6 L234.5 64.3 L234.7 65.0 L235.4 64.5 L235.7 65.3 L236.3 64.5 L236.8 65.6 L237.5 65.2 L237.8 65.8 L238.1 65.1 L238.1 66.1 L238.6 65.6 L239.0 66.8 L239.7 66.5 L239.2 67.7 L240.2 66.6 L240.5 66.9 L240.4 68.9 L241.9 67.8 L242.1 67.0 L243.8 66.4 L244.1 66.8 L243.2 67.4 L242.3 67.3 L242.4 67.9 L243.1 68.1 L244.2 67.4 L243.7 68.9 L244.1 69.0 L244.8 67.8 L245.4 68.7 L245.6 69.3 L245.0 69.8 L245.3 70.3 L245.6 69.9 L246.0 70.1 L247.2 72.3 L247.0 73.1 L247.9 74.7 L247.6 75.6 L248.1 76.1 L250.6 75.3 L250.5 75.8 L251.1 76.3 L251.9 75.1 L253.6 73.9 L254.5 75.0 L255.4 74.7 L256.9 75.1 L260.6 76.6 L261.9 77.6 L267.5 77.9 L269.3 79.4 L275.3 79.2 L277.8 78.4 L282.5 79.2 L287.5 81.9 L292.0 85.5 L293.5 85.7 L296.8 89.9 L299.0 91.3 L300.3 93.1 L302.4 93.7 L303.6 95.6 L305.2 95.5 L307.4 96.8 L311.6 96.9 L312.8 96.5 L316.7 97.4 L318.4 100.0 L322.0 113.4 L321.7 120.2 L320.4 123.5 L320.4 124.6 L318.1 129.6 L310.6 138.3 L309.6 140.3 L307.0 141.3 L305.3 142.9 L296.8 157.2 L294.5 159.7 L293.4 160.2 L292.4 159.9 L289.8 162.0 L290.3 165.3 L289.4 166.0 L290.0 167.6 L288.9 173.7 L289.9 181.5 L290.5 183.0 L289.3 186.1 L288.3 190.2 L288.5 191.2 L287.8 193.4 L287.9 196.7 L288.4 197.6 L287.3 199.0 L285.6 200.0 L284.0 203.4 L283.6 206.8 L284.1 210.4 L283.1 213.2 L281.3 214.5 L278.8 221.0 L276.8 222.8 L275.8 222.9 L273.4 228.0 L273.8 228.9 L274.0 232.0 L268.6 234.4 L266.4 236.4 L266.2 237.7 L267.2 238.1 L265.9 239.2 L266.0 240.0 L263.9 239.6 L258.0 239.9 L257.3 239.6 L256.0 240.3 L250.7 240.9 L251.2 239.6 L248.8 240.5 L247.4 239.7 L247.3 240.2 L245.4 240.7 L245.5 241.5 L246.2 241.5 L246.7 242.4 L246.2 242.9 L244.0 243.5 L244.0 243.0 L243.5 243.1 L242.4 243.9 L242.7 244.4 L241.8 244.2 L241.7 244.6 L239.6 245.1 L239.8 246.3 L240.3 245.8 L241.1 246.3 L240.7 246.9 L241.0 247.7 L239.4 247.5 L239.4 246.8 L238.8 246.9 L238.4 246.4 L236.4 246.1 L234.5 246.6 L233.7 248.0 L232.9 248.4 L232.3 247.8 L228.7 249.7 L227.4 250.6 L227.3 251.3 L220.9 255.8 L220.3 257.4 L216.2 261.2 L215.0 263.7 L215.0 265.0 L215.8 265.8 L214.3 269.5 L214.4 270.1 L215.0 270.3 L214.6 271.2 L215.2 272.1 L214.9 273.0 L216.0 273.2 L214.8 274.2 L215.4 274.4 L215.6 275.1 L216.8 275.5 L215.7 277.8 L215.9 278.2 L214.8 279.6 L214.9 280.3 L213.7 284.3 L209.6 287.1 L206.5 290.3 L203.9 294.2 L201.5 300.0 L197.9 305.2 L194.4 308.5 L189.5 311.7 L188.0 313.5 L186.8 314.0 L183.4 321.3 L177.7 326.0 L176.6 325.2 L176.9 324.2 L177.4 323.9 L177.2 322.1 L177.5 321.1 L178.3 320.4 L178.8 320.8 L179.8 318.3 L180.2 318.6 L180.9 317.9 L180.9 318.5 L181.8 319.2 L182.7 318.9 L184.0 316.2 L183.2 314.5 L183.5 313.3 L183.0 313.4 L182.3 314.5 L183.0 315.1 L181.2 315.8 L180.1 317.3 L177.8 316.7 L175.8 315.1 L175.0 312.7 L173.2 311.3 L172.3 311.4 L169.5 309.2 L168.5 307.7 L166.6 307.5 L165.2 306.2 L164.7 306.7 L163.4 306.1 L162.5 304.3 L160.8 302.8 L158.5 304.6 L157.5 304.6 L157.3 302.3 L151.1 296.8 L149.2 296.8 L148.1 298.3 L145.7 298.3 L144.8 297.6 L146.2 296.9 L147.2 295.9 L147.5 294.7 L148.8 294.1 L151.3 291.7 L152.9 289.0 L154.3 288.6 L155.3 286.4 L157.5 284.8 L157.3 284.2 L158.4 283.8 L158.5 282.9 L159.9 283.2 L160.1 282.7 L159.3 282.0 L160.6 280.9 L161.9 280.7 L162.8 279.4 L164.8 278.7 L164.7 278.2 L165.8 278.2 L166.7 276.3 L167.7 276.6 L168.5 275.7 L169.0 276.0 L169.9 275.3 L170.9 275.5 L171.7 274.1 L172.4 274.4 L173.4 273.2 L174.4 273.1 L175.5 271.3 L174.9 269.1 L175.8 266.1 L174.3 263.8 L173.8 261.1 L172.9 260.6 L172.3 261.0 L172.0 260.2 L171.7 260.7 L170.5 260.6 L169.7 261.6 L168.4 260.8 L168.2 259.7 L169.7 257.3 L169.6 255.6 L171.0 250.9 L170.4 249.3 L170.8 248.6 L169.6 247.3 L167.9 246.6 L164.8 248.0 L162.0 247.7 L161.8 245.9 L160.9 243.9 L161.3 243.1 L161.2 241.6 L160.7 241.3 L160.1 238.9 L160.5 237.3 L158.7 234.4 L155.9 234.3 L154.3 232.7 L153.6 232.8 L152.6 234.1 L151.0 234.5 L149.8 233.9 L146.9 233.9 L145.3 233.5 L144.9 232.9 L143.5 233.2 L142.1 232.8 L142.4 230.0 L142.9 229.6 L142.3 228.2 L143.1 226.8 L142.6 226.3 L143.2 225.8 L143.4 223.8 L142.6 223.2 L143.1 222.6 L142.3 222.4 L143.0 221.8 L142.6 221.4 L142.1 221.7 L142.0 219.6 L141.4 219.0 L141.3 218.1 L140.8 218.1 L140.7 217.4 L143.1 215.9 L141.0 214.1 L143.7 208.3 L144.3 208.2 L143.8 207.3 L145.4 202.0 L145.9 201.8 L144.2 198.7 L143.6 196.3 L142.9 195.7 L142.0 196.2 L141.1 195.7 L138.9 193.5 L138.4 189.7 L139.4 188.0 L139.5 186.3 L138.7 186.6 L125.2 186.2 L124.6 179.9 L122.1 176.9 L124.6 176.7 L124.4 173.2 L122.7 169.6 L123.4 168.1 L122.7 166.5 L118.5 164.1 L112.2 164.5 L110.1 162.2 L110.0 161.4 L107.8 161.1 L105.9 160.0 L104.9 160.2 L104.0 158.9 L103.2 158.8 L102.1 157.2 L101.4 157.6 L100.4 157.4 L97.5 155.6 L96.4 155.7 L95.8 156.3 L93.7 155.8 L93.2 156.1 L91.6 155.0 L91.5 153.9 L89.6 153.3 L89.4 152.8 L89.0 153.1 L89.0 152.2 L87.5 152.1 L87.1 149.8 L86.3 150.1 L85.7 149.7 L86.1 148.3 L85.3 148.1 L84.9 146.1 L84.9 145.2 L85.7 143.9 L84.9 142.5 L85.0 141.5 L84.5 141.0 L84.4 139.9 L85.5 137.8 L85.1 135.7 L85.5 134.9 L84.6 133.6 L83.4 134.9 L80.6 134.2 L75.2 135.3 L72.1 138.2 L70.9 138.8 L69.8 138.7 L67.7 140.1 L66.7 141.8 L65.5 141.2 L64.0 141.5 L62.6 143.7 L60.2 145.0 L58.9 145.3 L58.2 144.1 L53.4 143.6 L51.0 143.9 L49.4 143.5 L46.5 144.7 L44.8 143.6 L44.1 144.1 L44.1 134.7 L44.8 134.2 L44.3 132.6 L44.8 131.6 L41.2 134.6 L39.9 135.1 L39.5 135.8 L31.9 136.1 L32.1 134.5 L31.3 134.1 L31.1 132.5 L27.5 131.4 L24.0 131.4 L26.0 129.1 L26.0 128.0 L24.7 125.8 L23.4 125.1 L23.3 124.0 L21.5 122.9 L20.8 120.3 L19.7 119.3 L20.3 118.9 L20.3 118.3 L18.0 116.4 Z"/>
+        <path class="state-matriz" d="M104.3 119.9 L105.6 120.9 L105.7 121.5 L106.6 122.4 L106.9 123.2 L107.4 122.8 L108.2 123.2 L108.3 124.9 L108.8 125.2 L108.9 124.7 L109.5 124.8 L110.0 126.5 L110.7 126.5 L111.1 127.1 L111.7 127.1 L112.1 126.9 L112.3 126.0 L112.7 126.1 L113.2 125.6 L114.7 126.7 L115.1 127.4 L114.4 128.8 L114.7 130.0 L113.8 130.3 L113.9 131.0 L114.5 131.2 L114.3 131.9 L115.0 133.1 L114.3 133.8 L114.6 134.0 L114.8 135.1 L114.1 137.4 L115.2 139.5 L115.1 142.5 L114.8 142.5 L114.5 144.0 L122.9 144.0 L123.8 145.0 L124.2 144.6 L125.0 145.0 L126.7 145.1 L127.1 147.3 L125.6 148.8 L125.7 150.8 L126.6 151.4 L127.3 154.1 L128.3 154.8 L127.6 155.9 L127.0 156.0 L126.0 157.0 L125.9 159.1 L124.3 160.7 L124.4 161.2 L123.7 162.5 L123.5 163.7 L121.6 164.7 L121.0 165.6 L119.7 165.0 L119.3 164.4 L118.7 164.5 L118.6 164.0 L117.2 164.4 L116.4 163.9 L115.1 164.5 L114.3 164.0 L112.2 164.5 L111.8 163.5 L110.1 162.2 L110.1 161.4 L109.7 161.0 L109.5 161.3 L109.3 161.0 L108.9 161.3 L107.8 161.1 L107.5 160.6 L106.2 160.4 L105.9 159.8 L104.9 160.2 L104.1 159.0 L103.2 158.8 L102.6 157.9 L102.8 157.6 L102.0 157.0 L101.4 157.6 L100.9 157.5 L99.8 156.9 L99.9 156.6 L97.1 155.5 L96.4 155.7 L95.8 156.3 L94.4 155.9 L94.2 156.2 L94.1 155.8 L93.7 155.7 L93.3 156.1 L93.2 155.8 L92.2 155.6 L91.5 154.9 L91.5 153.9 L90.0 153.6 L89.9 152.8 L89.7 153.4 L89.4 152.8 L89.0 153.1 L89.0 152.2 L87.5 152.1 L87.6 151.3 L87.2 151.0 L87.0 149.8 L86.3 149.9 L86.3 150.1 L85.7 149.7 L86.1 148.4 L85.3 148.0 L85.1 146.9 L85.4 146.7 L85.0 146.5 L84.9 145.9 L85.2 145.7 L84.9 145.3 L85.5 144.8 L85.4 144.4 L85.8 144.0 L85.6 143.1 L84.9 142.5 L85.0 141.6 L84.5 141.0 L84.4 139.9 L85.5 137.9 L85.1 135.7 L85.5 134.9 L84.9 133.8 L84.2 133.5 L83.4 134.9 L82.5 134.4 L82.2 134.6 L82.4 134.1 L81.9 134.4 L81.8 134.0 L81.5 134.4 L81.5 134.2 L81.0 134.5 L80.8 134.1 L80.1 134.6 L78.8 134.4 L76.6 135.3 L76.6 135.0 L75.4 135.3 L73.7 134.6 L73.9 134.1 L76.1 133.2 L76.9 132.1 L76.8 131.4 L80.2 131.4 L81.6 132.8 L83.1 131.4 L84.3 131.8 L84.2 130.6 L84.7 130.8 L85.8 130.2 L86.3 131.5 L87.0 131.6 L88.2 130.2 L88.4 128.4 L89.0 128.1 L90.7 128.2 L93.0 127.5 L93.1 128.1 L94.4 127.7 L94.4 126.1 L95.3 125.8 L95.6 124.8 L95.9 125.0 L96.1 124.6 L95.7 124.0 L95.9 122.8 L96.5 122.4 L97.2 122.7 L98.4 119.9 L104.3 119.9 Z"/>
+        <path class="state-hl" d="M216.8 97.5 L218.2 98.2 L220.5 98.2 L220.8 99.1 L223.0 99.8 L223.6 100.6 L223.5 102.0 L224.0 103.1 L224.0 105.0 L224.4 106.3 L223.5 109.5 L223.3 111.9 L222.3 113.3 L221.9 113.2 L221.5 113.6 L222.3 114.5 L223.1 114.2 L223.6 114.7 L223.5 115.1 L222.8 115.6 L223.4 115.6 L223.7 116.4 L224.0 116.3 L224.4 117.3 L224.6 117.0 L224.9 117.4 L224.9 118.0 L225.4 118.2 L225.4 118.6 L227.0 120.5 L227.4 120.6 L228.3 119.8 L230.3 119.3 L231.4 120.2 L231.2 122.3 L230.9 122.7 L228.8 123.3 L228.5 124.4 L228.0 124.8 L228.0 126.9 L227.4 127.1 L227.6 127.4 L226.8 128.6 L227.9 128.6 L227.9 129.1 L228.7 129.7 L228.5 130.4 L229.2 131.4 L229.9 131.2 L230.1 131.8 L230.8 132.0 L230.9 132.6 L230.5 132.8 L230.1 134.0 L230.6 134.2 L230.6 134.5 L231.2 134.5 L231.6 136.5 L232.3 137.4 L233.5 137.5 L233.8 137.8 L234.9 137.5 L235.1 138.2 L236.7 138.2 L237.4 137.4 L237.5 138.2 L237.1 138.9 L236.4 139.0 L236.4 139.6 L234.6 140.9 L233.5 141.3 L233.6 141.9 L233.2 142.2 L232.9 143.3 L232.0 144.1 L231.4 145.6 L230.3 146.4 L231.4 148.2 L234.4 149.1 L233.9 149.3 L232.7 149.1 L232.8 149.6 L232.2 150.1 L232.6 150.3 L232.2 151.0 L233.8 151.3 L232.6 151.8 L232.0 152.4 L232.2 154.4 L232.6 154.5 L232.4 154.8 L233.1 155.5 L233.1 156.0 L233.9 156.0 L233.9 156.3 L232.9 156.8 L233.1 158.7 L232.7 159.7 L234.2 159.4 L232.3 160.0 L232.3 159.0 L231.9 158.7 L231.6 159.9 L229.3 159.8 L227.5 161.1 L226.2 161.8 L225.6 161.6 L225.2 162.2 L224.4 161.9 L224.0 162.4 L223.6 161.6 L223.0 161.6 L223.0 161.1 L222.4 160.9 L222.2 161.8 L222.5 163.0 L222.1 163.8 L221.0 162.6 L219.9 162.6 L219.1 162.0 L218.9 162.4 L218.3 162.5 L218.5 161.3 L216.2 162.4 L215.6 161.1 L215.0 162.6 L214.9 160.6 L213.9 160.0 L213.9 159.5 L212.9 158.5 L212.0 159.7 L211.2 159.3 L210.9 158.4 L210.0 159.2 L209.1 160.9 L209.0 162.3 L204.8 159.8 L201.8 158.8 L201.7 157.5 L202.6 156.6 L202.4 156.0 L203.0 155.3 L201.2 156.5 L200.4 157.8 L200.1 159.0 L199.5 158.5 L199.2 158.6 L199.1 157.3 L198.6 157.0 L199.3 155.5 L199.1 153.9 L198.7 153.7 L199.1 151.2 L198.5 150.0 L199.0 148.8 L198.5 148.7 L198.3 147.8 L199.3 144.6 L199.3 142.8 L199.6 142.1 L199.4 141.4 L200.8 138.9 L201.0 137.2 L201.7 136.4 L203.2 132.9 L203.8 130.4 L204.8 129.5 L206.1 127.4 L207.2 126.8 L208.7 124.7 L208.9 123.7 L209.7 123.0 L210.7 118.6 L209.3 117.5 L208.9 116.5 L210.4 114.0 L210.2 111.5 L211.7 110.4 L214.3 109.5 L214.6 108.2 L215.6 107.0 L216.6 107.1 L216.2 105.5 L217.2 105.1 L217.0 104.2 L217.8 103.6 L217.3 102.1 L218.2 101.8 L218.6 101.1 L217.3 100.3 L216.6 99.3 L215.0 99.5 L213.7 98.9 L214.3 98.6 L214.9 98.8 L215.5 97.7 L216.8 97.5 Z"/>
+        <path class="state-hl" d="M165.6 35.5 L167.1 38.5 L166.7 39.7 L167.2 40.4 L167.3 42.0 L170.6 42.2 L171.6 43.2 L171.9 43.0 L172.4 44.2 L173.0 44.0 L174.2 45.0 L174.6 44.8 L175.1 45.1 L175.2 44.7 L175.6 45.2 L175.8 44.9 L175.8 45.5 L176.6 45.4 L176.6 46.5 L177.5 46.2 L177.7 46.9 L177.2 47.1 L177.6 48.7 L180.0 50.7 L179.5 53.2 L181.3 57.3 L181.9 57.3 L183.2 58.6 L183.1 59.8 L183.6 60.8 L184.5 60.9 L184.7 62.0 L184.4 63.0 L185.0 62.8 L185.4 63.2 L185.2 64.6 L186.0 65.1 L187.6 65.3 L187.8 66.0 L188.1 66.0 L188.1 65.6 L188.6 65.5 L188.7 65.1 L188.9 65.5 L189.1 65.2 L190.0 65.4 L190.9 64.6 L191.2 62.2 L194.6 57.1 L195.7 56.8 L196.8 55.6 L198.8 54.7 L199.8 53.7 L200.7 51.4 L201.4 50.8 L202.9 50.5 L203.3 50.5 L203.8 51.6 L203.6 53.4 L206.1 53.6 L206.6 53.2 L208.8 56.0 L212.4 58.0 L216.4 58.2 L216.6 59.1 L215.9 60.1 L219.6 61.5 L219.6 61.8 L220.4 60.6 L220.8 60.8 L220.6 61.6 L220.8 61.6 L221.1 60.6 L221.4 61.3 L221.4 60.7 L221.9 60.4 L221.9 60.9 L222.4 61.0 L222.5 61.8 L222.9 60.8 L223.3 61.2 L224.1 60.9 L224.2 61.4 L224.8 60.9 L225.1 61.3 L225.7 61.2 L225.5 61.8 L226.1 61.5 L226.0 62.1 L226.0 62.4 L226.7 61.4 L226.9 62.6 L227.0 62.0 L227.7 61.9 L227.5 62.4 L227.9 62.5 L227.8 63.2 L228.5 62.0 L228.7 63.4 L229.2 62.7 L229.3 63.5 L229.5 62.8 L229.9 63.0 L229.8 62.6 L230.2 62.5 L230.4 62.9 L230.1 63.1 L230.2 63.6 L229.8 63.8 L229.9 64.0 L230.6 64.0 L230.8 63.4 L230.9 64.0 L231.1 63.2 L231.8 63.0 L231.2 63.9 L231.5 64.0 L231.3 64.1 L231.5 64.6 L231.9 64.3 L231.9 64.5 L231.8 64.6 L231.8 64.7 L232.0 64.5 L231.9 64.3 L231.8 64.2 L232.1 64.0 L232.2 64.6 L232.4 64.1 L232.4 64.7 L232.7 64.8 L232.6 64.3 L232.8 64.6 L232.9 64.5 L233.0 63.5 L233.5 63.2 L233.7 63.6 L233.1 64.1 L233.4 64.0 L233.5 64.6 L233.1 65.1 L233.0 65.5 L233.8 64.1 L233.5 65.2 L233.8 65.4 L233.8 64.8 L234.0 65.2 L233.9 64.7 L234.5 64.3 L234.3 65.7 L233.9 66.3 L234.4 66.8 L233.8 67.9 L233.9 69.6 L232.6 70.3 L233.5 70.8 L233.0 73.4 L232.2 74.2 L231.8 74.1 L231.5 75.1 L231.9 75.1 L231.9 76.4 L231.3 76.4 L231.2 77.1 L230.0 77.7 L230.6 78.9 L229.8 79.2 L230.1 79.8 L229.9 80.9 L229.3 81.1 L229.5 81.4 L229.1 81.6 L228.8 82.6 L227.8 83.2 L227.8 83.9 L227.1 84.6 L226.7 87.0 L225.9 88.0 L224.9 88.5 L224.5 90.1 L223.7 90.6 L222.6 92.6 L222.1 93.0 L221.2 92.8 L213.7 98.9 L215.0 99.5 L216.6 99.3 L217.3 100.3 L218.5 100.9 L218.2 101.8 L217.3 102.1 L217.8 103.7 L217.0 104.2 L217.2 105.1 L216.2 105.5 L216.6 107.1 L215.7 106.9 L214.8 107.7 L214.4 109.4 L213.6 110.0 L211.7 110.4 L210.2 111.5 L210.4 114.0 L208.9 116.5 L209.3 117.5 L210.7 118.6 L210.2 121.5 L209.6 123.1 L208.9 123.7 L208.7 124.7 L207.2 126.8 L206.1 127.4 L204.8 129.5 L203.8 130.4 L203.4 132.5 L202.3 134.8 L152.3 131.0 L151.6 131.3 L151.2 130.1 L149.8 130.0 L149.3 129.6 L149.5 128.9 L148.2 127.5 L146.8 127.1 L146.5 126.4 L145.2 126.2 L144.4 123.4 L144.8 121.8 L143.3 119.9 L142.8 117.5 L141.5 115.3 L140.7 114.6 L140.6 113.6 L138.4 110.8 L138.4 109.5 L140.0 107.8 L154.4 75.8 L153.9 75.5 L154.5 74.3 L155.8 73.7 L156.8 72.4 L155.8 72.6 L154.3 73.5 L153.4 73.3 L152.3 73.8 L151.6 73.5 L151.8 72.3 L150.9 72.3 L149.5 71.4 L149.3 70.6 L148.5 70.3 L148.5 69.9 L146.7 69.9 L146.6 69.5 L145.7 69.4 L145.1 68.7 L144.5 68.9 L144.2 68.2 L143.7 68.2 L143.4 67.7 L142.3 67.4 L142.0 66.8 L142.2 65.4 L141.9 65.0 L140.8 66.0 L138.7 64.4 L138.6 63.2 L136.5 61.6 L136.4 59.7 L135.2 58.9 L135.1 46.3 L135.6 46.8 L136.3 46.6 L136.6 45.8 L138.2 46.0 L138.5 45.2 L138.1 44.5 L139.0 44.4 L139.0 43.9 L139.5 43.4 L140.8 43.7 L141.0 44.2 L142.0 44.1 L142.1 42.9 L143.2 42.8 L143.8 42.3 L145.5 42.6 L146.4 41.5 L146.4 40.9 L147.4 40.2 L148.0 40.7 L149.1 39.9 L149.7 40.8 L150.4 40.7 L151.3 41.3 L151.9 40.8 L152.7 40.6 L153.0 40.9 L154.0 40.5 L157.7 41.5 L158.3 41.1 L158.0 40.3 L158.3 39.8 L157.1 38.7 L157.2 38.3 L156.5 38.0 L156.8 37.2 L157.4 37.4 L157.7 35.9 L159.7 36.9 L161.4 36.6 L162.3 36.8 L162.8 36.0 L165.6 35.5 Z"/>
+        <path class="state-hl" d="M144.4 123.4 L145.2 126.2 L146.5 126.4 L146.8 127.1 L148.3 127.6 L149.5 128.9 L149.3 129.6 L149.8 130.0 L151.2 130.1 L151.7 131.4 L152.3 131.0 L202.3 134.8 L201.0 137.2 L200.8 138.9 L199.4 141.4 L199.6 142.1 L199.3 142.8 L199.3 144.6 L198.3 147.6 L198.3 148.4 L199.0 148.8 L198.5 150.0 L199.1 151.2 L198.7 153.7 L199.1 153.9 L199.3 155.5 L198.6 157.0 L199.1 157.3 L199.2 158.6 L199.5 158.5 L200.2 159.1 L199.3 160.6 L199.4 162.6 L198.2 164.3 L197.8 165.6 L197.3 165.9 L197.6 168.8 L197.0 169.0 L196.5 170.4 L196.3 171.4 L196.6 172.3 L195.7 175.4 L194.4 176.4 L193.7 175.9 L192.2 176.6 L191.3 177.5 L190.9 180.0 L190.7 180.5 L190.3 180.4 L190.4 181.2 L189.5 182.7 L189.0 182.6 L188.5 183.2 L186.6 183.2 L186.0 184.6 L184.5 185.2 L184.3 186.2 L183.3 186.5 L183.2 187.2 L183.9 187.8 L183.6 188.5 L182.8 188.8 L183.0 189.2 L182.8 189.1 L182.5 190.0 L181.3 190.5 L181.2 190.9 L180.7 190.9 L180.4 192.6 L179.1 194.5 L178.9 197.6 L179.5 198.2 L180.2 200.3 L177.4 199.9 L177.0 200.4 L176.0 199.9 L174.8 200.1 L174.1 199.4 L173.4 199.4 L174.2 197.7 L175.3 197.4 L175.3 193.9 L173.4 195.7 L172.8 196.0 L172.4 197.0 L171.7 196.9 L170.4 197.4 L169.3 196.0 L168.5 195.8 L167.2 196.3 L166.4 197.1 L164.3 197.3 L163.0 196.4 L161.2 195.9 L160.3 194.8 L158.0 194.3 L157.2 193.4 L156.6 193.4 L154.1 194.7 L153.6 194.4 L152.5 194.8 L151.8 194.5 L151.1 195.2 L150.7 196.3 L149.9 196.7 L150.1 196.9 L149.4 197.9 L146.8 198.7 L146.3 199.3 L144.5 197.8 L144.1 196.3 L143.9 196.6 L142.9 195.7 L142.0 196.2 L141.7 196.0 L140.8 195.1 L140.0 194.9 L138.9 193.5 L138.7 192.0 L138.3 191.5 L138.4 189.7 L138.6 188.8 L139.4 188.0 L139.5 186.2 L139.0 186.2 L138.7 186.6 L125.2 186.2 L124.6 179.9 L122.1 176.9 L124.6 176.8 L124.4 173.0 L124.0 172.9 L122.7 169.6 L122.8 168.9 L123.5 168.0 L122.7 166.9 L122.9 166.4 L120.9 165.6 L121.6 164.7 L123.5 163.7 L123.7 162.5 L124.4 161.2 L124.3 160.7 L125.9 159.1 L126.0 157.0 L127.0 156.0 L127.6 155.9 L128.3 154.8 L127.3 154.1 L126.6 151.4 L125.7 150.8 L125.6 148.8 L127.1 147.4 L127.1 146.8 L126.6 146.0 L126.6 145.0 L125.0 145.0 L124.2 144.6 L123.8 145.0 L122.9 144.0 L114.5 144.0 L114.8 142.5 L115.1 142.5 L115.2 139.5 L114.1 137.4 L114.8 135.1 L114.6 134.0 L114.3 133.8 L115.0 133.1 L114.3 131.9 L114.5 131.2 L113.9 131.0 L113.8 130.3 L114.7 130.0 L114.4 128.8 L115.1 127.4 L114.2 126.5 L138.8 126.4 L139.5 125.9 L138.6 125.7 L139.0 124.9 L138.8 124.0 L139.6 122.7 L139.8 121.1 L139.0 118.9 L140.4 117.1 L140.4 115.8 L140.9 114.9 L142.2 116.4 L143.3 119.9 L144.8 121.8 L144.4 123.4 Z"/>
+        <text class="uf-tag matriz" x="104.4" y="146.4">RO</text>
+        <text class="uf-tag ativo" x="180.3" y="91.9">PA</text>
+        <text class="uf-tag ativo" x="158.2" y="163.7">MT</text>
+        <g id="mapPins"></g>
+      </svg>
+      <div class="legend">
+        <span><b class="matriz"></b> Matriz — Jaru/RO</span>
+        <span><b></b> Unidade autorizada</span>
+        <span><b class="area"></b> Estado com atuação</span>
+      </div>
+      <p class="map-hint">Toque em um ponto para ver os dados da unidade</p>
+    </div>
+  </div>
+</section>
+
+<section class="carbon" id="unidades">
+  <div class="wrap">
+    <span class="eyebrow">A rede</span>
+    <h2 class="sec">Matriz e <em>autorizadas</em></h2>
+    <div class="unit-groups" id="unitGroups"></div>
+  </div>
+</section>
+
+<footer>
+  <a class="brandmark" href="https://strike-details-sigma.vercel.app/ebook">
+    <img src="logo-strike-branco.png" alt="Strike Details Estética Automotiva">
+  </a>
+  <p>Av. Rio Branco, nº 1500, Centro, Jaru/RO</p>
+  <p><a href="https://wa.me/5569993615454" target="_blank" rel="noopener">WhatsApp (69) 99361-5454</a> · <a href="https://instagram.com/strikedetaills" target="_blank" rel="noopener">@strikedetaills</a></p>
+  <p class="f-copy">© 2026 Strike Estética Automotiva · Todos os direitos reservados</p>
+</footer>
+
+<script>
+/* polyfill de compatibilidade — navegadores/webviews muito antigos podem não ter NodeList.forEach */
+if (window.NodeList && !NodeList.prototype.forEach) {
+  NodeList.prototype.forEach = Array.prototype.forEach;
+}
+
+/* ====================================================================
+   DADOS DA REDE — editar somente aqui
+   cx/cy: posição real no mapa (projeção equirretangular, viewBox 0 0 340 340)
+   ==================================================================== */
+const UNITS = [
+  {
+    matriz:true,
+    name:"Strike Details — Matriz",
+    city:"Jaru", uf:"RO",
+    phone:"5569993615454", phoneLabel:"(69) 99361-5454",
+    cx:107.4, cy:139.6
+  },
+  {
+    matriz:false,
+    name:"Camelo Estética Automotiva",
+    city:"Santa Rosa do Tocantins", uf:"TO",
+    phone:"5563992484627", phoneLabel:"(63) 9 9248-4627",
+    cx:219.1, cy:148.1
+  },
+  {
+    matriz:false,
+    name:"DL Detailer Estética Automotiva",
+    city:"Floresta do Araguaia", uf:"PA",
+    phone:"5594984047836", phoneLabel:"(94) 98404-7836",
+    cx:206.3, cy:116.5
+  },
+  {
+    matriz:false,
+    name:"StopCar Estética Automotiva",
+    city:"Bom Jesus do Araguaia", uf:"MT",
+    phone:"5566984329394", phoneLabel:"(66) 98432-9394",
+    cx:192.4, cy:153.5
+  },
+];
+
+function waLink(u){
+  var msg = u.matriz
+    ? "Olá! Vim pelo mapa da rede e quero falar com a Strike Details."
+    : "Olá! Vim pelo mapa da rede Strike e quero falar com a " + u.name + ".";
+  return "https://wa.me/" + u.phone + "?text=" + encodeURIComponent(msg);
+}
+
+const pinsG = document.getElementById('mapPins');
+const groupsEl = document.getElementById('unitGroups');
+
+const STATE_NAMES = { RO:"Rondônia", TO:"Tocantins", PA:"Pará", MT:"Mato Grosso" };
+
+function buildPins(){
+  pinsG.innerHTML = UNITS.map(function(u, i){
+    const cls = u.matriz ? 'pin-matriz' : 'pin';
+    const pulseColor = u.matriz ? 'var(--matriz)' : 'var(--green)';
+    const pulseCls = u.matriz ? 'pulse matriz' : 'pulse';
+    const r = u.matriz ? 4.6 : 3.6;
+    const lx = u.cx + r + 3;
+    const ly = u.cy + 2.8;
+    return '<circle class="'+pulseCls+'" cx="'+u.cx+'" cy="'+u.cy+'" r="3.2" fill="'+pulseColor+'"></circle>' +
+           '<circle class="'+cls+'" id="pin-'+i+'" data-idx="'+i+'" cx="'+u.cx+'" cy="'+u.cy+'" r="'+r+'"><title>'+u.name+' — '+u.city+'/'+u.uf+'</title></circle>' +
+           '<text class="pin-label" x="'+lx+'" y="'+ly+'" text-anchor="start">'+u.uf+'</text>';
+  }).join('');
+
+  pinsG.querySelectorAll('[data-idx]').forEach(function(el){
+    el.addEventListener('click', function(){
+      const card = document.getElementById('card-' + el.getAttribute('data-idx'));
+      if (card){
+        card.scrollIntoView({behavior:'smooth', block:'center'});
+        card.classList.add('flash');
+        setTimeout(function(){ card.classList.remove('flash'); }, 1400);
+      }
+    });
+  });
+}
+
+function buildGroups(){
+  const ufs = [];
+  UNITS.forEach(function(u){ if (ufs.indexOf(u.uf) === -1) ufs.push(u.uf); });
+
+  groupsEl.innerHTML = ufs.map(function(uf){
+    const unitsInState = UNITS.filter(function(u){ return u.uf === uf; });
+    const hasMatriz = unitsInState.some(function(u){ return u.matriz; });
+    const stateName = STATE_NAMES[uf] || uf;
+
+    const cardsHtml = unitsInState.map(function(u){
+      const i = UNITS.indexOf(u);
+      return '<div class="unit-card'+(u.matriz?' matriz':'')+'" id="card-'+i+'">' +
+        '<div>' +
+        '<span class="tag '+(u.matriz?'matriz':'autorizada')+'">'+(u.matriz?'Matriz':'Autorizada')+'</span>' +
+        '<h3>'+u.name+'</h3>' +
+        '<div class="loc">'+u.city+' / '+u.uf+'</div>' +
+        '<div class="tel">'+u.phoneLabel+'</div>' +
+        '</div>' +
+        '<a class="card-link" href="'+waLink(u)+'" target="_blank" rel="noopener">WhatsApp</a>' +
+        '</div>';
+    }).join('');
+
+    return '<div class="state-group">' +
+      '<div class="state-heading'+(hasMatriz?' matriz':'')+'">' + stateName + '</div>' +
+      '<div class="unit-grid">' + cardsHtml + '</div>' +
+      '</div>';
+  }).join('');
+}
+
+buildPins();
+buildGroups();
+
+const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const items = document.querySelectorAll('.rv');
+if (reduce) {
+  items.forEach(function(i){ i.classList.add('in'); });
+} else {
+  const io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, {threshold: .12});
+  items.forEach(function(i){ io.observe(i); });
+}
+</script>
+</body>
+</html>
