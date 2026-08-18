@@ -71,6 +71,7 @@
   --f-tech:'Ethnocentric','Michroma','Barlow Condensed',sans-serif; /* subtítulos de apontamento */
   --f-cond:'Barlow Condensed','Inter',sans-serif;                   /* botões, números, labels */
   --num-stroke:.35px;   /* reforço de peso dos números — 0 desliga, .6px engrossa mais */
+  --btn-stroke:.3px;    /* reforço de peso do CTA — zere se instalar o corte Bold real */
 
   --ink:#0a0b0a;
   --panel:#111311;
@@ -202,6 +203,24 @@ h2.sec em{color:var(--green);font-style:normal}
   background:transparent;color:var(--txt);border:1px solid var(--line);
   box-shadow:none;font-size:.95rem;min-height:48px;
 }
+
+/* ---------- CTA "QUERO SER UM AUTORIZADO" — Ethnocentric Bold ----------
+   Usa o corte Bold real se fonts/ethnocentric-bold.woff2 existir.
+   Sem ele: negrito sintético + reforço de traço via --btn-stroke.      */
+.btn--tech{
+  font-family:var(--f-tech);
+  font-weight:700;
+  font-size:.7rem;
+  letter-spacing:.4px;
+  line-height:1.35;
+  -webkit-text-stroke:var(--btn-stroke) currentColor;
+  paint-order:stroke fill;
+}
+@media (min-width:820px){
+  .btn--tech{font-size:.76rem}
+}
+/* barra fixa: espaço bem menor, corpo reduzido pra não quebrar linha */
+.sticky .btn--tech{font-size:.58rem;letter-spacing:.2px;padding:.7rem .9rem}
 
 /* ---------- HERO ---------- */
 .hero{padding-top:2.2rem;padding-bottom:2.4rem;overflow:hidden}
@@ -594,7 +613,7 @@ footer a{color:var(--green)}
       <span class="badge">Programa de Certificação Strike Estética automotiva</span>
       <h1>Torne-se um <span class="g">Aplicador Autorizado</span> do Método Cabine Blindada.</h1>
       <p class="sub">Milhares de Stradas, o mesmo problema, e a solução completa em suas mãos</p>
-      <a href="#autorizacao" class="btn js-checkout">Quero ser um autorizado</a>
+      <a href="#autorizacao" class="btn btn--tech js-checkout">Quero ser um autorizado</a>
       <p class="micro">Acesso imediato · Compra segura Hotmart</p>
 
       <div class="pillars">
@@ -844,7 +863,7 @@ footer a{color:var(--green)}
         <span class="lbl">Investimento</span>
         <div class="val"><small>R$</small>1.428<small>,00</small></div>
         <div class="inst">ou 12x R$ 146,86</div>
-        <a href="https://pay.hotmart.com/H107178699F" class="btn js-checkout">Quero ser um autorizado</a>
+        <a href="https://pay.hotmart.com/H107178699F" class="btn btn--tech js-checkout">Quero ser um autorizado</a>
         <div class="trust">
           <span>Compra 100% segura</span>
           <span>Acesso imediato</span>
@@ -876,7 +895,7 @@ footer a{color:var(--green)}
     <b>R$ 1.428,00</b>
     <span>ou 12x R$ 147,69 · Programa de Autorização</span>
   </div>
-  <a href="https://pay.hotmart.com/H107178699F" class="btn js-checkout">Quero ser um autorizado</a>
+  <a href="https://pay.hotmart.com/H107178699F" class="btn btn--tech js-checkout">Quero ser um autorizado</a>
 </div>
 
 <script>
