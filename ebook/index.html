@@ -219,8 +219,6 @@ h2.sec em{color:var(--green);font-style:normal}
 @media (min-width:820px){
   .btn--tech{font-size:.76rem}
 }
-/* barra fixa: espaço bem menor, corpo reduzido pra não quebrar linha */
-.sticky .btn--tech{font-size:.58rem;letter-spacing:.2px;padding:.7rem .9rem}
 
 /* ---------- HERO ---------- */
 .hero{padding-top:2.2rem;padding-bottom:2.4rem;overflow:hidden}
@@ -537,10 +535,29 @@ footer a{color:var(--green)}
   transform:translateY(105%);transition:transform .3s ease;
 }
 .sticky.on{transform:translateY(0)}
-.sticky .info{flex:1;min-width:0}
-.sticky .info b{display:block;font-family:'Barlow Condensed',sans-serif;font-size:1.25rem;color:var(--txt);line-height:1}
-.sticky .info span{font-size:.66rem;color:var(--txt-2);letter-spacing:.5px}
-.sticky .btn{width:auto;flex:none;min-height:48px;font-size:.92rem;padding:.7rem 1rem}
+.sticky .info{flex:1 1 auto;min-width:0}
+.sticky .info b{display:block;font-family:'Barlow Condensed',sans-serif;font-size:1.2rem;color:var(--txt);line-height:1.05}
+.sticky .info span{display:block;font-size:.62rem;line-height:1.25;color:var(--txt-2);letter-spacing:.3px}
+.sticky .btn{width:auto;flex:0 1 auto;min-height:48px;font-size:.92rem;padding:.7rem 1rem}
+
+/* CTA da barra fixa: largura travada em 50% e texto livre pra quebrar em
+   2 linhas. Precisa vir DEPOIS de `.sticky .btn` — mesma especificidade,
+   quem ganha é a ordem no arquivo.                                      */
+.sticky .btn--tech{
+  flex:0 1 auto;
+  max-width:50%;
+  font-size:.62rem;
+  letter-spacing:.2px;
+  line-height:1.22;
+  padding:.6rem .7rem;
+  white-space:normal;
+}
+@media (max-width:360px){
+  .sticky{gap:.55rem;padding-left:.9rem;padding-right:.9rem}
+  .sticky .info b{font-size:1.05rem}
+  .sticky .info span{font-size:.58rem}
+  .sticky .btn--tech{font-size:.56rem;max-width:47%;padding:.6rem .55rem}
+}
 
 /* ---------- REVEAL ---------- */
 .mob-only{display:block}
