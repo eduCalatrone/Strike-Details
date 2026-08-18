@@ -593,6 +593,23 @@ footer a{color:var(--green)}
 .rv{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease}
 .rv.in{opacity:1;transform:none}
 
+/* ---------- CARROSSÉIS: SOMENTE HORIZONTAL ----------
+   1) Ao definir overflow-x:auto, o overflow-y vira 'auto' sozinho
+      (regra do CSS: se um eixo não é 'visible', o outro deixa de ser).
+      O container virava um scroller vertical de alguns pixels.
+   2) O reveal .rv aplica translateY(18px) nos filhos ANTES de entrar,
+      e era justamente isso que sobrava para rolar na vertical.
+   Solução: travar o eixo Y e revelar só com opacidade dentro deles.  */
+.pillars,
+.kit,
+.journey{
+  overflow-y:hidden;
+  scroll-padding-left:var(--pad);
+}
+.pillars > .rv,
+.kit > .rv,
+.journey > .rv{transform:none}
+
 @media (prefers-reduced-motion:reduce){
   *{animation:none!important;transition:none!important}
   .rv{opacity:1;transform:none}
