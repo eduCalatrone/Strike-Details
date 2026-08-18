@@ -9,7 +9,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Inter:wght@400;500;600;700&family=Michroma&display=swap" rel="stylesheet">
 
 <style>
 :root{
@@ -26,7 +26,21 @@
   --matriz:#ffffff;
   --radius:14px;
   --pad:1.15rem;
+  /* Títulos principais: usa a Eurostile Extended se instalada/hospedada;
+     senão cai na Michroma (Google Fonts), que tem o mesmo desenho quadrado e largo. */
+  --font-title:'Eurostile Extended','Eurostile Ext','EurostileExtended','Eurostile Extended #2','Michroma','Barlow Condensed',sans-serif;
 }
+
+/* Para usar a Eurostile Extended REAL, hospede os arquivos ao lado do index.html
+   e descomente o bloco abaixo (a fonte é licenciada — Linotype/Monotype).
+@font-face{
+  font-family:'Eurostile Extended';
+  src:url('fonts/eurostile-extended.woff2') format('woff2'),
+      url('fonts/eurostile-extended.woff') format('woff');
+  font-weight:400 800;
+  font-display:swap;
+}
+*/
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html{scroll-behavior:smooth}
 section[id]{scroll-margin-top:74px}
@@ -38,8 +52,10 @@ body{
 img{max-width:100%;display:block}
 a{color:inherit;text-decoration:none}
 h1,h2,.dsp{
-  font-family:'Barlow Condensed','Inter',sans-serif;text-transform:uppercase;
-  font-weight:800;line-height:1.03;letter-spacing:.4px;
+  font-family:var(--font-title);text-transform:uppercase;
+  font-weight:800;line-height:1.22;letter-spacing:-.2px;
+  -webkit-text-stroke:.3px currentColor;
+  word-break:break-word;
 }
 .carbon{
   background-color:#0c0d0c;
@@ -59,7 +75,7 @@ section{padding:2.8rem var(--pad);position:relative}
   color:var(--green);margin-bottom:.9rem;
 }
 .eyebrow::before{content:"";width:22px;height:1px;background:var(--green);opacity:.7}
-h2.sec{font-size:1.85rem;margin-bottom:.6rem}
+h2.sec{font-size:1.22rem;margin-bottom:.7rem}
 h2.sec em{color:var(--green);font-style:normal}
 .lead{color:var(--txt-2);font-size:.95rem;max-width:56ch}
 
@@ -88,7 +104,7 @@ h2.sec em{color:var(--green);font-style:normal}
   color:var(--green);border:1px solid rgba(63,138,92,.4);background:var(--green-dim);
   padding:.35rem .7rem;border-radius:100px;margin-bottom:1.1rem;
 }
-.hero h1{font-size:2rem;margin-bottom:.7rem}
+.hero h1{font-size:1.36rem;margin-bottom:.7rem}
 .hero h1 .g{color:var(--green);display:block}
 .hero p.sub{color:var(--txt-2);font-size:.98rem;max-width:52ch}
 
@@ -174,8 +190,8 @@ footer a{color:var(--green)}
 @media (min-width:820px){
   :root{--pad:2rem}
   section{padding:4rem var(--pad)}
-  h2.sec{font-size:2.3rem}
-  .hero h1{font-size:2.9rem}
+  h2.sec{font-size:1.65rem}
+  .hero h1{font-size:2.05rem}
   .hero p.sub{font-size:1.05rem}
   .brandmark img{height:32px}
   .map-card svg{max-width:520px}
@@ -214,6 +230,7 @@ footer a{color:var(--green)}
         <text class="uf-tag matriz" x="104.4" y="146.4">RO</text>
         <text class="uf-tag ativo" x="180.3" y="91.9">PA</text>
         <text class="uf-tag ativo" x="158.2" y="163.7">MT</text>
+        <text class="uf-tag ativo" x="217.0" y="137.3">TO</text>
         <g id="mapPins"></g>
       </svg>
       <div class="legend">
@@ -281,6 +298,13 @@ const UNITS = [
     city:"Bom Jesus do Araguaia", uf:"MT",
     phone:"5566984329394", phoneLabel:"(66) 98432-9394",
     cx:192.4, cy:153.5
+  },
+  {
+    matriz:false,
+    name:"Studio 66 Estética Automotiva",
+    city:"Colíder", uf:"MT",
+    phone:"5566996840267", phoneLabel:"(66) 9 9684-0267",
+    cx:161.7, cy:142.7
   },
 ];
 
