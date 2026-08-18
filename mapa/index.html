@@ -9,7 +9,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Inter:wght@400;500;600;700&family=Archivo:wdth,wght@125,600..900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Inter:wght@400;500;600;700&family=Archivo:wdth,wght@125,600..900&family=Michroma&display=swap" rel="stylesheet">
 
 <style>
 :root{
@@ -29,6 +29,9 @@
   /* Títulos principais: usa a Eurostile Extended se instalada/hospedada;
      senão cai na Archivo Expanded (Google Fonts): largura extendida + ExtraBold real. */
   --font-title:'Eurostile Extended','Eurostile Ext','EurostileExtended','Eurostile Extended #2','Archivo','Montserrat','Barlow Condensed',sans-serif;
+  /* Ethnocentric (Typodermic) — se nao estiver instalada/hospedada, cai na Michroma,
+     que e a mais parecida no Google Fonts (quadrada e larga). */
+  --font-ethno:'Ethnocentric','Ethnocentric Rg','Michroma','Archivo',sans-serif;
 }
 
 /* Para usar a Eurostile Extended REAL, hospede os arquivos ao lado do index.html
@@ -38,6 +41,13 @@
   src:url('fonts/eurostile-extended.woff2') format('woff2'),
       url('fonts/eurostile-extended.woff') format('woff');
   font-weight:400 800;
+  font-display:swap;
+}
+@font-face{
+  font-family:'Ethnocentric';
+  src:url('fonts/ethnocentric.woff2') format('woff2'),
+      url('fonts/ethnocentric.woff') format('woff');
+  font-weight:400 700;
   font-display:swap;
 }
 */
@@ -78,6 +88,12 @@ section{padding:2.8rem var(--pad);position:relative}
 .eyebrow::before{content:"";width:22px;height:1px;background:var(--green);opacity:.7}
 h2.sec{font-size:1.5rem;margin-bottom:.7rem}
 h2.sec em{color:var(--green);font-style:normal}
+h2.sec.ethno{
+  font-family:var(--font-ethno);
+  font-size:1.02rem;font-stretch:normal;font-weight:700;
+  letter-spacing:.2px;line-height:1.35;
+  -webkit-text-stroke:.35px currentColor; /* engrossa: a Michroma so tem peso 400 */
+}
 .lead{color:var(--txt-2);font-size:.95rem;max-width:56ch}
 
 /* TOPBAR */
@@ -192,6 +208,7 @@ footer a{color:var(--green)}
   :root{--pad:2rem}
   section{padding:4rem var(--pad)}
   h2.sec{font-size:2rem}
+  h2.sec.ethno{font-size:1.4rem}
   .hero h1{font-size:2.5rem}
   .hero p.sub{font-size:1.05rem}
   .brandmark img{height:32px}
@@ -247,7 +264,7 @@ footer a{color:var(--green)}
 <section class="carbon" id="unidades">
   <div class="wrap">
     <span class="eyebrow">A rede</span>
-    <h2 class="sec">Matriz e <em>autorizados</em></h2>
+    <h2 class="sec ethno">Matriz e <em>autorizados</em></h2>
     <div class="unit-groups" id="unitGroups"></div>
   </div>
 </section>
