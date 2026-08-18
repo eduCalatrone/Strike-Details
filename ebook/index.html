@@ -38,10 +38,40 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Barlow+Condensed:wght@600;700;800&family=Inter:wght@400;500;600;700&family=Michroma&display=swap" rel="stylesheet">
 
 <style>
+/* ---------- ETHNOCENTRIC (fonte licenciada — arquivo local) ----------
+   Coloque os arquivos em /fonts. Enquanto não subir, o fallback
+   'Michroma' (Google Fonts) assume automaticamente.                    */
+@font-face{
+  font-family:'Ethnocentric';
+  src:url('fonts/ethnocentric.woff2') format('woff2'),
+      url('fonts/ethnocentric.woff')  format('woff'),
+      url('fonts/ethnocentric.otf')   format('opentype');
+  font-weight:400;
+  font-style:normal;
+  font-display:swap;
+}
+/* Corte Bold — se você tiver o arquivo, os números usam o desenho real.
+   Sem ele, o navegador engrossa sinteticamente (o efeito pedido). */
+@font-face{
+  font-family:'Ethnocentric';
+  src:url('fonts/ethnocentric-bold.woff2') format('woff2'),
+      url('fonts/ethnocentric-bold.woff')  format('woff'),
+      url('fonts/ethnocentric-bold.otf')   format('opentype');
+  font-weight:700;
+  font-style:normal;
+  font-display:swap;
+}
+
 :root{
+  /* ---------- STACKS TIPOGRÁFICOS ---------- */
+  --f-title:'Archivo Black','Barlow Condensed','Inter',sans-serif;  /* títulos principais */
+  --f-tech:'Ethnocentric','Michroma','Barlow Condensed',sans-serif; /* subtítulos de apontamento */
+  --f-cond:'Barlow Condensed','Inter',sans-serif;                   /* botões, números, labels */
+  --num-stroke:.35px;   /* reforço de peso dos números — 0 desliga, .6px engrossa mais */
+
   --ink:#0a0b0a;
   --panel:#111311;
   --card:#171a17;
@@ -74,8 +104,19 @@ body{
 img{max-width:100%;display:block}
 a{color:inherit;text-decoration:none}
 
-h1,h2,h3,h4,.dsp{
-  font-family:'Barlow Condensed','Inter',sans-serif;
+/* TÍTULOS PRINCIPAIS — Archivo Black
+   (família de peso único: usar 400 evita "faux bold" no Chrome/Safari) */
+h1,h2,.dsp{
+  font-family:var(--f-title);
+  text-transform:uppercase;
+  font-weight:400;
+  line-height:1.08;
+  letter-spacing:-.4px;
+}
+
+/* Títulos de cards/blocos permanecem condensados */
+h3,h4{
+  font-family:var(--f-cond);
   text-transform:uppercase;
   font-weight:800;
   line-height:1.03;
@@ -97,13 +138,28 @@ h1,h2,h3,h4,.dsp{
 /* ---------- BASE DE SEÇÃO ---------- */
 section{padding:3.2rem var(--pad);position:relative}
 .wrap{max-width:1120px;margin:0 auto}
+/* SUBTÍTULOS DE APONTAMENTO — Ethnocentric
+   (fonte larga: tracking reduzido de 2.2px p/ 1px e corpo menor) */
 .eyebrow{
-  display:inline-flex;align-items:center;gap:.5rem;
-  font-size:.68rem;font-weight:700;letter-spacing:2.2px;text-transform:uppercase;
-  color:var(--green);margin-bottom:.9rem;
+  display:inline-flex;align-items:center;gap:.55rem;
+  font-family:var(--f-tech);
+  font-size:.6rem;font-weight:400;letter-spacing:1px;text-transform:uppercase;
+  line-height:1.5;color:var(--green);margin-bottom:1rem;max-width:100%;
 }
 .eyebrow::before{content:"";width:22px;height:1px;background:var(--green);opacity:.7}
-h2.sec{font-size:1.85rem;margin-bottom:.75rem}
+/* NÚMEROS — reforço de peso.
+   Engrossa o traço mesmo quando só existe o corte Regular da fonte.
+   Ajuste tudo de uma vez pela variável --num-stroke em :root.        */
+.market .n,
+.stat b,
+.point .num,
+.step .dot,
+.flow-item .k{
+  -webkit-text-stroke:var(--num-stroke) currentColor;
+  paint-order:stroke fill;
+}
+
+h2.sec{font-size:1.5rem;margin-bottom:.8rem}
 h2.sec em{color:var(--green);font-style:normal}
 .lead{color:var(--txt-2);font-size:.95rem;max-width:56ch}
 
@@ -159,7 +215,7 @@ h2.sec em{color:var(--green);font-style:normal}
   color:var(--green);border:1px solid rgba(63,138,92,.4);background:var(--green-dim);
   padding:.35rem .7rem;border-radius:100px;margin-bottom:1.1rem;
 }
-.hero h1{font-size:2.35rem;margin-bottom:1rem}
+.hero h1{font-size:1.92rem;margin-bottom:1.05rem}
 .hero h1 .g{color:var(--green);display:block}
 .hero p.sub{color:var(--txt-2);font-size:1rem;margin-bottom:1.6rem;max-width:44ch}
 .hero .btn{margin-bottom:.6rem}
@@ -217,7 +273,7 @@ h2.sec em{color:var(--green);font-style:normal}
   border:1px solid rgba(63,138,92,.28);border-radius:var(--radius);
   padding:1.1rem;background:linear-gradient(160deg,rgba(63,138,92,.07),rgba(0,0,0,.4));
 }
-.market .n{font-family:'Barlow Condensed',sans-serif;font-size:2.5rem;font-weight:800;color:var(--green);line-height:1}
+.market .n{font-family:var(--f-tech);font-size:1.8rem;font-weight:700;letter-spacing:-.5px;color:var(--green);line-height:1.1}
 .market .d{font-size:.78rem;color:#cfd4ca;text-transform:uppercase;letter-spacing:.8px;margin-top:.15rem}
 .market hr{border:none;border-top:1px solid var(--line);margin:.85rem 0}
 .market .src{font-size:.62rem;color:#6b7066;margin-top:.5rem}
@@ -230,7 +286,7 @@ h2.sec em{color:var(--green);font-style:normal}
   border-radius:12px;padding:.95rem 1rem;
   display:flex;align-items:center;gap:.9rem;
 }
-.stat b{font-family:'Barlow Condensed',sans-serif;font-size:1.9rem;font-weight:800;color:var(--green);line-height:1;white-space:nowrap}
+.stat b{font-family:var(--f-tech);font-size:1.35rem;font-weight:700;letter-spacing:-.4px;color:var(--green);line-height:1.15;white-space:nowrap}
 .stat span{font-size:.75rem;color:var(--txt-2);text-transform:uppercase;letter-spacing:.7px;line-height:1.35}
 
 /* ---------- PROBLEMA ---------- */
@@ -242,8 +298,8 @@ h2.sec em{color:var(--green);font-style:normal}
 .point h4{font-size:1.02rem;color:var(--txt);margin-bottom:.3rem;letter-spacing:.5px}
 .point p{font-size:.87rem;color:var(--txt-2)}
 .point .num{
-  font-family:'Barlow Condensed',sans-serif;font-size:.7rem;font-weight:700;
-  color:var(--green);letter-spacing:1.5px;display:block;margin-bottom:.35rem;
+  font-family:var(--f-tech);font-size:.62rem;font-weight:700;
+  color:var(--green);letter-spacing:.5px;display:block;margin-bottom:.4rem;
 }
 
 /* ---------- PROGRAMA ---------- */
@@ -367,7 +423,7 @@ h2.sec em{color:var(--green);font-style:normal}
   width:40px;height:40px;border-radius:50%;margin-bottom:.8rem;
   border:1px solid rgba(63,138,92,.45);background:rgba(63,138,92,.07);
   display:grid;place-items:center;
-  font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:.95rem;color:var(--green);
+  font-family:var(--f-tech);font-weight:700;font-size:.68rem;letter-spacing:-.5px;color:var(--green);
 }
 .step.final{border-color:rgba(63,138,92,.5);background:linear-gradient(160deg,rgba(63,138,92,.1),var(--panel))}
 .step.final .dot{background:var(--green);color:#0b1005;border-color:var(--green);box-shadow:0 0 0 5px rgba(63,138,92,.15)}
@@ -399,7 +455,7 @@ h2.sec em{color:var(--green);font-style:normal}
   background:var(--card);border:1px solid var(--line-2);border-radius:12px;padding:.85rem .9rem;
 }
 .flow-item .k{
-  font-family:'Barlow Condensed',sans-serif;font-weight:800;color:var(--green);font-size:1.1rem;line-height:1.2;flex:none;width:24px
+  font-family:var(--f-tech);font-weight:700;color:var(--green);font-size:.78rem;letter-spacing:-.4px;line-height:1.5;flex:none;width:32px
 }
 .flow-item p{font-size:.85rem;color:#cfd4ca}
 .flow-item p b{color:var(--txt)}
@@ -423,7 +479,7 @@ h2.sec em{color:var(--green);font-style:normal}
 
 /* ---------- OFERTA ---------- */
 .offer{text-align:center}
-.offer h2.sec{font-size:2rem}
+.offer h2.sec{font-size:1.62rem}
 .price-card{
   margin-top:1.4rem;border:1px solid rgba(63,138,92,.35);border-radius:18px;
   background:linear-gradient(180deg,rgba(63,138,92,.09),rgba(0,0,0,.45));
@@ -483,8 +539,8 @@ footer a{color:var(--green)}
   :root{--pad:2rem;--bar:0px}
   body{padding-bottom:0}
   section{padding:5rem var(--pad)}
-  h2.sec{font-size:2.6rem}
-  .hero h1{font-size:4rem}
+  h2.sec{font-size:2.15rem}
+  .hero h1{font-size:3.15rem}
   .hero p.sub{font-size:1.1rem}
   .nav-desk{display:flex;gap:1.7rem;font-size:.75rem;letter-spacing:1.4px;text-transform:uppercase;color:var(--txt-2);font-weight:600}
   .nav-desk a:hover{color:var(--green)}
@@ -511,7 +567,7 @@ footer a{color:var(--green)}
   .map-card svg{max-width:420px}
   .fit{grid-template-columns:1fr 1fr}
   .offer-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:2.4rem;align-items:center;text-align:left}
-  .offer-grid h2.sec{font-size:3rem}
+  .offer-grid h2.sec{font-size:2.35rem}
   .price-card{margin-top:0}
   .f-marks{grid-template-columns:repeat(4,1fr)}
   .sticky{display:none}
