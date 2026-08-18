@@ -1,8 +1,25 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0a0b0a">
+<title>Método Cabine Blindada — Strike Estética automotiva</title>
+<meta name="description" content="Programa de Autorização Strike: torne-se um Aplicador Autorizado do Método Cabine Blindada, o procedimento técnico de vedação definitiva contra poeira na Fiat Strada.">
+
+<!-- ===== Compartilhamento (WhatsApp, Instagram, Facebook) =====
+     CONFIRA og:url e og:image — precisam ser URL ABSOLUTA.
+     Caminho relativo costuma falhar no preview do WhatsApp.        -->
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:site_name" content="Strike Estética Automotiva">
+<meta property="og:title" content="Torne-se um Aplicador Autorizado do Método Cabine Blindada">
+<meta property="og:description" content="Vedação definitiva contra poeira na Fiat Strada. Manual técnico oficial, certificação e entrada na rede de aplicadores.">
+<meta property="og:url" content="https://strike-details-sigma.vercel.app/ebook">
+<meta property="og:image" content="https://strike-details-sigma.vercel.app/ebook/capa_.jpeg">
+<meta name="twitter:card" content="summary_large_image">
+
 <!-- ===== Google Analytics 4 ===== -->
-<!-- Troque G-TKSQ9FLXKJ pelo seu Measurement ID (Admin > Fluxos de dados > seu fluxo, no analytics.google.com) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-TKSQ9FLXKJ"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -11,30 +28,28 @@
   gtag('config', 'G-TKSQ9FLXKJ');
 </script>
 
-<!-- ===== Meta Pixel ===== -->
-<!-- Troque XXXXXXXXXXXXXXX pelo seu Pixel ID (Gerenciador de Eventos, business.facebook.com/events_manager) -->
+<!-- ===== Meta Pixel =====
+     Cole o Pixel ID abaixo (Gerenciador de Eventos). Enquanto estiver
+     vazio o Pixel NAO carrega — evita erros 400 no console.
+     Ao preencher, descomente tambem o <noscript> abaixo.           -->
 <script>
-  !function(f,b,e,v,n,t,s)
-  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-  n.queue=[];t=b.createElement(e);t.async=!0;
-  t.src=v;s=b.getElementsByTagName(e)[0];
-  s.parentNode.insertBefore(t,s)}(window, document,'script',
-  'https://connect.facebook.net/en_US/fbevents.js');
-  fbq('init', 'XXXXXXXXXXXXXXX');
-  fbq('track', 'PageView');
+  window.META_PIXEL_ID = '';
+  if (window.META_PIXEL_ID) {
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', window.META_PIXEL_ID);
+    fbq('track', 'PageView');
+  }
 </script>
-<noscript><img height="1" width="1" style="display:none"
-  src="https://www.facebook.com/tr?id=XXXXXXXXXXXXXXX&ev=PageView&noscript=1"
-/></noscript>
+<!-- <noscript><img height="1" width="1" style="display:none"
+  src="https://www.facebook.com/tr?id=SEU_PIXEL_ID&ev=PageView&noscript=1"/></noscript> -->
 <!-- ===== fim analytics ===== -->
-
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="theme-color" content="#0a0b0a">
-<title>Método Cabine Blindada — Strike Estética automotiva</title>
-<meta name="description" content="Programa de Autorização Strike: torne-se um Aplicador Autorizado do Método Cabine Blindada, o procedimento técnico de vedação definitiva contra poeira na Fiat Strada.">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -91,14 +106,20 @@
 
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 section[id]{scroll-margin-top:74px}
+
+/* overflow-x:hidden só no body cria um contexto de rolagem que quebra
+   position:sticky da topbar. 'clip' contém o estouro sem criar scroller. */
+html,body{overflow-x:hidden}
+@supports (overflow:clip){html,body{overflow-x:clip}}
+
 body{
   background:var(--ink);
   color:var(--txt);
   font-family:'Inter',system-ui,sans-serif;
   font-size:16px;
   line-height:1.6;
-  overflow-x:hidden;
   padding-bottom:var(--bar);
   -webkit-font-smoothing:antialiased;
 }
@@ -240,7 +261,7 @@ h2.sec em{color:var(--green);font-style:normal}
 
 .pillars{
   display:flex;gap:.6rem;margin:1.8rem 0 1.4rem;
-  overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;
+  overflow-x:auto;scroll-snap-type:x proximity;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain;
   scrollbar-width:none;
 }
 .pillars::-webkit-scrollbar{display:none}
@@ -322,7 +343,7 @@ h2.sec em{color:var(--green);font-style:normal}
 /* ---------- PROGRAMA ---------- */
 .kit{
   display:flex;gap:.65rem;margin-top:1.5rem;
-  overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;
+  overflow-x:auto;scroll-snap-type:x proximity;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain;
   scrollbar-width:none;
 }
 .kit::-webkit-scrollbar{display:none}
@@ -358,7 +379,7 @@ h2.sec em{color:var(--green);font-style:normal}
 .book-3d{
   position:absolute;inset:0;transform-style:preserve-3d;
   transform:rotateY(var(--spin-y,0deg)) rotateX(var(--spin-x,0deg));
-  cursor:grab;touch-action:none;
+  cursor:grab;touch-action:pan-y; /* 'none' travava a rolagem da página no celular */
 }
 .book-3d.is-grabbing{cursor:grabbing}
 .book-face{position:absolute;box-sizing:border-box;backface-visibility:hidden}
@@ -415,8 +436,8 @@ h2.sec em{color:var(--green);font-style:normal}
 .check{
   display:flex;align-items:center;gap:.7rem;
   background:var(--panel);border:1px solid var(--line-2);border-radius:10px;padding:.75rem .85rem;
-  font-size:.82rem;font-weight:600;letter-spacing:.4px;text-transform:uppercase;
-  font-family:'Barlow Condensed',sans-serif;font-size:.95rem;
+  font-family:var(--f-cond);
+  font-size:.95rem;font-weight:600;letter-spacing:.4px;text-transform:uppercase;line-height:1.3;
 }
 .check i{
   width:20px;height:20px;flex:none;border-radius:50%;border:1.5px solid var(--green);
@@ -427,7 +448,7 @@ h2.sec em{color:var(--green);font-style:normal}
 /* ---------- JORNADA ---------- */
 .journey{
   display:flex;gap:.7rem;margin-top:1.6rem;position:relative;
-  overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;
+  overflow-x:auto;scroll-snap-type:x proximity;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain;
   scrollbar-width:none;
 }
 .journey::-webkit-scrollbar{display:none}
@@ -461,7 +482,13 @@ h2.sec em{color:var(--green);font-style:normal}
 .pulse{transform-box:fill-box;transform-origin:center;animation:pulse 2.6s ease-out infinite}
 .pulse:nth-of-type(2n){animation-delay:.8s}
 .pulse:nth-of-type(3n){animation-delay:1.5s}
-@keyframes pulse{0%{opacity:.75;r:2.5}70%{opacity:0;r:9}100%{opacity:0;r:9}}
+/* animar o atributo 'r' via CSS não funciona no Safari/iOS.
+   transform:scale roda em todos os navegadores.                */
+@keyframes pulse{
+  0%{opacity:.75;transform:scale(.8)}
+  70%{opacity:0;transform:scale(3)}
+  100%{opacity:0;transform:scale(3)}
+}
 .legend{display:flex;justify-content:center;gap:1.2rem;margin-top:.7rem;font-size:.68rem;color:var(--txt-2);text-transform:uppercase;letter-spacing:.8px}
 .legend span{display:flex;align-items:center;gap:.4rem}
 .legend b{width:8px;height:8px;border-radius:50%;background:var(--green);display:block}
@@ -501,6 +528,7 @@ h2.sec em{color:var(--green);font-style:normal}
   margin-top:1.4rem;border:1px solid rgba(63,138,92,.35);border-radius:18px;
   background:linear-gradient(180deg,rgba(63,138,92,.09),rgba(0,0,0,.45));
   padding:1.5rem 1.1rem 1.2rem;
+  text-align:center; /* no desktop herdava 'left' do .offer-grid e desalinhava do .trust */
 }
 .price-card .lbl{font-size:.66rem;letter-spacing:2.5px;text-transform:uppercase;color:var(--txt-2)}
 .price-card .val{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:3.2rem;color:var(--txt);line-height:1;margin:.3rem 0}
@@ -592,7 +620,7 @@ footer a{color:var(--green)}
   .stat{flex-direction:column;align-items:flex-start;gap:.3rem}
   .split{display:grid;grid-template-columns:.85fr 1.15fr;gap:3rem;align-items:start}
   .point-list{grid-template-columns:repeat(2,1fr);margin-top:0}
-  .kit{display:grid;grid-template-columns:repeat(4,1fr);overflow:visible}
+  .kit{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;overflow:visible}
   .kit-item{flex:auto}
   .know{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center}
   .ebook-container{--book-w:250px;--book-h:350px;--book-d:32px;margin:0 0 1.4rem}
@@ -841,6 +869,10 @@ footer a{color:var(--green)}
         <circle class="pin-open" cx="287" cy="111.8" r="3"/>
         <circle class="pin-open" cx="290" cy="83" r="3"/>
       </svg>
+      <div class="legend">
+        <span><b></b> Praça com aplicador</span>
+        <span><b class="open"></b> Praça aberta</span>
+      </div>
     </div>
   </div>
 </section>
@@ -879,7 +911,7 @@ footer a{color:var(--green)}
       <div class="price-card rv">
         <span class="lbl">Investimento</span>
         <div class="val"><small>R$</small>1.428<small>,00</small></div>
-        <div class="inst">ou 12x R$ 146,86</div>
+        <div class="inst">ou 12x R$ 147,69</div>
         <a href="https://pay.hotmart.com/H107178699F" class="btn btn--tech js-checkout">Quero ser um autorizado</a>
         <div class="trust">
           <span>Compra 100% segura</span>
@@ -916,32 +948,86 @@ footer a{color:var(--green)}
 </div>
 
 <script>
-/* ====== LINK DE CHECKOUT — trocar somente aqui ====== */
-const CHECKOUT_URL = "#"; // ex.: "https://pay.hotmart.com/SEU-PRODUTO"
+/* ============================================================
+   CONFIGURAÇÃO — os únicos valores para editar
+   ============================================================ */
+const CHECKOUT_URL  = "https://pay.hotmart.com/H107178699F";
+const PRODUTO_NOME  = "Programa de Autorização — Método Cabine Blindada";
+const PRODUTO_VALOR = 1428.00;
+const MOEDA         = "BRL";
 
+/* ====== CTAs ======
+   Links internos (#) apenas rolam até a oferta.
+   Links externos recebem a URL de checkout + target/rel.        */
 document.querySelectorAll('.js-checkout').forEach(function(el){
-  if (CHECKOUT_URL && CHECKOUT_URL !== "#") {
+  const href = el.getAttribute('href') || '';
+  const interno = href.charAt(0) === '#';
+
+  if (interno) {
+    if (href === '#') el.setAttribute('href', '#autorizacao');
+  } else if (CHECKOUT_URL) {
     el.setAttribute('href', CHECKOUT_URL);
     el.setAttribute('target', '_blank');
     el.setAttribute('rel', 'noopener');
-  } else if (el.getAttribute('href') === '#') {
-    el.setAttribute('href', '#autorizacao');
   }
 
-  /* ====== Rastreio de conversão (clique no checkout) ====== */
   el.addEventListener('click', function(){
-    if (typeof fbq === 'function') { fbq('track', 'Lead'); }
-    if (typeof gtag === 'function') { gtag('event', 'generate_lead', { event_category: 'checkout', event_label: 'Programa de Autorização' }); }
+    if (interno) {
+      /* clique no CTA do topo: intenção, ainda não é checkout */
+      if (typeof gtag === 'function') {
+        gtag('event', 'select_item', { item_list_name: 'hero_cta', items: [{ item_name: PRODUTO_NOME }] });
+      }
+      return;
+    }
+    /* saída para o checkout da Hotmart */
+    if (typeof gtag === 'function') {
+      gtag('event', 'begin_checkout', {
+        currency: MOEDA,
+        value: PRODUTO_VALOR,
+        items: [{ item_id: 'cabine-blindada', item_name: PRODUTO_NOME, price: PRODUTO_VALOR, quantity: 1 }]
+      });
+    }
+    if (typeof fbq === 'function') {
+      fbq('track', 'InitiateCheckout', { currency: MOEDA, value: PRODUTO_VALOR, content_name: PRODUTO_NOME });
+    }
   });
 });
 
-/* ====== Barra fixa aparece depois do hero ====== */
+/* ====== Barra fixa ======
+   Aparece logo no início da rolagem (não mais só depois do hero
+   inteiro). Histerese evita piscar em torno do limite.           */
 const bar = document.getElementById('stickyBar');
-const hero = document.querySelector('.hero');
-if (bar && hero) {
-  new IntersectionObserver(function(entries){
-    entries.forEach(function(e){ bar.classList.toggle('on', !e.isIntersecting); });
-  }, {rootMargin: '-60px 0px 0px 0px'}).observe(hero);
+if (bar) {
+  const raiz = document.documentElement;
+
+  /* mantém --bar igual à altura real da barra: o botão pode
+     quebrar em 2 linhas e o rodapé ficaria encoberto */
+  function medirBarra(){
+    raiz.style.setProperty('--bar', bar.offsetHeight + 'px');
+  }
+
+  function limite(){
+    return Math.min(260, Math.max(120, window.innerHeight * 0.22));
+  }
+
+  let ticking = false, visivel = false;
+  function avaliar(){
+    const y = window.scrollY || window.pageYOffset;
+    const lim = limite();
+    if (!visivel && y > lim)        { visivel = true;  bar.classList.add('on'); }
+    else if (visivel && y < lim * .6){ visivel = false; bar.classList.remove('on'); }
+    ticking = false;
+  }
+  function aoRolar(){
+    if (!ticking) { ticking = true; requestAnimationFrame(avaliar); }
+  }
+
+  window.addEventListener('scroll', aoRolar, { passive: true });
+  window.addEventListener('resize', function(){ medirBarra(); aoRolar(); });
+  if (window.ResizeObserver) new ResizeObserver(medirBarra).observe(bar);
+
+  medirBarra();
+  avaliar();
 }
 
 /* ====== Player de vídeo — Apresentação (autoplay ao ficar visível) ====== */
@@ -961,6 +1047,7 @@ if (bar && hero) {
   function updateMuteIcon(){
     iconMuted.style.display   = video.muted ? 'block' : 'none';
     iconUnmuted.style.display = video.muted ? 'none'  : 'block';
+    muteBtn.setAttribute('aria-label', video.muted ? 'Ativar som' : 'Desativar som');
   }
 
   function play(){
@@ -1044,7 +1131,13 @@ if (bar && hero) {
     if (!dragging || e.pointerId !== pointerId) return;
     var dx = e.clientX - lastX, dy = e.clientY - lastY;
     lastX = e.clientX; lastY = e.clientY;
-    velY = dx * 0.30; velX = -dy * 0.17;
+
+    /* no toque, só o giro horizontal responde — o movimento vertical
+       fica com a rolagem da página (touch-action:pan-y) */
+    var toque = (e.pointerType === 'touch');
+    velY = dx * 0.30;
+    velX = toque ? 0 : -dy * 0.17;
+
     spinY += velY; spinX = Math.max(-30, Math.min(30, spinX + velX));
     apply();
   });
