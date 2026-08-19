@@ -178,13 +178,18 @@
       <div class="err" id="err-local" style="margin-top:-10px;margin-bottom:16px">Escolha estado e cidade.</div>
 
       <div class="field">
-        <label for="bairro">Bairro</label>
-        <input id="bairro" name="bairro" type="text" placeholder="opcional">
+        <label for="endereco">Endereço</label>
+        <input id="endereco" name="endereco" type="text" autocomplete="street-address" placeholder="Rua, número, bairro, referência">
       </div>
 
       <div class="field">
         <label for="veiculo">Veículo</label>
         <input id="veiculo" name="veiculo" type="text" placeholder="Marca, modelo e ano">
+      </div>
+
+      <div class="field">
+        <label for="placa">Placa</label>
+        <input id="placa" name="placa" type="text" autocapitalize="characters" autocorrect="off" spellcheck="false" placeholder="ABC1D23" maxlength="8" style="text-transform:uppercase">
       </div>
 
       <div class="field">
@@ -207,7 +212,7 @@
 
       <div class="consent">
         <input type="checkbox" id="consent">
-        <p><label for="consent" style="all:unset;cursor:pointer">Autorizo a Strike a guardar meus dados e repassá-los a um aplicador autorizado da rede para que entrem em contato comigo.</label> <a href="#" id="linkPolitica">Política de privacidade</a></p>
+        <p><label for="consent" style="all:unset;cursor:pointer">Li e concordo com os <a href="#" id="linkPolitica">termos de uso e a política de privacidade</a> da Strike.</label></p>
       </div>
       <div class="err" id="err-consent" style="margin-top:-8px;margin-bottom:16px">Precisamos da sua autorização para continuar.</div>
 
@@ -229,7 +234,7 @@
   <footer>STRIKE ESTÉTICA AUTOMOTIVA · REDE DE AUTORIZADOS</footer>
 </div>
 
-<script src="/strike-central/config.js"></script>
+<script src="config.js"></script>
 <script type="module">
 import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
 
@@ -265,6 +270,11 @@ inpZap.addEventListener('input', e => {
   else if (v.length > 2) v = `(${v.slice(0,2)}) ${v.slice(2)}`;
   else if (v.length)     v = `(${v}`;
   e.target.value = v;
+});
+
+/* --- placa: maiúsculas, sem símbolos --- */
+$('placa').addEventListener('input', e => {
+  e.target.value = e.target.value.toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 7);
 });
 
 /* --- origem da visita --- */
@@ -316,8 +326,9 @@ $('form').addEventListener('submit', async e => {
   const { error } = await sb.from('leads').insert({
     nome, whatsapp: zap, email: email || null,
     uf, cidade,
-    bairro: $('bairro').value.trim() || null,
+    endereco: $('endereco').value.trim() || null,
     veiculo: $('veiculo').value.trim() || null,
+    placa: $('placa').value.trim().toUpperCase() || null,
     servico_interesse: $('servico').value || null,
     observacoes: $('observacoes').value.trim() || null,
     origem,
