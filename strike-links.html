@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Strike · Índice de Links</title>
+<meta name="theme-color" content="#0A0C0B">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;500;600;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --asfalto:#0A0C0B;
+  --surface:#121614;
+  --surface-2:#1A201C;
+  --linha:rgba(255,255,255,.09);
+  --verde:#2CC46B;
+  --verde-esc:#17864A;
+  --texto:#EEF3F0;
+  --mute:#8B958F;
+  --alerta:#FFB020;
+  --perigo:#FF5C5C;
+  --raio:14px;
+  --display:'Bebas Neue','Montserrat',system-ui,sans-serif;
+  --corpo:'Montserrat',system-ui,-apple-system,sans-serif;
+  --mono:'Roboto Mono',ui-monospace,Menlo,monospace;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:
+    radial-gradient(1100px 520px at 12% -8%, rgba(44,196,107,.10), transparent 62%),
+    radial-gradient(800px 400px at 92% 0%, rgba(255,255,255,.045), transparent 60%),
+    var(--asfalto);
+  color:var(--texto);
+  font-family:var(--corpo);
+  -webkit-font-smoothing:antialiased;
+  min-height:100vh;
+}
+::selection{background:var(--verde);color:#04150B}
+
+/* ---------- topo ---------- */
+.topo{
+  position:sticky;top:0;z-index:40;
+  display:flex;align-items:center;gap:16px;flex-wrap:wrap;
+  padding:14px clamp(16px,4vw,44px);
+  background:linear-gradient(180deg,rgba(10,12,11,.96),rgba(10,12,11,.72) 70%,transparent);
+  backdrop-filter:blur(10px);
+}
+.marca{display:flex;align-items:center;gap:11px;margin-right:auto;min-width:0}
+.marca__logo{height:40px;width:auto;flex:none;object-fit:contain;filter:drop-shadow(0 2px 10px rgba(0,0,0,.35))}
+@media (max-width:760px){.marca__logo{height:32px}}
+
+.busca{position:relative;flex:1 1 200px;max-width:320px}
+.busca svg{position:absolute;left:12px;top:50%;transform:translateY(-50%);width:16px;height:16px;color:var(--mute);pointer-events:none}
+.busca input{
+  width:100%;height:40px;padding:0 12px 0 36px;
+  background:var(--surface);border:1px solid var(--linha);border-radius:10px;
+  color:var(--texto);font-family:var(--corpo);font-size:13.5px;outline:none;
+  transition:border-color .18s, background .18s;
+}
+.busca input::placeholder{color:var(--mute)}
+.busca input:focus{border-color:rgba(44,196,107,.55);background:var(--surface-2)}
+
+.btn-novo{
+  height:40px;padding:0 15px;flex:none;
+  display:inline-flex;align-items:center;gap:7px;
+  background:var(--surface);border:1px solid var(--linha);border-radius:10px;
+  color:var(--texto);font-family:var(--corpo);font-size:13px;font-weight:500;cursor:pointer;
+  transition:border-color .18s,background .18s;
+}
+.btn-novo:hover{border-color:rgba(44,196,107,.5);background:var(--surface-2)}
+.btn-novo svg{width:15px;height:15px;color:var(--verde)}
+
+/* ---------- botões ---------- */
+.btn{
+  height:44px;padding:0 20px;border-radius:11px;border:1px solid transparent;
+  display:inline-flex;align-items:center;gap:8px;cursor:pointer;text-decoration:none;
+  font-family:var(--corpo);font-size:14px;font-weight:600;
+  transition:transform .14s, filter .18s, background .18s, border-color .18s;
+}
+.btn svg{width:16px;height:16px}
+.btn:active{transform:translateY(1px)}
+.btn--verde{background:var(--verde);color:#04150B}
+.btn--verde:hover{filter:brightness(1.08)}
+.btn--linha{background:rgba(255,255,255,.05);border-color:var(--linha);color:var(--texto)}
+.btn--linha:hover{background:rgba(255,255,255,.1)}
+.btn--fantasma{background:transparent;color:var(--mute);border-color:transparent;font-weight:500;padding:0 12px}
+.btn--fantasma:hover{color:var(--texto);background:rgba(255,255,255,.05)}
+.btn--perigo:hover{color:var(--perigo)}
+
+/* ---------- fileiras ---------- */
+.fileira{margin:34px 0 4px}
+.fileira__topo{
+  display:flex;align-items:center;gap:11px;
+  padding:0 clamp(16px,4vw,44px);margin-bottom:13px;
+}
+.fileira__titulo{font-family:var(--corpo);font-weight:600;font-size:16px;letter-spacing:.005em}
+.fileira__cont{font-family:var(--mono);font-size:11px;color:var(--mute)}
+.fileira__nota{
+  font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--alerta);margin-left:auto;display:flex;align-items:center;gap:6px;
+}
+.fileira__nota svg{width:12px;height:12px}
+.pag{display:flex;gap:3px;margin-left:auto;align-items:center}
+.fileira__nota + .pag{margin-left:14px}
+.pag__b{width:15px;height:2px;border-radius:2px;background:rgba(255,255,255,.18);transition:background .2s}
+.pag__b.on{background:var(--verde)}
+
+.trilho-wrap{position:relative}
+.trilho{
+  display:flex;gap:14px;overflow-x:auto;scroll-behavior:smooth;
+  padding:4px clamp(16px,4vw,44px) 18px;
+  scroll-snap-type:x mandatory;
+  scrollbar-width:none;
+}
+.trilho::-webkit-scrollbar{display:none}
+.trilho.arrastando{scroll-behavior:auto;scroll-snap-type:none;cursor:grabbing;user-select:none}
+.seta{
+  position:absolute;top:4px;bottom:60px;width:clamp(34px,4vw,52px);z-index:5;
+  display:none;place-items:center;cursor:pointer;border:0;padding:0;
+  color:var(--texto);opacity:0;transition:opacity .2s;
+}
+.seta svg{width:22px;height:22px}
+.seta--esq{left:0;background:linear-gradient(90deg,rgba(10,12,11,.95),rgba(10,12,11,0))}
+.seta--dir{right:0;background:linear-gradient(270deg,rgba(10,12,11,.95),rgba(10,12,11,0))}
+.trilho-wrap:hover .seta,.seta:focus-visible{opacity:1}
+.seta:hover svg{transform:scale(1.25)}
+.seta svg{transition:transform .18s}
+@media (hover:hover) and (min-width:900px){.seta{display:grid}}
+
+/* ---------- card ---------- */
+.card{
+  position:relative;flex:none;width:246px;scroll-snap-align:start;
+  cursor:pointer;border-radius:var(--raio);outline:none;
+  transition:transform .22s cubic-bezier(.2,.7,.2,1);
+}
+.card:hover,.card:focus-visible{transform:translateY(-5px)}
+.card:focus-visible .card__capa{box-shadow:0 0 0 2px var(--verde)}
+.card__capa{
+  position:relative;overflow:hidden;aspect-ratio:16/10;border-radius:var(--raio);
+  border:1px solid var(--linha);
+  background:
+    linear-gradient(150deg, color-mix(in srgb, var(--c) 26%, transparent), rgba(0,0,0,0) 58%),
+    linear-gradient(180deg,#171D1A,#0D1210);
+  transition:border-color .22s;
+}
+.card:hover .card__capa{border-color:color-mix(in srgb, var(--c) 55%, transparent)}
+.card__fantasma{
+  position:absolute;right:-14px;bottom:-18px;width:104px;height:104px;
+  color:var(--c);opacity:.16;transition:opacity .25s, transform .35s;
+}
+.card:hover .card__fantasma{opacity:.26;transform:scale(1.06) rotate(-3deg)}
+.card__chip{
+  position:absolute;left:14px;top:13px;width:38px;height:38px;border-radius:11px;
+  display:grid;place-items:center;
+  background:color-mix(in srgb, var(--c) 16%, #0C100E);
+  border:1px solid color-mix(in srgb, var(--c) 34%, transparent);
+  color:var(--c);
+}
+.card__chip svg{width:19px;height:19px}
+.card__brilho{
+  position:absolute;inset:0;pointer-events:none;opacity:0;
+  background:linear-gradient(105deg,transparent 32%,rgba(255,255,255,.10) 46%,rgba(255,255,255,.38) 50%,rgba(255,255,255,.10) 54%,transparent 68%);
+  transform:translateX(-125%);
+  transition:transform .85s cubic-bezier(.25,.6,.2,1), opacity .2s;
+}
+.card:hover .card__brilho,.card:focus-visible .card__brilho{opacity:1;transform:translateX(125%)}
+.card__selo{
+  position:absolute;right:12px;top:14px;
+  font-family:var(--mono);font-size:9px;letter-spacing:.16em;text-transform:uppercase;
+  padding:4px 8px;border-radius:6px;
+  background:rgba(10,12,11,.72);border:1px solid var(--linha);color:var(--mute);
+}
+.card__selo--off{color:var(--perigo);border-color:rgba(255,92,92,.3)}
+.card__rapido{
+  position:absolute;left:12px;right:12px;bottom:12px;display:flex;gap:7px;
+  opacity:0;transform:translateY(6px);transition:opacity .2s, transform .2s;
+}
+.card:hover .card__rapido,.card:focus-within .card__rapido{opacity:1;transform:none}
+.mini{
+  height:30px;padding:0 11px;border-radius:8px;cursor:pointer;
+  display:inline-flex;align-items:center;gap:6px;
+  background:rgba(8,10,9,.82);border:1px solid var(--linha);color:var(--texto);
+  font-family:var(--corpo);font-size:11.5px;font-weight:500;text-decoration:none;
+  backdrop-filter:blur(6px);
+}
+.mini svg{width:13px;height:13px}
+.mini:hover{background:var(--verde);color:#04150B;border-color:var(--verde)}
+.card__meta{padding:11px 3px 0}
+.card__titulo{font-size:13.5px;font-weight:500;line-height:1.3}
+.card__host{font-family:var(--mono);font-size:10.5px;color:var(--mute);margin-top:4px;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.card--off .card__capa{filter:saturate(.35)}
+.card--off .card__titulo{color:var(--mute);text-decoration:line-through;text-decoration-color:rgba(255,92,92,.5)}
+
+.card-add .card__capa{
+  border-style:dashed;background:none;display:grid;place-items:center;color:var(--mute);
+}
+.card-add:hover .card__capa{border-color:var(--verde);color:var(--verde)}
+.card-add svg{width:26px;height:26px}
+
+.vazio{
+  padding:60px clamp(16px,4vw,44px);text-align:center;color:var(--mute);font-size:14px;
+}
+.vazio strong{display:block;color:var(--texto);font-family:var(--display);
+  font-size:26px;letter-spacing:.03em;text-transform:uppercase;margin-bottom:6px}
+
+/* ---------- modal ---------- */
+.tela{
+  position:fixed;inset:0;z-index:80;display:none;
+  align-items:center;justify-content:center;padding:18px;
+  background:rgba(4,6,5,.76);backdrop-filter:blur(7px);
+}
+.tela.aberta{display:flex}
+.folha{
+  width:100%;max-width:520px;max-height:88vh;overflow-y:auto;
+  background:var(--surface);border:1px solid var(--linha);border-radius:18px;
+  padding:26px;animation:sobe .22s cubic-bezier(.2,.8,.2,1);
+}
+@keyframes sobe{from{opacity:0;transform:translateY(14px) scale(.985)}to{opacity:1;transform:none}}
+.folha__topo{display:flex;align-items:center;gap:13px;margin-bottom:18px}
+.folha__chip{
+  width:46px;height:46px;border-radius:13px;flex:none;display:grid;place-items:center;
+  background:color-mix(in srgb, var(--c,#2CC46B) 16%, #0C100E);
+  border:1px solid color-mix(in srgb, var(--c,#2CC46B) 34%, transparent);
+  color:var(--c,#2CC46B);
+}
+.folha__chip svg{width:23px;height:23px}
+.folha__grupo{font-family:var(--mono);font-size:10px;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--mute)}
+.folha__fechar{margin-left:auto;background:none;border:none;color:var(--mute);
+  cursor:pointer;padding:6px;border-radius:8px;line-height:0}
+.folha__fechar:hover{color:var(--texto);background:rgba(255,255,255,.06)}
+.folha__fechar svg{width:19px;height:19px}
+.folha h2{font-family:var(--display);font-weight:400;font-size:30px;line-height:1.04;
+  letter-spacing:.02em;margin:0 0 10px;text-transform:uppercase}
+.folha__nota{color:var(--mute);font-size:14px;line-height:1.55;margin:0 0 18px}
+.urlbox{
+  display:block;width:100%;text-align:left;
+  font-family:var(--mono);font-size:12px;color:var(--texto);
+  background:var(--asfalto);border:1px solid var(--linha);border-radius:11px;
+  padding:13px 14px;margin-bottom:20px;word-break:break-all;line-height:1.5;cursor:copy;
+}
+.urlbox:hover{border-color:rgba(44,196,107,.45)}
+.folha__acoes{display:flex;gap:9px;flex-wrap:wrap;align-items:center}
+.folha__acoes .btn{flex:1 1 auto;justify-content:center}
+.folha__acoes .btn--fantasma{flex:0 0 auto}
+
+/* ---------- formulário ---------- */
+.campo{margin-bottom:14px}
+.campo label{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--mute);margin-bottom:7px}
+.campo input,.campo select,.campo textarea{
+  width:100%;background:var(--asfalto);border:1px solid var(--linha);border-radius:10px;
+  color:var(--texto);font-family:var(--corpo);font-size:13.5px;padding:11px 13px;outline:none;
+}
+.campo input:focus,.campo select:focus,.campo textarea:focus{border-color:rgba(44,196,107,.55)}
+.campo textarea{resize:vertical;min-height:64px}
+.dupla{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.icones{display:flex;flex-wrap:wrap;gap:8px}
+.icone-op{
+  width:40px;height:40px;border-radius:10px;display:grid;place-items:center;cursor:pointer;
+  background:var(--asfalto);border:1px solid var(--linha);color:var(--mute);
+}
+.icone-op svg{width:19px;height:19px}
+.icone-op:hover{color:var(--texto)}
+.icone-op[aria-pressed="true"]{border-color:var(--verde);color:var(--verde);
+  background:rgba(44,196,107,.1)}
+
+/* ---------- toast ---------- */
+.toast{
+  position:fixed;left:50%;bottom:26px;transform:translate(-50%,20px);z-index:99;
+  background:var(--verde);color:#04150B;font-weight:600;font-size:13.5px;
+  padding:11px 20px;border-radius:11px;opacity:0;pointer-events:none;
+  transition:opacity .2s, transform .2s;
+  box-shadow:0 12px 30px rgba(0,0,0,.4);
+}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+
+.rodape{
+  padding:34px clamp(16px,4vw,44px) 40px;
+  font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;
+  color:rgba(139,149,143,.5);display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;
+}
+
+@media (max-width:760px){
+  .card{width:70vw;max-width:260px}
+  .busca{max-width:none;order:3;flex-basis:100%}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition-duration:.01ms!important}
+  .card:hover{transform:none}
+}
+</style>
+</head>
+<body>
+
+<header class="topo">
+  <div class="marca">
+    <img class="marca__logo" src="https://raw.githubusercontent.com/eduCalatrone/Strike-Details/main/logo.png" alt="Strike Details">
+  </div>
+
+  <div class="busca">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.2-3.2"/></svg>
+    <input id="busca" type="search" placeholder="Buscar link…  (tecla /)" autocomplete="off">
+  </div>
+
+  <button class="btn-novo" id="btn-novo">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+    Adicionar link
+  </button>
+</header>
+
+<main id="palco"></main>
+
+<footer class="rodape">
+  <span>Strike Estética Automotiva · Jaru/RO</span>
+  <span id="rodape-cont"></span>
+  <span>Calatrone</span>
+</footer>
+
+<!-- modal detalhe -->
+<div class="tela" id="tela-item">
+  <div class="folha" role="dialog" aria-modal="true" aria-labelledby="item-titulo">
+    <div class="folha__topo">
+      <div class="folha__chip" id="item-chip"></div>
+      <div>
+        <div class="folha__grupo" id="item-grupo"></div>
+      </div>
+      <button class="folha__fechar" data-fechar aria-label="Fechar">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <h2 id="item-titulo"></h2>
+    <p class="folha__nota" id="item-nota"></p>
+    <button class="urlbox" id="item-url" title="Clique para copiar"></button>
+    <div class="folha__acoes">
+      <a class="btn btn--verde" id="item-abrir" target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4h6v6"/><path d="M20 4 11 13"/><path d="M18 14v5a1.8 1.8 0 0 1-1.8 1.8H5.2A1.8 1.8 0 0 1 3.4 19V7.8A1.8 1.8 0 0 1 5.2 6H10"/></svg>
+        Abrir link
+      </a>
+      <button class="btn btn--linha" id="item-copiar">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="8.5" y="8.5" width="12" height="12" rx="2.4"/><path d="M15.5 5.5A2 2 0 0 0 13.5 3.5H5.6A2.1 2.1 0 0 0 3.5 5.6v7.9a2 2 0 0 0 2 2"/></svg>
+        Copiar link
+      </button>
+      <button class="btn btn--fantasma" id="item-editar">Editar</button>
+      <button class="btn btn--fantasma btn--perigo" id="item-excluir">Excluir</button>
+    </div>
+  </div>
+</div>
+
+<!-- modal formulário -->
+<div class="tela" id="tela-form">
+  <div class="folha" role="dialog" aria-modal="true" aria-labelledby="form-titulo">
+    <div class="folha__topo">
+      <div><h2 id="form-titulo" style="margin:0">Novo link</h2></div>
+      <button class="folha__fechar" data-fechar aria-label="Fechar">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div class="campo">
+      <label for="f-titulo">Nome do link</label>
+      <input id="f-titulo" placeholder="Ex.: Painel de clientes">
+    </div>
+    <div class="campo">
+      <label for="f-url">Endereço</label>
+      <input id="f-url" placeholder="https://" spellcheck="false">
+    </div>
+    <div class="campo">
+      <label for="f-nota">Para que serve</label>
+      <textarea id="f-nota" placeholder="Uma linha explicando o que tem nessa página"></textarea>
+    </div>
+    <div class="dupla">
+      <div class="campo">
+        <label for="f-grupo">Grupo</label>
+        <select id="f-grupo">
+          <option value="restrito">Acesso restrito</option>
+          <option value="publico">Público</option>
+        </select>
+      </div>
+      <div class="campo">
+        <label for="f-status">Situação</label>
+        <select id="f-status">
+          <option value="ativo">Em uso</option>
+          <option value="off">Fora de uso</option>
+        </select>
+      </div>
+    </div>
+    <div class="campo">
+      <label>Ícone da capa</label>
+      <div class="icones" id="f-icones"></div>
+    </div>
+    <div class="folha__acoes" style="margin-top:20px">
+      <button class="btn btn--verde" id="f-salvar">Salvar link</button>
+      <button class="btn btn--fantasma" data-fechar>Cancelar</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* =========================================================
+   ícones — cada um diz para onde o link leva
+   ========================================================= */
+const I = {
+  loja:{c:'#FF5A2D',p:'<path d="M3 5h2.2l2 10.2A2 2 0 0 0 9.2 17H18a2 2 0 0 0 2-1.6L21.5 8H6.3"/><circle cx="10" cy="20" r="1.3"/><circle cx="17.5" cy="20" r="1.3"/>'},
+  aula:{c:'#FF9A3D',p:'<path d="M12 4 2.5 9 12 14l9.5-5L12 4Z"/><path d="M6.5 11.2V16c0 1.6 2.8 3 5.5 3s5.5-1.4 5.5-3v-4.8"/><path d="M21.5 9v5.5"/>'},
+  codigo:{c:'#C9D1D9',p:'<path d="m9 8-5 4 5 4"/><path d="m15 8 5 4-5 4"/><path d="M13.6 4.6 10.4 19.4"/>'},
+  painel:{c:'#2CC46B',p:'<ellipse cx="12" cy="6" rx="7.5" ry="3"/><path d="M4.5 6v6c0 1.7 3.4 3 7.5 3s7.5-1.3 7.5-3V6"/><path d="M4.5 12v6c0 1.7 3.4 3 7.5 3s7.5-1.3 7.5-3v-6"/>'},
+  cadastro:{c:'#4DA3FF',p:'<circle cx="10" cy="8" r="3.5"/><path d="M3.5 20c0-3.6 2.9-6 6.5-6 1.3 0 2.5.3 3.5.9"/><path d="M17.5 14v6M14.5 17h6"/>'},
+  mapa:{c:'#FFC24D',p:'<path d="M12 21s7-5.6 7-11a7 7 0 1 0-14 0c0 5.4 7 11 7 11Z"/><circle cx="12" cy="10" r="2.6"/>'},
+  ebook:{c:'#2CC46B',p:'<path d="M3 5.5c2.5-1.2 5.5-1.2 9 .5 3.5-1.7 6.5-1.7 9-.5v12c-2.5-1.2-5.5-1.2-9 .5-3.5-1.7-6.5-1.7-9-.5v-12Z"/><path d="M12 6v12"/>'},
+  site:{c:'#8B958F',p:'<circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17"/><path d="M12 3.5c2.2 2.4 3.3 5.4 3.3 8.5S14.2 18.1 12 20.5c-2.2-2.4-3.3-5.4-3.3-8.5S9.8 5.9 12 3.5Z"/>'},
+  grupo:{c:'#25D366',p:'<path d="M21 11.5c0 3.6-3.8 6.5-8.5 6.5-1 0-2-.13-2.9-.37L4.5 20l1.5-3.4C4.6 15.3 4 13.5 4 11.5 4 7.9 7.8 5 12.5 5S21 7.9 21 11.5Z"/><path d="M9 11.5h.01M12.5 11.5h.01M16 11.5h.01"/>'},
+  link:{c:'#2CC46B',p:'<path d="M10 13.5a4.5 4.5 0 0 0 6.4.1l2.6-2.6a4.5 4.5 0 0 0-6.4-6.4l-1.5 1.5"/><path d="M14 10.5a4.5 4.5 0 0 0-6.4-.1L5 13a4.5 4.5 0 0 0 6.4 6.4l1.5-1.5"/>'}
+};
+const svg = (k,cls='') => `<svg class="${cls}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">${(I[k]||I.link).p}</svg>`;
+const cor = k => (I[k]||I.link).c;
+
+function adivinharIcone(url){
+  const u = (url||'').toLowerCase();
+  if(u.includes('whatsapp')||u.includes('t.me')) return 'grupo';
+  if(u.includes('github')||u.includes('gitlab')) return 'codigo';
+  if(u.includes('club')||u.includes('members')) return 'aula';
+  if(u.includes('hotmart')||u.includes('kiwify')||u.includes('checkout')) return 'loja';
+  if(u.includes('painel')||u.includes('admin')||u.includes('dashboard')) return 'painel';
+  if(u.includes('cadastro')||u.includes('signup')) return 'cadastro';
+  if(u.includes('mapa')||u.includes('map')) return 'mapa';
+  if(u.includes('ebook')||u.includes('metodo')||u.includes('curso')) return 'ebook';
+  return 'site';
+}
+
+/* =========================================================
+   dados iniciais
+   ========================================================= */
+const SEMENTE = [
+  {id:'l1', grupo:'restrito', icone:'loja',     titulo:'Hotmart · Painel do produtor', url:'https://app.hotmart.com/', nota:'Página inicial da Hotmart: vendas, produtos e afiliados.', status:'ativo'},
+  {id:'l2', grupo:'restrito', icone:'aula',     titulo:'Hotmart Club · Método Cabine Blindada', url:'https://hotmart.com/en/club/strikedetails/products/8320972', nota:'Visualizar a área de membros do método como o aluno vê.', status:'ativo'},
+  {id:'l3', grupo:'restrito', icone:'codigo',   titulo:'Repositório no GitHub', url:'https://github.com/eduCalatrone/Strike-Details', nota:'Código de todos os sites ativos da Strike Details.', status:'ativo'},
+  {id:'l4', grupo:'restrito', icone:'painel',   titulo:'Painel de clientes', url:'http://strike-details-sigma.vercel.app/painel', nota:'Acesso ao banco de dados dos clientes cadastrados.', status:'ativo'},
+  {id:'l5', grupo:'publico',  icone:'cadastro', titulo:'Cadastro do cliente', url:'https://strike-details-sigma.vercel.app/cadastro', nota:'Formulário onde o cliente se cadastra.', status:'ativo'},
+  {id:'l6', grupo:'publico',  icone:'mapa',     titulo:'Mapa de autorizados', url:'https://strike-details-sigma.vercel.app/mapa', nota:'Mapa do Brasil com a matriz e os aplicadores autorizados.', status:'ativo'},
+  {id:'l7', grupo:'publico',  icone:'ebook',    titulo:'Método Cabine Blindada', url:'https://strike-details-sigma.vercel.app/ebook', nota:'Página de vendas do programa de certificação. É o link para divulgar.', status:'ativo'},
+  {id:'l8', grupo:'publico',  icone:'site',     titulo:'Site principal', url:'https://strike-details-sigma.vercel.app', nota:'Antiga home da Strike Details. Fora de uso — não divulgar.', status:'off'},
+  {id:'l9', grupo:'publico',  icone:'grupo',    titulo:'Grupo de afiliados no WhatsApp', url:'https://chat.whatsapp.com/JgWzcZJm30Y80gVRaobWmN?s=cl&p=a&ilr=4', nota:'Convite do grupo de afiliados. Qualquer um com o link entra.', status:'ativo'}
+];
+
+/* =========================================================
+   armazenamento (artefato → localStorage → memória)
+   ========================================================= */
+const CHAVE = 'strike-links-v1';
+const Store = (() => {
+  const temArtefato = typeof window !== 'undefined' && window.storage && typeof window.storage.get === 'function';
+  let memoria = null;
+  return {
+    async ler(){
+      if(temArtefato){
+        try{ const r = await window.storage.get(CHAVE); return r && r.value ? JSON.parse(r.value) : null; }
+        catch(e){ return null; }
+      }
+      try{ const t = localStorage.getItem(CHAVE); return t ? JSON.parse(t) : null; }
+      catch(e){ return memoria; }
+    },
+    async gravar(dados){
+      const t = JSON.stringify(dados);
+      if(temArtefato){
+        try{ await window.storage.set(CHAVE, t); return true; }catch(e){ memoria = dados; return false; }
+      }
+      try{ localStorage.setItem(CHAVE, t); return true; }catch(e){ memoria = dados; return false; }
+    }
+  };
+})();
+
+let links = [];
+let filtro = '';
+let editandoId = null;
+let iconeEscolhido = 'site';
+
+/* =========================================================
+   utilidades
+   ========================================================= */
+const $ = s => document.querySelector(s);
+const esc = s => String(s||'').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const host = u => { try{ return new URL(u).host.replace(/^www\./,''); }catch(e){ return u.replace(/^https?:\/\//,'').split('/')[0]; } };
+
+function aviso(txt){
+  const t = $('#toast'); t.textContent = txt; t.classList.add('on');
+  clearTimeout(t._t); t._t = setTimeout(()=>t.classList.remove('on'), 1900);
+}
+async function copiar(txt){
+  try{
+    await navigator.clipboard.writeText(txt);
+  }catch(e){
+    const a = document.createElement('textarea');
+    a.value = txt; a.style.position='fixed'; a.style.opacity='0';
+    document.body.appendChild(a); a.select();
+    try{ document.execCommand('copy'); }catch(_){ aviso('Não deu para copiar — copie da caixa do endereço'); document.body.removeChild(a); return; }
+    document.body.removeChild(a);
+  }
+  aviso('Link copiado');
+}
+
+/* =========================================================
+   render
+   ========================================================= */
+function cardHTML(l){
+  const c = cor(l.icone);
+  const off = l.status === 'off';
+  const selo = off ? '<span class="card__selo card__selo--off">Fora de uso</span>' : '';
+  return `
+  <article class="card ${off?'card--off':''}" tabindex="0" role="button" data-id="${l.id}"
+           aria-label="${esc(l.titulo)} — abrir opções" style="--c:${c}">
+    <div class="card__capa">
+      ${svg(l.icone,'card__fantasma')}
+      <span class="card__chip">${svg(l.icone)}</span>
+      ${selo}
+      <span class="card__brilho"></span>
+      <span class="card__rapido">
+        <a class="mini" href="${esc(l.url)}" target="_blank" rel="noopener noreferrer" data-stop>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4h6v6"/><path d="M20 4 11 13"/><path d="M18 14v5a1.8 1.8 0 0 1-1.8 1.8H5.2A1.8 1.8 0 0 1 3.4 19V7.8A1.8 1.8 0 0 1 5.2 6H10"/></svg>
+          Abrir
+        </a>
+        <button class="mini" data-copiar="${esc(l.url)}" data-stop>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="8.5" y="8.5" width="12" height="12" rx="2.4"/><path d="M15.5 5.5A2 2 0 0 0 13.5 3.5H5.6A2.1 2.1 0 0 0 3.5 5.6v7.9a2 2 0 0 0 2 2"/></svg>
+          Copiar
+        </button>
+      </span>
+    </div>
+    <div class="card__meta">
+      <div class="card__titulo">${esc(l.titulo)}</div>
+      <div class="card__host">${esc(host(l.url))}</div>
+    </div>
+  </article>`;
+}
+
+function fileiraHTML(id, titulo, itens, nota){
+  return `
+  <section class="fileira">
+    <div class="fileira__topo">
+      <h2 class="fileira__titulo">${titulo}</h2>
+      <span class="fileira__cont">${itens.length}</span>
+      ${nota||''}
+      <div class="pag" data-pag="${id}"></div>
+    </div>
+    <div class="trilho-wrap">
+      <button class="seta seta--esq" data-rolar="-1" data-alvo="${id}" aria-label="Voltar">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m14.5 5-7 7 7 7"/></svg>
+      </button>
+      <div class="trilho" id="${id}">
+        ${itens.map(cardHTML).join('')}
+        <article class="card card-add" tabindex="0" role="button" data-novo aria-label="Adicionar link">
+          <div class="card__capa">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+          </div>
+          <div class="card__meta"><div class="card__titulo" style="color:var(--mute)">Adicionar link</div></div>
+        </article>
+      </div>
+      <button class="seta seta--dir" data-rolar="1" data-alvo="${id}" aria-label="Avançar">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m9.5 5 7 7-7 7"/></svg>
+      </button>
+    </div>
+  </section>`;
+}
+
+function render(){
+  const palco = $('#palco');
+  const q = filtro.trim().toLowerCase();
+  const bate = l => !q || (l.titulo+' '+l.url+' '+(l.nota||'')).toLowerCase().includes(q);
+
+  $('#rodape-cont').textContent = links.length + ' links guardados';
+
+  if(q){
+    const achados = links.filter(bate);
+    palco.innerHTML = achados.length
+      ? `<section class="fileira" style="margin-top:18px">
+           <div class="fileira__topo">
+             <h2 class="fileira__titulo">Resultados</h2>
+             <span class="fileira__cont">${achados.length}</span>
+           </div>
+           <div class="trilho" style="flex-wrap:wrap;overflow:visible">
+             ${achados.map(cardHTML).join('')}
+           </div>
+         </section>`
+      : `<div class="vazio"><strong>Nada encontrado</strong>Nenhum link bate com “${esc(filtro)}”. Tente outra palavra ou parte do endereço.</div>`;
+    return;
+  }
+
+  const restrito = links.filter(l => l.grupo === 'restrito');
+  const publico  = links.filter(l => l.grupo === 'publico');
+
+  let html = '';
+
+  const notaRestrito = `<span class="fileira__nota">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4.5" y="10.5" width="15" height="10" rx="2.2"/><path d="M8 10.5V7.8a4 4 0 0 1 8 0v2.7"/></svg>
+      Não compartilhe
+    </span>`;
+
+  if(restrito.length) html += fileiraHTML('t-restrito','Acesso restrito', restrito, notaRestrito);
+  if(publico.length)  html += fileiraHTML('t-publico','Links públicos', publico);
+  if(!restrito.length && !publico.length){
+    html += `<div class="vazio"><strong>Nenhum link ainda</strong>Toque em “Adicionar link” para começar o índice.</div>`;
+  }
+  palco.innerHTML = html;
+  montarCarrosseis();
+}
+
+/* =========================================================
+   carrossel
+   ========================================================= */
+function paginas(tr){ return Math.max(1, Math.round(tr.scrollWidth / tr.clientWidth)); }
+
+function montarCarrosseis(){
+  document.querySelectorAll('.trilho[id]').forEach(tr => {
+    const pag = document.querySelector(`[data-pag="${tr.id}"]`);
+    if(pag){
+      const total = paginas(tr);
+      pag.innerHTML = total > 1 ? Array.from({length:total}, () => '<span class="pag__b"></span>').join('') : '';
+    }
+    tr.addEventListener('scroll', () => {
+      clearTimeout(tr._t);
+      tr._t = setTimeout(() => atualizarCarrossel(tr), 60);
+    }, {passive:true});
+    atualizarCarrossel(tr);
+  });
+}
+
+function atualizarCarrossel(tr){
+  const fim = tr.scrollWidth - tr.clientWidth - 4;
+  const pag = document.querySelector(`[data-pag="${tr.id}"]`);
+  if(pag && pag.children.length){
+    const idx = tr.scrollLeft >= fim ? pag.children.length - 1
+              : Math.round(tr.scrollLeft / tr.clientWidth);
+    [...pag.children].forEach((b,i) => b.classList.toggle('on', i === idx));
+  }
+}
+
+function rolar(tr, dir){
+  const fim = tr.scrollWidth - tr.clientWidth;
+  const passo = tr.clientWidth * .82;
+  let alvo = tr.scrollLeft + dir * passo;
+  if(dir > 0 && tr.scrollLeft >= fim - 4) alvo = 0;          // volta ao início
+  if(dir < 0 && tr.scrollLeft <= 4) alvo = fim;              // vai para o fim
+  tr.scrollTo({left: alvo, behavior:'smooth'});
+}
+
+/* arrastar com o mouse */
+let arrasto = null, arrastou = false;
+document.addEventListener('pointerdown', e => {
+  if(e.pointerType !== 'mouse' || e.button !== 0) return;
+  const tr = e.target.closest('.trilho');
+  if(!tr || e.target.closest('.mini')) return;
+  arrasto = {tr, x:e.clientX, left:tr.scrollLeft};
+  arrastou = false;
+});
+document.addEventListener('pointermove', e => {
+  if(!arrasto) return;
+  const dx = e.clientX - arrasto.x;
+  if(!arrastou && Math.abs(dx) > 5){ arrastou = true; arrasto.tr.classList.add('arrastando'); }
+  if(arrastou) arrasto.tr.scrollLeft = arrasto.left - dx;
+});
+document.addEventListener('pointerup', () => {
+  if(!arrasto) return;
+  arrasto.tr.classList.remove('arrastando');
+  atualizarCarrossel(arrasto.tr);
+  arrasto = null;
+  if(arrastou) setTimeout(() => { arrastou = false; }, 200);
+});
+
+window.addEventListener('resize', () => {
+  clearTimeout(window._r);
+  window._r = setTimeout(montarCarrosseis, 180);
+});
+
+/* =========================================================
+   modal do item
+   ========================================================= */
+let itemAtual = null;
+function abrirItem(id){
+  const l = links.find(x => x.id === id); if(!l) return;
+  itemAtual = l;
+  const chip = $('#item-chip');
+  chip.style.setProperty('--c', cor(l.icone));
+  chip.innerHTML = svg(l.icone);
+  $('#item-grupo').textContent = (l.grupo === 'restrito' ? 'Acesso restrito' : 'Público') + (l.status==='off' ? ' · fora de uso' : '');
+  $('#item-titulo').textContent = l.titulo;
+  $('#item-nota').textContent = l.nota || 'Sem descrição.';
+  $('#item-url').textContent = l.url;
+  $('#item-abrir').href = l.url;
+  $('#tela-item').classList.add('aberta');
+}
+function fecharTelas(){
+  document.querySelectorAll('.tela').forEach(t => t.classList.remove('aberta'));
+}
+
+/* =========================================================
+   formulário
+   ========================================================= */
+function montarIcones(){
+  $('#f-icones').innerHTML = Object.keys(I).map(k =>
+    `<button type="button" class="icone-op" data-icone="${k}" aria-pressed="false" aria-label="${k}" style="--c:${cor(k)}">${svg(k)}</button>`
+  ).join('');
+}
+function marcarIcone(k){
+  iconeEscolhido = k;
+  document.querySelectorAll('.icone-op').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.icone === k)));
+}
+function abrirForm(l){
+  editandoId = l ? l.id : null;
+  $('#form-titulo').textContent = l ? 'Editar link' : 'Novo link';
+  $('#f-titulo').value = l ? l.titulo : '';
+  $('#f-url').value    = l ? l.url : '';
+  $('#f-nota').value   = l ? (l.nota||'') : '';
+  $('#f-grupo').value  = l ? l.grupo : 'restrito';
+  $('#f-status').value = l ? (l.status||'ativo') : 'ativo';
+  marcarIcone(l ? l.icone : 'site');
+  fecharTelas();
+  $('#tela-form').classList.add('aberta');
+  setTimeout(()=>$('#f-titulo').focus(), 60);
+}
+async function salvar(){
+  let url = $('#f-url').value.trim();
+  const titulo = $('#f-titulo').value.trim();
+  if(!titulo){ aviso('Dê um nome ao link'); $('#f-titulo').focus(); return; }
+  if(!url){ aviso('Cole o endereço do link'); $('#f-url').focus(); return; }
+  if(!/^https?:\/\//i.test(url)) url = 'https://' + url;
+
+  const dados = {
+    titulo, url,
+    nota: $('#f-nota').value.trim(),
+    grupo: $('#f-grupo').value,
+    status: $('#f-status').value,
+    icone: iconeEscolhido
+  };
+  if(editandoId){
+    const i = links.findIndex(l => l.id === editandoId);
+    links[i] = Object.assign({}, links[i], dados);
+    aviso('Link atualizado');
+  }else{
+    links.push(Object.assign({id:'l'+Date.now()}, dados));
+    aviso('Link salvo');
+  }
+  await Store.gravar(links);
+  fecharTelas(); render();
+}
+
+/* =========================================================
+   eventos
+   ========================================================= */
+document.addEventListener('click', async (e) => {
+  if(arrastou){ e.preventDefault(); e.stopPropagation(); return; }
+
+  const copiarBtn = e.target.closest('[data-copiar]');
+  if(copiarBtn){ e.preventDefault(); e.stopPropagation(); copiar(copiarBtn.dataset.copiar); return; }
+
+  if(e.target.closest('[data-stop]')){ e.stopPropagation(); return; }
+
+  const novo = e.target.closest('[data-novo]') || e.target.closest('#btn-novo');
+  if(novo){ abrirForm(null); return; }
+
+  const card = e.target.closest('.card[data-id]');
+  if(card){ abrirItem(card.dataset.id); return; }
+
+  const seta = e.target.closest('[data-rolar]');
+  if(seta){
+    rolar(document.getElementById(seta.dataset.alvo), Number(seta.dataset.rolar));
+    return;
+  }
+
+  const ic = e.target.closest('.icone-op');
+  if(ic){ marcarIcone(ic.dataset.icone); return; }
+
+  if(e.target.closest('[data-fechar]')){ fecharTelas(); return; }
+  if(e.target.classList.contains('tela')){ fecharTelas(); return; }
+});
+
+document.addEventListener('keydown', (e) => {
+  if(e.key === 'Escape') fecharTelas();
+  if(e.key === '/' && document.activeElement !== $('#busca') && !document.querySelector('.tela.aberta')){
+    e.preventDefault(); $('#busca').focus();
+  }
+  const card = e.target.closest && e.target.closest('.card');
+  if(card && (e.key === 'Enter' || e.key === ' ')){
+    e.preventDefault();
+    if(card.dataset.id) abrirItem(card.dataset.id); else abrirForm(null);
+  }
+});
+
+$('#busca').addEventListener('input', e => { filtro = e.target.value; render(); });
+$('#item-copiar').addEventListener('click', () => itemAtual && copiar(itemAtual.url));
+$('#item-url').addEventListener('click', () => itemAtual && copiar(itemAtual.url));
+$('#item-editar').addEventListener('click', () => itemAtual && abrirForm(itemAtual));
+$('#item-excluir').addEventListener('click', async () => {
+  if(!itemAtual) return;
+  if(!confirm('Excluir “' + itemAtual.titulo + '” do índice?')) return;
+  links = links.filter(l => l.id !== itemAtual.id);
+  await Store.gravar(links);
+  fecharTelas(); render(); aviso('Link excluído');
+});
+$('#f-salvar').addEventListener('click', salvar);
+$('#f-url').addEventListener('blur', e => {
+  if(e.target.value && !document.querySelector('.icone-op[aria-pressed="true"][data-icone]:not([data-icone="site"])')){
+    marcarIcone(adivinharIcone(e.target.value));
+  }
+});
+
+/* =========================================================
+   início
+   ========================================================= */
+(async function iniciar(){
+  montarIcones();
+  const salvos = await Store.ler();
+  links = (Array.isArray(salvos) && salvos.length) ? salvos : SEMENTE.slice();
+  if(!salvos) await Store.gravar(links);
+  render();
+})();
+</script>
+</body>
+</html>
