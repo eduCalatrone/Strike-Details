@@ -2,143 +2,214 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0a0b0a">
 <meta name="robots" content="noindex, nofollow">
-<title>Central de Clientes · Strike</title>
+<title>Central de Clientes — Strike Estética Automotiva</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Barlow+Condensed:wght@600;700;800&family=Inter:wght@400;500;600;700&family=Michroma&display=swap" rel="stylesheet">
+
 <style>
-  :root{
-    --ink:#0A0C0B; --surface:#131816; --surface-2:#1B221F; --surface-3:#232B27;
-    --line:#29322D; --line-soft:#1F2723;
-    --green:#2CC46B; --green-glow:rgba(44,196,107,.12);
-    --amber:#E9B23C; --blue:#4C9AE8; --red:#FF6B5B;
-    --text:#EEF3F0; --muted:#8B968F; --dim:#5E6A64;
-    --r:10px;
-  }
-  *{box-sizing:border-box;margin:0;padding:0}
-  body{background:var(--ink); color:var(--text); font-family:'Roboto',system-ui,sans-serif; font-size:15px; line-height:1.5}
-  button,input,select,textarea{font-family:inherit; font-size:15px}
-  ::placeholder{color:var(--dim)}
-  :focus-visible{outline:2px solid var(--green); outline-offset:2px}
+@font-face{
+  font-family:'Ethnocentric';
+  src:url('/fonts/ethnocentric.woff2') format('woff2'),
+      url('/fonts/ethnocentric.woff')  format('woff'),
+      url('/fonts/ethnocentric.otf')   format('opentype');
+  font-weight:400; font-style:normal; font-display:swap;
+}
 
-  /* ================= LOGIN ================= */
-  #login{min-height:100dvh; display:grid; place-items:center; padding:24px}
-  #login .box{width:100%; max-width:370px; background:var(--surface); border:1px solid var(--line); border-radius:16px; padding:30px 24px}
-  .mark{font-family:'Poppins',sans-serif; font-weight:700; font-size:24px; letter-spacing:.14em; text-align:center}
-  .mark span{color:var(--green)}
-  .mark-sub{font-size:10px; letter-spacing:.3em; color:var(--muted); text-transform:uppercase; text-align:center; margin-top:6px}
-  #login h1{font-family:'Poppins',sans-serif; font-weight:500; font-size:15px; text-align:center; margin:24px 0 20px; color:var(--muted)}
+:root{
+  --f-title:'Archivo Black','Barlow Condensed','Inter',sans-serif;
+  --f-tech:'Ethnocentric','Michroma','Barlow Condensed',sans-serif;
+  --f-cond:'Barlow Condensed','Inter',sans-serif;
 
-  label{display:block; font-family:'Poppins',sans-serif; font-weight:500; font-size:11px; letter-spacing:.07em; text-transform:uppercase; color:var(--muted); margin-bottom:6px}
-  .inp{width:100%; background:var(--surface-2); color:var(--text); border:1px solid var(--line); border-radius:var(--r); padding:11px 13px; transition:border-color .15s}
-  .inp:focus{outline:none; border-color:var(--green); box-shadow:0 0 0 3px var(--green-glow)}
-  select.inp{appearance:none; background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8'><path d='M1 1l5 5 5-5' fill='none' stroke='%238B968F' stroke-width='1.6' stroke-linecap='round'/></svg>"); background-repeat:no-repeat; background-position:right 12px center; padding-right:32px}
-  textarea.inp{resize:vertical; min-height:76px}
-  .mb{margin-bottom:14px}
+  --ink:#0a0b0a; --panel:#111311; --card:#171a17;
+  --line:rgba(255,255,255,.10); --line-2:rgba(255,255,255,.06);
+  --green:#3f8a5c; --green-hi:#56a878; --green-dim:rgba(63,138,92,.16);
+  --txt:#f2f4f0; --txt-2:#9aa096;
+  --amber:#c9973f; --blue:#5b8fc4; --red:#e05252;
+  --radius:14px; --pad:1.15rem;
+}
 
-  .btn{border:1px solid var(--line); background:var(--surface-2); color:var(--text); border-radius:var(--r); padding:11px 16px; cursor:pointer; transition:border-color .15s, background .15s}
-  .btn:hover{border-color:var(--green); background:var(--surface-3)}
-  .btn-primary{background:var(--green); border-color:var(--green); color:#06210F; font-family:'Poppins',sans-serif; font-weight:600}
-  .btn-primary:hover{filter:brightness(1.07); background:var(--green)}
-  .btn-danger{color:var(--red)}
-  .btn-danger:hover{border-color:var(--red)}
-  .btn:disabled{opacity:.5; cursor:progress}
-  .btn-full{width:100%}
-  .msg{display:none; margin-top:12px; font-size:13px; color:#FFB3A9; background:rgba(255,107,91,.09); border:1px solid rgba(255,107,91,.3); border-radius:var(--r); padding:10px 12px}
-  .msg.on{display:block}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{background:var(--ink);color:var(--txt);font-family:'Inter',system-ui,sans-serif;font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+button,input,select,textarea{font-family:'Inter',sans-serif;font-size:15px}
+::placeholder{color:#5c6159}
+:focus-visible{outline:2px solid var(--green-hi);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
 
-  /* ================= APP ================= */
-  #app{display:none}
-  .top{position:sticky; top:0; z-index:20; background:rgba(10,12,11,.94); backdrop-filter:blur(8px); border-bottom:1px solid var(--line)}
-  .top-in{max-width:1180px; margin:0 auto; padding:12px 16px; display:flex; align-items:center; gap:14px; flex-wrap:wrap}
-  .top .mark{font-size:18px; text-align:left; letter-spacing:.12em}
-  .top .who{margin-left:auto; color:var(--dim); font-size:12.5px}
-  .tabs{display:flex; gap:4px; max-width:1180px; margin:0 auto; padding:0 16px}
-  .tab{background:none; border:none; border-bottom:2px solid transparent; color:var(--muted); padding:11px 14px; cursor:pointer; font-family:'Poppins',sans-serif; font-weight:500; font-size:13.5px}
-  .tab.on{color:var(--text); border-bottom-color:var(--green)}
+h1,h2{font-family:var(--f-title);text-transform:uppercase;font-weight:400;line-height:1.08;letter-spacing:-.4px}
+h3{font-family:var(--f-cond);text-transform:uppercase;font-weight:800;letter-spacing:.4px;line-height:1.05}
 
-  main{max-width:1180px; margin:0 auto; padding:20px 16px 80px}
+.carbon{
+  background-color:#0c0d0c;
+  background-image:
+    linear-gradient(45deg,rgba(255,255,255,.022) 25%,transparent 25%,transparent 75%,rgba(255,255,255,.022) 75%),
+    linear-gradient(45deg,rgba(255,255,255,.022) 25%,transparent 25%,transparent 75%,rgba(255,255,255,.022) 75%),
+    linear-gradient(rgba(0,0,0,.3) 100%,rgba(0,0,0,.3) 100%),
+    linear-gradient(90deg,rgba(0,0,0,.18) 50%,rgba(20,20,22,.18) 50%);
+  background-size:10px 10px,10px 10px,20px 20px,20px 20px;
+  background-position:0 0,5px 5px,0 0,0 0;
+}
+.eyebrow{
+  display:inline-flex;align-items:center;gap:.55rem;
+  font-family:var(--f-tech);font-size:.58rem;letter-spacing:1px;text-transform:uppercase;
+  line-height:1.5;color:var(--green);margin-bottom:.8rem;
+}
+.eyebrow::before{content:"";width:22px;height:1px;background:var(--green);opacity:.7}
 
-  .stats{display:grid; grid-template-columns:repeat(auto-fit,minmax(120px,1fr)); gap:10px; margin-bottom:18px}
-  .stat{background:var(--surface); color:var(--text); border:1px solid var(--line); border-radius:var(--r); padding:13px 15px; cursor:pointer; text-align:left; transition:border-color .15s}
-  .stat:hover{border-color:var(--green)}
-  .stat.on{border-color:var(--green); background:var(--surface-2)}
-  .stat b{display:block; font-family:'Poppins',sans-serif; font-weight:600; font-size:24px; line-height:1.1}
-  .stat span{font-size:11.5px; letter-spacing:.07em; text-transform:uppercase; color:var(--muted)}
+/* ================= LOGIN ================= */
+#login{position:relative;min-height:100dvh;display:grid;place-items:center;padding:var(--pad);overflow:hidden}
+#login::before{content:"";position:absolute;inset:0;background:url('/hero-bg.jpg') center/cover no-repeat;opacity:.26;filter:grayscale(.4)}
+#login::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,11,10,.6),rgba(10,11,10,.95))}
+#login .box{background:var(--card);position:relative;z-index:1;width:100%;max-width:380px;border:1px solid var(--line);border-radius:var(--radius);padding:1.9rem 1.5rem}
+#login img.logo{width:150px;max-height:40px;object-fit:contain;margin:0 auto 1.6rem}
+#login h1{font-size:1.3rem;margin-bottom:.4rem;text-align:center}
+#login .sub{font-size:.8rem;color:var(--txt-2);text-align:center;margin-bottom:1.5rem}
 
-  .filters{display:flex; gap:9px; flex-wrap:wrap; margin-bottom:16px}
-  .filters .inp{width:auto; flex:1; min-width:150px; padding:10px 13px}
-  .filters select.inp{flex:0 0 auto; min-width:130px}
+label{display:block;font-family:var(--f-cond);font-weight:700;font-size:.72rem;letter-spacing:1px;text-transform:uppercase;color:var(--txt-2);margin-bottom:.4rem}
+.inp{width:100%;background:var(--panel);color:var(--txt);border:1px solid var(--line);border-radius:12px;padding:.72rem .85rem;transition:border-color .15s,box-shadow .15s}
+.inp:focus{outline:none;border-color:var(--green);box-shadow:0 0 0 3px var(--green-dim)}
+select.inp{appearance:none;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8'><path d='M1 1l5 5 5-5' fill='none' stroke='%239aa096' stroke-width='1.6' stroke-linecap='round'/></svg>");background-repeat:no-repeat;background-position:right .85rem center;padding-right:2.1rem}
+textarea.inp{resize:vertical;min-height:76px;line-height:1.5}
+.mb{margin-bottom:.9rem}
 
-  .list{display:flex; flex-direction:column; gap:9px}
-  .lead{
-    background:var(--surface); border:1px solid var(--line); border-left:3px solid var(--line);
-    border-radius:var(--r); padding:14px 16px; cursor:pointer; display:grid; gap:5px;
-    grid-template-columns:auto 1fr auto; align-items:center; transition:border-color .15s, background .15s;
-  }
-  .lead:hover{background:var(--surface-2); border-color:var(--line); border-left-color:var(--green)}
-  .uf-badge{
-    grid-column:1; grid-row:1/3; align-self:center; margin-right:13px;
-    font-family:'Poppins',sans-serif; font-weight:600; font-size:14px; letter-spacing:.05em;
-    color:var(--green); background:rgba(44,196,107,.1);
-    border:1px solid rgba(44,196,107,.3); border-radius:8px;
-    width:46px; padding:9px 0; text-align:center;
-  }
-  .lead h3{font-family:'Poppins',sans-serif; font-weight:600; font-size:15.5px; grid-column:2}
-  .lead .meta{grid-column:2; font-size:13px; color:var(--muted)}
-  .lead .meta i{font-style:normal; color:var(--dim)}
-  .lead .right{grid-column:3; grid-row:1/3; display:flex; flex-direction:column; align-items:flex-end; gap:6px}
-  .lead .when{font-size:11.5px; color:var(--dim)}
+.btn{
+  display:flex;align-items:center;justify-content:center;gap:.5rem;
+  min-height:48px;padding:.72rem 1rem;cursor:pointer;
+  font-family:var(--f-cond);font-weight:800;text-transform:uppercase;
+  font-size:.95rem;letter-spacing:.8px;line-height:1.1;
+  color:var(--txt);background:transparent;border:1px solid var(--line);border-radius:12px;
+  transition:border-color .15s,background .15s,transform .12s;
+}
+.btn:hover{border-color:rgba(63,138,92,.5);background:var(--card)}
+.btn:active{transform:translateY(1px)}
+.btn-primary{color:#ffffff;background:linear-gradient(180deg,var(--green-hi),var(--green));border-color:transparent;box-shadow:0 10px 26px rgba(63,138,92,.2)}
+.btn-primary:hover{background:linear-gradient(180deg,var(--green-hi),var(--green));border-color:transparent}
+.btn-danger{color:#e8908f}
+.btn-danger:hover{border-color:rgba(224,82,82,.5)}
+.btn:disabled{opacity:.55;cursor:progress}
+.btn-full{width:100%}
+.btn-sm{min-height:38px;font-size:.8rem;padding:.4rem .8rem}
 
-  .pill{font-size:11px; letter-spacing:.05em; text-transform:uppercase; font-family:'Poppins',sans-serif; font-weight:500; padding:3px 9px; border-radius:999px; white-space:nowrap}
-  .p-novo{background:rgba(44,196,107,.15); color:var(--green)}
-  .p-em_contato{background:rgba(233,178,60,.15); color:var(--amber)}
-  .p-encaminhado{background:rgba(76,154,232,.15); color:var(--blue)}
-  .p-convertido{background:rgba(44,196,107,.25); color:#8CE9B4}
-  .p-perdido{background:rgba(139,150,143,.15); color:var(--muted)}
+.msg{display:none;margin-top:.8rem;font-size:.8rem;color:#f0a9a9;background:rgba(224,82,82,.09);border:1px solid rgba(224,82,82,.3);border-radius:12px;padding:.65rem .8rem}
+.msg.on{display:block}
 
-  .empty{text-align:center; padding:56px 20px; color:var(--muted)}
-  .empty b{display:block; font-family:'Poppins',sans-serif; font-size:16px; color:var(--text); margin-bottom:8px}
+/* ================= APP ================= */
+#app{display:none}
+.top{position:sticky;top:0;z-index:30;background:rgba(10,11,10,.88);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line-2)}
+.top-in{max-width:1180px;margin:0 auto;padding:.6rem var(--pad);display:flex;align-items:center;gap:.8rem}
+.top img.logo{width:112px;max-height:32px;object-fit:contain}
+.top .who{margin-left:auto;font-size:.72rem;color:var(--txt-2);letter-spacing:.3px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:38vw}
+.tabs{display:flex;gap:.15rem;max-width:1180px;margin:0 auto;padding:0 var(--pad)}
+.tab{
+  background:none;border:none;border-bottom:2px solid transparent;cursor:pointer;
+  color:var(--txt-2);padding:.7rem .8rem;
+  font-family:var(--f-cond);font-weight:700;text-transform:uppercase;font-size:.82rem;letter-spacing:.8px;
+}
+.tab.on{color:var(--txt);border-bottom-color:var(--green)}
 
-  /* ================= DRAWER ================= */
-  .scrim{position:fixed; inset:0; background:rgba(0,0,0,.6); z-index:40; display:none}
-  .scrim.on{display:block}
-  .drawer{
-    position:fixed; z-index:50; top:0; right:0; bottom:0; width:min(440px,100%);
-    background:var(--surface); border-left:1px solid var(--line);
-    transform:translateX(100%); transition:transform .22s ease; overflow-y:auto;
-  }
-  .drawer.on{transform:none}
-  .dr-head{position:sticky; top:0; background:var(--surface); border-bottom:1px solid var(--line); padding:16px 20px; display:flex; align-items:center; gap:12px; z-index:2}
-  .dr-head h2{font-family:'Poppins',sans-serif; font-weight:600; font-size:17px; flex:1; line-height:1.3}
-  .x{background:none; border:none; color:var(--muted); font-size:26px; line-height:1; cursor:pointer; padding:0 4px}
-  .dr-body{padding:18px 20px 40px}
-  .dl{display:grid; grid-template-columns:88px 1fr; gap:7px 12px; font-size:14px; margin-bottom:20px}
-  .dl dt{color:var(--dim); font-size:12.5px; padding-top:1px}
-  .dl dd{word-break:break-word}
-  .sep{height:1px; background:var(--line); margin:20px 0}
-  .acts{display:flex; gap:8px; flex-wrap:wrap; margin-bottom:20px}
-  .acts .btn{flex:1; min-width:132px; text-align:center; text-decoration:none; font-size:14px; padding:10px 12px}
-  .sug{font-size:12px; color:var(--green); margin-top:6px}
+main{max-width:1180px;margin:0 auto;padding:1.3rem var(--pad) 4rem}
 
-  @media (max-width:560px){
-    .lead{grid-template-columns:auto 1fr}
-    .uf-badge{grid-row:1/4}
-    .lead .right{grid-column:2; grid-row:auto; flex-direction:row; align-items:center; justify-content:space-between; margin-top:4px}
-  }
-  @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(112px,1fr));gap:.5rem;margin-bottom:1.1rem}
+.stat{
+  background:var(--card);color:var(--txt);border:1px solid var(--line-2);border-left:3px solid var(--line);
+  border-radius:12px;padding:.7rem .8rem;cursor:pointer;text-align:left;transition:border-color .15s,background .15s;
+}
+.stat:hover{border-left-color:var(--green)}
+.stat.on{border-left-color:var(--green);background:linear-gradient(160deg,rgba(63,138,92,.09),var(--card))}
+.stat b{display:block;font-family:var(--f-tech);font-size:1.3rem;font-weight:400;letter-spacing:-.5px;color:var(--green);line-height:1.2;-webkit-text-stroke:.35px currentColor;paint-order:stroke fill}
+.stat span{display:block;font-size:.63rem;letter-spacing:.8px;text-transform:uppercase;color:var(--txt-2);margin-top:.15rem}
+
+.filters{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1rem}
+.filters .inp{width:auto;flex:1;min-width:160px}
+.filters select.inp{flex:0 0 auto;min-width:140px}
+
+.list{display:flex;flex-direction:column;gap:.5rem}
+.lead{
+  background:var(--card);border:1px solid var(--line-2);border-left:3px solid var(--line);
+  border-radius:12px;padding:.85rem .95rem;cursor:pointer;
+  display:grid;grid-template-columns:auto 1fr auto;gap:.25rem;align-items:center;
+  transition:border-color .15s,background .15s;
+}
+.lead:hover{border-left-color:var(--green);background:linear-gradient(160deg,rgba(63,138,92,.06),var(--card))}
+.uf-badge{
+  grid-column:1;grid-row:1/3;align-self:center;margin-right:.85rem;
+  font-family:var(--f-tech);font-size:.8rem;letter-spacing:0;
+  color:var(--green);background:var(--green-dim);
+  border:1px solid rgba(63,138,92,.35);border-radius:10px;
+  width:48px;padding:.55rem 0;text-align:center;
+  -webkit-text-stroke:.3px currentColor;paint-order:stroke fill;
+}
+.lead h3{grid-column:2;font-size:.98rem;color:var(--txt)}
+.lead .meta{grid-column:2;font-size:.78rem;color:var(--txt-2)}
+.lead .meta i{font-style:normal;opacity:.45}
+.lead .right{grid-column:3;grid-row:1/3;display:flex;flex-direction:column;align-items:flex-end;gap:.35rem}
+.lead .when{font-size:.66rem;color:#6b7066;letter-spacing:.3px}
+
+.pill{
+  font-family:var(--f-cond);font-weight:700;font-size:.66rem;letter-spacing:.9px;text-transform:uppercase;
+  padding:.15rem .55rem;border-radius:100px;white-space:nowrap;border:1px solid transparent;
+}
+.p-novo{background:var(--green-dim);color:var(--green-hi);border-color:rgba(63,138,92,.4)}
+.p-em_contato{background:rgba(201,151,63,.14);color:var(--amber);border-color:rgba(201,151,63,.35)}
+.p-encaminhado{background:rgba(91,143,196,.14);color:var(--blue);border-color:rgba(91,143,196,.35)}
+.p-convertido{background:rgba(63,138,92,.3);color:#8fd3aa;border-color:rgba(63,138,92,.5)}
+.p-perdido{background:rgba(255,255,255,.05);color:var(--txt-2);border-color:var(--line-2)}
+
+.empty{text-align:center;padding:3.2rem 1.2rem;color:var(--txt-2);font-size:.85rem}
+.empty b{display:block;font-family:var(--f-cond);text-transform:uppercase;letter-spacing:.8px;font-size:1rem;color:var(--txt);margin-bottom:.5rem}
+
+/* ================= DRAWER ================= */
+.scrim{position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:40;display:none}
+.scrim.on{display:block}
+.drawer{
+  position:fixed;z-index:50;top:0;right:0;bottom:0;width:min(440px,100%);
+  background-color:#0c0d0c;
+  background-image:
+    linear-gradient(45deg,rgba(255,255,255,.022) 25%,transparent 25%,transparent 75%,rgba(255,255,255,.022) 75%),
+    linear-gradient(45deg,rgba(255,255,255,.022) 25%,transparent 25%,transparent 75%,rgba(255,255,255,.022) 75%),
+    linear-gradient(rgba(0,0,0,.3) 100%,rgba(0,0,0,.3) 100%),
+    linear-gradient(90deg,rgba(0,0,0,.18) 50%,rgba(20,20,22,.18) 50%);
+  background-size:10px 10px,10px 10px,20px 20px,20px 20px;
+  background-position:0 0,5px 5px,0 0,0 0;
+  border-left:1px solid var(--line);
+  transform:translateX(100%);transition:transform .22s ease;overflow-y:auto;
+}
+.drawer.on{transform:none}
+.dr-head{position:sticky;top:0;z-index:2;background:rgba(10,11,10,.94);backdrop-filter:blur(10px);border-bottom:1px solid var(--line-2);padding:1rem var(--pad);display:flex;align-items:flex-start;gap:.8rem}
+.dr-head h2{font-size:1.1rem;flex:1;line-height:1.15}
+.x{background:none;border:none;color:var(--txt-2);font-size:1.7rem;line-height:1;cursor:pointer;padding:0 .2rem}
+.dr-body{padding:1.2rem var(--pad) 3rem}
+.dl{display:grid;grid-template-columns:92px 1fr;gap:.45rem .8rem;font-size:.86rem;margin-bottom:1.2rem}
+.dl dt{font-family:var(--f-cond);font-weight:700;font-size:.68rem;letter-spacing:.8px;text-transform:uppercase;color:#6b7066;padding-top:.18rem}
+.dl dd{word-break:break-word}
+.sep{height:1px;background:var(--line-2);margin:1.2rem 0}
+.acts{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1.1rem}
+.acts .btn{flex:1;min-width:130px;font-size:.8rem;min-height:42px}
+.sug{font-size:.74rem;color:var(--green-hi);margin-top:.4rem}
+.hist-item{padding:.5rem 0;border-bottom:1px solid var(--line-2);font-size:.78rem;color:var(--txt-2)}
+.hist-item b{color:var(--txt);font-weight:600}
+
+@media (max-width:560px){
+  .lead{grid-template-columns:auto 1fr}
+  .uf-badge{grid-row:1/4}
+  .lead .right{grid-column:2;grid-row:auto;flex-direction:row;align-items:center;justify-content:space-between;margin-top:.3rem}
+}
 </style>
 </head>
-<body>
+<body class="carbon">
 
 <!-- ================= LOGIN ================= -->
 <section id="login">
   <div class="box">
-    <div class="mark">STRI<span>KE</span></div>
-    <div class="mark-sub">Central de Clientes</div>
-    <h1>Acesso restrito à matriz</h1>
+    <img class="logo" src="/logo.png" alt="Strike Estética Automotiva">
+    <div style="text-align:center"><span class="eyebrow">Área restrita</span></div>
+    <h1>Central de Clientes</h1>
+    <p class="sub">Acesso exclusivo da matriz</p>
     <div class="mb">
       <label for="lemail">E-mail</label>
       <input class="inp" id="lemail" type="email" autocomplete="username">
@@ -156,36 +227,30 @@
 <div id="app">
   <div class="top">
     <div class="top-in">
-      <div class="mark">STRI<span>KE</span></div>
+      <img class="logo" src="/logo.png" alt="Strike Estética Automotiva">
       <span class="who" id="who"></span>
-      <button class="btn" id="btnSair" style="padding:7px 13px;font-size:13px">Sair</button>
+      <button class="btn btn-sm" id="btnSair">Sair</button>
     </div>
     <div class="tabs">
       <button class="tab on" data-tab="clientes">Clientes</button>
-      <button class="tab" data-tab="autorizados">Rede de autorizados</button>
+      <button class="tab" data-tab="autorizados">Rede</button>
     </div>
   </div>
 
   <main>
-    <!-- ---- CLIENTES ---- -->
     <section id="tab-clientes">
       <div class="stats" id="stats"></div>
-
       <div class="filters">
-        <input class="inp" id="fBusca" type="search" placeholder="Buscar por nome, cidade, estado, placa ou telefone">
+        <input class="inp" id="fBusca" type="search" placeholder="Buscar por nome, cidade, estado, placa…">
         <select class="inp" id="fUf"><option value="">Todos os estados</option></select>
         <select class="inp" id="fAut"><option value="">Todos os autorizados</option><option value="__sem">Sem autorizado</option></select>
-        <button class="btn" id="btnCsv">Exportar CSV</button>
+        <button class="btn btn-sm" id="btnCsv">Exportar CSV</button>
       </div>
-
       <div class="list" id="listaLeads"></div>
     </section>
 
-    <!-- ---- AUTORIZADOS ---- -->
     <section id="tab-autorizados" style="display:none">
-      <div class="filters">
-        <button class="btn btn-primary" id="btnNovoAut">Adicionar autorizado</button>
-      </div>
+      <div class="filters"><button class="btn btn-primary btn-sm" id="btnNovoAut">Adicionar autorizado</button></div>
       <div class="list" id="listaAut"></div>
     </section>
   </main>
@@ -196,7 +261,10 @@
 <!-- ---- DRAWER: lead ---- -->
 <aside class="drawer" id="drLead">
   <div class="dr-head">
-    <h2 id="drNome"></h2>
+    <div style="flex:1">
+      <span class="eyebrow" style="margin-bottom:.35rem">Ficha do cliente</span>
+      <h2 id="drNome"></h2>
+    </div>
     <button class="x" data-close aria-label="Fechar">&times;</button>
   </div>
   <div class="dr-body">
@@ -214,7 +282,6 @@
       <select class="inp" id="drAut"></select>
       <div class="sug" id="drSug"></div>
     </div>
-
     <div class="mb">
       <label for="drStatus">Situação</label>
       <select class="inp" id="drStatus">
@@ -225,47 +292,49 @@
         <option value="perdido">Perdido</option>
       </select>
     </div>
-
     <div class="mb">
       <label for="drNota">Anotação interna</label>
       <textarea class="inp" id="drNota" placeholder="Por que esse autorizado, o que já foi combinado…"></textarea>
     </div>
 
     <button class="btn btn-primary btn-full" id="drSalvar">Salvar</button>
-    <div class="acts" style="margin-top:10px">
+    <div class="acts" style="margin-top:.6rem">
       <a class="btn" id="drZapAut" target="_blank" rel="noopener">Enviar ao autorizado</a>
       <button class="btn btn-danger" id="drExcluir">Excluir</button>
     </div>
     <div class="msg" id="drMsg"></div>
 
     <div class="sep"></div>
-    <label>Histórico</label>
-    <div id="drHist" style="font-size:13px;color:var(--muted)"></div>
+    <span class="eyebrow">Histórico</span>
+    <div id="drHist"></div>
   </div>
 </aside>
 
 <!-- ---- DRAWER: autorizado ---- -->
 <aside class="drawer" id="drAutorizado">
   <div class="dr-head">
-    <h2 id="daTitulo">Autorizado</h2>
+    <div style="flex:1">
+      <span class="eyebrow" style="margin-bottom:.35rem">Rede de autorizados</span>
+      <h2 id="daTitulo">Autorizado</h2>
+    </div>
     <button class="x" data-close aria-label="Fechar">&times;</button>
   </div>
   <div class="dr-body">
-    <div class="mb"><label for="daNome">Nome do responsável</label><input class="inp" id="daNome"></div>
-    <div class="mb"><label for="daEmpresa">Nome da oficina</label><input class="inp" id="daEmpresa"></div>
-    <div class="mb"><label for="daZap">WhatsApp <span style="text-transform:none;letter-spacing:0">(só números, com 55)</span></label><input class="inp" id="daZap" inputmode="numeric" placeholder="5569999999999"></div>
+    <div class="mb"><label for="daNome">Responsável</label><input class="inp" id="daNome"></div>
+    <div class="mb"><label for="daEmpresa">Oficina</label><input class="inp" id="daEmpresa"></div>
+    <div class="mb"><label for="daZap">WhatsApp · só números com 55</label><input class="inp" id="daZap" inputmode="numeric" placeholder="5569999999999"></div>
     <div class="mb"><label for="daEmail">E-mail</label><input class="inp" id="daEmail" type="email"></div>
-    <div class="mb" style="display:grid;grid-template-columns:90px 1fr;gap:12px">
+    <div class="mb" style="display:grid;grid-template-columns:88px 1fr;gap:.7rem">
       <div><label for="daUf">UF</label><select class="inp" id="daUf"></select></div>
       <div><label for="daCidade">Cidade</label><input class="inp" id="daCidade"></div>
     </div>
     <div class="mb"><label for="daObs">Observações</label><textarea class="inp" id="daObs" placeholder="Especialidades, nível de certificação, capacidade…"></textarea></div>
-    <div class="mb" style="display:flex;gap:18px;align-items:center">
-      <label style="display:flex;gap:8px;align-items:center;margin:0;text-transform:none;letter-spacing:0;font-size:14px;color:var(--text)"><input type="checkbox" id="daAtivo" checked style="accent-color:var(--green);width:17px;height:17px"> Ativo</label>
-      <label style="display:flex;gap:8px;align-items:center;margin:0;text-transform:none;letter-spacing:0;font-size:14px;color:var(--text)"><input type="checkbox" id="daMatriz" style="accent-color:var(--green);width:17px;height:17px"> É a matriz</label>
+    <div class="mb" style="display:flex;gap:1.2rem;align-items:center">
+      <label style="display:flex;gap:.5rem;align-items:center;margin:0;text-transform:none;letter-spacing:0;font-size:.88rem;color:var(--txt);font-family:'Inter',sans-serif;font-weight:400"><input type="checkbox" id="daAtivo" checked style="accent-color:var(--green);width:17px;height:17px"> Ativo</label>
+      <label style="display:flex;gap:.5rem;align-items:center;margin:0;text-transform:none;letter-spacing:0;font-size:.88rem;color:var(--txt);font-family:'Inter',sans-serif;font-weight:400"><input type="checkbox" id="daMatriz" style="accent-color:var(--green);width:17px;height:17px"> É a matriz</label>
     </div>
     <button class="btn btn-primary btn-full" id="daSalvar">Salvar autorizado</button>
-    <div class="acts" style="margin-top:10px"><button class="btn btn-danger btn-full" id="daExcluir">Excluir autorizado</button></div>
+    <div class="acts" style="margin-top:.6rem"><button class="btn btn-danger btn-full" id="daExcluir">Excluir autorizado</button></div>
     <div class="msg" id="daMsg"></div>
   </div>
 </aside>
@@ -279,7 +348,6 @@ const sb = createClient(CFG.SUPABASE_URL, CFG.SUPABASE_ANON_KEY);
 const $ = id => document.getElementById(id);
 
 const UFS = ['AC','AL','AP','AM','BA','CE','DF','ES','GO','MA','MT','MS','MG','PA','PB','PR','PE','PI','RJ','RN','RS','RO','RR','SC','SP','SE','TO'];
-const LABEL = { novo:'Novo', em_contato:'Em contato', encaminhado:'Encaminhado', convertido:'Fechou serviço', perdido:'Perdido' };
 const UF_NOME = {
   AC:'Acre', AL:'Alagoas', AP:'Amapá', AM:'Amazonas', BA:'Bahia', CE:'Ceará',
   DF:'Distrito Federal', ES:'Espírito Santo', GO:'Goiás', MA:'Maranhão',
@@ -288,6 +356,10 @@ const UF_NOME = {
   RN:'Rio Grande do Norte', RS:'Rio Grande do Sul', RO:'Rondônia', RR:'Roraima',
   SC:'Santa Catarina', SP:'São Paulo', SE:'Sergipe', TO:'Tocantins'
 };
+const LABEL = { novo:'Novo', em_contato:'Em contato', encaminhado:'Encaminhado', convertido:'Fechou serviço', perdido:'Perdido' };
+
+/* Remove acentos para a busca: "rondonia" acha "Rondônia", "sao paulo" acha "São Paulo" */
+const norm = s => String(s ?? '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
 
 let LEADS = [], AUTS = [], atual = null, autAtual = null, filtroStatus = '';
 
@@ -303,7 +375,6 @@ async function entrar() {
   if (error) { msg.textContent = 'E-mail ou senha não conferem.'; msg.classList.add('on'); return; }
   abrirApp();
 }
-
 $('btnSair').addEventListener('click', async () => { await sb.auth.signOut(); location.reload(); });
 
 async function abrirApp() {
@@ -312,11 +383,10 @@ async function abrirApp() {
   $('login').style.display = 'none';
   $('app').style.display = 'block';
   $('who').textContent = user.email;
-  UFS.forEach(uf => { $('fUf').add(new Option(uf, uf)); $('daUf').add(new Option(uf, uf)); });
+  UFS.forEach(uf => { $('fUf').add(new Option(`${uf} · ${UF_NOME[uf]}`, uf)); $('daUf').add(new Option(uf, uf)); });
   await carregarAutorizados();
   await carregarLeads();
 }
-
 sb.auth.getSession().then(({ data }) => { if (data.session) abrirApp(); });
 
 /* ================= ABAS ================= */
@@ -350,20 +420,22 @@ async function carregarLeads() {
 ['fBusca','fUf','fAut'].forEach(id => $(id).addEventListener('input', renderLeads));
 
 function filtrados() {
-  const q  = $('fBusca').value.trim().toLowerCase();
+  const q  = norm($('fBusca').value.trim());
   const uf = $('fUf').value, au = $('fAut').value;
   return LEADS.filter(l => {
     if (filtroStatus && l.status !== filtroStatus) return false;
     if (uf && l.uf !== uf) return false;
     if (au === '__sem' && l.autorizado_id) return false;
     if (au && au !== '__sem' && l.autorizado_id !== au) return false;
-    if (q && !`${l.nome} ${l.whatsapp} ${l.cidade} ${l.uf} ${UF_NOME[l.uf]||''} ${l.email||''} ${l.veiculo||''} ${l.placa||''} ${l.endereco||''}`.toLowerCase().includes(q)) return false;
+    if (q) {
+      const alvo = norm(`${l.nome} ${l.whatsapp} ${l.cidade} ${l.uf} ${UF_NOME[l.uf]||''} ${l.email||''} ${l.veiculo||''} ${l.placa||''} ${l.endereco||''}`);
+      if (!alvo.includes(q)) return false;
+    }
     return true;
   });
 }
 
 function renderLeads() {
-  // estatísticas
   const c = s => LEADS.filter(l => l.status === s).length;
   $('stats').innerHTML = [
     ['', 'Total', LEADS.length],
@@ -371,9 +443,7 @@ function renderLeads() {
     ['em_contato', 'Em contato', c('em_contato')],
     ['encaminhado', 'Encaminhados', c('encaminhado')],
     ['convertido', 'Fecharam', c('convertido')]
-  ].map(([s, rot, n]) =>
-    `<button class="stat ${s === filtroStatus ? 'on' : ''}" data-status="${s}"><b>${n}</b><span>${rot}</span></button>`
-  ).join('');
+  ].map(([s, rot, n]) => `<button class="stat ${s === filtroStatus ? 'on' : ''}" data-status="${s}"><b>${n}</b><span>${rot}</span></button>`).join('');
   document.querySelectorAll('.stat').forEach(b => b.addEventListener('click', () => {
     filtroStatus = b.dataset.status === filtroStatus ? '' : b.dataset.status;
     renderLeads();
@@ -388,13 +458,13 @@ function renderLeads() {
     <article class="lead" data-id="${l.id}">
       <span class="uf-badge" title="${UF_NOME[l.uf]||''}">${l.uf}</span>
       <h3>${esc(l.nome)}</h3>
-      <div class="meta">${esc(l.cidade)} <i>·</i> ${fone(l.whatsapp)}${l.autorizado ? ` <i>·</i> ${esc(l.autorizado.nome)}` : ''}</div>
+      <div class="meta">${esc(l.cidade)} — ${UF_NOME[l.uf]||l.uf} <i>·</i> ${fone(l.whatsapp)}${l.autorizado ? ` <i>·</i> ${esc(l.autorizado.nome)}` : ''}</div>
       <div class="right">
         <span class="pill p-${l.status}">${LABEL[l.status]}</span>
         <span class="when">${data(l.created_at)}</span>
       </div>
     </article>`).join('');
-  document.querySelectorAll('.lead').forEach(el => el.addEventListener('click', () => abrirLead(el.dataset.id)));
+  document.querySelectorAll('.lead[data-id]').forEach(el => el.addEventListener('click', () => abrirLead(el.dataset.id)));
 }
 
 /* ================= DRAWER DO LEAD ================= */
@@ -405,7 +475,7 @@ function abrirLead(id) {
   $('drDados').innerHTML = linhas([
     ['WhatsApp', fone(l.whatsapp)],
     ['E-mail', l.email],
-    ['Estado', `${l.cidade} — ${UF_NOME[l.uf] || l.uf} (${l.uf})`],
+    ['Cidade', `${l.cidade} — ${UF_NOME[l.uf] || l.uf} (${l.uf})`],
     ['Endereço', l.endereco],
     ['Veículo', l.veiculo],
     ['Placa', l.placa],
@@ -416,17 +486,16 @@ function abrirLead(id) {
     ['Encaminhado', l.atribuido_em ? data(l.atribuido_em, true) : null]
   ]);
 
-  // autorizados: mesmo estado primeiro
   const mesmo = AUTS.filter(a => a.ativo && a.uf === l.uf);
   const resto = AUTS.filter(a => a.ativo && a.uf !== l.uf);
   const opt = a => `<option value="${a.id}">${esc(a.nome)} · ${esc(a.cidade)}/${a.uf}${a.matriz ? ' (matriz)' : ''}</option>`;
   $('drAut').innerHTML = '<option value="">— ainda não encaminhado —</option>'
-    + (mesmo.length ? `<optgroup label="Em ${l.uf}">${mesmo.map(opt).join('')}</optgroup>` : '')
+    + (mesmo.length ? `<optgroup label="Em ${UF_NOME[l.uf]||l.uf}">${mesmo.map(opt).join('')}</optgroup>` : '')
     + (resto.length ? `<optgroup label="Outros estados">${resto.map(opt).join('')}</optgroup>` : '');
   $('drAut').value = l.autorizado_id || '';
   $('drSug').textContent = mesmo.length
-    ? `${mesmo.length} autorizado(s) no mesmo estado do cliente.`
-    : `Nenhum autorizado em ${l.uf} — avalie o mais próximo por região.`;
+    ? `${mesmo.length} autorizado(s) em ${UF_NOME[l.uf]||l.uf}.`
+    : `Nenhum autorizado em ${UF_NOME[l.uf]||l.uf} — avalie o mais próximo por região.`;
 
   $('drStatus').value = l.status;
   $('drNota').value = l.nota_interna || '';
@@ -445,10 +514,10 @@ function atualizarZapAut() {
   if (!a || !a.whatsapp) { btn.style.opacity = .4; btn.removeAttribute('href'); btn.textContent = 'Enviar ao autorizado'; return; }
   const l = atual;
   const txt = [
-    '*Novo cliente Strike*', '',
+    '*Novo cliente Strike Estética Automotiva*', '',
     `Nome: ${l.nome}`,
     `WhatsApp: ${fone(l.whatsapp)}`,
-    `Cidade: ${l.cidade}/${l.uf}`,
+    `Cidade: ${l.cidade} - ${UF_NOME[l.uf]||l.uf}`,
     l.endereco ? `Endereço: ${l.endereco}` : '',
     l.veiculo ? `Veículo: ${l.veiculo}` : '',
     l.placa ? `Placa: ${l.placa}` : '',
@@ -464,7 +533,7 @@ function atualizarZapAut() {
 $('drCopiar').addEventListener('click', async () => {
   const l = atual;
   await navigator.clipboard.writeText(
-    `${l.nome}\n${fone(l.whatsapp)}\n${l.cidade}/${l.uf}\n${l.veiculo||''}\n${l.servico_interesse||''}`.trim()
+    `${l.nome}\n${fone(l.whatsapp)}\n${l.cidade} - ${UF_NOME[l.uf]||l.uf}\n${l.endereco||''}\n${l.veiculo||''} ${l.placa||''}\n${l.servico_interesse||''}`.trim()
   );
   $('drCopiar').textContent = 'Copiado';
   setTimeout(() => $('drCopiar').textContent = 'Copiar dados', 1600);
@@ -505,10 +574,10 @@ $('drExcluir').addEventListener('click', async () => {
 });
 
 async function carregarHistorico(leadId) {
-  const { data } = await sb.from('historico').select('*').eq('lead_id', leadId).order('created_at', { ascending:false }).limit(20);
-  $('drHist').innerHTML = (data && data.length)
-    ? data.map(h => `<div style="padding:7px 0;border-bottom:1px solid var(--line-soft)"><b style="color:var(--text);font-weight:500">${esc(h.acao)}</b> · ${data0(h.created_at)}<br>${esc(h.detalhe||'')}</div>`).join('')
-    : '<span style="color:var(--dim)">Nada registrado ainda.</span>';
+  const { data: hs } = await sb.from('historico').select('*').eq('lead_id', leadId).order('created_at', { ascending:false }).limit(20);
+  $('drHist').innerHTML = (hs && hs.length)
+    ? hs.map(h => `<div class="hist-item"><b>${esc(h.acao)}</b> · ${data(h.created_at, true)}<br>${esc(h.detalhe||'')}</div>`).join('')
+    : '<span style="color:#6b7066;font-size:.8rem">Nada registrado ainda.</span>';
 }
 
 /* ================= AUTORIZADOS ================= */
@@ -521,7 +590,7 @@ function renderAutorizados() {
     <article class="lead" data-aut="${a.id}">
       <span class="uf-badge" title="${UF_NOME[a.uf]||''}">${a.uf}</span>
       <h3>${esc(a.nome)}${a.matriz ? ' <span class="pill p-novo">matriz</span>' : ''}</h3>
-      <div class="meta">${esc(a.empresa||'—')} <i>·</i> ${esc(a.cidade)}${a.whatsapp ? ` <i>·</i> ${fone(a.whatsapp)}` : ''}</div>
+      <div class="meta">${esc(a.empresa||'—')} <i>·</i> ${esc(a.cidade)} — ${UF_NOME[a.uf]||a.uf}${a.whatsapp ? ` <i>·</i> ${fone(a.whatsapp)}` : ''}</div>
       <div class="right"><span class="pill ${a.ativo ? 'p-convertido' : 'p-perdido'}">${a.ativo ? 'ativo' : 'inativo'}</span></div>
     </article>`).join('');
   document.querySelectorAll('[data-aut]').forEach(el => el.addEventListener('click', () => abrirAutorizado(el.dataset.aut)));
@@ -556,7 +625,6 @@ $('daSalvar').addEventListener('click', async () => {
     ativo: $('daAtivo').checked, matriz: $('daMatriz').checked
   };
   if (!payload.nome || !payload.cidade) { msg.textContent = 'Nome e cidade são obrigatórios.'; msg.classList.add('on'); return; }
-
   const { error } = autAtual
     ? await sb.from('autorizados').update(payload).eq('id', autAtual.id)
     : await sb.from('autorizados').insert(payload);
@@ -574,17 +642,15 @@ $('daExcluir').addEventListener('click', async () => {
 /* ================= CSV ================= */
 $('btnCsv').addEventListener('click', () => {
   const cols = ['Nome','WhatsApp','E-mail','Cidade','UF','Estado','Endereço','Veículo','Placa','Serviço','Recado','Situação','Autorizado','Origem','Cadastro'];
-  const linhas = filtrados().map(l => [
+  const rows = filtrados().map(l => [
     l.nome, fone(l.whatsapp), l.email, l.cidade, l.uf, UF_NOME[l.uf], l.endereco,
-    l.veiculo, l.placa, l.servico_interesse,
-    l.observacoes, LABEL[l.status], l.autorizado?.nome, l.origem, data(l.created_at, true)
+    l.veiculo, l.placa, l.servico_interesse, l.observacoes,
+    LABEL[l.status], l.autorizado?.nome, l.origem, data(l.created_at, true)
   ]);
-  const csv = [cols, ...linhas]
-    .map(r => r.map(v => `"${String(v ?? '').replace(/"/g,'""')}"`).join(';'))
-    .join('\r\n');
+  const csv = [cols, ...rows].map(r => r.map(v => `"${String(v ?? '').replace(/"/g,'""')}"`).join(';')).join('\r\n');
   const url = URL.createObjectURL(new Blob(['\uFEFF' + csv], { type:'text/csv;charset=utf-8' }));
-  const a = Object.assign(document.createElement('a'), { href:url, download:`clientes-strike-${new Date().toISOString().slice(0,10)}.csv` });
-  a.click(); URL.revokeObjectURL(url);
+  Object.assign(document.createElement('a'), { href:url, download:`clientes-strike-${new Date().toISOString().slice(0,10)}.csv` }).click();
+  URL.revokeObjectURL(url);
 });
 
 /* ================= UTILITÁRIOS ================= */
@@ -606,11 +672,9 @@ function fone(v) {
 }
 function data(iso, completo) {
   const d = new Date(iso);
-  return completo
-    ? d.toLocaleString('pt-BR', { dateStyle:'short', timeStyle:'short' })
-    : d.toLocaleDateString('pt-BR', { day:'2-digit', month:'short' });
+  return completo ? d.toLocaleString('pt-BR', { dateStyle:'short', timeStyle:'short' })
+                  : d.toLocaleDateString('pt-BR', { day:'2-digit', month:'short' });
 }
-const data0 = iso => data(iso, true);
 function linhas(pares) {
   return pares.filter(([, v]) => v).map(([k, v]) => `<dt>${k}</dt><dd>${esc(v)}</dd>`).join('');
 }

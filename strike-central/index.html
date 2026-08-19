@@ -2,237 +2,344 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Encontre um aplicador autorizado · Strike Estética Automotiva</title>
-<meta name="description" content="Cadastre-se e a Strike direciona você ao aplicador autorizado mais próximo.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0a0b0a">
+<title>Encontre um Aplicador Autorizado — Strike Estética Automotiva</title>
+<meta name="description" content="Cadastre-se e a Strike Estética Automotiva direciona você ao Aplicador Autorizado mais próximo da sua região.">
+
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:site_name" content="Strike Estética Automotiva">
+<meta property="og:title" content="Encontre um Autorizado Strike Estética Automotiva">
+<meta property="og:description" content="Preencha seus dados e a matriz direciona você ao profissional certificado mais próximo.">
+<meta property="og:url" content="https://strike-details-sigma.vercel.app/strike-central/">
+<meta property="og:image" content="https://strike-details-sigma.vercel.app/hero-bg.jpg">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Barlow+Condensed:wght@600;700;800&family=Inter:wght@400;500;600;700&family=Michroma&display=swap" rel="stylesheet">
+
 <style>
-  :root{
-    --ink:#0A0C0B; --surface:#131816; --surface-2:#1B221F;
-    --line:#29322D; --line-soft:#202723;
-    --green:#2CC46B; --green-deep:#1B8A4C; --green-glow:rgba(44,196,107,.12);
-    --text:#EEF3F0; --muted:#8B968F; --danger:#FF6B5B;
-    --r:12px;
-  }
-  *{box-sizing:border-box;margin:0;padding:0}
-  html{-webkit-text-size-adjust:100%}
-  body{
-    background:var(--ink); color:var(--text);
-    font-family:'Roboto',system-ui,sans-serif; font-size:16px; line-height:1.55;
-    min-height:100dvh; padding:24px 16px 48px;
-    display:flex; flex-direction:column; align-items:center;
-  }
-  .wrap{width:100%; max-width:520px}
+/* ---------- ETHNOCENTRIC (fonte licenciada — arquivo local) ----------
+   Coloque os arquivos em /fonts na raiz. Sem eles, o fallback
+   'Michroma' (Google Fonts) assume automaticamente.                  */
+@font-face{
+  font-family:'Ethnocentric';
+  src:url('/fonts/ethnocentric.woff2') format('woff2'),
+      url('/fonts/ethnocentric.woff')  format('woff'),
+      url('/fonts/ethnocentric.otf')   format('opentype');
+  font-weight:400; font-style:normal; font-display:swap;
+}
 
-  /* ---- topo ---- */
-  header{text-align:center; margin-bottom:28px}
-  .mark{
-    font-family:'Poppins',sans-serif; font-weight:700; font-size:26px;
-    letter-spacing:.14em; line-height:1;
-  }
-  .mark span{color:var(--green)}
-  .mark-sub{
-    font-size:10px; letter-spacing:.32em; color:var(--muted);
-    text-transform:uppercase; margin-top:7px;
-  }
-  h1{
-    font-family:'Poppins',sans-serif; font-weight:600; font-size:23px;
-    line-height:1.25; margin-top:26px; letter-spacing:-.01em;
-  }
-  .lede{color:var(--muted); font-size:14.5px; margin-top:10px}
+:root{
+  --f-title:'Archivo Black','Barlow Condensed','Inter',sans-serif;
+  --f-tech:'Ethnocentric','Michroma','Barlow Condensed',sans-serif;
+  --f-cond:'Barlow Condensed','Inter',sans-serif;
 
-  /* ---- card ---- */
-  .card{
-    background:var(--surface); border:1px solid var(--line);
-    border-radius:16px; padding:24px 20px; position:relative; overflow:hidden;
-  }
-  .card::before{
-    content:''; position:absolute; inset:0 0 auto; height:2px;
-    background:linear-gradient(90deg,transparent,var(--green),transparent);
-    opacity:.7;
-  }
+  --ink:#0a0b0a;
+  --panel:#111311;
+  --card:#171a17;
+  --line:rgba(255,255,255,.10);
+  --line-2:rgba(255,255,255,.06);
+  --green:#3f8a5c;
+  --green-hi:#56a878;
+  --green-dim:rgba(63,138,92,.16);
+  --txt:#f2f4f0;
+  --txt-2:#9aa096;
+  --red:#e05252;
+  --radius:14px;
+  --pad:1.15rem;
+}
 
-  .field{margin-bottom:16px}
-  .row{display:grid; grid-template-columns:96px 1fr; gap:12px}
-  label{
-    display:block; font-family:'Poppins',sans-serif; font-weight:500;
-    font-size:12px; letter-spacing:.06em; text-transform:uppercase;
-    color:var(--muted); margin-bottom:7px;
-  }
-  label b{color:var(--green); font-weight:500}
-  input,select,textarea{
-    width:100%; background:var(--surface-2); color:var(--text);
-    border:1px solid var(--line); border-radius:var(--r);
-    padding:13px 14px; font-family:inherit; font-size:16px;
-    transition:border-color .15s, box-shadow .15s;
-  }
-  textarea{resize:vertical; min-height:84px}
-  select{appearance:none; background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8'><path d='M1 1l5 5 5-5' fill='none' stroke='%238B968F' stroke-width='1.6' stroke-linecap='round'/></svg>"); background-repeat:no-repeat; background-position:right 14px center; padding-right:34px}
-  input::placeholder,textarea::placeholder{color:#5E6A64}
-  input:focus,select:focus,textarea:focus{
-    outline:none; border-color:var(--green); box-shadow:0 0 0 3px var(--green-glow);
-  }
-  input[aria-invalid="true"],select[aria-invalid="true"]{border-color:var(--danger)}
-  .hint{font-size:12.5px; color:var(--muted); margin-top:6px}
-  .err{font-size:12.5px; color:var(--danger); margin-top:6px; display:none}
-  .err.on{display:block}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+html,body{overflow-x:hidden}
+@supports (overflow:clip){html,body{overflow-x:clip}}
 
-  /* ---- consentimento ---- */
-  .consent{
-    display:flex; gap:11px; align-items:flex-start;
-    background:var(--surface-2); border:1px solid var(--line-soft);
-    border-radius:var(--r); padding:14px; margin:22px 0 18px;
-  }
-  .consent input{width:19px; height:19px; flex:none; margin-top:2px; accent-color:var(--green)}
-  .consent p{font-size:13px; color:var(--muted); line-height:1.5}
-  .consent a{color:var(--green)}
+body{
+  background:var(--ink); color:var(--txt);
+  font-family:'Inter',system-ui,sans-serif; font-size:16px; line-height:1.6;
+  -webkit-font-smoothing:antialiased; min-height:100dvh;
+}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
 
-  /* ---- botão ---- */
-  button.send{
-    width:100%; border:none; border-radius:var(--r); cursor:pointer;
-    background:var(--green); color:#06210F;
-    font-family:'Poppins',sans-serif; font-weight:600; font-size:16px;
-    letter-spacing:.02em; padding:16px; transition:filter .15s, transform .08s;
-  }
-  button.send:hover{filter:brightness(1.07)}
-  button.send:active{transform:scale(.99)}
-  button.send:disabled{opacity:.55; cursor:progress}
-  button.send:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--green); outline-offset:2px}
+h1,h2,.dsp{
+  font-family:var(--f-title); text-transform:uppercase; font-weight:400;
+  line-height:1.08; letter-spacing:-.4px;
+}
+h3{font-family:var(--f-cond); text-transform:uppercase; font-weight:800; letter-spacing:.4px; line-height:1.03}
 
-  .formerr{
-    display:none; margin-top:14px; padding:12px 14px; border-radius:var(--r);
-    background:rgba(255,107,91,.09); border:1px solid rgba(255,107,91,.32);
-    color:#FFB3A9; font-size:13.5px;
-  }
-  .formerr.on{display:block}
+/* ---------- TEXTURA CARBONO ---------- */
+.carbon{
+  background-color:#0c0d0c;
+  background-image:
+    linear-gradient(45deg,rgba(255,255,255,.022) 25%,transparent 25%,transparent 75%,rgba(255,255,255,.022) 75%),
+    linear-gradient(45deg,rgba(255,255,255,.022) 25%,transparent 25%,transparent 75%,rgba(255,255,255,.022) 75%),
+    linear-gradient(rgba(0,0,0,.3) 100%,rgba(0,0,0,.3) 100%),
+    linear-gradient(90deg,rgba(0,0,0,.18) 50%,rgba(20,20,22,.18) 50%);
+  background-size:10px 10px,10px 10px,20px 20px,20px 20px;
+  background-position:0 0,5px 5px,0 0,0 0;
+}
 
-  /* ---- sucesso ---- */
-  .done{display:none; text-align:center; padding:16px 4px}
-  .done.on{display:block}
-  .done .tick{
-    width:60px; height:60px; margin:0 auto 20px; border-radius:50%;
-    border:2px solid var(--green); display:grid; place-items:center;
-  }
-  .done .tick svg{width:26px; height:26px}
-  .done h2{font-family:'Poppins',sans-serif; font-weight:600; font-size:21px}
-  .done p{color:var(--muted); font-size:14.5px; margin-top:12px}
-  .done .zap{
-    display:inline-block; margin-top:22px; text-decoration:none;
-    border:1px solid var(--line); border-radius:var(--r);
-    padding:12px 22px; color:var(--text); font-size:14.5px;
-  }
+.wrap{max-width:560px;margin:0 auto;padding:0 var(--pad)}
 
-  footer{text-align:center; color:#5E6A64; font-size:11.5px; margin-top:26px; letter-spacing:.04em}
-  .hp{position:absolute; left:-9999px; opacity:0; height:0}
-  @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+.eyebrow{
+  display:inline-flex;align-items:center;gap:.55rem;
+  font-family:var(--f-tech);
+  font-size:.6rem;font-weight:400;letter-spacing:1px;text-transform:uppercase;
+  line-height:1.5;color:var(--green);margin-bottom:.9rem;max-width:100%;
+}
+.eyebrow::before{content:"";width:22px;height:1px;background:var(--green);opacity:.7}
+
+/* ---------- HERO ---------- */
+.hero{position:relative;overflow:hidden;padding:2.2rem var(--pad) 2.4rem;background:var(--ink)}
+.hero::before{
+  content:"";position:absolute;inset:0;
+  background:url('/hero-bg.jpg') center/cover no-repeat;
+  opacity:.30;filter:grayscale(.35);
+}
+.hero::after{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(10,11,10,.45) 0%,rgba(10,11,10,.88) 70%,var(--ink) 100%);
+}
+.hero-in{position:relative;z-index:1;max-width:560px;margin:0 auto}
+.hero img.logo{width:150px;max-height:40px;object-fit:contain;margin-bottom:1.6rem}
+.badge{
+  display:inline-block;font-size:.62rem;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;
+  color:var(--green);border:1px solid rgba(63,138,92,.4);background:var(--green-dim);
+  padding:.35rem .7rem;border-radius:100px;margin-bottom:1rem;
+}
+.hero h1{font-size:1.72rem;margin-bottom:.9rem}
+.hero h1 .g{color:var(--green);display:block}
+.hero p.sub{color:var(--txt-2);font-size:.95rem;max-width:42ch}
+
+/* ---------- FORMULÁRIO ---------- */
+main{padding:0 0 3rem}
+.card{
+  background:var(--card);
+  border:1px solid var(--line);border-radius:var(--radius);
+  padding:1.5rem 1.15rem;position:relative;overflow:hidden;
+}
+.card::before{
+  content:"";position:absolute;inset:0 0 auto;height:2px;
+  background:linear-gradient(90deg,transparent,var(--green-hi),transparent);opacity:.8;
+}
+.card h3{font-size:1.05rem;margin-bottom:.35rem;color:var(--txt)}
+.card .card-lead{font-size:.82rem;color:var(--txt-2);margin-bottom:1.4rem}
+
+.field{margin-bottom:1rem}
+.row{display:grid;grid-template-columns:88px 1fr;gap:.7rem}
+label{
+  display:block;font-family:var(--f-cond);font-weight:700;
+  font-size:.72rem;letter-spacing:1px;text-transform:uppercase;
+  color:var(--txt-2);margin-bottom:.4rem;
+}
+label b{color:var(--green);font-weight:700}
+input,select,textarea{
+  width:100%;background:var(--panel);color:var(--txt);
+  border:1px solid var(--line);border-radius:12px;
+  padding:.82rem .85rem;font-family:'Inter',sans-serif;font-size:16px;
+  transition:border-color .15s,box-shadow .15s;
+}
+textarea{resize:vertical;min-height:80px;line-height:1.5}
+select{
+  appearance:none;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8'><path d='M1 1l5 5 5-5' fill='none' stroke='%239aa096' stroke-width='1.6' stroke-linecap='round'/></svg>");
+  background-repeat:no-repeat;background-position:right .85rem center;padding-right:2.1rem;
+}
+input::placeholder,textarea::placeholder{color:#5c6159}
+input:focus,select:focus,textarea:focus{
+  outline:none;border-color:var(--green);box-shadow:0 0 0 3px var(--green-dim);
+}
+.err{display:none;font-size:.76rem;color:var(--red);margin-top:.35rem;letter-spacing:.2px}
+.err.on{display:block}
+
+.consent{
+  display:flex;gap:.7rem;align-items:flex-start;
+  background:var(--card);border:1px solid var(--line-2);
+  border-radius:12px;padding:.85rem;margin:1.3rem 0 1rem;
+}
+.consent input{width:19px;height:19px;flex:none;margin-top:.15rem;accent-color:var(--green)}
+.consent p{font-size:.8rem;color:var(--txt-2);line-height:1.5}
+.consent a{color:var(--green);text-decoration:underline;text-underline-offset:2px}
+
+.btn{
+  display:flex;align-items:center;justify-content:center;gap:.55rem;
+  width:100%;min-height:56px;padding:.9rem 1.1rem;
+  font-family:var(--f-cond);font-weight:800;text-transform:uppercase;
+  font-size:1.12rem;letter-spacing:.8px;line-height:1.1;text-align:center;
+  color:#ffffff;background:linear-gradient(180deg,var(--green-hi),var(--green));
+  border:none;border-radius:12px;cursor:pointer;
+  box-shadow:0 10px 26px rgba(63,138,92,.22);
+  transition:transform .15s ease,box-shadow .15s ease;
+}
+.btn:active{transform:translateY(2px);box-shadow:0 4px 14px rgba(63,138,92,.18)}
+.btn:disabled{opacity:.6;cursor:progress;box-shadow:none}
+.btn-ghost{
+  background:transparent;color:var(--txt);border:1px solid var(--line);
+  box-shadow:none;font-size:.95rem;min-height:48px;
+}
+:focus-visible{outline:2px solid var(--green-hi);outline-offset:2px}
+
+.formerr{
+  display:none;margin-top:.9rem;padding:.75rem .85rem;border-radius:12px;
+  background:rgba(224,82,82,.09);border:1px solid rgba(224,82,82,.32);
+  color:#f0a9a9;font-size:.82rem;
+}
+.formerr.on{display:block}
+.micro{font-size:.7rem;color:var(--txt-2);text-align:center;letter-spacing:.3px;margin-top:.8rem}
+
+/* ---------- SUCESSO ---------- */
+.done{display:none;position:relative;overflow:hidden;border-radius:var(--radius);border:1px solid rgba(63,138,92,.3);padding:2.2rem 1.3rem 2rem;text-align:center}
+.done.on{display:block}
+.done::before{
+  content:"";position:absolute;inset:0;
+  background:url('/closing-bg.jpg') center/cover no-repeat;opacity:.22;filter:grayscale(.4);
+}
+.done::after{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(10,11,10,.75),rgba(10,11,10,.95));
+}
+.done > *{position:relative;z-index:1}
+.done .tick{
+  width:62px;height:62px;margin:0 auto 1.2rem;border-radius:50%;
+  border:1px solid rgba(63,138,92,.55);background:var(--green-dim);
+  display:flex;align-items:center;justify-content:center;
+}
+.done h2{font-size:1.35rem;margin-bottom:.7rem}
+.done h2 .g{color:var(--green)}
+.done p{color:var(--txt-2);font-size:.88rem;max-width:38ch;margin:0 auto 1.5rem}
+.done .btn-ghost{max-width:280px;margin:0 auto}
+
+/* ---------- RODAPÉ ---------- */
+footer{padding:2rem var(--pad) 2.4rem;text-align:center;border-top:1px solid var(--line-2);background:#080908}
+footer img{width:120px;margin:0 auto .9rem;opacity:.8}
+footer p{font-size:.72rem;color:var(--txt-2);letter-spacing:.4px}
+
+.hp{position:absolute;left:-9999px;opacity:0;height:0}
+
+@media (min-width:640px){
+  .hero h1{font-size:2.1rem}
+  .card{padding:1.9rem 1.6rem}
+}
 </style>
 </head>
-<body>
-<div class="wrap">
+<body class="carbon">
 
-  <header>
-    <div class="mark">STRI<span>KE</span></div>
-    <div class="mark-sub">Estética Automotiva</div>
-    <h1>Encontre um aplicador autorizado perto de você</h1>
-    <p class="lede">Preencha seus dados. A matriz analisa e direciona você ao profissional certificado mais próximo.</p>
-  </header>
+<header class="hero">
+  <div class="hero-in">
+    <img class="logo" src="/logo.png" alt="Strike Estética Automotiva">
+    <span class="badge">Rede de Autorizados</span>
+    <span class="eyebrow">Atendimento em todo o Brasil</span>
+    <h1>Encontre um autorizado <span class="g">perto de você</span></h1>
+    <p class="sub">Preencha seus dados. A matriz analisa sua região e direciona você ao Aplicador Autorizado mais adequado.</p>
+  </div>
+</header>
 
-  <div class="card">
+<main>
+  <div class="wrap">
 
-    <form id="form" novalidate>
-      <input class="hp" type="text" name="empresa_site" tabindex="-1" autocomplete="off" aria-hidden="true">
+    <div class="card" id="cardForm">
+      <h3>Seus dados</h3>
+      <p class="card-lead">Leva menos de um minuto. Campos com <b style="color:var(--green)">*</b> são obrigatórios.</p>
 
-      <div class="field">
-        <label for="nome">Nome completo <b>*</b></label>
-        <input id="nome" name="nome" type="text" autocomplete="name" placeholder="Como devemos te chamar">
-        <div class="err" id="err-nome">Escreva seu nome completo.</div>
-      </div>
+      <form id="form" novalidate>
+        <input class="hp" type="text" name="empresa_site" tabindex="-1" autocomplete="off" aria-hidden="true">
 
-      <div class="field">
-        <label for="whatsapp">WhatsApp <b>*</b></label>
-        <input id="whatsapp" name="whatsapp" type="tel" inputmode="numeric" autocomplete="tel" placeholder="(69) 99999-9999" maxlength="16">
-        <div class="err" id="err-whatsapp">Informe um WhatsApp com DDD.</div>
-      </div>
+        <div class="field">
+          <label for="nome">Nome completo <b>*</b></label>
+          <input id="nome" type="text" autocomplete="name" placeholder="Como devemos te chamar">
+          <div class="err" id="err-nome">Escreva seu nome completo.</div>
+        </div>
 
-      <div class="field">
-        <label for="email">E-mail</label>
-        <input id="email" name="email" type="email" autocomplete="email" placeholder="opcional">
-        <div class="err" id="err-email">Esse e-mail parece incompleto.</div>
-      </div>
+        <div class="field">
+          <label for="whatsapp">WhatsApp <b>*</b></label>
+          <input id="whatsapp" type="tel" inputmode="numeric" autocomplete="tel" placeholder="(69) 99999-9999" maxlength="16">
+          <div class="err" id="err-whatsapp">Informe um WhatsApp com DDD.</div>
+        </div>
 
-      <div class="field row">
-        <div>
-          <label for="uf">Estado <b>*</b></label>
-          <select id="uf" name="uf">
-            <option value="">UF</option>
+        <div class="field">
+          <label for="email">E-mail</label>
+          <input id="email" type="email" autocomplete="email" placeholder="opcional">
+          <div class="err" id="err-email">Esse e-mail parece incompleto.</div>
+        </div>
+
+        <div class="field row">
+          <div>
+            <label for="uf">Estado <b>*</b></label>
+            <select id="uf"><option value="">UF</option></select>
+          </div>
+          <div>
+            <label for="cidade">Cidade <b>*</b></label>
+            <input id="cidade" list="cidades" autocomplete="address-level2" placeholder="Selecione o estado">
+            <datalist id="cidades"></datalist>
+          </div>
+        </div>
+        <div class="err" id="err-local" style="margin:-.6rem 0 1rem">Escolha estado e cidade.</div>
+
+        <div class="field">
+          <label for="endereco">Endereço</label>
+          <input id="endereco" type="text" autocomplete="street-address" placeholder="Rua, número, bairro, referência">
+        </div>
+
+        <div class="field">
+          <label for="veiculo">Veículo</label>
+          <input id="veiculo" type="text" placeholder="Marca, modelo e ano">
+        </div>
+
+        <div class="field">
+          <label for="placa">Placa</label>
+          <input id="placa" type="text" autocapitalize="characters" autocorrect="off" spellcheck="false" placeholder="ABC1D23" maxlength="8" style="text-transform:uppercase;font-family:var(--f-tech);letter-spacing:1px;font-size:15px">
+        </div>
+
+        <div class="field">
+          <label for="servico">Serviço de interesse</label>
+          <select id="servico">
+            <option value="">Ainda não sei</option>
+            <option>Cabine Blindada</option>
+            <option>Vitrificação de pintura</option>
+            <option>Polimento técnico</option>
+            <option>Higienização interna</option>
+            <option>Proteção de vidros</option>
+            <option>Outro</option>
           </select>
         </div>
-        <div>
-          <label for="cidade">Cidade <b>*</b></label>
-          <input id="cidade" name="cidade" list="cidades" autocomplete="address-level2" placeholder="Selecione o estado">
-          <datalist id="cidades"></datalist>
+
+        <div class="field">
+          <label for="observacoes">Alguma observação?</label>
+          <textarea id="observacoes" placeholder="Conte o que você precisa, prazo, estado do veículo…"></textarea>
         </div>
-      </div>
-      <div class="err" id="err-local" style="margin-top:-10px;margin-bottom:16px">Escolha estado e cidade.</div>
 
-      <div class="field">
-        <label for="endereco">Endereço</label>
-        <input id="endereco" name="endereco" type="text" autocomplete="street-address" placeholder="Rua, número, bairro, referência">
-      </div>
+        <div class="consent">
+          <input type="checkbox" id="consent">
+          <p><label for="consent" style="all:unset;cursor:pointer">Li e concordo com os <a href="#" id="linkPolitica">termos de uso e a política de privacidade</a> da Strike Estética Automotiva.</label></p>
+        </div>
+        <div class="err" id="err-consent" style="margin:-.6rem 0 1rem">Precisamos da sua autorização para continuar.</div>
 
-      <div class="field">
-        <label for="veiculo">Veículo</label>
-        <input id="veiculo" name="veiculo" type="text" placeholder="Marca, modelo e ano">
-      </div>
-
-      <div class="field">
-        <label for="placa">Placa</label>
-        <input id="placa" name="placa" type="text" autocapitalize="characters" autocorrect="off" spellcheck="false" placeholder="ABC1D23" maxlength="8" style="text-transform:uppercase">
-      </div>
-
-      <div class="field">
-        <label for="servico">Serviço de interesse</label>
-        <select id="servico" name="servico_interesse">
-          <option value="">Ainda não sei</option>
-          <option>Cabine Blindada</option>
-          <option>Vitrificação de pintura</option>
-          <option>Polimento técnico</option>
-          <option>Higienização interna</option>
-          <option>Proteção de vidros</option>
-          <option>Outro</option>
-        </select>
-      </div>
-
-      <div class="field">
-        <label for="observacoes">Alguma observação?</label>
-        <textarea id="observacoes" name="observacoes" placeholder="Conte o que você precisa, prazo, estado do veículo…"></textarea>
-      </div>
-
-      <div class="consent">
-        <input type="checkbox" id="consent">
-        <p><label for="consent" style="all:unset;cursor:pointer">Li e concordo com os <a href="#" id="linkPolitica">termos de uso e a política de privacidade</a> da Strike.</label></p>
-      </div>
-      <div class="err" id="err-consent" style="margin-top:-8px;margin-bottom:16px">Precisamos da sua autorização para continuar.</div>
-
-      <button class="send" type="submit" id="btn">Quero ser direcionado</button>
-      <div class="formerr" id="formerr"></div>
-    </form>
+        <button class="btn" type="submit" id="btn">Quero ser direcionado</button>
+        <div class="formerr" id="formerr"></div>
+        <p class="micro">Seus dados são usados apenas para o direcionamento.</p>
+      </form>
+    </div>
 
     <div class="done" id="done">
       <div class="tick">
-        <svg viewBox="0 0 24 24" fill="none"><path d="M4 12.5l5.5 5.5L20 7" stroke="#2CC46B" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M4 12.5l5.5 5.5L20 7" stroke="#56a878" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </div>
-      <h2>Cadastro recebido</h2>
-      <p>A matriz vai analisar sua localização e te conectar ao aplicador autorizado mais adequado. O contato chega pelo seu WhatsApp.</p>
-      <a class="zap" id="zap" href="#" target="_blank" rel="noopener">Falar com a matriz agora</a>
+      <h2>Cadastro <span class="g">recebido</span></h2>
+      <p>A matriz vai analisar sua localização e te conectar ao Aplicador Autorizado mais adequado. O contato chega pelo seu WhatsApp.</p>
+      <a class="btn btn-ghost" id="zap" target="_blank" rel="noopener">Falar com a matriz agora</a>
     </div>
 
   </div>
+</main>
 
-  <footer>STRIKE ESTÉTICA AUTOMOTIVA · REDE DE AUTORIZADOS</footer>
-</div>
+<footer>
+  <img src="/logo.png" alt="Strike Estética Automotiva">
+  <p>Rede de Aplicadores Autorizados · Jaru, Rondônia</p>
+</footer>
 
 <script src="/strike-central/config.js"></script>
 <script type="module">
@@ -240,77 +347,64 @@ import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js
 
 const CFG = window.STRIKE_CONFIG;
 const sb = createClient(CFG.SUPABASE_URL, CFG.SUPABASE_ANON_KEY);
-
-const UFS = ['AC','AL','AP','AM','BA','CE','DF','ES','GO','MA','MT','MS','MG','PA','PB','PR','PE','PI','RJ','RN','RS','RO','RR','SC','SP','SE','TO'];
 const $ = id => document.getElementById(id);
 
-/* --- popula UFs --- */
+const UFS = ['AC','AL','AP','AM','BA','CE','DF','ES','GO','MA','MT','MS','MG','PA','PB','PR','PE','PI','RJ','RN','RS','RO','RR','SC','SP','SE','TO'];
+
 const selUf = $('uf');
 UFS.forEach(uf => selUf.add(new Option(uf, uf)));
 
 /* --- cidades via IBGE --- */
 const inpCidade = $('cidade'), dl = $('cidades');
 selUf.addEventListener('change', async () => {
+  $('err-local').classList.remove('on');
   dl.innerHTML = ''; inpCidade.value = '';
   if (!selUf.value) { inpCidade.placeholder = 'Selecione o estado'; return; }
   inpCidade.placeholder = 'Carregando cidades…';
   try {
     const r = await fetch(`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${selUf.value}/municipios?orderBy=nome`);
-    const cidades = await r.json();
-    cidades.forEach(c => dl.append(new Option(c.nome)));
+    (await r.json()).forEach(c => dl.append(new Option(c.nome)));
     inpCidade.placeholder = 'Digite para buscar';
   } catch { inpCidade.placeholder = 'Digite sua cidade'; }
 });
 
-/* --- máscara de telefone --- */
-const inpZap = $('whatsapp');
-inpZap.addEventListener('input', e => {
+/* --- máscaras --- */
+$('whatsapp').addEventListener('input', e => {
   let v = e.target.value.replace(/\D/g, '').slice(0, 11);
   if (v.length > 6)      v = `(${v.slice(0,2)}) ${v.slice(2,7)}-${v.slice(7)}`;
   else if (v.length > 2) v = `(${v.slice(0,2)}) ${v.slice(2)}`;
   else if (v.length)     v = `(${v}`;
   e.target.value = v;
 });
-
-/* --- placa: maiúsculas, sem símbolos --- */
 $('placa').addEventListener('input', e => {
   e.target.value = e.target.value.toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 7);
 });
 
-/* --- origem da visita --- */
+/* --- origem --- */
 const qs = new URLSearchParams(location.search);
 const origem = qs.get('utm_source') || qs.get('origem') ||
                (document.referrer ? new URL(document.referrer).hostname : 'direto');
 
-/* --- links --- */
 $('linkPolitica').href = CFG.LINK_POLITICA || '#';
 $('zap').href = `https://wa.me/${CFG.WHATSAPP_MATRIZ}`;
 
 /* --- validação --- */
-function mark(id, ok) {
-  $('err-' + id).classList.toggle('on', !ok);
-  return ok;
-}
-['nome','whatsapp','email','cidade'].forEach(id => {
-  $(id).addEventListener('input', () => {
-    $('err-' + (id === 'cidade' ? 'local' : id))?.classList.remove('on');
-    $(id).removeAttribute('aria-invalid');
-  });
-});
-selUf.addEventListener('change', () => $('err-local').classList.remove('on'));
+const mark = (id, ok) => { $('err-' + id).classList.toggle('on', !ok); return ok; };
+['nome','whatsapp','email','cidade'].forEach(id => $(id).addEventListener('input', () => {
+  $('err-' + (id === 'cidade' ? 'local' : id)).classList.remove('on');
+}));
 $('consent').addEventListener('change', () => $('err-consent').classList.remove('on'));
 
 /* --- envio --- */
 $('form').addEventListener('submit', async e => {
   e.preventDefault();
-  const f = e.target;
-  if (f.empresa_site.value) return;            // honeypot: bot preencheu
+  if (e.target.empresa_site.value) return;
 
-  const nome    = $('nome').value.trim();
-  const zap     = $('whatsapp').value.replace(/\D/g, '');
-  const email   = $('email').value.trim();
-  const uf      = selUf.value;
-  const cidade  = inpCidade.value.trim();
+  const nome   = $('nome').value.trim();
+  const zap    = $('whatsapp').value.replace(/\D/g, '');
+  const email  = $('email').value.trim();
+  const uf     = selUf.value;
+  const cidade = inpCidade.value.trim();
 
   let ok = true;
   ok = mark('nome', nome.length >= 3 && nome.includes(' ')) && ok;
@@ -318,21 +412,19 @@ $('form').addEventListener('submit', async e => {
   ok = mark('email', !email || /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) && ok;
   ok = mark('local', !!uf && cidade.length >= 2) && ok;
   ok = mark('consent', $('consent').checked) && ok;
-  if (!ok) { f.querySelector('.err.on')?.scrollIntoView({block:'center', behavior:'smooth'}); return; }
+  if (!ok) { document.querySelector('.err.on').scrollIntoView({block:'center', behavior:'smooth'}); return; }
 
   const btn = $('btn'), erro = $('formerr');
   btn.disabled = true; btn.textContent = 'Enviando…'; erro.classList.remove('on');
 
   const { error } = await sb.from('leads').insert({
-    nome, whatsapp: zap, email: email || null,
-    uf, cidade,
+    nome, whatsapp: zap, email: email || null, uf, cidade,
     endereco: $('endereco').value.trim() || null,
     veiculo: $('veiculo').value.trim() || null,
     placa: $('placa').value.trim().toUpperCase() || null,
     servico_interesse: $('servico').value || null,
     observacoes: $('observacoes').value.trim() || null,
-    origem,
-    consentimento_lgpd: true
+    origem, consentimento_lgpd: true
   });
 
   if (error) {
@@ -343,9 +435,10 @@ $('form').addEventListener('submit', async e => {
     return;
   }
 
-  f.style.display = 'none';
+  $('cardForm').style.display = 'none';
   $('done').classList.add('on');
-  document.querySelector('header h1').textContent = 'Tudo certo, ' + nome.split(' ')[0] + '!';
+  document.querySelector('.hero h1').innerHTML = 'Tudo certo, <span class="g">' + nome.split(' ')[0] + '</span>';
+  document.querySelector('.hero p.sub').textContent = 'Recebemos seu cadastro. Agora é com a gente.';
   window.scrollTo({ top: 0, behavior: 'smooth' });
 });
 </script>
