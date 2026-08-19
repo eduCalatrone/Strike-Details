@@ -13,7 +13,7 @@
 <meta property="og:title" content="Encontre um Autorizado Strike Estética Automotiva">
 <meta property="og:description" content="Preencha seus dados e a matriz direciona você ao profissional certificado mais próximo.">
 <meta property="og:url" content="https://strike-details-sigma.vercel.app/strike-central/">
-<meta property="og:image" content="https://strike-details-sigma.vercel.app/hero-bg.jpg">
+<meta property="og:image" content="https://strike-details-sigma.vercel.app/logo.png">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -95,14 +95,9 @@ h3{font-family:var(--f-cond); text-transform:uppercase; font-weight:800; letter-
 
 /* ---------- HERO ---------- */
 .hero{position:relative;overflow:hidden;padding:2.2rem var(--pad) 2.4rem;background:var(--ink)}
-.hero::before{
-  content:"";position:absolute;inset:0;
-  background:url('/hero-bg.jpg') center/cover no-repeat;
-  opacity:.30;filter:grayscale(.35);
-}
 .hero::after{
-  content:"";position:absolute;inset:0;
-  background:linear-gradient(180deg,rgba(10,11,10,.45) 0%,rgba(10,11,10,.88) 70%,var(--ink) 100%);
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(ellipse at 20% 0%,rgba(63,138,92,.10),transparent 62%);
 }
 .hero-in{position:relative;z-index:1;max-width:560px;margin:0 auto}
 .hero img.logo{width:150px;max-height:40px;object-fit:contain;margin-bottom:1.6rem}
@@ -192,15 +187,11 @@ input:focus,select:focus,textarea:focus{
 .micro{font-size:.7rem;color:var(--txt-2);text-align:center;letter-spacing:.3px;margin-top:.8rem}
 
 /* ---------- SUCESSO ---------- */
-.done{display:none;position:relative;overflow:hidden;border-radius:var(--radius);border:1px solid rgba(63,138,92,.3);padding:2.2rem 1.3rem 2rem;text-align:center}
+.done{display:none;background:var(--card);position:relative;overflow:hidden;border-radius:var(--radius);border:1px solid rgba(63,138,92,.3);padding:2.2rem 1.3rem 2rem;text-align:center}
 .done.on{display:block}
-.done::before{
-  content:"";position:absolute;inset:0;
-  background:url('/closing-bg.jpg') center/cover no-repeat;opacity:.22;filter:grayscale(.4);
-}
 .done::after{
-  content:"";position:absolute;inset:0;
-  background:linear-gradient(180deg,rgba(10,11,10,.75),rgba(10,11,10,.95));
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(ellipse at 50% 0%,rgba(63,138,92,.12),transparent 65%);
 }
 .done > *{position:relative;z-index:1}
 .done .tick{
