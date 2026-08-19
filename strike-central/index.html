@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Encontre um aplicador autorizado · Strike Estética Automotiva</title>
+<meta name="description" content="Cadastre-se e a Strike direciona você ao aplicador autorizado mais próximo.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0A0C0B; --surface:#131816; --surface-2:#1B221F;
+    --line:#29322D; --line-soft:#202723;
+    --green:#2CC46B; --green-deep:#1B8A4C; --green-glow:rgba(44,196,107,.12);
+    --text:#EEF3F0; --muted:#8B968F; --danger:#FF6B5B;
+    --r:12px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    background:var(--ink); color:var(--text);
+    font-family:'Roboto',system-ui,sans-serif; font-size:16px; line-height:1.55;
+    min-height:100dvh; padding:24px 16px 48px;
+    display:flex; flex-direction:column; align-items:center;
+  }
+  .wrap{width:100%; max-width:520px}
+
+  /* ---- topo ---- */
+  header{text-align:center; margin-bottom:28px}
+  .mark{
+    font-family:'Poppins',sans-serif; font-weight:700; font-size:26px;
+    letter-spacing:.14em; line-height:1;
+  }
+  .mark span{color:var(--green)}
+  .mark-sub{
+    font-size:10px; letter-spacing:.32em; color:var(--muted);
+    text-transform:uppercase; margin-top:7px;
+  }
+  h1{
+    font-family:'Poppins',sans-serif; font-weight:600; font-size:23px;
+    line-height:1.25; margin-top:26px; letter-spacing:-.01em;
+  }
+  .lede{color:var(--muted); font-size:14.5px; margin-top:10px}
+
+  /* ---- card ---- */
+  .card{
+    background:var(--surface); border:1px solid var(--line);
+    border-radius:16px; padding:24px 20px; position:relative; overflow:hidden;
+  }
+  .card::before{
+    content:''; position:absolute; inset:0 0 auto; height:2px;
+    background:linear-gradient(90deg,transparent,var(--green),transparent);
+    opacity:.7;
+  }
+
+  .field{margin-bottom:16px}
+  .row{display:grid; grid-template-columns:96px 1fr; gap:12px}
+  label{
+    display:block; font-family:'Poppins',sans-serif; font-weight:500;
+    font-size:12px; letter-spacing:.06em; text-transform:uppercase;
+    color:var(--muted); margin-bottom:7px;
+  }
+  label b{color:var(--green); font-weight:500}
+  input,select,textarea{
+    width:100%; background:var(--surface-2); color:var(--text);
+    border:1px solid var(--line); border-radius:var(--r);
+    padding:13px 14px; font-family:inherit; font-size:16px;
+    transition:border-color .15s, box-shadow .15s;
+  }
+  textarea{resize:vertical; min-height:84px}
+  select{appearance:none; background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8'><path d='M1 1l5 5 5-5' fill='none' stroke='%238B968F' stroke-width='1.6' stroke-linecap='round'/></svg>"); background-repeat:no-repeat; background-position:right 14px center; padding-right:34px}
+  input::placeholder,textarea::placeholder{color:#5E6A64}
+  input:focus,select:focus,textarea:focus{
+    outline:none; border-color:var(--green); box-shadow:0 0 0 3px var(--green-glow);
+  }
+  input[aria-invalid="true"],select[aria-invalid="true"]{border-color:var(--danger)}
+  .hint{font-size:12.5px; color:var(--muted); margin-top:6px}
+  .err{font-size:12.5px; color:var(--danger); margin-top:6px; display:none}
+  .err.on{display:block}
+
+  /* ---- consentimento ---- */
+  .consent{
+    display:flex; gap:11px; align-items:flex-start;
+    background:var(--surface-2); border:1px solid var(--line-soft);
+    border-radius:var(--r); padding:14px; margin:22px 0 18px;
+  }
+  .consent input{width:19px; height:19px; flex:none; margin-top:2px; accent-color:var(--green)}
+  .consent p{font-size:13px; color:var(--muted); line-height:1.5}
+  .consent a{color:var(--green)}
+
+  /* ---- botão ---- */
+  button.send{
+    width:100%; border:none; border-radius:var(--r); cursor:pointer;
+    background:var(--green); color:#06210F;
+    font-family:'Poppins',sans-serif; font-weight:600; font-size:16px;
+    letter-spacing:.02em; padding:16px; transition:filter .15s, transform .08s;
+  }
+  button.send:hover{filter:brightness(1.07)}
+  button.send:active{transform:scale(.99)}
+  button.send:disabled{opacity:.55; cursor:progress}
+  button.send:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--green); outline-offset:2px}
+
+  .formerr{
+    display:none; margin-top:14px; padding:12px 14px; border-radius:var(--r);
+    background:rgba(255,107,91,.09); border:1px solid rgba(255,107,91,.32);
+    color:#FFB3A9; font-size:13.5px;
+  }
+  .formerr.on{display:block}
+
+  /* ---- sucesso ---- */
+  .done{display:none; text-align:center; padding:16px 4px}
+  .done.on{display:block}
+  .done .tick{
+    width:60px; height:60px; margin:0 auto 20px; border-radius:50%;
+    border:2px solid var(--green); display:grid; place-items:center;
+  }
+  .done .tick svg{width:26px; height:26px}
+  .done h2{font-family:'Poppins',sans-serif; font-weight:600; font-size:21px}
+  .done p{color:var(--muted); font-size:14.5px; margin-top:12px}
+  .done .zap{
+    display:inline-block; margin-top:22px; text-decoration:none;
+    border:1px solid var(--line); border-radius:var(--r);
+    padding:12px 22px; color:var(--text); font-size:14.5px;
+  }
+
+  footer{text-align:center; color:#5E6A64; font-size:11.5px; margin-top:26px; letter-spacing:.04em}
+  .hp{position:absolute; left:-9999px; opacity:0; height:0}
+  @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="mark">STRI<span>KE</span></div>
+    <div class="mark-sub">Estética Automotiva</div>
+    <h1>Encontre um aplicador autorizado perto de você</h1>
+    <p class="lede">Preencha seus dados. A matriz analisa e direciona você ao profissional certificado mais próximo.</p>
+  </header>
+
+  <div class="card">
+
+    <form id="form" novalidate>
+      <input class="hp" type="text" name="empresa_site" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+      <div class="field">
+        <label for="nome">Nome completo <b>*</b></label>
+        <input id="nome" name="nome" type="text" autocomplete="name" placeholder="Como devemos te chamar">
+        <div class="err" id="err-nome">Escreva seu nome completo.</div>
+      </div>
+
+      <div class="field">
+        <label for="whatsapp">WhatsApp <b>*</b></label>
+        <input id="whatsapp" name="whatsapp" type="tel" inputmode="numeric" autocomplete="tel" placeholder="(69) 99999-9999" maxlength="16">
+        <div class="err" id="err-whatsapp">Informe um WhatsApp com DDD.</div>
+      </div>
+
+      <div class="field">
+        <label for="email">E-mail</label>
+        <input id="email" name="email" type="email" autocomplete="email" placeholder="opcional">
+        <div class="err" id="err-email">Esse e-mail parece incompleto.</div>
+      </div>
+
+      <div class="field row">
+        <div>
+          <label for="uf">Estado <b>*</b></label>
+          <select id="uf" name="uf">
+            <option value="">UF</option>
+          </select>
+        </div>
+        <div>
+          <label for="cidade">Cidade <b>*</b></label>
+          <input id="cidade" name="cidade" list="cidades" autocomplete="address-level2" placeholder="Selecione o estado">
+          <datalist id="cidades"></datalist>
+        </div>
+      </div>
+      <div class="err" id="err-local" style="margin-top:-10px;margin-bottom:16px">Escolha estado e cidade.</div>
+
+      <div class="field">
+        <label for="bairro">Bairro</label>
+        <input id="bairro" name="bairro" type="text" placeholder="opcional">
+      </div>
+
+      <div class="field">
+        <label for="veiculo">Veículo</label>
+        <input id="veiculo" name="veiculo" type="text" placeholder="Marca, modelo e ano">
+      </div>
+
+      <div class="field">
+        <label for="servico">Serviço de interesse</label>
+        <select id="servico" name="servico_interesse">
+          <option value="">Ainda não sei</option>
+          <option>Cabine Blindada</option>
+          <option>Vitrificação de pintura</option>
+          <option>Polimento técnico</option>
+          <option>Higienização interna</option>
+          <option>Proteção de vidros</option>
+          <option>Outro</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="observacoes">Alguma observação?</label>
+        <textarea id="observacoes" name="observacoes" placeholder="Conte o que você precisa, prazo, estado do veículo…"></textarea>
+      </div>
+
+      <div class="consent">
+        <input type="checkbox" id="consent">
+        <p><label for="consent" style="all:unset;cursor:pointer">Autorizo a Strike a guardar meus dados e repassá-los a um aplicador autorizado da rede para que entrem em contato comigo.</label> <a href="#" id="linkPolitica">Política de privacidade</a></p>
+      </div>
+      <div class="err" id="err-consent" style="margin-top:-8px;margin-bottom:16px">Precisamos da sua autorização para continuar.</div>
+
+      <button class="send" type="submit" id="btn">Quero ser direcionado</button>
+      <div class="formerr" id="formerr"></div>
+    </form>
+
+    <div class="done" id="done">
+      <div class="tick">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M4 12.5l5.5 5.5L20 7" stroke="#2CC46B" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <h2>Cadastro recebido</h2>
+      <p>A matriz vai analisar sua localização e te conectar ao aplicador autorizado mais adequado. O contato chega pelo seu WhatsApp.</p>
+      <a class="zap" id="zap" href="#" target="_blank" rel="noopener">Falar com a matriz agora</a>
+    </div>
+
+  </div>
+
+  <footer>STRIKE ESTÉTICA AUTOMOTIVA · REDE DE AUTORIZADOS</footer>
+</div>
+
+<script src="config.js"></script>
+<script type="module">
+import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+
+const CFG = window.STRIKE_CONFIG;
+const sb = createClient(CFG.SUPABASE_URL, CFG.SUPABASE_ANON_KEY);
+
+const UFS = ['AC','AL','AP','AM','BA','CE','DF','ES','GO','MA','MT','MS','MG','PA','PB','PR','PE','PI','RJ','RN','RS','RO','RR','SC','SP','SE','TO'];
+const $ = id => document.getElementById(id);
+
+/* --- popula UFs --- */
+const selUf = $('uf');
+UFS.forEach(uf => selUf.add(new Option(uf, uf)));
+
+/* --- cidades via IBGE --- */
+const inpCidade = $('cidade'), dl = $('cidades');
+selUf.addEventListener('change', async () => {
+  dl.innerHTML = ''; inpCidade.value = '';
+  if (!selUf.value) { inpCidade.placeholder = 'Selecione o estado'; return; }
+  inpCidade.placeholder = 'Carregando cidades…';
+  try {
+    const r = await fetch(`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${selUf.value}/municipios?orderBy=nome`);
+    const cidades = await r.json();
+    cidades.forEach(c => dl.append(new Option(c.nome)));
+    inpCidade.placeholder = 'Digite para buscar';
+  } catch { inpCidade.placeholder = 'Digite sua cidade'; }
+});
+
+/* --- máscara de telefone --- */
+const inpZap = $('whatsapp');
+inpZap.addEventListener('input', e => {
+  let v = e.target.value.replace(/\D/g, '').slice(0, 11);
+  if (v.length > 6)      v = `(${v.slice(0,2)}) ${v.slice(2,7)}-${v.slice(7)}`;
+  else if (v.length > 2) v = `(${v.slice(0,2)}) ${v.slice(2)}`;
+  else if (v.length)     v = `(${v}`;
+  e.target.value = v;
+});
+
+/* --- origem da visita --- */
+const qs = new URLSearchParams(location.search);
+const origem = qs.get('utm_source') || qs.get('origem') ||
+               (document.referrer ? new URL(document.referrer).hostname : 'direto');
+
+/* --- links --- */
+$('linkPolitica').href = CFG.LINK_POLITICA || '#';
+$('zap').href = `https://wa.me/${CFG.WHATSAPP_MATRIZ}`;
+
+/* --- validação --- */
+function mark(id, ok) {
+  $('err-' + id).classList.toggle('on', !ok);
+  return ok;
+}
+['nome','whatsapp','email','cidade'].forEach(id => {
+  $(id).addEventListener('input', () => {
+    $('err-' + (id === 'cidade' ? 'local' : id))?.classList.remove('on');
+    $(id).removeAttribute('aria-invalid');
+  });
+});
+selUf.addEventListener('change', () => $('err-local').classList.remove('on'));
+$('consent').addEventListener('change', () => $('err-consent').classList.remove('on'));
+
+/* --- envio --- */
+$('form').addEventListener('submit', async e => {
+  e.preventDefault();
+  const f = e.target;
+  if (f.empresa_site.value) return;            // honeypot: bot preencheu
+
+  const nome    = $('nome').value.trim();
+  const zap     = $('whatsapp').value.replace(/\D/g, '');
+  const email   = $('email').value.trim();
+  const uf      = selUf.value;
+  const cidade  = inpCidade.value.trim();
+
+  let ok = true;
+  ok = mark('nome', nome.length >= 3 && nome.includes(' ')) && ok;
+  ok = mark('whatsapp', zap.length >= 10) && ok;
+  ok = mark('email', !email || /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) && ok;
+  ok = mark('local', !!uf && cidade.length >= 2) && ok;
+  ok = mark('consent', $('consent').checked) && ok;
+  if (!ok) { f.querySelector('.err.on')?.scrollIntoView({block:'center', behavior:'smooth'}); return; }
+
+  const btn = $('btn'), erro = $('formerr');
+  btn.disabled = true; btn.textContent = 'Enviando…'; erro.classList.remove('on');
+
+  const { error } = await sb.from('leads').insert({
+    nome, whatsapp: zap, email: email || null,
+    uf, cidade,
+    bairro: $('bairro').value.trim() || null,
+    veiculo: $('veiculo').value.trim() || null,
+    servico_interesse: $('servico').value || null,
+    observacoes: $('observacoes').value.trim() || null,
+    origem,
+    consentimento_lgpd: true
+  });
+
+  if (error) {
+    console.error(error);
+    erro.textContent = 'Não conseguimos enviar seu cadastro. Verifique a conexão e tente de novo.';
+    erro.classList.add('on');
+    btn.disabled = false; btn.textContent = 'Quero ser direcionado';
+    return;
+  }
+
+  f.style.display = 'none';
+  $('done').classList.add('on');
+  document.querySelector('header h1').textContent = 'Tudo certo, ' + nome.split(' ')[0] + '!';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+</script>
+</body>
+</html>
