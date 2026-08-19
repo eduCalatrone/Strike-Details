@@ -298,6 +298,13 @@ const UNITS = [
   },
   {
     matriz:false,
+    name:"Luxcar Estética Automotiva",
+    city:"Alta Floresta d'Oeste", uf:"RO",
+    phone:"5569999976653", phoneLabel:"(69) 99997-6653",
+    cx:111.1, cy:151.9, label:false
+  },
+  {
+    matriz:false,
     name:"Camelo Estética Automotiva",
     city:"Santa Rosa do Tocantins", uf:"TO",
     phone:"5563992484627", phoneLabel:"(63) 9 9248-4627",
@@ -346,9 +353,11 @@ function buildPins(){
     const r = u.matriz ? 4.6 : 3.6;
     const lx = u.cx + r + 3;
     const ly = u.cy + 2.8;
+    const labelHtml = u.label === false ? '' :
+           '<text class="pin-label" x="'+lx+'" y="'+ly+'" text-anchor="start">'+u.uf+'</text>';
     return '<circle class="'+pulseCls+'" cx="'+u.cx+'" cy="'+u.cy+'" r="3.2" fill="'+pulseColor+'"></circle>' +
            '<circle class="'+cls+'" id="pin-'+i+'" data-idx="'+i+'" cx="'+u.cx+'" cy="'+u.cy+'" r="'+r+'"><title>'+u.name+' — '+u.city+'/'+u.uf+'</title></circle>' +
-           '<text class="pin-label" x="'+lx+'" y="'+ly+'" text-anchor="start">'+u.uf+'</text>';
+           labelHtml;
   }).join('');
 
   pinsG.querySelectorAll('[data-idx]').forEach(function(el){
