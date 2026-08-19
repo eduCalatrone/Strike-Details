@@ -168,14 +168,7 @@ main{max-width:1180px;margin:0 auto;padding:1.3rem var(--pad) 4rem}
 .scrim.on{display:block}
 .drawer{
   position:fixed;z-index:50;top:0;right:0;bottom:0;width:min(440px,100%);
-  background-color:#0c0d0c;
-  background-image:
-    linear-gradient(45deg,rgba(255,255,255,.022) 25%,transparent 25%,transparent 75%,rgba(255,255,255,.022) 75%),
-    linear-gradient(45deg,rgba(255,255,255,.022) 25%,transparent 25%,transparent 75%,rgba(255,255,255,.022) 75%),
-    linear-gradient(rgba(0,0,0,.3) 100%,rgba(0,0,0,.3) 100%),
-    linear-gradient(90deg,rgba(0,0,0,.18) 50%,rgba(20,20,22,.18) 50%);
-  background-size:10px 10px,10px 10px,20px 20px,20px 20px;
-  background-position:0 0,5px 5px,0 0,0 0;
+  background:var(--ink);
   border-left:1px solid var(--line);
   transform:translateX(100%);transition:transform .22s ease;overflow-y:auto;
 }
