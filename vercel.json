@@ -2,6 +2,6 @@
   "rewrites": [
     { "source": "/cadastro", "destination": "/strike-central/index.html" },
     { "source": "/painel", "destination": "/strike-central/admin.html" }
-    { "source": "/bio", "destination": "/bio.html" }
+    { "source": "/bio", "destination": "bio.html" }
   ]
 }
