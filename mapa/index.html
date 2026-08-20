@@ -135,17 +135,15 @@ h2.sec.ethno{
 .br-shape{fill:#141a15;stroke:rgba(63,138,92,.55);stroke-width:1;stroke-linejoin:round}
 .state-hl{fill:rgba(63,138,92,.38);stroke:rgba(86,168,120,.8);stroke-width:.8;stroke-linejoin:round}
 .state-matriz{fill:rgba(255,255,255,.20);stroke:rgba(255,255,255,.6);stroke-width:.8;stroke-linejoin:round}
-.pin{fill:var(--green);cursor:pointer;opacity:.45;transition:opacity .2s ease}
-.pin-matriz{fill:var(--matriz);cursor:pointer;opacity:.4;transition:opacity .2s ease}
-.pulse{transform-box:fill-box;transform-origin:center;animation:pulse 2.6s ease-out infinite;pointer-events:none;opacity:.5}
-.pulse.matriz{animation-duration:2.2s}
+.pin{fill:var(--green-hi);stroke:#eef6f0;stroke-width:1.2;cursor:pointer;opacity:1;transform-box:fill-box;transform-origin:center;filter:drop-shadow(0 0 4px rgba(63,138,92,.9));transition:transform .2s ease,filter .2s ease}
+.pin:hover{transform:scale(1.18);filter:drop-shadow(0 0 7px rgba(86,168,120,1))}
+.pin-matriz{fill:#ffffff;stroke:var(--green-hi);stroke-width:1.3;cursor:pointer;opacity:1;transform-box:fill-box;transform-origin:center;filter:drop-shadow(0 0 5px rgba(255,255,255,.9));transition:transform .2s ease,filter .2s ease}
+.pin-matriz:hover{transform:scale(1.18);filter:drop-shadow(0 0 8px rgba(255,255,255,1))}
+.pin-clean{stroke:none}
+.pulse{transform-box:fill-box;transform-origin:center;animation:pulse 2.4s ease-out infinite;pointer-events:none;opacity:.6}
+.pulse.matriz{animation-duration:2s}
 .pulse:nth-of-type(3n){animation-delay:.7s}
-@keyframes pulse{0%{opacity:.5;r:2.8}70%{opacity:0;r:11}100%{opacity:0;r:11}}
-.pin-label{
-  font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:8px;fill:#e7ebe4;
-  text-transform:uppercase;letter-spacing:.3px;pointer-events:none;
-  paint-order:stroke;stroke:#0a0b0a;stroke-width:1.1px;stroke-linejoin:round;stroke-opacity:.55;
-}
+@keyframes pulse{0%{opacity:.7;r:3.2}65%{opacity:0;r:16}100%{opacity:0;r:16}}
 .uf-tag{
   font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:8.5px;
   letter-spacing:.5px;pointer-events:none;text-anchor:middle;
@@ -301,7 +299,7 @@ const UNITS = [
     name:"Luxcar Estética Automotiva",
     city:"Alta Floresta d'Oeste", uf:"RO",
     phone:"5569999976653", phoneLabel:"(69) 99997-6653",
-    cx:111.1, cy:151.9, label:false
+    cx:111.1, cy:151.9, noBorder:true
   },
   {
     matriz:false,
@@ -309,6 +307,13 @@ const UNITS = [
     city:"Santa Rosa do Tocantins", uf:"TO",
     phone:"5563992484627", phoneLabel:"(63) 9 9248-4627",
     cx:219.1, cy:148.1
+  },
+  {
+    matriz:false,
+    name:"Fabi Car FC Lava Jato",
+    city:"Piçarra", uf:"PA",
+    phone:"559491303415", phoneLabel:"(94) 9130-3415",
+    cx:212.8, cy:107.6
   },
   {
     matriz:false,
@@ -347,17 +352,12 @@ const STATE_NAMES = { RO:"Rondônia", TO:"Tocantins", PA:"Pará", MT:"Mato Gross
 
 function buildPins(){
   pinsG.innerHTML = UNITS.map(function(u, i){
-    const cls = u.matriz ? 'pin-matriz' : 'pin';
+    const cls = (u.matriz ? 'pin-matriz' : 'pin') + (u.noBorder ? ' pin-clean' : '');
     const pulseColor = u.matriz ? 'var(--matriz)' : 'var(--green)';
     const pulseCls = u.matriz ? 'pulse matriz' : 'pulse';
-    const r = u.matriz ? 4.6 : 3.6;
-    const lx = u.cx + r + 3;
-    const ly = u.cy + 2.8;
-    const labelHtml = u.label === false ? '' :
-           '<text class="pin-label" x="'+lx+'" y="'+ly+'" text-anchor="start">'+u.uf+'</text>';
+    const r = u.matriz ? 5.2 : 4.2;
     return '<circle class="'+pulseCls+'" cx="'+u.cx+'" cy="'+u.cy+'" r="3.2" fill="'+pulseColor+'"></circle>' +
-           '<circle class="'+cls+'" id="pin-'+i+'" data-idx="'+i+'" cx="'+u.cx+'" cy="'+u.cy+'" r="'+r+'"><title>'+u.name+' — '+u.city+'/'+u.uf+'</title></circle>' +
-           labelHtml;
+           '<circle class="'+cls+'" id="pin-'+i+'" data-idx="'+i+'" cx="'+u.cx+'" cy="'+u.cy+'" r="'+r+'"><title>'+u.name+' — '+u.city+'/'+u.uf+'</title></circle>';
   }).join('');
 
   pinsG.querySelectorAll('[data-idx]').forEach(function(el){
