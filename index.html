@@ -739,7 +739,11 @@
     const sendBtn = document.getElementById('sendBtn');
 
     if(ready){
-      preview.innerHTML = "<b>Prévia:</b> " + buildMessage().replace(/\n/g, " · ");
+      preview.textContent = '';
+      const rotulo = document.createElement('b');
+      rotulo.textContent = 'Prévia:';
+      preview.appendChild(rotulo);
+      preview.appendChild(document.createTextNode(' ' + buildMessage().replace(/\n/g, ' · ')));
       sendBtn.href = "https://wa.me/" + WHATS_NUMBER + "?text=" + encodeURIComponent(buildMessage());
       sendBtn.removeAttribute('aria-disabled');
     } else {
