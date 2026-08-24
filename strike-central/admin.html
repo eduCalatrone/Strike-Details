@@ -334,7 +334,7 @@ main{max-width:1180px;margin:0 auto;padding:1.3rem var(--pad) 4rem}
 
 <script src="/strike-central/config.js"></script>
 <script type="module">
-import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.112.4/+esm';
 
 const CFG = window.STRIKE_CONFIG;
 const sb = createClient(CFG.SUPABASE_URL, CFG.SUPABASE_ANON_KEY);
@@ -448,12 +448,12 @@ function renderLeads() {
     return;
   }
   $('listaLeads').innerHTML = list.map(l => `
-    <article class="lead" data-id="${l.id}">
-      <span class="uf-badge" title="${UF_NOME[l.uf]||''}">${l.uf}</span>
+    <article class="lead" data-id="${esc(l.id)}">
+      <span class="uf-badge" title="${esc(UF_NOME[l.uf]||'')}">${esc(l.uf)}</span>
       <h3>${esc(l.nome)}</h3>
-      <div class="meta">${esc(l.cidade)} — ${UF_NOME[l.uf]||l.uf} <i>·</i> ${fone(l.whatsapp)}${l.autorizado ? ` <i>·</i> ${esc(l.autorizado.nome)}` : ''}</div>
+      <div class="meta">${esc(l.cidade)} — ${esc(UF_NOME[l.uf]||l.uf)} <i>·</i> ${esc(fone(l.whatsapp))}${l.autorizado ? ` <i>·</i> ${esc(l.autorizado.nome)}` : ''}</div>
       <div class="right">
-        <span class="pill p-${l.status}">${LABEL[l.status]}</span>
+        <span class="pill p-${esc(l.status)}">${esc(LABEL[l.status] || l.status)}</span>
         <span class="when">${data(l.created_at)}</span>
       </div>
     </article>`).join('');
@@ -481,9 +481,9 @@ function abrirLead(id) {
 
   const mesmo = AUTS.filter(a => a.ativo && a.uf === l.uf);
   const resto = AUTS.filter(a => a.ativo && a.uf !== l.uf);
-  const opt = a => `<option value="${a.id}">${esc(a.nome)} · ${esc(a.cidade)}/${a.uf}${a.matriz ? ' (matriz)' : ''}</option>`;
+  const opt = a => `<option value="${esc(a.id)}">${esc(a.nome)} · ${esc(a.cidade)}/${esc(a.uf)}${a.matriz ? ' (matriz)' : ''}</option>`;
   $('drAut').innerHTML = '<option value="">— ainda não encaminhado —</option>'
-    + (mesmo.length ? `<optgroup label="Em ${UF_NOME[l.uf]||l.uf}">${mesmo.map(opt).join('')}</optgroup>` : '')
+    + (mesmo.length ? `<optgroup label="Em ${esc(UF_NOME[l.uf]||l.uf)}">${mesmo.map(opt).join('')}</optgroup>` : '')
     + (resto.length ? `<optgroup label="Outros estados">${resto.map(opt).join('')}</optgroup>` : '');
   $('drAut').value = l.autorizado_id || '';
   $('drSug').textContent = mesmo.length
@@ -580,10 +580,10 @@ function renderAutorizados() {
     return;
   }
   $('listaAut').innerHTML = AUTS.map(a => `
-    <article class="lead" data-aut="${a.id}">
-      <span class="uf-badge" title="${UF_NOME[a.uf]||''}">${a.uf}</span>
+    <article class="lead" data-aut="${esc(a.id)}">
+      <span class="uf-badge" title="${esc(UF_NOME[a.uf]||'')}">${esc(a.uf)}</span>
       <h3>${esc(a.nome)}${a.matriz ? ' <span class="pill p-novo">matriz</span>' : ''}</h3>
-      <div class="meta">${esc(a.empresa||'—')} <i>·</i> ${esc(a.cidade)} — ${UF_NOME[a.uf]||a.uf}${a.whatsapp ? ` <i>·</i> ${fone(a.whatsapp)}` : ''}</div>
+      <div class="meta">${esc(a.empresa||'—')} <i>·</i> ${esc(a.cidade)} — ${esc(UF_NOME[a.uf]||a.uf)}${a.whatsapp ? ` <i>·</i> ${esc(fone(a.whatsapp))}` : ''}</div>
       <div class="right"><span class="pill ${a.ativo ? 'p-convertido' : 'p-perdido'}">${a.ativo ? 'ativo' : 'inativo'}</span></div>
     </article>`).join('');
   document.querySelectorAll('[data-aut]').forEach(el => el.addEventListener('click', () => abrirAutorizado(el.dataset.aut)));
@@ -657,11 +657,11 @@ $('scrim').addEventListener('click', fechar);
 document.querySelectorAll('[data-close]').forEach(b => b.addEventListener('click', fechar));
 document.addEventListener('keydown', e => e.key === 'Escape' && fechar());
 
-function esc(s) { return String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+function esc(s) { return String(s ?? '').replace(/[&<>"'`]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;','`':'&#96;'}[c])); }
 function fone(v) {
   const d = String(v || '').replace(/\D/g,'').replace(/^55/,'');
   return d.length === 11 ? `(${d.slice(0,2)}) ${d.slice(2,7)}-${d.slice(7)}`
-       : d.length === 10 ? `(${d.slice(0,2)}) ${d.slice(2,6)}-${d.slice(6)}` : v;
+       : d.length === 10 ? `(${d.slice(0,2)}) ${d.slice(2,6)}-${d.slice(6)}` : String(v ?? '');
 }
 function data(iso, completo) {
   const d = new Date(iso);
