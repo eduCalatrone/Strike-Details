@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Strike · Índice de Links</title>
+<meta name="robots" content="noindex, nofollow">
 <meta name="theme-color" content="#0A0C0B">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -427,7 +428,7 @@ function adivinharIcone(url){
    dados iniciais
    ========================================================= */
 const SEMENTE = [
-  {id:'l4', grupo:'restrito', icone:'painel',   titulo:'Acesso Banco de Dados', url:'http://strike-details-sigma.vercel.app/painel', nota:'Acesso ao banco de dados dos clientes cadastrados.', status:'ativo'},
+  {id:'l4', grupo:'restrito', icone:'painel',   titulo:'Acesso Banco de Dados', url:'https://strike-details-sigma.vercel.app/painel', nota:'Acesso ao banco de dados dos clientes cadastrados.', status:'ativo'},
   {id:'l1', grupo:'restrito', icone:'hotmart',  titulo:'Hotmart', url:'https://app.hotmart.com/', nota:'Página inicial da Hotmart: vendas, produtos e afiliados.', status:'ativo'},
   {id:'l2', grupo:'restrito', icone:'hotmart',  titulo:'Hotmart Club · Método Cabine Blindada', url:'https://hotmart.com/en/club/strikedetails/products/8320972', nota:'Visualizar a área de membros do método como o aluno vê.', status:'ativo'},
   {id:'l3', grupo:'restrito', icone:'github',   titulo:'Repositório no GitHub', url:'https://github.com/eduCalatrone/Strike-Details', nota:'Código de todos os sites ativos da Strike Details.', status:'ativo'},
@@ -475,6 +476,11 @@ let iconeEscolhido = 'site';
    ========================================================= */
 const $ = s => document.querySelector(s);
 const esc = s => String(s||'').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+/* só http/https podem virar href — bloqueia javascript:, data:, vbs: */
+const urlSegura = u => {
+  const v = String(u || '').trim();
+  return /^https?:\/\//i.test(v) ? v : '#';
+};
 const host = u => { try{ return new URL(u).host.replace(/^www\./,''); }catch(e){ return u.replace(/^https?:\/\//,'').split('/')[0]; } };
 
 function aviso(txt){
@@ -510,7 +516,7 @@ function cardHTML(l){
       ${selo}
       <span class="card__brilho"></span>
       <span class="card__rapido">
-        <a class="mini" href="${esc(l.url)}" target="_blank" rel="noopener noreferrer" data-stop>
+        <a class="mini" href="${esc(urlSegura(l.url))}" target="_blank" rel="noopener noreferrer" data-stop>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4h6v6"/><path d="M20 4 11 13"/><path d="M18 14v5a1.8 1.8 0 0 1-1.8 1.8H5.2A1.8 1.8 0 0 1 3.4 19V7.8A1.8 1.8 0 0 1 5.2 6H10"/></svg>
           Abrir
         </a>
