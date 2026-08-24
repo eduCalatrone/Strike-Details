@@ -1,0 +1,19 @@
+# dependências
+node_modules/
+.venv/
+__pycache__/
+
+# build / deploy
+.vercel/
+dist/
+.cache/
+
+# ambiente e segredos
+.env
+.env.*
+*.key
+*.pem
+
+# sistema
+.DS_Store
+Thumbs.db
