@@ -373,8 +373,8 @@ $('placa').addEventListener('input', e => {
 
 /* --- origem --- */
 const qs = new URLSearchParams(location.search);
-const origem = qs.get('utm_source') || qs.get('origem') ||
-               (document.referrer ? new URL(document.referrer).hostname : 'direto');
+const origem = String(qs.get('utm_source') || qs.get('origem') ||
+               (document.referrer ? new URL(document.referrer).hostname : 'direto')).slice(0, 60);
 
 $('linkPolitica').href = CFG.LINK_POLITICA || '#';
 $('zap').href = `https://wa.me/${CFG.WHATSAPP_MATRIZ}`;

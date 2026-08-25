@@ -13,5 +13,5 @@ window.STRIKE_CONFIG = {
   WHATSAPP_MATRIZ: '5569993615454',
 
   // Aparece no rodapé do formulário
-  LINK_POLITICA: '#'
+  LINK_POLITICA: '/politica-de-privacidade.html'
 };
