@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0a0b0a">
+<title>Política de Privacidade — Strike Estética Automotiva</title>
+<meta name="description" content="Como a Strike Estética Automotiva coleta, usa, compartilha e protege os dados pessoais de quem se cadastra para encontrar um Aplicador Autorizado.">
+<meta name="robots" content="index, follow">
+
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:site_name" content="Strike Estética Automotiva">
+<meta property="og:title" content="Política de Privacidade — Strike Estética Automotiva">
+<meta property="og:description" content="Quais dados coletamos, para que servem, com quem são compartilhados e como pedir a exclusão.">
+<meta property="og:url" content="https://strike-details-sigma.vercel.app/politica-de-privacidade.html">
+<meta property="og:image" content="https://strike-details-sigma.vercel.app/logo.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Barlow+Condensed:wght@600;700;800&family=Inter:wght@400;500;600;700&family=Michroma&display=swap" rel="stylesheet">
+
+<style>
+@font-face{
+  font-family:'Ethnocentric';
+  src:url('/fonts/ethnocentric.woff2') format('woff2'),
+      url('/fonts/ethnocentric.woff')  format('woff'),
+      url('/fonts/ethnocentric.otf')   format('opentype');
+  font-weight:400; font-style:normal; font-display:swap;
+}
+
+:root{
+  --f-title:'Archivo Black','Barlow Condensed','Inter',sans-serif;
+  --f-tech:'Ethnocentric','Michroma','Barlow Condensed',sans-serif;
+  --f-cond:'Barlow Condensed','Inter',sans-serif;
+
+  --ink:#0a0b0a;
+  --panel:#111311;
+  --card:#171a17;
+  --line:rgba(255,255,255,.10);
+  --line-2:rgba(255,255,255,.06);
+  --green:#3f8a5c;
+  --green-hi:#56a878;
+  --green-dim:rgba(63,138,92,.16);
+  --txt:#f2f4f0;
+  --txt-2:#9aa096;
+  --radius:14px;
+}
+
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
+html,body{overflow-x:hidden}
+
+body{
+  background:var(--ink);
+  color:var(--txt);
+  font-family:'Inter',system-ui,sans-serif;
+  font-size:15.5px;
+  line-height:1.72;
+  -webkit-font-smoothing:antialiased;
+}
+
+a{color:var(--green-hi);text-underline-offset:3px}
+a:hover{color:var(--txt)}
+:focus-visible{outline:2px solid var(--green-hi);outline-offset:3px;border-radius:4px}
+
+/* ---------- topo ---------- */
+.topo{
+  border-bottom:1px solid var(--line-2);
+  background:linear-gradient(180deg,var(--panel),var(--ink));
+}
+.topo__int{
+  max-width:760px;margin:0 auto;
+  padding:26px clamp(18px,5vw,32px) 34px;
+}
+.marca{display:flex;align-items:center;gap:12px;margin-bottom:26px}
+.marca img{height:30px;width:auto;display:block}
+.voltar{
+  font-family:var(--f-cond);font-size:13px;font-weight:700;
+  letter-spacing:.14em;text-transform:uppercase;
+  color:var(--txt-2);text-decoration:none;margin-left:auto;
+}
+.voltar:hover{color:var(--green-hi)}
+
+h1{
+  font-family:var(--f-title);
+  font-size:clamp(1.55rem,5.6vw,2.35rem);
+  line-height:1.15;letter-spacing:-.01em;
+}
+h1 .g{color:var(--green)}
+
+.selo{
+  display:inline-block;margin-bottom:16px;
+  font-family:var(--f-tech);font-size:10px;
+  letter-spacing:.24em;text-transform:uppercase;
+  color:var(--green-hi);
+  padding:5px 11px;border:1px solid var(--green-dim);
+  background:rgba(63,138,92,.07);border-radius:100px;
+}
+.datas{
+  margin-top:16px;
+  font-family:var(--f-cond);font-size:13.5px;font-weight:600;
+  letter-spacing:.08em;text-transform:uppercase;color:var(--txt-2);
+}
+
+/* ---------- corpo ---------- */
+main{max-width:760px;margin:0 auto;padding:8px clamp(18px,5vw,32px) 40px}
+
+section{padding:34px 0;border-bottom:1px solid var(--line-2)}
+section:last-of-type{border-bottom:0}
+
+h2{
+  font-family:var(--f-cond);
+  font-size:clamp(1.12rem,3.6vw,1.32rem);
+  font-weight:800;letter-spacing:.03em;text-transform:uppercase;
+  margin-bottom:14px;display:flex;gap:12px;align-items:baseline;
+}
+h2 .n{
+  font-family:var(--f-tech);font-size:11px;color:var(--green);
+  letter-spacing:.1em;flex:0 0 auto;padding-top:2px;
+}
+h3{
+  font-family:var(--f-cond);font-size:15px;font-weight:700;
+  letter-spacing:.06em;text-transform:uppercase;
+  color:var(--txt-2);margin:22px 0 8px;
+}
+p{margin-bottom:13px;color:#dcdfd8}
+p:last-child{margin-bottom:0}
+strong{color:var(--txt);font-weight:600}
+
+ul{margin:0 0 13px;padding-left:0;list-style:none}
+li{
+  position:relative;padding-left:20px;margin-bottom:8px;color:#dcdfd8;
+}
+li::before{
+  content:'';position:absolute;left:2px;top:.72em;
+  width:5px;height:5px;background:var(--green);border-radius:1px;
+}
+li:last-child{margin-bottom:0}
+
+/* ---------- tabela de dados ---------- */
+.tabela{
+  border:1px solid var(--line);border-radius:var(--radius);
+  overflow:hidden;margin:18px 0 6px;background:var(--card);
+}
+.linha{
+  display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.45fr);
+  gap:0;border-bottom:1px solid var(--line-2);
+}
+.linha:last-child{border-bottom:0}
+.linha > div{padding:13px 15px}
+.linha > div:first-child{
+  font-family:var(--f-cond);font-weight:700;font-size:13.5px;
+  letter-spacing:.06em;text-transform:uppercase;color:var(--txt);
+  background:rgba(255,255,255,.02);
+  border-right:1px solid var(--line-2);
+}
+.linha > div:last-child{color:#c9cdc4;font-size:14.5px;line-height:1.6}
+@media (max-width:560px){
+  .linha{grid-template-columns:1fr}
+  .linha > div:first-child{border-right:0;border-bottom:1px solid var(--line-2);padding-bottom:9px}
+  .linha > div:last-child{padding-top:11px}
+}
+
+/* ---------- destaque ---------- */
+.caixa{
+  border:1px solid var(--green-dim);
+  background:rgba(63,138,92,.06);
+  border-left:3px solid var(--green);
+  border-radius:0 var(--radius) var(--radius) 0;
+  padding:18px 20px;margin:20px 0 4px;
+}
+.caixa h3{margin-top:0;color:var(--green-hi)}
+.caixa p:last-child{margin-bottom:0}
+
+/* ---------- rodapé ---------- */
+.rodape{
+  border-top:1px solid var(--line-2);
+  padding:30px clamp(18px,5vw,32px) 46px;
+  max-width:760px;margin:0 auto;
+  font-family:var(--f-cond);font-size:12.5px;font-weight:600;
+  letter-spacing:.14em;text-transform:uppercase;color:rgba(154,160,150,.65);
+  display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;
+}
+</style>
+</head>
+<body>
+
+<header class="topo">
+  <div class="topo__int">
+    <div class="marca">
+      <img src="/logo.png" alt="Strike Estética Automotiva">
+      <a class="voltar" href="/">Voltar ao site</a>
+    </div>
+
+    <span class="selo">LGPD · Lei 13.709/2018</span>
+    <h1>Política de <span class="g">Privacidade</span></h1>
+    <p class="datas">Vigente desde 24 de agosto de 2026 · Versão 1.0</p>
+  </div>
+</header>
+
+<main>
+
+<section>
+  <h2><span class="n">01</span> Quem somos</h2>
+  <p>Esta política explica como a <strong>Strike Estética Automotiva</strong> trata os dados pessoais de quem preenche o formulário de cadastro para ser direcionado a um Aplicador Autorizado.</p>
+  <p>Para os fins da LGPD, a Strike Estética Automotiva é a <strong>controladora</strong> dos dados: é ela quem decide quais dados são coletados e para que servem.</p>
+
+  <div class="tabela">
+    <div class="linha"><div>Controladora</div><div>Strike Estética Automotiva — Jaru/RO</div></div>
+    <div class="linha"><div>CNPJ</div><div>[PREENCHER]</div></div>
+    <div class="linha"><div>Contato para privacidade</div><div>[PREENCHER: e-mail]</div></div>
+    <div class="linha"><div>WhatsApp da matriz</div><div><a href="https://wa.me/5569993615454">(69) 99361-5454</a></div></div>
+  </div>
+</section>
+
+<section>
+  <h2><span class="n">02</span> Quais dados coletamos</h2>
+  <p>Coletamos apenas o que você digita no formulário, mais dois dados técnicos gerados automaticamente. Nada além disso.</p>
+
+  <div class="tabela">
+    <div class="linha"><div>Identificação</div><div>Nome completo</div></div>
+    <div class="linha"><div>Contato</div><div>WhatsApp e e-mail</div></div>
+    <div class="linha"><div>Localização</div><div>Estado, cidade e endereço</div></div>
+    <div class="linha"><div>Veículo</div><div>Modelo e placa</div></div>
+    <div class="linha"><div>Interesse</div><div>Serviço desejado e observações que você escrever</div></div>
+    <div class="linha"><div>Técnicos</div><div>Origem do acesso (de qual link você veio) e data e hora do cadastro</div></div>
+  </div>
+
+  <h3>O que não coletamos</h3>
+  <p>Não pedimos CPF, RG, dados bancários, cartão de crédito nem qualquer dado sensível. Também não usamos cookies de rastreamento no formulário de cadastro.</p>
+</section>
+
+<section>
+  <h2><span class="n">03</span> Para que usamos</h2>
+  <ul>
+    <li>Identificar o Aplicador Autorizado mais próximo de você e encaminhar seu contato a ele.</li>
+    <li>Entrar em contato pelo WhatsApp ou e-mail para entender o serviço que você procura e acompanhar o atendimento.</li>
+    <li>Entender de quais regiões vêm os pedidos, para decidir onde abrir novos pontos autorizados.</li>
+  </ul>
+  <p>O endereço e a placa servem para o Aplicador localizar você e identificar o veículo no orçamento. Se preferir não informá-los, o cadastro funciona do mesmo jeito — o atendimento apenas fica menos direto.</p>
+</section>
+
+<section>
+  <h2><span class="n">04</span> Com que base legal</h2>
+  <p>Tratamos seus dados com base no <strong>seu consentimento</strong> (art. 7º, I da LGPD), dado quando você marca a caixa de aceite antes de enviar o formulário. Sem essa marcação, o cadastro não é gravado.</p>
+  <p>Depois que você é encaminhado a um Aplicador e o atendimento começa, o tratamento passa a se apoiar também na <strong>execução de contrato ou de procedimentos preliminares</strong> (art. 7º, V) — ou seja, no próprio serviço que você pediu.</p>
+</section>
+
+<section>
+  <h2><span class="n">05</span> Com quem compartilhamos</h2>
+  <p>Este é o ponto mais importante desta política, então vamos ser diretos.</p>
+
+  <div class="caixa">
+    <h3>Seus dados vão para o Aplicador Autorizado</h3>
+    <p>Ao concluir o cadastro, seu nome, WhatsApp, cidade, endereço, veículo, placa e o serviço de interesse são repassados ao Aplicador Autorizado da sua região, para que ele entre em contato e faça o orçamento. Esse repasse é a própria finalidade do cadastro.</p>
+    <p>Os Aplicadores Autorizados são empresas independentes. Eles recebem seus dados exclusivamente para atender você e são orientados a não usá-los para outro fim.</p>
+  </div>
+
+  <h3>Também usamos estes serviços</h3>
+  <ul>
+    <li><strong>Supabase</strong> — banco de dados onde os cadastros ficam armazenados, com servidores nos Estados Unidos.</li>
+    <li><strong>Vercel</strong> — hospedagem do site.</li>
+    <li><strong>Google Analytics e Meta Pixel</strong> — medição de audiência nas páginas de venda, com dados agregados e sem identificar você pelo nome.</li>
+  </ul>
+  <p>Não vendemos, alugamos nem cedemos seus dados a terceiros para fins publicitários.</p>
+
+  <h3>Transferência internacional</h3>
+  <p>Como o banco de dados fica nos Estados Unidos, seus dados são transferidos para fora do Brasil. A LGPD permite isso quando há consentimento específico do titular — que é o que você dá ao marcar o aceite no formulário.</p>
+</section>
+
+<section>
+  <h2><span class="n">06</span> Por quanto tempo guardamos</h2>
+  <div class="tabela">
+    <div class="linha"><div>Cadastro sem atendimento</div><div>24 meses após o envio, depois é excluído</div></div>
+    <div class="linha"><div>Cadastro com serviço realizado</div><div>5 anos após o atendimento, prazo de garantia e obrigações legais</div></div>
+    <div class="linha"><div>Pedido de exclusão</div><div>Excluído em até 15 dias, salvo o que a lei exigir manter</div></div>
+  </div>
+  <p>Depois desses prazos, os registros são apagados ou anonimizados.</p>
+</section>
+
+<section>
+  <h2><span class="n">07</span> Seus direitos</h2>
+  <p>A LGPD garante a você, a qualquer momento e sem custo:</p>
+  <ul>
+    <li><strong>Confirmar e acessar</strong> — saber se temos dados seus e receber uma cópia.</li>
+    <li><strong>Corrigir</strong> — atualizar qualquer informação errada ou desatualizada.</li>
+    <li><strong>Excluir</strong> — pedir a eliminação dos seus dados.</li>
+    <li><strong>Revogar o consentimento</strong> — retirar a autorização que você deu, o que encerra o tratamento daí em diante.</li>
+    <li><strong>Saber com quem compartilhamos</strong> — pedir a lista de quem recebeu seus dados.</li>
+    <li><strong>Portar</strong> — receber seus dados em formato legível para levar a outro fornecedor.</li>
+  </ul>
+
+  <div class="caixa">
+    <h3>Como exercer</h3>
+    <p>Mande uma mensagem para <a href="https://wa.me/5569993615454">(69) 99361-5454</a> ou escreva para <strong>[PREENCHER: e-mail]</strong>, dizendo o que você quer (acesso, correção, exclusão) e o nome e WhatsApp usados no cadastro.</p>
+    <p>Respondemos em até <strong>15 dias</strong>. Se não conseguirmos atender, explicamos o motivo.</p>
+  </div>
+
+  <p>Se você não ficar satisfeito com a resposta, pode reclamar à Autoridade Nacional de Proteção de Dados (ANPD), em <a href="https://www.gov.br/anpd" target="_blank" rel="noopener noreferrer">gov.br/anpd</a>.</p>
+</section>
+
+<section>
+  <h2><span class="n">08</span> Como protegemos</h2>
+  <ul>
+    <li>Acesso ao painel de cadastros restrito à matriz, com login e senha individuais.</li>
+    <li>Regras no banco de dados que impedem leitura por quem não está autenticado.</li>
+    <li>Conexão criptografada (HTTPS) em todas as páginas.</li>
+    <li>Registro de quem alterou cada cadastro e quando.</li>
+  </ul>
+  <p>Nenhum sistema é totalmente imune. Se ocorrer um incidente de segurança que possa gerar risco relevante a você, comunicaremos você e a ANPD, como manda a LGPD.</p>
+</section>
+
+<section>
+  <h2><span class="n">09</span> Menores de idade</h2>
+  <p>O cadastro é destinado a maiores de 18 anos. Não coletamos intencionalmente dados de menores. Se identificarmos um cadastro nessas condições, ele é excluído.</p>
+</section>
+
+<section>
+  <h2><span class="n">10</span> Mudanças nesta política</h2>
+  <p>Se esta política mudar, a nova versão passa a valer a partir da data indicada no topo da página. Mudanças relevantes na forma como usamos seus dados serão comunicadas pelos contatos que você cadastrou.</p>
+</section>
+
+</main>
+
+<footer class="rodape">
+  <span>Strike Estética Automotiva · Jaru/RO</span>
+  <span>Versão 1.0 · 24.08.2026</span>
+</footer>
+
+</body>
+</html>
