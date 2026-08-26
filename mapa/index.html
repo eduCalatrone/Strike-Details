@@ -156,8 +156,8 @@ h2.sec.ethno{
 .legend b.area{width:11px;height:8px;border-radius:2px;background:rgba(63,138,92,.38);border:1px solid rgba(86,168,120,.8)}
 .map-hint{font-size:.68rem;color:var(--txt-2);text-align:center;margin-top:.6rem;letter-spacing:.3px}
 
-/* LISTA AGRUPADA POR ESTADO */
-.unit-groups{margin-top:1.1rem}
+/* CIDADES ATENDIDAS */
+.city-groups{margin-top:1.1rem}
 .state-group{margin-top:1.6rem}
 .state-group:first-child{margin-top:0}
 .state-heading{
@@ -167,27 +167,16 @@ h2.sec.ethno{
 }
 .state-heading::after{content:"";flex:1;height:1px;background:var(--line)}
 .state-heading.matriz{color:var(--matriz)}
-.unit-grid{display:grid;gap:.7rem}
-.unit-card{
+.city-list{display:flex;flex-wrap:wrap;gap:.5rem}
+.city-chip{
   background:var(--card);border:1px solid var(--line-2);border-left:3px solid var(--green);
-  border-radius:12px;padding:1.1rem;display:flex;justify-content:space-between;gap:1rem;align-items:center;
-  transition:background .2s ease,border-color .2s ease;
+  border-radius:10px;padding:.55rem .85rem;font-size:.88rem;color:var(--txt);
 }
-.unit-card.matriz{border-left-color:var(--matriz)}
-.unit-card.flash{background:var(--green-dim)}
-.unit-card h3{font-size:1.08rem;letter-spacing:.3px}
-.unit-card .loc{font-size:.78rem;color:var(--txt-2);margin-top:.15rem}
-.unit-card .tel{font-size:.78rem;color:var(--txt-2);margin-top:.35rem}
-.tag{
-  font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.6rem;letter-spacing:1.2px;
-  text-transform:uppercase;padding:.26rem .55rem;border-radius:100px;white-space:nowrap;margin-bottom:.55rem;display:inline-block;
-}
-.tag.matriz{color:var(--matriz);border:1px solid rgba(255,255,255,.5);background:rgba(255,255,255,.08)}
-.tag.autorizada{color:var(--green);border:1px solid rgba(63,138,92,.5);background:var(--green-dim)}
-.card-link{
-  font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.72rem;letter-spacing:.8px;
-  text-transform:uppercase;color:#0b1005;background:linear-gradient(180deg,var(--green-hi),var(--green));
-  border-radius:100px;padding:.55rem .95rem;white-space:nowrap;flex:none;
+.city-chip.matriz{border-left-color:var(--matriz)}
+.city-chip .uf{color:var(--txt-2);font-size:.78rem;margin-left:.25rem}
+.city-chip .tag-matriz{
+  font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.58rem;letter-spacing:1.2px;
+  text-transform:uppercase;color:var(--matriz);margin-left:.45rem;
 }
 
 /* FOOTER */
@@ -210,9 +199,6 @@ footer a{color:var(--green)}
   .hero p.sub{font-size:1.05rem}
   .brandmark img{height:32px}
   .map-card svg{max-width:520px}
-  .unit-grid{grid-template-columns:repeat(2,1fr)}
-  .unit-card{align-items:flex-start;flex-direction:column;gap:.7rem}
-  .card-link{align-self:flex-start}
 }
 </style>
 </head>
@@ -253,16 +239,16 @@ footer a{color:var(--green)}
         <span><b></b> Unidade autorizada</span>
         <span><b class="area"></b> Estado com atuação</span>
       </div>
-      <p class="map-hint">Toque em um ponto para ver os dados da unidade</p>
+      <p class="map-hint">Estados e cidades com atuação da rede Strike</p>
     </div>
   </div>
 </section>
 
-<section class="carbon" id="unidades">
+<section class="carbon" id="cidades">
   <div class="wrap">
     <span class="eyebrow">A rede</span>
-    <h2 class="sec ethno">Matriz e <em>autorizados</em></h2>
-    <div class="unit-groups" id="unitGroups"></div>
+    <h2 class="sec ethno">Cidades <em>atendidas</em></h2>
+    <div class="city-groups" id="cityGroups"></div>
   </div>
 </section>
 
@@ -286,122 +272,57 @@ if (window.NodeList && !NodeList.prototype.forEach) {
    cx/cy: posição real no mapa (projeção equirretangular, viewBox 0 0 340 340)
    ==================================================================== */
 const UNITS = [
-  {
-    matriz:true,
-    name:"Strike Details — Matriz",
-    city:"Jaru", uf:"RO",
-    phone:"5569993615454", phoneLabel:"(69) 99361-5454",
-    cx:107.4, cy:139.6
-  },
-  {
-    matriz:false,
-    name:"Luxcar Estética Automotiva",
-    city:"Alta Floresta d'Oeste", uf:"RO",
-    phone:"5569999976653", phoneLabel:"(69) 99997-6653",
-    cx:111.1, cy:151.9
-  },
-  {
-    matriz:false,
-    name:"Camelo Estética Automotiva",
-    city:"Santa Rosa do Tocantins", uf:"TO",
-    phone:"5563992484627", phoneLabel:"(63) 9 9248-4627",
-    cx:219.1, cy:148.1
-  },
-  {
-    matriz:false,
-    name:"Fabi Car FC Lava Jato",
-    city:"Piçarra", uf:"PA",
-    phone:"559491303415", phoneLabel:"(94) 9130-3415",
-    cx:212.8, cy:107.6
-  },
-  {
-    matriz:false,
-    name:"DL Detailer Estética Automotiva",
-    city:"Floresta do Araguaia", uf:"PA",
-    phone:"5594984047836", phoneLabel:"(94) 98404-7836",
-    cx:206.3, cy:116.5
-  },
-  {
-    matriz:false,
-    name:"StopCar Estética Automotiva",
-    city:"Bom Jesus do Araguaia", uf:"MT",
-    phone:"5566984329394", phoneLabel:"(66) 98432-9394",
-    cx:192.4, cy:153.5
-  },
-  {
-    matriz:false,
-    name:"Studio 66 Estética Automotiva",
-    city:"Colíder", uf:"MT",
-    phone:"5566996840267", phoneLabel:"(66) 9 9684-0267",
-    cx:161.7, cy:142.7
-  },
+  { matriz:true,  city:"Jaru",                     uf:"RO", cx:107.4, cy:139.6 },
+  { matriz:false, city:"Alta Floresta d'Oeste",    uf:"RO", cx:111.1, cy:151.9 },
+  { matriz:false, city:"Santa Rosa do Tocantins",  uf:"TO", cx:219.1, cy:148.1 },
+  { matriz:false, city:"Piçarra",                  uf:"PA", cx:212.8, cy:107.6 },
+  { matriz:false, city:"Floresta do Araguaia",     uf:"PA", cx:206.3, cy:116.5 },
+  { matriz:false, city:"Bom Jesus do Araguaia",    uf:"MT", cx:192.4, cy:153.5 },
+  { matriz:false, city:"Colíder",                  uf:"MT", cx:161.7, cy:142.7 },
 ];
 
-function waLink(u){
-  var msg = u.matriz
-    ? "Olá! Vim pelo mapa da rede e quero falar com a Strike Details."
-    : "Olá! Vim pelo mapa da rede Strike e quero falar com a " + u.name + ".";
-  return "https://wa.me/" + u.phone + "?text=" + encodeURIComponent(msg);
-}
-
 const pinsG = document.getElementById('mapPins');
-const groupsEl = document.getElementById('unitGroups');
+const groupsEl = document.getElementById('cityGroups');
 
 const STATE_NAMES = { RO:"Rondônia", TO:"Tocantins", PA:"Pará", MT:"Mato Grosso" };
 
 function buildPins(){
-  pinsG.innerHTML = UNITS.map(function(u, i){
+  pinsG.innerHTML = UNITS.map(function(u){
     const cls = u.matriz ? 'pin-matriz' : 'pin';
     const pulseColor = u.matriz ? 'var(--matriz)' : 'var(--green)';
     const pulseCls = u.matriz ? 'pulse matriz' : 'pulse';
     const r = u.matriz ? 5.2 : 4.2;
+    const label = u.city + '/' + u.uf + (u.matriz ? ' — Matriz' : '');
     return '<circle class="'+pulseCls+'" cx="'+u.cx+'" cy="'+u.cy+'" r="3.2" fill="'+pulseColor+'"></circle>' +
-           '<circle class="'+cls+'" id="pin-'+i+'" data-idx="'+i+'" cx="'+u.cx+'" cy="'+u.cy+'" r="'+r+'"><title>'+u.name+' — '+u.city+'/'+u.uf+'</title></circle>';
+           '<circle class="'+cls+'" cx="'+u.cx+'" cy="'+u.cy+'" r="'+r+'"><title>'+label+'</title></circle>';
   }).join('');
-
-  pinsG.querySelectorAll('[data-idx]').forEach(function(el){
-    el.addEventListener('click', function(){
-      const card = document.getElementById('card-' + el.getAttribute('data-idx'));
-      if (card){
-        card.scrollIntoView({behavior:'smooth', block:'center'});
-        card.classList.add('flash');
-        setTimeout(function(){ card.classList.remove('flash'); }, 1400);
-      }
-    });
-  });
 }
 
-function buildGroups(){
+function buildCities(){
   const ufs = [];
   UNITS.forEach(function(u){ if (ufs.indexOf(u.uf) === -1) ufs.push(u.uf); });
 
   groupsEl.innerHTML = ufs.map(function(uf){
-    const unitsInState = UNITS.filter(function(u){ return u.uf === uf; });
-    const hasMatriz = unitsInState.some(function(u){ return u.matriz; });
+    const citiesInState = UNITS.filter(function(u){ return u.uf === uf; });
+    const hasMatriz = citiesInState.some(function(u){ return u.matriz; });
     const stateName = STATE_NAMES[uf] || uf;
 
-    const cardsHtml = unitsInState.map(function(u){
-      const i = UNITS.indexOf(u);
-      return '<div class="unit-card'+(u.matriz?' matriz':'')+'" id="card-'+i+'">' +
-        '<div>' +
-        '<span class="tag '+(u.matriz?'matriz':'autorizada')+'">'+(u.matriz?'Matriz':'Autorizada')+'</span>' +
-        '<h3>'+u.name+'</h3>' +
-        '<div class="loc">'+u.city+' / '+u.uf+'</div>' +
-        '<div class="tel">'+u.phoneLabel+'</div>' +
-        '</div>' +
-        '<a class="card-link" href="'+waLink(u)+'" target="_blank" rel="noopener">WhatsApp</a>' +
-        '</div>';
+    const chipsHtml = citiesInState.map(function(u){
+      return '<span class="city-chip'+(u.matriz?' matriz':'')+'">' + u.city +
+        '<span class="uf">/'+u.uf+'</span>' +
+        (u.matriz ? '<span class="tag-matriz">Matriz</span>' : '') +
+        '</span>';
     }).join('');
 
     return '<div class="state-group">' +
       '<div class="state-heading'+(hasMatriz?' matriz':'')+'">' + stateName + '</div>' +
-      '<div class="unit-grid">' + cardsHtml + '</div>' +
+      '<div class="city-list">' + chipsHtml + '</div>' +
       '</div>';
   }).join('');
 }
 
 buildPins();
-buildGroups();
+buildCities();
 
 const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const items = document.querySelectorAll('.rv');
