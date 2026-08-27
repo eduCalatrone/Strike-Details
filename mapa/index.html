@@ -215,6 +215,23 @@ h2.sec.ethno{
   text-transform:uppercase;color:var(--matriz);margin-left:.45rem;
 }
 
+/* CTA — ENTRAR EM CONTATO */
+.cta{text-align:center;padding-top:2.2rem;padding-bottom:2.2rem}
+.cta h2{font-size:1.35rem;margin-bottom:.5rem}
+.cta p{color:var(--txt-2);font-size:.9rem;max-width:44ch;margin:0 auto 1.4rem}
+.btn-cta{
+  display:inline-flex;align-items:center;justify-content:center;gap:.55rem;
+  font-family:'Barlow Condensed',sans-serif;font-weight:800;text-transform:uppercase;
+  font-size:1rem;letter-spacing:1.2px;
+  background:var(--green);color:#0b1005;
+  padding:.9rem 2rem;border-radius:11px;
+  box-shadow:0 0 0 0 rgba(63,138,92,.45);
+  transition:background .2s ease,transform .2s ease,box-shadow .2s ease;
+}
+.btn-cta:hover{background:var(--green-hi);transform:translateY(-2px);box-shadow:0 8px 24px rgba(63,138,92,.35)}
+.btn-cta:active{transform:translateY(0)}
+.btn-cta svg{width:15px;height:15px;flex:none}
+
 /* FOOTER */
 footer{padding:2.2rem var(--pad) 2.6rem;text-align:center;border-top:1px solid var(--line-2);background:#080908}
 footer .brandmark img{height:30px;margin:0 auto 1rem}
@@ -285,6 +302,19 @@ footer a{color:var(--green)}
       </div>
       <p class="map-hint">Toque em um ponto do mapa para selecionar a cidade</p>
     </div>
+  </div>
+</section>
+
+<section class="cta" id="contato">
+  <div class="wrap">
+    <span class="eyebrow">Atendimento</span>
+    <h2 class="sec ethno">Fale com a <em>rede Strike</em></h2>
+    <a class="btn-cta" href="https://strike-details-sigma.vercel.app/cadastro" target="_blank" rel="noopener">
+      Entrar em contato
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M5 12h13M13 6l6 6-6 6"/>
+      </svg>
+    </a>
   </div>
 </section>
 
