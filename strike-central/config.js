@@ -10,7 +10,7 @@ window.STRIKE_CONFIG = {
   SUPABASE_ANON_KEY: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFmbmdmY2NsaXB1dXB0c2tvb3doIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODcxNDMxNzcsImV4cCI6MjEwMjcxOTE3N30.PWsO9Yb2q18m4s5OZWfz5n1CjBCprcukLmtlPDdehoM',
 
   // WhatsApp da matriz, formato internacional só com números
-  WHATSAPP_MATRIZ: '5569993615454',
+  WHATSAPP_MATRIZ: '5569992823998',
 
   // Aparece no rodapé do formulário
   LINK_POLITICA: '/politica-de-privacidade.html'
