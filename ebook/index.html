@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="theme-color" content="#050505">
+<meta name="theme-color" content="#121214">
 <title>Método Cabine Blindada | Strike Estética automotiva</title>
 <meta name="description" content="Programa de Autorização Strike: torne-se um Aplicador Autorizado do Método Cabine Blindada, o procedimento técnico de vedação definitiva contra poeira na Fiat Strada.">
 
@@ -89,8 +89,8 @@
   --btn-stroke:.3px;    /* reforco de peso do CTA: zere se instalar o corte Bold real */
 
   /* ---------- PALETA: preto, branco e cinza ---------- */
-  --bg:#050505;
-  --bg-2:#070708;   /* base das caixas de fibra */
+  --bg:#121214;     /* fundo: cinza bem escuro, nao preto puro (OLED) */
+  --bg-2:#19191c;   /* base das caixas de fibra */
   --line:rgba(255,255,255,.11);
   --line-2:rgba(255,255,255,.065);
   --txt:#f4f4f2;
@@ -161,7 +161,7 @@ h3,h4{
 .carbon{
   background-color:var(--bg);
 }
-.carbon.alt{background-color:#0a0a0a}
+.carbon.alt{background-color:#161618}
 
 /* ---------- PAINEL METALICO (referencia: caixa do preco) ---------- */
 .plate,.kit-item{
@@ -194,7 +194,7 @@ h2.sec{font-size:1.6rem;margin-bottom:1rem}
   position:sticky;top:0;z-index:60;
   display:flex;align-items:center;justify-content:space-between;gap:1rem;
   padding:.75rem var(--pad);
-  background-color:rgba(5,5,5,.9);
+  background-color:rgba(18,18,20,.9);
   backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
   border-bottom:1px solid var(--line-2);
 }
@@ -446,9 +446,9 @@ h1.metal,h2.metal{background-size:100% 1.05em}
   background-size:auto,auto,var(--tile) var(--tile);
 }
 .map-svg{width:100%;height:auto;max-width:520px;margin:0 auto;display:block}
-.br-shape{fill:#101011;stroke:rgba(255,255,255,.24);stroke-width:.6;stroke-linejoin:round}
-.state-hl{fill:#1f1f21;stroke:rgba(255,255,255,.42);stroke-width:.6;stroke-linejoin:round}
-.state-matriz{fill:#434345;stroke:rgba(255,255,255,.82);stroke-width:.7;stroke-linejoin:round}
+.br-shape{fill:#222225;stroke:rgba(255,255,255,.24);stroke-width:.6;stroke-linejoin:round}
+.state-hl{fill:#303034;stroke:rgba(255,255,255,.42);stroke-width:.6;stroke-linejoin:round}
+.state-matriz{fill:#505054;stroke:rgba(255,255,255,.82);stroke-width:.7;stroke-linejoin:round}
 .uf-tag{
   font-family:var(--f-cond);font-weight:800;font-size:8.5px;letter-spacing:.5px;
   pointer-events:none;text-anchor:middle;fill:rgba(255,255,255,.5);
@@ -456,8 +456,8 @@ h1.metal,h2.metal{background-size:100% 1.05em}
 .uf-tag.matriz{fill:rgba(255,255,255,.8)}
 .pin-g{cursor:pointer;outline:none}
 .pin,.pin-matriz{transform-box:fill-box;transform-origin:center;transition:transform .2s ease,opacity .2s ease,fill .2s ease}
-.pin{fill:var(--gray-2);stroke:#050505;stroke-width:1}
-.pin-matriz{fill:#fff;stroke:#050505;stroke-width:1;filter:drop-shadow(0 0 4px rgba(255,255,255,.75))}
+.pin{fill:var(--gray-2);stroke:#121214;stroke-width:1}
+.pin-matriz{fill:#fff;stroke:#121214;stroke-width:1;filter:drop-shadow(0 0 4px rgba(255,255,255,.75))}
 .pin-g:hover .pin,.pin-g:hover .pin-matriz,
 .pin-g:focus-visible .pin,.pin-g:focus-visible .pin-matriz{transform:scale(1.25)}
 /* pulso: matriz (branco) e autorizados (cinza, defasados).
@@ -553,8 +553,9 @@ h1.metal,h2.metal{background-size:100% 1.05em}
 .offer h2.sec{font-size:1.9rem;max-width:16ch}
 .price-card{border-radius:20px;padding:1.8rem 1.4rem 1.5rem}
 .price-card .lbl{font-size:.84rem;color:var(--txt-2)}
-.price-card .val{font-family:var(--f-cond);font-weight:800;font-size:3.4rem;line-height:1;margin:.35rem 0 .45rem}
-.price-card .val small{font-size:1.4rem;vertical-align:top;color:var(--txt-2);margin:0 .12rem}
+.price-card .val{display:flex;align-items:flex-start;gap:.2rem;font-family:var(--f-cond);font-weight:800;font-size:3.4rem;line-height:1;letter-spacing:0;margin:.35rem 0 .45rem;white-space:nowrap}
+.price-card .val .cur,.price-card .val .cents{display:block;font-size:1.4rem;line-height:1;margin-top:.35rem;color:var(--txt-2);letter-spacing:0;word-spacing:0}
+.price-card .val .cur{margin-right:.1rem}
 .price-card .inst{color:var(--txt-2);font-size:.92rem;margin-bottom:1.5rem}
 .trust{list-style:none;display:flex;flex-wrap:wrap;gap:.5rem 1.3rem;margin-top:1.15rem;font-size:.74rem;color:var(--txt-2)}
 .trust li{display:flex;align-items:center;gap:.4rem}
@@ -563,7 +564,7 @@ h1.metal,h2.metal{background-size:100% 1.05em}
 /* ---------- RODAPE ---------- */
 footer{
   padding:2.6rem var(--pad) 2.4rem;border-top:1px solid var(--line-2);
-  background-color:#030303;
+  background-color:#0e0e10;
 }
 .f-top{display:grid;gap:1.4rem}
 footer img{width:130px;opacity:.9;margin-bottom:.9rem}
@@ -577,7 +578,7 @@ footer img{width:130px;opacity:.9;margin-bottom:.9rem}
   position:fixed;left:0;right:0;bottom:0;z-index:70;
   display:flex;align-items:center;gap:.8rem;
   padding:.6rem var(--pad) calc(.6rem + env(safe-area-inset-bottom));
-  background-color:rgba(5,5,5,.96);
+  background-color:rgba(18,18,20,.96);
   backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
   border-top:1px solid var(--line);
   transform:translateY(105%);transition:transform .3s ease;
@@ -926,7 +927,7 @@ footer img{width:130px;opacity:.9;margin-bottom:.9rem}
 
     <div class="price-card plate">
       <span class="lbl">Investimento</span>
-      <div class="val"><small>R$</small>1.428<small>,00</small></div>
+      <div class="val" aria-label="R$ 1.428,00"><span class="cur">R$</span><span class="int">1.428</span><span class="cents">,00</span></div>
       <div class="inst">ou 12x R$ 147,69</div>
       <a href="https://pay.hotmart.com/H107178699F" class="btn btn--tech js-checkout">Quero ser um autorizado</a>
       <ul class="trust">
