@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="theme-color" content="#0a0b0a">
+<meta name="theme-color" content="#121214">
 <title>Rede de Autorizados Strike Details Estética Automotiva | Mapa</title>
 <meta name="description" content="Mapa da rede de autorizados Strike Details Estética Automotiva: a matriz em Jaru/RO e as unidades autorizadas pelo Brasil.">
 
@@ -24,179 +24,191 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Inter:wght@400;500;600;700&family=Archivo:wdth,wght@125,600..900&family=Michroma&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Chakra+Petch:wght@600;700&family=Sora:wght@400;500;600&family=Michroma&display=swap" rel="stylesheet">
 <style>
-:root{
-  --ink:#0a0b0a;
-  --panel:#111311;
-  --card:#171a17;
-  --line:rgba(255,255,255,.10);
-  --line-2:rgba(255,255,255,.06);
-  --green:#3f8a5c;
-  --green-hi:#56a878;
-  --green-dim:rgba(63,138,92,.16);
-  --txt:#f2f4f0;
-  --txt-2:#9aa096;
-  --matriz:#ffffff;
-  --radius:14px;
-  --pad:1.15rem;
-  /* Titulos principais: usa a Eurostile Extended se instalada/hospedada;
-     senao cai na Archivo Expanded (Google Fonts): largura extendida + ExtraBold real. */
-  --font-title:'Eurostile Extended','Eurostile Ext','EurostileExtended','Eurostile Extended #2','Archivo','Montserrat','Barlow Condensed',sans-serif;
-  /* Ethnocentric (Typodermic) - se nao estiver instalada/hospedada, cai na Michroma,
-     que e a mais parecida no Google Fonts (quadrada e larga). */
-  --font-ethno:'Ethnocentric','Ethnocentric Rg','Michroma','Archivo',sans-serif;
-}
-
-/* Para usar a Eurostile Extended REAL, hospede os arquivos ao lado do index.html
-   e descomente o bloco abaixo (a fonte e licenciada - Linotype/Monotype).
-@font-face{
-  font-family:'Eurostile Extended';
-  src:url('fonts/eurostile-extended.woff2') format('woff2'),
-      url('fonts/eurostile-extended.woff') format('woff');
-  font-weight:400 800;
-  font-display:swap;
-}
+/* ---------- ETHNOCENTRIC (fonte licenciada, arquivo local) ----------
+   Mesma fonte usada no ebook e nas demais paginas da Strike Details.
+   Enquanto nao subir, o fallback 'Michroma' (Google Fonts) assume automaticamente. */
 @font-face{
   font-family:'Ethnocentric';
-  src:url('fonts/ethnocentric.woff2') format('woff2'),
-      url('fonts/ethnocentric.woff') format('woff');
-  font-weight:400 700;
-  font-display:swap;
+  src:url('/fonts/ethnocentric.woff2') format('woff2'),
+      url('/fonts/ethnocentric.woff')  format('woff'),
+      url('/fonts/ethnocentric.otf')   format('opentype');
+  font-weight:400; font-style:normal; font-display:swap;
 }
-*/
+
+:root{
+  /* ---------- FONTES (mesma stack do ebook) ---------- */
+  --f-title:'Chakra Petch','Barlow Condensed','Inter',sans-serif;
+  --f-body:'Sora','Inter',system-ui,sans-serif;
+  --f-tech:'Ethnocentric','Michroma','Barlow Condensed',sans-serif;
+  --f-cond:'Barlow Condensed','Inter',sans-serif;
+
+  /* ---------- PALETA: preto, branco e cinza (identidade da marca) ---------- */
+  --bg:#121214; --bg-2:#0f0f11;
+  --line:rgba(255,255,255,.11); --line-2:rgba(255,255,255,.065);
+  --txt:#f4f4f2; --gray-1:#cfd1d4; --gray-2:#9a9da2; --gray-3:#66696e;
+  --txt-2:var(--gray-2); --txt-3:var(--gray-3);
+  --matriz:#ffffff;
+  --radius:14px; --pad:1.15rem;
+
+  /* aliases mantidos por compatibilidade com o JS (fill:var(--green)/var(--matriz)
+     nos pulsos do mapa) — agora apontando para os tons metalicos da marca */
+  --green:var(--gray-1); --green-hi:#fff; --green-dim:rgba(255,255,255,.08);
+
+  /* fibra de carbono do mapa, mesma textura do ebook */
+  --weave-map:url("data:image/webp;base64,UklGRmYDAABXRUJQVlA4IFoDAAAQHwCdASpzAHMAPj0ejESiIaEQRhggA8S0oAfr9BaZWjC7uOAOi2ALdq866VC9yxyHBzGzdlMHR32FTGh7eEt8RJbLSz8welus2xeD3HEMKVPeGpD69F58k5TDAXS2QUQXKPHk/FbHdD84VDuUh61PiwbBCO9ic6V9SXmOj9vj3hDe0+dBIGolXWDBzTsJMdtufOh8OZD9b0/wEOovDHMJkUSrHPmpSf4jyYR0LkSMmbhfVnn41mZbWQu5JmeRn/EritVj1dQgiFM/v0C2R/z/5UoSTd/VCtuEoTOho8ScBYZQIig+M99EsMLG/Ru7EVIjvIwIwKp8GV1WkAUsVzy0kAD+/uMT6f7NcPA70EZHg58vlC821/ChoBgqg5kySpSEtRV0jA+8n8ylR1rUdjJi3BZ2stdCHxVckJJYqo4AXL1KPFoYhFEGWElQsEuxq8xof1/LZjRuSWplVvHLhKzt01RtChBv8wRcAee8pKFQ1OZhcTT3hDhCXqgBnOrGS4FJe/pJ04vPGaNh7VWoyw+rf/sPWqcaWwRGFNxKrDmX0LP4Ao6SOXKJTYesQTfBs/tQ0CZjLL+0FPoS2dwlxGYTSYBS3v779dXVIO5DVKlGQksyQnQE8MBDVur9LM7JZERNBVJlsLBU8TcTdknkIgJYqJFsYdMAhrkYnVrlx3mXmjXEAXFujM0G/Kn5ZLlkJIcziktluw/m+PU5PZT2D0s3NUnRlK0R3PSs8WzEeFCIN7c/CjjNb9nFFUYXDKnEPB0XAMbl++9RbMz8K0QHUxrXa2XPhw4f3igHk8bt87klwBalWNnHE0geU60bJA5+N7By1CNqbaTCNDxCBS4ha7TmqrY33yYG5t6qZMdUsZqusOqddFWHwoeU+XTwljlWR9UPnGY8B+TTP+ZqROcuJ50JBVI6TOfNyongJf9JD/+O8kZ3sqMDlP/mHktnZtdYi9Xc6Q4ipstBaF3INzUFjuHrghTIF29rd1oEEQCuw30l6ru7JaE1CEv2inQAqF+UrFF6Co0ST6hFJy5cyXRsChWJKYnmLV660NHj0bVIP4qf2gjOPXZLCmlnbsnaRTGtQnsH4BO9eujMIodcVRu3zUGVDEeu2HXvACJOhYC4yQEPCTdHLE9PDgAAAAA=");
+  --tile:77px;
+}
+
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html{scroll-behavior:smooth}
-section[id]{scroll-margin-top:56px}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+section[id]{scroll-margin-top:64px}
 body{
-  background:var(--ink);color:var(--txt);
-  font-family:'Inter',system-ui,sans-serif;font-size:16px;line-height:1.6;
+  background:var(--bg);color:var(--txt);
+  font-family:var(--f-body);font-size:15px;line-height:1.6;
   overflow-x:hidden;-webkit-font-smoothing:antialiased;
 }
 img{max-width:100%;display:block}
 a{color:inherit;text-decoration:none}
+a:focus-visible,button:focus-visible{outline:2px solid #fff;outline-offset:3px;border-radius:6px}
 h1,h2,.dsp{
-  font-family:var(--font-title);text-transform:uppercase;
-  font-weight:800;line-height:1.12;letter-spacing:-.3px;
-  font-stretch:125%;              /* eixo de largura da Archivo - 125% = Expanded */
+  font-family:var(--f-title);text-transform:uppercase;
+  font-weight:700;line-height:1.1;letter-spacing:.2px;
   word-break:break-word;
 }
-.carbon{
-  background-color:#0c0d0c;
-  background-image:
-    linear-gradient(45deg,rgba(255,255,255,.022) 25%,transparent 25%,transparent 75%,rgba(255,255,255,.022) 75%),
-    linear-gradient(45deg,rgba(255,255,255,.022) 25%,transparent 25%,transparent 75%,rgba(255,255,255,.022) 75%),
-    linear-gradient(rgba(0,0,0,.30) 50%,rgba(0,0,0,.14) 50%),
-    linear-gradient(90deg,rgba(0,0,0,.18) 50%,rgba(20,20,22,.18) 50%);
-  background-size:10px 10px,10px 10px,20px 20px,20px 20px;
-  background-position:0 0,5px 5px,0 0,0 0;
+/* Efeito metalico (branco para aco). Fallback: branco liso. */
+.metal{color:#fff}
+@supports ((-webkit-background-clip:text) or (background-clip:text)){
+  .metal{
+    background:linear-gradient(180deg,#ffffff 30%,#a9acb1 100%);
+    -webkit-background-clip:text;background-clip:text;
+    -webkit-text-fill-color:transparent;
+  }
 }
-section{padding:2.8rem var(--pad);position:relative}
+.carbon{background-color:var(--bg)}
+.carbon.alt{background-color:#161618}
+/* ---------- PAINEL METALICO (mesma referencia do ebook) ---------- */
+.plate{
+  position:relative;
+  background-color:var(--bg-2);
+  background-image:linear-gradient(180deg,rgba(255,255,255,.05),transparent 45%);
+  border:1px solid var(--line);
+}
+.plate::before{
+  content:"";position:absolute;left:12%;right:12%;top:-1px;height:1px;pointer-events:none;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.75),transparent);
+}
+section{padding:2.8rem var(--pad);position:relative;border-top:1px solid var(--line-2)}
+.hero{border-top:0}
 .wrap{max-width:980px;margin:0 auto}
 .eyebrow{
-  display:inline-flex;align-items:center;gap:.5rem;
-  font-size:.68rem;font-weight:700;letter-spacing:2.2px;text-transform:uppercase;
-  color:var(--green);margin-bottom:.9rem;
+  display:inline-flex;align-items:center;gap:.55rem;
+  font-family:var(--f-tech);
+  font-size:.62rem;font-weight:400;letter-spacing:1px;text-transform:uppercase;
+  color:var(--gray-1);margin-bottom:.9rem;
 }
-.eyebrow::before{content:"";width:22px;height:1px;background:var(--green);opacity:.7}
-h2.sec{font-size:1.5rem;margin-bottom:.7rem}
-h2.sec em{color:var(--green);font-style:normal}
-h2.sec.ethno{
-  font-family:var(--font-ethno);
-  font-size:1.02rem;font-stretch:normal;font-weight:700;
-  letter-spacing:.2px;line-height:1.35;
-  -webkit-text-stroke:.35px currentColor; /* engrossa: a Michroma so tem peso 400 */
-}
+.eyebrow::before{content:"";width:22px;height:1px;background:var(--gray-1);opacity:.6}
+h2.sec{font-size:1.6rem;margin-bottom:.7rem}
 
 /* TOPBAR */
 .topbar{
   position:sticky;top:0;z-index:60;
   display:flex;align-items:center;justify-content:space-between;gap:1rem;
-  padding:.6rem var(--pad);
-  background:rgba(10,11,10,.86);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  padding:.75rem var(--pad);
+  background:rgba(18,18,20,.9);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
   border-bottom:1px solid var(--line-2);
 }
 .brandmark img{height:28px;width:auto}
 .btn-sm{
-  font-family:'Barlow Condensed',sans-serif;font-weight:700;text-transform:uppercase;font-size:.78rem;letter-spacing:.6px;
-  background:var(--green);color:#0b1005;padding:.55rem .8rem;border-radius:9px;white-space:nowrap;
+  font-family:var(--f-cond);font-weight:800;text-transform:uppercase;font-size:.78rem;letter-spacing:.6px;
+  background:linear-gradient(180deg,#fbfbfa 0%,#dfe0e2 55%,#c4c6c9 100%);
+  box-shadow:inset 0 1px 0 #fff;
+  color:#050505;padding:.6rem .9rem;border-radius:9px;white-space:nowrap;
+  transition:filter .2s ease;
 }
+.btn-sm:hover{filter:brightness(1.07)}
 
 /* HERO */
-.hero{padding-top:2rem;padding-bottom:1rem;overflow:hidden}
+.hero{padding-top:2.6rem;padding-bottom:1.4rem;overflow:hidden}
 .hero::after{
   content:"";position:absolute;inset:auto -30% -45% -30%;height:70%;
-  background:radial-gradient(ellipse at center,rgba(63,138,92,.10),transparent 65%);pointer-events:none;
+  background:radial-gradient(ellipse at center,rgba(255,255,255,.06),transparent 65%);pointer-events:none;
 }
 .badge{
-  display:inline-block;font-size:.65rem;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;
-  color:var(--green);border:1px solid rgba(63,138,92,.4);background:var(--green-dim);
+  display:inline-block;font-family:var(--f-tech);font-size:.6rem;font-weight:400;letter-spacing:1.4px;text-transform:uppercase;
+  color:var(--gray-1);border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.06);
   padding:.35rem .7rem;border-radius:100px;margin-bottom:1.1rem;
 }
 .hero h1{font-size:1.62rem;margin-bottom:.7rem}
-.hero h1 .g{color:var(--green);display:block}
+.hero h1 .g{display:block}
 
 /* MAPA */
 .map-card{
-  margin-top:1.8rem;border:1px solid var(--line);border-radius:var(--radius);
-  background:linear-gradient(180deg,rgba(63,138,92,.05),rgba(0,0,0,.35));
+  margin-top:1.8rem;border-radius:var(--radius);
   padding:1.2rem .9rem 1.3rem;
+  background-color:#0b0b0d;
+  background-image:
+    radial-gradient(70% 45% at 50% 32%,rgba(255,255,255,.04),transparent 70%),
+    linear-gradient(180deg,rgba(255,255,255,.04),transparent 45%),
+    var(--weave-map);
+  background-size:auto,auto,var(--tile) var(--tile);
 }
 .map-card svg{width:100%;height:auto;max-width:460px;margin:0 auto;display:block}
-.br-shape{fill:#141a15;stroke:rgba(63,138,92,.55);stroke-width:1;stroke-linejoin:round}
-.state-hl{fill:rgba(63,138,92,.38);stroke:rgba(86,168,120,.8);stroke-width:.8;stroke-linejoin:round}
-.state-matriz{fill:rgba(255,255,255,.20);stroke:rgba(255,255,255,.6);stroke-width:.8;stroke-linejoin:round}
-.pin{fill:var(--green-hi);stroke:none;cursor:pointer;opacity:1;transform-box:fill-box;transform-origin:center;filter:drop-shadow(0 0 4px rgba(63,138,92,.9));transition:transform .2s ease,filter .2s ease}
-.pin:hover{transform:scale(1.18);filter:drop-shadow(0 0 7px rgba(86,168,120,1))}
-.pin-matriz{fill:#ffffff;stroke:rgba(255,255,255,.45);stroke-width:1;cursor:pointer;opacity:1;transform-box:fill-box;transform-origin:center;filter:drop-shadow(0 0 5px rgba(255,255,255,.9));transition:transform .2s ease,filter .2s ease}
-.pin-matriz:hover{transform:scale(1.18);filter:drop-shadow(0 0 8px rgba(255,255,255,1))}
+.br-shape{fill:#222225;stroke:rgba(255,255,255,.24);stroke-width:.6;stroke-linejoin:round}
+.state-hl{fill:#303034;stroke:rgba(255,255,255,.42);stroke-width:.6;stroke-linejoin:round}
+.state-matriz{fill:#505054;stroke:rgba(255,255,255,.82);stroke-width:.7;stroke-linejoin:round}
+.pin{fill:var(--gray-2);stroke:#121214;stroke-width:1;cursor:pointer;opacity:1;transform-box:fill-box;transform-origin:center;transition:transform .2s ease,fill .2s ease}
+.pin:hover{transform:scale(1.18)}
+.pin-matriz{fill:#ffffff;stroke:#121214;stroke-width:1;cursor:pointer;opacity:1;transform-box:fill-box;transform-origin:center;filter:drop-shadow(0 0 4px rgba(255,255,255,.75));transition:transform .2s ease}
+.pin-matriz:hover{transform:scale(1.18)}
 .pulse{transform-box:fill-box;transform-origin:center;animation:pulse 2.4s ease-out infinite;pointer-events:none;opacity:.6}
 .pulse.matriz{animation-duration:2s}
 
 /* SELECAO NO MAPA */
 .hit{cursor:pointer;outline:none}
 .pin-g:focus-visible .pin,.pin-g:focus-visible .pin-matriz{transform:scale(1.25)}
-.sel-ring{display:none;fill:none;stroke:var(--green-hi);stroke-width:1.1;pointer-events:none;
+.sel-ring{display:none;fill:none;stroke:#fff;stroke-width:1.1;pointer-events:none;
   animation:selring 1.9s ease-out infinite}
 .sel-ring.matriz{stroke:var(--matriz)}
 @keyframes selring{0%{r:6.5;opacity:.85}70%{r:14;opacity:0}100%{r:14;opacity:0}}
 .pin-g.is-selected .sel-ring{display:block}
-.pin-g.is-selected .pin{transform:scale(1.38);filter:drop-shadow(0 0 9px rgba(86,168,120,1))}
-.pin-g.is-selected .pin-matriz{transform:scale(1.38);filter:drop-shadow(0 0 10px rgba(255,255,255,1))}
+.pin-g.is-selected .pin{transform:scale(1.38);fill:#fff}
+.pin-g.is-selected .pin-matriz{transform:scale(1.38)}
 .map-svg.has-sel .pin-g:not(.is-selected) .pin,
 .map-svg.has-sel .pin-g:not(.is-selected) .pin-matriz{opacity:.32;filter:none}
 .map-svg.has-sel .pulse{animation:none;opacity:0}
 
 /* CARTAO DA CIDADE SELECIONADA */
-.sel-card{display:none;margin-top:1rem;border:1px solid rgba(63,138,92,.45);border-radius:12px;
-  background:var(--green-dim);padding:.75rem .9rem;align-items:center;gap:.75rem;flex-wrap:wrap}
+.sel-card{display:none;margin-top:1rem;border:1px solid var(--line);border-radius:12px;
+  background:rgba(255,255,255,.04);padding:.75rem .9rem;align-items:center;gap:.75rem;flex-wrap:wrap}
 .sel-card.on{display:flex}
 .sel-card.matriz{border-color:rgba(255,255,255,.35);background:rgba(255,255,255,.07)}
-.sel-dot{width:10px;height:10px;border-radius:50%;background:var(--green-hi);flex:none;
-  box-shadow:0 0 8px rgba(86,168,120,.9)}
+.sel-dot{width:10px;height:10px;border-radius:50%;background:var(--gray-2);flex:none}
 .sel-card.matriz .sel-dot{background:var(--matriz);box-shadow:0 0 8px rgba(255,255,255,.9)}
 .sel-info{flex:1;min-width:150px;line-height:1.3}
-.sel-name{font-family:'Barlow Condensed',sans-serif;font-weight:800;text-transform:uppercase;
+.sel-name{font-family:var(--f-cond);font-weight:800;text-transform:uppercase;
   font-size:1.15rem;letter-spacing:.6px}
 .sel-meta{font-size:.72rem;color:var(--txt-2);text-transform:uppercase;letter-spacing:1px}
-.sel-clear{font-family:'Barlow Condensed',sans-serif;font-weight:700;text-transform:uppercase;
+.sel-clear{font-family:var(--f-cond);font-weight:700;text-transform:uppercase;
   font-size:.72rem;letter-spacing:.8px;color:var(--txt-2);background:transparent;
   border:1px solid var(--line);border-radius:8px;padding:.4rem .7rem;cursor:pointer}
-.sel-clear:hover{color:var(--txt);border-color:var(--green)}
+.sel-clear:hover{color:var(--txt);border-color:var(--gray-2)}
 @keyframes pulse{0%{opacity:.7;r:3.2}65%{opacity:0;r:16}100%{opacity:0;r:16}}
 .uf-tag{
-  font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:8.5px;
-  letter-spacing:.5px;pointer-events:none;text-anchor:middle;
+  font-family:var(--f-cond);font-weight:800;font-size:8.5px;
+  letter-spacing:.5px;pointer-events:none;text-anchor:middle;fill:rgba(255,255,255,.5);
 }
-.uf-tag.matriz{fill:rgba(255,255,255,.55)}
-.uf-tag.ativo{fill:rgba(86,168,120,.55)}
+.uf-tag.matriz{fill:rgba(255,255,255,.8)}
+.uf-tag.ativo{fill:rgba(255,255,255,.5)}
 .legend{display:flex;justify-content:center;flex-wrap:wrap;gap:1.1rem;margin-top:1rem;font-size:.66rem;color:var(--txt-2);text-transform:uppercase;letter-spacing:.7px}
 .legend span{display:flex;align-items:center;gap:.4rem}
-.legend b{width:8px;height:8px;border-radius:50%;background:var(--green);display:block}
+.legend b{width:8px;height:8px;border-radius:50%;background:var(--gray-2);display:block}
 .legend b.matriz{background:var(--matriz)}
-.legend b.area{width:11px;height:8px;border-radius:2px;background:rgba(63,138,92,.38);border:1px solid rgba(86,168,120,.8)}
+.legend b.area{width:11px;height:8px;border-radius:2px;background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.42)}
 .legend b.area-matriz{width:11px;height:8px;border-radius:2px;background:rgba(255,255,255,.20);border:1px solid rgba(255,255,255,.6)}
-.map-hint{font-size:.68rem;color:var(--txt-2);text-align:center;margin-top:.6rem;letter-spacing:.3px}
+.map-hint{font-size:.68rem;color:var(--txt-3);text-align:center;margin-top:.6rem;letter-spacing:.3px}
 
 /* CIDADES ATENDIDAS */
 .city-groups{margin-top:1.1rem}
@@ -204,28 +216,31 @@ h2.sec.ethno{
 .state-group:first-child{margin-top:0}
 .state-heading{
   display:flex;align-items:center;gap:.6rem;
-  font-family:'Barlow Condensed',sans-serif;font-weight:800;text-transform:uppercase;
-  font-size:.85rem;letter-spacing:1.4px;color:var(--green);margin-bottom:.7rem;
+  font-family:var(--f-cond);font-weight:800;text-transform:uppercase;
+  font-size:.85rem;letter-spacing:1.4px;color:var(--gray-1);margin-bottom:.7rem;
 }
 .state-heading::after{content:"";flex:1;height:1px;background:var(--line)}
 .state-heading.matriz{color:var(--matriz)}
 .city-list{display:flex;flex-wrap:wrap;gap:.5rem}
 .city-chip{
-  background:var(--card);border:1px solid var(--line-2);border-left:3px solid var(--green);
-  border-radius:10px;padding:.55rem .85rem;font-size:.88rem;color:var(--txt);
+  background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:14px;
+  padding:.55rem .85rem;font-size:.88rem;color:var(--txt);
   font-family:inherit;text-align:left;cursor:pointer;
-  transition:background .2s ease,border-color .2s ease,transform .2s ease;
+  transition:background .2s ease,border-color .2s ease,color .2s ease,transform .2s ease;
 }
-.city-chip:hover{background:#1e221e}
-.city-chip.is-selected{background:var(--green-dim);border-color:var(--green);transform:translateY(-1px)}
-.city-chip.matriz{border-left-color:var(--matriz)}
-.city-chip.matriz.is-selected{background:rgba(255,255,255,.09);border-color:rgba(255,255,255,.4)}
-.city-chip .uf{color:var(--txt-2);font-size:.78rem;margin-left:.25rem}
+.city-chip:hover{background:rgba(255,255,255,.08)}
+.city-chip.is-selected{background:var(--txt);border-color:var(--txt);color:#050505;transform:translateY(-1px)}
+.city-chip.matriz{border-color:rgba(255,255,255,.3)}
+.city-chip.matriz.is-selected{background:#fff;border-color:#fff;color:#050505}
+.city-chip .uf{color:var(--txt-3);font-size:.78rem;margin-left:.25rem}
+.city-chip.is-selected .uf{color:#050505;opacity:.6}
 .city-chip .biz{display:block;font-size:.72rem;font-weight:400;color:var(--txt-2);margin-top:.18rem;letter-spacing:.2px}
+.city-chip.is-selected .biz{color:#050505;opacity:.7}
 .city-chip .tag-matriz{
-  font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.58rem;letter-spacing:1.2px;
-  text-transform:uppercase;color:var(--matriz);margin-left:.45rem;
+  font-family:var(--f-cond);font-weight:700;font-size:.58rem;letter-spacing:1.2px;
+  text-transform:uppercase;color:var(--gray-1);margin-left:.45rem;
 }
+.city-chip.is-selected .tag-matriz{color:#050505}
 
 /* CTA - ENTRAR EM CONTATO */
 .cta{text-align:center;padding-top:2.2rem;padding-bottom:2.2rem}
@@ -233,23 +248,24 @@ h2.sec.ethno{
 .cta p{color:var(--txt-2);font-size:.9rem;max-width:44ch;margin:0 auto 1.4rem}
 .btn-cta{
   display:inline-flex;align-items:center;justify-content:center;gap:.55rem;
-  font-family:'Barlow Condensed',sans-serif;font-weight:800;text-transform:uppercase;
+  font-family:var(--f-cond);font-weight:800;text-transform:uppercase;
   font-size:1rem;letter-spacing:1.2px;
-  background:var(--green);color:#0b1005;
-  padding:.9rem 2rem;border-radius:11px;
-  box-shadow:0 0 0 0 rgba(63,138,92,.45);
-  transition:background .2s ease,transform .2s ease,box-shadow .2s ease;
+  color:#050505;
+  background:linear-gradient(180deg,#fbfbfa 0%,#dfe0e2 55%,#c4c6c9 100%);
+  box-shadow:inset 0 1px 0 #fff,0 12px 28px -16px rgba(255,255,255,.4);
+  padding:.9rem 2rem;border-radius:11px;border:0;
+  transition:filter .2s ease,transform .2s ease;
 }
-.btn-cta:hover{background:var(--green-hi);transform:translateY(-2px);box-shadow:0 8px 24px rgba(63,138,92,.35)}
+.btn-cta:hover{filter:brightness(1.07);transform:translateY(-2px)}
 .btn-cta:active{transform:translateY(0)}
 .btn-cta svg{width:15px;height:15px;flex:none}
 
 /* FOOTER */
-footer{padding:2.2rem var(--pad) calc(2.6rem + env(safe-area-inset-bottom));text-align:center;border-top:1px solid var(--line-2);background:#080908}
+footer{padding:2.6rem var(--pad) calc(2.6rem + env(safe-area-inset-bottom));text-align:center;border-top:1px solid var(--line-2);background-color:#0e0e10}
 footer .brandmark img{height:30px;margin:0 auto 1rem}
 footer p{font-size:.78rem;color:var(--txt-2);margin-bottom:.35rem}
-footer a{color:var(--green)}
-.f-copy{font-size:.66rem;color:#575c53;margin-top:1.2rem}
+footer a{color:var(--txt);border-bottom:1px solid var(--gray-3)}
+.f-copy{font-size:.66rem;color:var(--txt-3);margin-top:1.2rem}
 
 .rv{opacity:0;transform:translateY(16px);transition:opacity .6s ease,transform .6s ease}
 .rv.in{opacity:1;transform:none}
@@ -259,7 +275,6 @@ footer a{color:var(--green)}
   :root{--pad:2rem}
   section{padding:4rem var(--pad)}
   h2.sec{font-size:2rem}
-  h2.sec.ethno{font-size:1.4rem}
   .hero h1{font-size:2.5rem}
   .brandmark img{height:32px}
   .map-card svg{max-width:520px}
@@ -270,7 +285,7 @@ footer a{color:var(--green)}
 
 <header class="topbar">
   <a class="brandmark" href="https://strike-details-sigma.vercel.app/" target="_blank" rel="noopener">
-    <img src="logo.png" alt="Strike Details Estética Automotiva" width="120" height="28">
+    <img src="/logo.png" alt="Strike Details Estética Automotiva" width="120" height="28">
   </a>
   <a class="btn-sm" href="https://strike-details-sigma.vercel.app/ebook" target="_blank" rel="noopener">Sobre a autorização</a>
 </header>
@@ -280,7 +295,7 @@ footer a{color:var(--green)}
 <section class="hero">
   <div class="wrap">
     <span class="badge">Rede de Autorizados</span>
-    <h1>Onde o <span class="g">MÉTODO CABINE BLINDADA</span>
+    <h1>Onde o <span class="g metal">MÉTODO CABINE BLINDADA</span>
       da Strike Details Estética Automotiva já está</h1>
   </div>
 </section>
@@ -326,7 +341,7 @@ footer a{color:var(--green)}
 <section class="cta" id="contato">
   <div class="wrap">
     <span class="eyebrow">Atendimento</span>
-    <h2 class="sec ethno">Fale com a <em>rede Strike Details</em></h2>
+    <h2 class="sec">Fale com a <span class="metal">rede Strike Details</span></h2>
     <a class="btn-cta" href="https://strike-details-sigma.vercel.app/cadastro" target="_blank" rel="noopener">
       Entrar em contato
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -338,7 +353,7 @@ footer a{color:var(--green)}
 <section class="carbon" id="cidades">
   <div class="wrap">
     <span class="eyebrow">A rede</span>
-    <h2 class="sec ethno">Cidades <em>atendidas</em></h2>
+    <h2 class="sec">Cidades <span class="metal">atendidas</span></h2>
     <div class="city-groups" id="cityGroups"></div>
   </div>
 </section>
@@ -348,7 +363,7 @@ footer a{color:var(--green)}
 
 <footer>
   <a class="brandmark" href="https://strike-details-sigma.vercel.app/" target="_blank" rel="noopener">
-    <img src="logo.png" alt="Strike Details Estética Automotiva" width="128" height="30">
+    <img src="/logo.png" alt="Strike Details Estética Automotiva" width="128" height="30">
   </a>
   <p>Av. Rio Branco, nº 1500, Centro, Jaru/RO</p>
   <p><a href="https://wa.me/5569992823998" target="_blank" rel="noopener">WhatsApp (69) 99282-3998</a> · <a href="https://instagram.com/strikedetaills" target="_blank" rel="noopener">@strikedetaills</a></p>
