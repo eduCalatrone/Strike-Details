@@ -122,11 +122,6 @@ section{padding:2.6rem var(--pad);border-top:1px solid var(--line-2)}
 }
 .fig .chip small{font-size:.5em;margin-top:.15em}
 
-/* ---------- ETAPAS ---------- */
-.steps{margin-top:1.4rem;padding:1.3rem 1.25rem .4rem}
-.steps ol{list-style:none;display:grid;column-gap:2rem}
-.steps li{display:flex;gap:.9rem;align-items:baseline;padding:.8rem 0;border-bottom:1px solid var(--line)}
-.steps li:last-child{border-bottom:0}
 .num{font-family:var(--f-cond);font-weight:800;font-size:1rem;color:var(--gray-2);min-width:1.4rem}
 
 /* ---------- TERMO ---------- */
@@ -228,8 +223,6 @@ footer .line + .line{margin-top:.5rem}
   .hero .sub{font-size:1.12rem}
   .job dl{grid-template-columns:repeat(3,1fr)}
   .figs{grid-template-columns:1.5fr 1fr 1.5fr}
-  .steps ol{grid-template-columns:1fr 1fr}
-  .steps li:nth-last-child(-n+2){border-bottom:0}
   .termo h2{font-size:2rem}
   .sign,.proof{padding:2.2rem 2.2rem}
   .row2{grid-template-columns:1fr 1fr;column-gap:1rem}
@@ -258,8 +251,7 @@ footer .line + .line{margin-top:.5rem}
   .fig .chip{background:#eee;border:1px solid #bbb}
   .figs{grid-template-columns:1.5fr 1fr 1.5fr}
   .fig .big{font-size:22pt}
-  .steps ol{grid-template-columns:1fr 1fr}
-  .steps li,.proof dl,.proof dl div{border-color:#ccc}
+  .proof dl,.proof dl div{border-color:#ccc}
   .cl{break-inside:avoid;border-color:#ddd;padding:8pt 0}
   .cl p,.cl li,.proof > p{color:#222}
   .cl strong,.alert b{color:#000}
@@ -316,17 +308,6 @@ footer .line + .line{margin-top:.5rem}
         </div>
       </div>
 
-      <div class="steps plate">
-        <p class="eyebrow">Etapas obrigatórias do protocolo</p>
-        <ol>
-          <li><span class="num">01</span>Desmontagem técnica da cabine</li>
-          <li><span class="num">02</span>Higienização interna e dos dutos</li>
-          <li><span class="num">03</span>Vedação dos pontos críticos</li>
-          <li><span class="num">04</span>Isolamento entre caçamba e cabine</li>
-          <li><span class="num">05</span>Revisão das vedações existentes</li>
-          <li><span class="num">06</span>Montagem, inspeção e lavação final</li>
-        </ol>
-      </div>
     </div>
   </section>
 
@@ -350,7 +331,7 @@ footer .line + .line{margin-top:.5rem}
       <div class="cl">
         <h3><span class="num">03</span>Requisito para ser autorizado</h3>
         <p>O AUTORIZADO declara ter concluído <strong>integralmente o Método Cabine Blindada</strong>, dominar todas as suas etapas e ter condições técnicas e estrutura adequada para executá-lo.</p>
-        <p>O AUTORIZADO se compromete a executar o protocolo completo, cumprindo as seis etapas obrigatórias descritas acima, sem suprimir ou substituir nenhuma delas.</p>
+        <p>O AUTORIZADO se compromete a executar o protocolo completo, cumprindo todas as etapas do método, sem suprimir ou substituir nenhuma delas.</p>
       </div>
 
       <div class="cl">
@@ -447,7 +428,6 @@ footer .line + .line{margin-top:.5rem}
           </div>
         </div>
 
-        <label class="check"><input type="checkbox" id="ok-borracha"> <span>Estou ciente de que as borrachas de porta não fazem parte deste serviço e de que devo informar o cliente sobre isso.</span></label>
         <label class="check"><input type="checkbox" id="ok-termo"> <span>Li e concordo com todas as cláusulas deste termo, inclusive a isenção de responsabilidade da Strike Details Estética Automotiva.</span></label>
 
         <button class="btn" type="submit" id="submit" disabled>Aceitar e assinar termo</button>
@@ -545,7 +525,7 @@ footer .line + .line{margin-top:.5rem}
   function setErr(el, id, msg){ el.setAttribute('aria-invalid','true'); $(id).textContent = msg; }
   function clearErr(el, id){ el.removeAttribute('aria-invalid'); $(id).textContent = ''; }
 
-  const checks = [$('ok-borracha'), $('ok-termo')];
+  const checks = [$('ok-termo')];
   const toggle = () => { $('submit').disabled = !checks.every(c => c.checked); };
   checks.forEach(c => c.addEventListener('change', toggle));
 
@@ -591,7 +571,7 @@ footer .line + .line{margin-top:.5rem}
 
     const msg = ['*Aceite do Termo de Intermediação*', 'Protocolo Cabine Blindada · Fiat Strada', '']
       .concat(rows.map(([k,v]) => k + ': ' + v))
-      .concat(['', 'Declaro que li e concordo com todas as cláusulas do termo, inclusive a isenção de responsabilidade da Strike Details Estética Automotiva, e que estou ciente de que as borrachas de porta não fazem parte do serviço.'])
+      .concat(['', 'Declaro que li e concordo com todas as cláusulas do termo, inclusive a isenção de responsabilidade da Strike Details Estética Automotiva.'])
       .join('\n');
     $('wa').href = 'https://wa.me/' + WHATS + '?text=' + encodeURIComponent(msg);
 
