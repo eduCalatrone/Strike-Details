@@ -390,8 +390,6 @@ details.bloco:not([open]) > summary{margin-bottom:0}
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="8.5" y="8.5" width="12" height="12" rx="2.4"/><path d="M15.5 5.5A2 2 0 0 0 13.5 3.5H5.6A2.1 2.1 0 0 0 3.5 5.6v7.9a2 2 0 0 0 2 2"/></svg>
         Copiar link
       </button>
-      <button class="btn btn--fantasma" id="item-editar">Editar</button>
-      <button class="btn btn--fantasma btn--perigo" id="item-excluir">Excluir</button>
     </div>
   </div>
 </div>
@@ -895,14 +893,6 @@ document.addEventListener('keydown', (e) => {
 $('#busca').addEventListener('input', e => { filtro = e.target.value; render(); });
 $('#item-copiar').addEventListener('click', () => itemAtual && copiar(itemAtual.url));
 $('#item-url').addEventListener('click', () => itemAtual && copiar(itemAtual.url));
-$('#item-editar').addEventListener('click', () => itemAtual && abrirForm(itemAtual));
-$('#item-excluir').addEventListener('click', async () => {
-  if(!itemAtual) return;
-  if(!confirm('Excluir “' + itemAtual.titulo + '” do índice?')) return;
-  links = links.filter(l => l.id !== itemAtual.id);
-  await Store.gravar(links);
-  fecharTelas(); render(); aviso('Link excluído');
-});
 $('#f-salvar').addEventListener('click', salvar);
 $('#exportar').addEventListener('click', exportarSemente);
 $('#f-url').addEventListener('blur', e => {
