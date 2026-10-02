@@ -119,8 +119,7 @@ button,input,select,textarea{font:inherit;color:inherit}
 .aba{max-width:1120px;margin:0 auto;padding:24px clamp(16px,4vw,44px) 0}
 .aba__topo{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
 .aba__titulo{margin:0;font:700 32px/1.05 var(--cond);letter-spacing:.01em}
-.aba__cont{color:var(--muted);font-size:14px;padding-top:6px}
-.aba__desc{margin:6px 0 0;color:var(--muted);font-size:14px;line-height:1.45}
+.aba{padding-bottom:calc(var(--nav-h) + 48px + env(safe-area-inset-bottom,0px))}
 .aba__nota{
   font:600 11px/1 var(--body);letter-spacing:.08em;text-transform:uppercase;
   color:var(--warn);background:var(--warn-bg);border-radius:999px;padding:6px 10px;
@@ -155,7 +154,7 @@ details.bloco:not([open]) > summary{margin-bottom:0}
 .card:focus-visible .card__capa{box-shadow:0 0 0 2px var(--bg),0 0 0 4px var(--ink)}
 /* capa escura com vidro por cima, igual aos botões pretos do sistema */
 .card__capa{
-  position:relative;overflow:hidden;aspect-ratio:16/9;border-radius:var(--raio);
+  position:relative;overflow:hidden;aspect-ratio:16/10;border-radius:var(--raio);
   background:
     radial-gradient(120% 90% at 0% 0%,rgba(255,255,255,.16),transparent 55%),
     var(--primary-grad);
@@ -182,14 +181,6 @@ details.bloco:not([open]) > summary{margin-bottom:0}
   backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
 }
 .card__chip svg{width:19px;height:19px}
-.card__host{
-  position:absolute;left:12px;bottom:11px;max-width:calc(100% - 24px);
-  font:500 11px/1 var(--body);color:rgba(255,255,255,.8);
-  padding:5px 9px;border-radius:999px;
-  background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.13);
-  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
-  backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
-}
 .card__brilho{
   position:absolute;inset:0;pointer-events:none;opacity:0;
   background:linear-gradient(105deg,transparent 32%,rgba(255,255,255,.05) 46%,rgba(255,255,255,.16) 50%,rgba(255,255,255,.05) 54%,transparent 68%);
@@ -211,20 +202,18 @@ details.bloco:not([open]) > summary{margin-bottom:0}
 }
 .mini svg{width:14px;height:14px}
 .mini:hover{background:#fff;transform:scale(1.06)}
-.card__meta{padding:10px 2px 0}
-.card__titulo{font-size:14px;font-weight:600;line-height:1.3}
-.card__nota{
-  font-size:12.5px;color:var(--muted);line-height:1.4;margin-top:3px;
+.card__titulo{
+  position:absolute;left:14px;right:14px;bottom:12px;
+  font:600 15px/1.25 var(--body);color:#fff;letter-spacing:.005em;
+  text-shadow:0 1px 8px rgba(0,0,0,.45);
   display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
 }
 .card--off .card__capa{filter:grayscale(1);opacity:.5}
-.card--off .card__titulo{color:var(--muted);text-decoration:line-through;text-decoration-color:rgba(180,35,24,.5)}
+.card--off .card__titulo{text-decoration:line-through;text-decoration-color:rgba(255,255,255,.5)}
 @media (max-width:560px){
   .card__chip{width:34px;height:34px;border-radius:11px;left:10px;top:10px}
   .card__chip svg{width:17px;height:17px}
-  .card__host{left:10px;bottom:9px;font-size:10px;padding:4px 8px}
-  .card__nota{display:none}
-  .card__titulo{font-size:13.5px}
+  .card__titulo{left:11px;right:11px;bottom:10px;font-size:13.5px}
 }
 
 .vazio{padding:50px 0;text-align:center;color:var(--muted);font-size:14px}
@@ -322,15 +311,8 @@ details.bloco:not([open]) > summary{margin-bottom:0}
 }
 .toast.on{opacity:1;transform:translate(-50%,0)}
 
-.rodape{
-  padding:30px clamp(16px,4vw,44px) calc(var(--nav-h) + 44px + env(safe-area-inset-bottom,0px));
-  font-size:12px;color:var(--muted);display:flex;justify-content:space-between;gap:10px 16px;flex-wrap:wrap;
-}
-.rodape button{
-  font:inherit;background:none;border:0;padding:0;cursor:pointer;color:var(--muted);
-  text-decoration:underline;text-underline-offset:3px;
-}
-.rodape button:hover{color:var(--ink)}
+.exportar{display:block;margin:14px auto 0;background:none;border:0;padding:6px;cursor:pointer;color:var(--muted);font-size:13px;text-decoration:underline;text-underline-offset:3px}
+.exportar:hover{color:var(--ink)}
 
 @media (max-width:760px){
   .busca{max-width:none;order:3;flex-basis:100%}
@@ -358,12 +340,6 @@ details.bloco:not([open]) > summary{margin-bottom:0}
 
 <main id="palco"></main>
 
-<footer class="rodape">
-  <span>Strike Details Estética Automotiva · Jaru/RO</span>
-  <span id="rodape-cont"></span>
-  <button id="exportar" type="button" title="Copia a lista atual no formato pronto para colar no arquivo">Exportar semente</button>
-  <span>Calatrone</span>
-</footer>
 
 <nav class="nav" aria-label="Grupos de links">
   <div class="nav__in">
@@ -471,6 +447,7 @@ details.bloco:not([open]) > summary{margin-bottom:0}
       <button class="btn btn--primario" id="f-salvar">Salvar link</button>
       <button class="btn btn--fantasma" data-fechar>Cancelar</button>
     </div>
+    <button class="exportar" id="exportar" type="button" title="Copia a lista atual no formato pronto para colar no arquivo">Exportar lista para o arquivo</button>
   </div>
 </div>
 
@@ -542,30 +519,30 @@ function adivinharIcone(url){
    dados iniciais
    ========================================================= */
 const SEMENTE = [
-  {id:'s1', sub:'Acesso', grupo:'sistema', icone:'carro', titulo:'Sistema de controle', url:'https://strike-system-mocha.vercel.app', nota:'Acesso da equipe (Funcionário e Controle) com usuário e senha: veículos em serviço, etapas, fotos, agenda, estoque e relatórios.', status:'ativo'},
-  {id:'s2', sub:'Acesso', grupo:'sistema', icone:'placa', titulo:'Acompanhamento do cliente', url:'https://strike-system-mocha.vercel.app/cliente', nota:'Página do cliente: digita a placa e vê a etapa, o andamento e as fotos do serviço. Sem login. Para mandar já com a placa, use /cliente#/PLACA.', status:'ativo'},
-  {id:'s3', sub:'Bastidores', grupo:'sistema', icone:'github', titulo:'Repositório do sistema', url:'https://github.com/eduCalatrone/Strike-System', nota:'Código do Sistema de controle. Todo push no main publica na Vercel.', status:'ativo'},
-  {id:'s4', sub:'Bastidores', grupo:'sistema', icone:'vercel', titulo:'Vercel · Sistema de controle', url:'https://vercel.com/ktroni-f29a4d2f/strike-system', nota:'Publicações, variáveis e logs do projeto strike-system.', status:'ativo'},
-  {id:'s5', sub:'Bastidores', grupo:'sistema', icone:'camera', titulo:'Plate Recognizer', url:'https://app.platerecognizer.com/', nota:'Painel da API que lê as placas no sistema: token e consumo de leituras do mês.', status:'ativo'},
-  {id:'l4', sub:'Dados', grupo:'restrito', icone:'painel', titulo:'Acesso Banco de Dados', url:'https://strike-details-sigma.vercel.app/painel', nota:'Acesso ao banco de dados dos clientes cadastrados.', status:'ativo'},
-  {id:'l11', sub:'Dados', grupo:'restrito', icone:'painel', titulo:'Supabase · Strike Details DATABASE', url:'https://supabase.com/dashboard/project/afngfcclipuuptskoowh', nota:'Banco do cadastro de clientes e do Sistema de controle (tabelas, fotos e uso do plano grátis). Não alterar leads, historico nem autorizados.', status:'ativo'},
-  {id:'l1', sub:'Vendas', grupo:'restrito', icone:'hotmart', titulo:'Hotmart', url:'https://app.hotmart.com/', nota:'Página inicial da Hotmart: vendas, produtos e afiliados.', status:'ativo'},
-  {id:'l2', sub:'Vendas', grupo:'restrito', icone:'hotmart', titulo:'Hotmart Club · Método Cabine Blindada', url:'https://hotmart.com/en/club/strikedetails/products/8320972', nota:'Visualizar a área de membros do método como o aluno vê.', status:'ativo'},
-  {id:'l12', sub:'Vendas', grupo:'restrito', icone:'grafico', titulo:'Google Analytics', url:'https://analytics.google.com/', nota:'Visitas e conversões da página do Método Cabine Blindada (GA4 G-TKSQ9FLXKJ).', status:'ativo'},
-  {id:'l3', sub:'Código e publicação', grupo:'restrito', icone:'github', titulo:'Repositório do site', url:'https://github.com/eduCalatrone/Strike-Details', nota:'Código de todos os sites públicos da Strike Details (ebook, bio, mapa, cadastro, termo e este índice).', status:'ativo'},
-  {id:'l13', sub:'Código e publicação', grupo:'restrito', icone:'vercel', titulo:'Vercel · Sites da Strike Details', url:'https://vercel.com/ktroni-f29a4d2f/strike-details', nota:'Publicações e domínio do projeto strike-details (strike-details-sigma.vercel.app).', status:'ativo'},
-  {id:'l10', sub:'Páginas', grupo:'publico', icone:'bio', titulo:'Bio do Instagram', url:'https://strike-details-sigma.vercel.app/bio', nota:'Indexador de links públicos usado na bio do Instagram.', status:'ativo'},
-  {id:'l7', sub:'Páginas', grupo:'publico', icone:'ebook', titulo:'Método Cabine Blindada', url:'https://strike-details-sigma.vercel.app/ebook', nota:'Página de vendas do programa de certificação. É o link para divulgar.', status:'ativo'},
-  {id:'l14', sub:'Páginas', grupo:'publico', icone:'hotmart', titulo:'Checkout do Método', url:'https://pay.hotmart.com/H107178699F', nota:'Pagamento direto do Método Cabine Blindada na Hotmart.', status:'ativo'},
-  {id:'l5', sub:'Páginas', grupo:'publico', icone:'cadastro', titulo:'Cadastro do cliente', url:'https://strike-details-sigma.vercel.app/cadastro', nota:'Formulário onde o cliente se cadastra.', status:'ativo'},
-  {id:'l6', sub:'Páginas', grupo:'publico', icone:'mapa', titulo:'Mapa de autorizados', url:'https://strike-details-sigma.vercel.app/mapa', nota:'Mapa do Brasil com a matriz e os aplicadores autorizados.', status:'ativo'},
-  {id:'l15', sub:'Páginas', grupo:'publico', icone:'contrato', titulo:'Termo de intermediação', url:'https://strike-details-sigma.vercel.app/contrato', nota:'Termo online que o autorizado aceita para receber um serviço repassado pela Strike Details.', status:'ativo'},
-  {id:'l16', sub:'Páginas', grupo:'publico', icone:'escudo', titulo:'Política de privacidade', url:'https://strike-details-sigma.vercel.app/politica-de-privacidade.html', nota:'Como os dados do cadastro de clientes são tratados (LGPD).', status:'ativo'},
-  {id:'l17', sub:'Redes e contato', grupo:'publico', icone:'whatsapp', titulo:'WhatsApp da Strike Details', url:'https://wa.me/5569992823998', nota:'Contato direto: (69) 9 9282-3998.', status:'ativo'},
-  {id:'l18', sub:'Redes e contato', grupo:'publico', icone:'instagram', titulo:'Instagram', url:'https://www.instagram.com/strikedetaills/', nota:'Perfil @strikedetaills.', status:'ativo'},
-  {id:'l19', sub:'Redes e contato', grupo:'publico', icone:'tiktok', titulo:'TikTok', url:'https://www.tiktok.com/@strikedetaills', nota:'Perfil @strikedetaills.', status:'ativo'},
-  {id:'l8', sub:'Páginas', grupo:'publico', icone:'site', titulo:'Site principal', url:'https://strike-details-sigma.vercel.app', nota:'Antiga home da Strike Details. Fora de uso, não divulgar.', status:'off'},
-  {id:'l9', sub:'Redes e contato', grupo:'publico', icone:'whatsapp', titulo:'Grupo de afiliados no WhatsApp', url:'', nota:'Convite temporariamente indisponível, link sendo redefinido.', status:'off'}
+  {id:'s1', sub:'Acesso', grupo:'sistema', icone:'carro', titulo:'Acesso da equipe', url:'https://strike-system-mocha.vercel.app', nota:'Login da equipe: veículos, etapas, fotos, agenda, estoque e relatórios.', status:'ativo'},
+  {id:'s2', sub:'Acesso', grupo:'sistema', icone:'placa', titulo:'Página do cliente', url:'https://strike-system-mocha.vercel.app/cliente', nota:'O cliente digita a placa e acompanha o serviço. Link direto: /cliente#/PLACA.', status:'ativo'},
+  {id:'s3', sub:'Bastidores', grupo:'sistema', icone:'github', titulo:'Repositório do sistema', url:'https://github.com/eduCalatrone/Strike-System', nota:'Código do sistema. Push no main publica.', status:'ativo'},
+  {id:'s4', sub:'Bastidores', grupo:'sistema', icone:'vercel', titulo:'Vercel do sistema', url:'https://vercel.com/ktroni-f29a4d2f/strike-system', nota:'Publicações, variáveis e logs do sistema.', status:'ativo'},
+  {id:'s5', sub:'Bastidores', grupo:'sistema', icone:'camera', titulo:'Plate Recognizer', url:'https://app.platerecognizer.com/', nota:'Leitura de placa: token e consumo.', status:'ativo'},
+  {id:'l4', sub:'Dados', grupo:'restrito', icone:'painel', titulo:'Banco de clientes', url:'https://strike-details-sigma.vercel.app/painel', nota:'Clientes cadastrados.', status:'ativo'},
+  {id:'l11', sub:'Dados', grupo:'restrito', icone:'painel', titulo:'Supabase', url:'https://supabase.com/dashboard/project/afngfcclipuuptskoowh', nota:'Banco do cadastro e do sistema. Não alterar leads, historico nem autorizados.', status:'ativo'},
+  {id:'l1', sub:'Vendas', grupo:'restrito', icone:'hotmart', titulo:'Hotmart', url:'https://app.hotmart.com/', nota:'Vendas, produtos e afiliados.', status:'ativo'},
+  {id:'l2', sub:'Vendas', grupo:'restrito', icone:'hotmart', titulo:'Hotmart Club', url:'https://hotmart.com/en/club/strikedetails/products/8320972', nota:'Área de membros como o aluno vê.', status:'ativo'},
+  {id:'l12', sub:'Vendas', grupo:'restrito', icone:'grafico', titulo:'Google Analytics', url:'https://analytics.google.com/', nota:'Visitas da página do Método (GA4).', status:'ativo'},
+  {id:'l3', sub:'Código e publicação', grupo:'restrito', icone:'github', titulo:'Repositório dos sites', url:'https://github.com/eduCalatrone/Strike-Details', nota:'Código dos sites públicos e deste índice.', status:'ativo'},
+  {id:'l13', sub:'Código e publicação', grupo:'restrito', icone:'vercel', titulo:'Vercel dos sites', url:'https://vercel.com/ktroni-f29a4d2f/strike-details', nota:'Publicações e domínio dos sites.', status:'ativo'},
+  {id:'l10', sub:'Páginas', grupo:'publico', icone:'bio', titulo:'Bio do Instagram', url:'https://strike-details-sigma.vercel.app/bio', nota:'Links da bio.', status:'ativo'},
+  {id:'l7', sub:'Páginas', grupo:'publico', icone:'ebook', titulo:'Método Cabine Blindada', url:'https://strike-details-sigma.vercel.app/ebook', nota:'Página de vendas. É o link para divulgar.', status:'ativo'},
+  {id:'l14', sub:'Páginas', grupo:'publico', icone:'hotmart', titulo:'Checkout', url:'https://pay.hotmart.com/H107178699F', nota:'Pagamento do Método na Hotmart.', status:'ativo'},
+  {id:'l5', sub:'Páginas', grupo:'publico', icone:'cadastro', titulo:'Cadastro', url:'https://strike-details-sigma.vercel.app/cadastro', nota:'Formulário de cadastro do cliente.', status:'ativo'},
+  {id:'l6', sub:'Páginas', grupo:'publico', icone:'mapa', titulo:'Mapa de autorizados', url:'https://strike-details-sigma.vercel.app/mapa', nota:'Matriz e aplicadores autorizados.', status:'ativo'},
+  {id:'l15', sub:'Páginas', grupo:'publico', icone:'contrato', titulo:'Termo de intermediação', url:'https://strike-details-sigma.vercel.app/contrato', nota:'Termo que o autorizado aceita para receber um serviço.', status:'ativo'},
+  {id:'l16', sub:'Páginas', grupo:'publico', icone:'escudo', titulo:'Política de privacidade', url:'https://strike-details-sigma.vercel.app/politica-de-privacidade.html', nota:'Uso dos dados do cadastro (LGPD).', status:'ativo'},
+  {id:'l17', sub:'Redes e contato', grupo:'publico', icone:'whatsapp', titulo:'WhatsApp', url:'https://wa.me/5569992823998', nota:'(69) 9 9282-3998', status:'ativo'},
+  {id:'l18', sub:'Redes e contato', grupo:'publico', icone:'instagram', titulo:'Instagram', url:'https://www.instagram.com/strikedetaills/', nota:'@strikedetaills', status:'ativo'},
+  {id:'l19', sub:'Redes e contato', grupo:'publico', icone:'tiktok', titulo:'TikTok', url:'https://www.tiktok.com/@strikedetaills', nota:'@strikedetaills', status:'ativo'},
+  {id:'l8', sub:'Páginas', grupo:'publico', icone:'site', titulo:'Site principal', url:'https://strike-details-sigma.vercel.app', nota:'Antiga home. Não divulgar.', status:'off'},
+  {id:'l9', sub:'Redes e contato', grupo:'publico', icone:'whatsapp', titulo:'Grupo de afiliados', url:'', nota:'Convite sendo redefinido.', status:'off'}
 ];
 
 /* =========================================================
@@ -579,7 +556,7 @@ const SEMENTE = [
    recarrega a lista nova. Sem isso, quem já visitou continua
    vendo a versão velha para sempre.
    ========================================================= */
-const SEMENTE_VERSAO = 7;
+const SEMENTE_VERSAO = 8;
 const CHAVE = 'strike-links-v3';
 const CHAVE_VERSAO = 'strike-links-versao';
 const Store = (() => {
@@ -657,9 +634,9 @@ async function copiar(txt){
    render: uma aba por grupo (menu inferior), dividida em blocos
    ========================================================= */
 const GRUPOS = {
-  sistema:  {titulo:'Sistema de controle', desc:'O sistema dos veículos em serviço e o que mantém ele no ar.'},
-  restrito: {titulo:'Acesso restrito',     desc:'Painéis, contas e bancos de dados internos.'},
-  publico:  {titulo:'Links públicos',      desc:'Páginas e perfis que podem ser divulgados.'}
+  sistema:  {titulo:'Sistema de controle'},
+  restrito: {titulo:'Acesso restrito'},
+  publico:  {titulo:'Links públicos'}
 };
 const CHAVE_ABA = 'strike-links-aba';
 let aba = 'sistema';
@@ -681,12 +658,8 @@ function cardHTML(l){
     <div class="card__capa">
       ${svg(l.icone,'card__fantasma')}
       <span class="card__chip">${svg(l.icone)}</span>
-      <span class="card__host">${esc(l.url ? host(l.url) : 'sem link')}</span>
-      <span class="card__brilho"></span>${rapido}
-    </div>
-    <div class="card__meta">
-      <div class="card__titulo">${esc(l.titulo)}</div>
-      ${l.nota ? `<div class="card__nota">${esc(l.nota)}</div>` : ''}
+      <span class="card__brilho"></span>
+      <span class="card__titulo">${esc(l.titulo)}</span>${rapido}
     </div>
   </article>`;
 }
@@ -694,7 +667,7 @@ function cardHTML(l){
 function blocoHTML(nome, itens){
   return `
   <section class="bloco">
-    <h2 class="bloco__titulo">${esc(nome)} <b>${itens.length}</b><span class="bloco__linha"></span></h2>
+    <h2 class="bloco__titulo">${esc(nome)}<span class="bloco__linha"></span></h2>
     <div class="grade">${itens.map(cardHTML).join('')}</div>
   </section>`;
 }
@@ -714,13 +687,12 @@ function blocos(itens){
 function render(){
   const palco = $('#palco');
   const q = filtro.trim().toLowerCase();
-  $('#rodape-cont').textContent = links.length + ' links guardados';
   marcarAba();
 
   if(q){
     const achados = links.filter(l => (l.titulo+' '+l.url+' '+(l.nota||'')+' '+(l.sub||'')).toLowerCase().includes(q));
     palco.innerHTML = `<div class="aba">` + (achados.length
-      ? `<div class="aba__topo"><h1 class="aba__titulo">Resultados</h1><span class="aba__cont">${achados.length}</span></div>
+      ? `<div class="aba__topo"><h1 class="aba__titulo">Resultados</h1></div>
          <div class="bloco"><div class="grade">${achados.map(cardHTML).join('')}</div></div>`
       : `<div class="vazio"><strong>Nada encontrado</strong>Nenhum link bate com “${esc(filtro)}”. Tente outra palavra ou parte do endereço.</div>`) + `</div>`;
     return;
@@ -736,13 +708,12 @@ function render(){
     </span>` : '';
 
   let html = `<div class="aba">
-    <div class="aba__topo"><h1 class="aba__titulo">${g.titulo}</h1><span class="aba__cont">${ativos.length}</span>${nota}</div>
-    <p class="aba__desc">${g.desc}</p>`;
+    <div class="aba__topo"><h1 class="aba__titulo">${g.titulo}</h1>${nota}</div>`;
   html += blocos(ativos).map(b => blocoHTML(b.nome, b.itens)).join('');
   if(fora.length){
     html += `
     <details class="bloco">
-      <summary class="bloco__titulo">Fora de uso <b>${fora.length}</b><span class="bloco__linha"></span><span class="bloco__seta">${ICO_SETA}</span></summary>
+      <summary class="bloco__titulo">Fora de uso<span class="bloco__linha"></span><span class="bloco__seta">${ICO_SETA}</span></summary>
       <div class="grade">${fora.map(cardHTML).join('')}</div>
     </details>`;
   }
