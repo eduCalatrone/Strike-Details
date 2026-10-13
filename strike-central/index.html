@@ -4,17 +4,17 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#121214">
-<title>Encontre um Autorizado | Strike Details</title>
+<title>Cadastro | Strike Details</title>
 <link rel="icon" type="image/png" sizes="32x32" href="/icons/cadastro-32.png">
 <link rel="icon" type="image/png" sizes="192x192" href="/icons/cadastro-192.png">
 <link rel="apple-touch-icon" href="/icons/cadastro-180.png">
-<meta name="description" content="Cadastre-se e a Strike Estética Automotiva direciona você ao Aplicador Autorizado mais próximo da sua região.">
+<meta name="description" content="Faça seu cadastro na Strike Details Estética Automotiva. Nossa equipe entra em contato pelo WhatsApp.">
 
 <meta property="og:type" content="website">
 <meta property="og:locale" content="pt_BR">
 <meta property="og:site_name" content="Strike Estética Automotiva">
-<meta property="og:title" content="Encontre um Autorizado Strike Estética Automotiva">
-<meta property="og:description" content="Preencha seus dados e a matriz direciona você ao profissional certificado mais próximo.">
+<meta property="og:title" content="Cadastro Strike Details Estética Automotiva">
+<meta property="og:description" content="Preencha seus dados e fique registrado na Strike Details.">
 <meta property="og:url" content="https://strike-details-sigma.vercel.app/strike-central/">
 <meta property="og:image" content="https://strike-details-sigma.vercel.app/logo.png">
 
@@ -271,12 +271,12 @@ footer img.f-logo{width:120px;opacity:.9;margin-bottom:.9rem}
 
 <section class="hero">
   <div class="hero-in">
-    <span class="eyebrow">Aplicadores autorizados · Atendimento nacional</span>
-    <h1 class="metal">Encontre um autorizado perto de você</h1>
-    <p class="sub">Preencha seus dados. A matriz Strike Details analisa sua região e te conecta ao Aplicador Autorizado mais próximo.</p>
+    <span class="eyebrow">Cadastro · Atendimento nacional</span>
+    <h1 class="metal">Faça seu cadastro</h1>
+    <p class="sub">Preencha seus dados para ficar registrado na Strike Details. Nossa equipe entra em contato pelo seu WhatsApp.</p>
     <ul class="trust">
-      <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Aplicadores certificados</li>
-      <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Direcionamento por região</li>
+      <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Atendimento da matriz</li>
+      <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Contato pelo WhatsApp</li>
       <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Sem custo</li>
     </ul>
   </div>
@@ -362,9 +362,9 @@ footer img.f-logo{width:120px;opacity:.9;margin-bottom:.9rem}
         </div>
         <div class="err" id="err-consent" style="margin:-.6rem 0 1rem">Precisamos da sua autorização para continuar.</div>
 
-        <button class="btn btn--tech" type="submit" id="btn">Quero ser direcionado</button>
+        <button class="btn btn--tech" type="submit" id="btn">Enviar cadastro</button>
         <div class="formerr" id="formerr"></div>
-        <p class="micro">Seus dados são usados apenas para o direcionamento.</p>
+        <p class="micro">Seus dados são usados apenas para o seu atendimento.</p>
       </form>
     </div>
 
@@ -373,7 +373,7 @@ footer img.f-logo{width:120px;opacity:.9;margin-bottom:.9rem}
         <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M4 12.5l5.5 5.5L20 7" stroke="#050505" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </div>
       <h2 class="metal">Cadastro recebido</h2>
-      <p>A matriz vai analisar sua localização e te conectar ao Aplicador Autorizado mais adequado. O contato chega pelo seu WhatsApp.</p>
+      <p>Seus dados foram registrados na Strike Details. Nossa equipe entra em contato pelo seu WhatsApp.</p>
       <a class="btn btn-ghost" id="zap" target="_blank" rel="noopener">Falar com a matriz agora</a>
     </div>
 
@@ -486,7 +486,7 @@ $('form').addEventListener('submit', async e => {
     console.error(error);
     erro.textContent = 'Não conseguimos enviar seu cadastro. Verifique a conexão e tente de novo.';
     erro.classList.add('on');
-    btn.disabled = false; btn.textContent = 'Quero ser direcionado';
+    btn.disabled = false; btn.textContent = 'Enviar cadastro';
     return;
   }
 
