@@ -146,6 +146,7 @@ h2.sec{font-size:1.6rem;margin-bottom:.7rem}
 }
 .hero h1{font-size:1.62rem;margin-bottom:.7rem}
 .hero h1 .g{display:block}
+.hero-sub{color:var(--txt-2);font-size:.92rem;max-width:46ch;margin-top:.2rem}
 
 /* MAPA */
 .map-card{
@@ -198,6 +199,26 @@ h2.sec{font-size:1.6rem;margin-bottom:.7rem}
   font-size:.72rem;letter-spacing:.8px;color:var(--txt-2);background:transparent;
   border:1px solid var(--line);border-radius:8px;padding:.4rem .7rem;cursor:pointer}
 .sel-clear:hover{color:var(--txt);border-color:var(--gray-2)}
+/* botao de agendamento pelo WhatsApp da Strike Details */
+.sel-go{
+  flex-basis:100%;display:flex;align-items:center;justify-content:center;gap:.55rem;
+  font-family:var(--f-cond);font-weight:800;text-transform:uppercase;
+  font-size:.98rem;letter-spacing:1px;color:#050505;
+  background:linear-gradient(180deg,#fbfbfa 0%,#dfe0e2 55%,#c4c6c9 100%);
+  box-shadow:inset 0 1px 0 #fff,0 10px 24px -16px rgba(255,255,255,.45);
+  padding:.85rem 1rem;border-radius:10px;margin-top:.2rem;
+  transition:filter .2s ease,transform .2s ease;
+}
+.sel-go:hover{filter:brightness(1.07);transform:translateY(-1px)}
+.sel-go:active{transform:none}
+.map-card .sel-go svg{width:18px;height:18px;max-width:none;margin:0;flex:none}
+.sel-note{flex-basis:100%;font-size:.72rem;color:var(--txt-2);line-height:1.45;text-align:center}
+.map-help{display:block;width:max-content;max-width:100%;margin:.55rem auto 0;
+  font-size:.74rem;color:var(--gray-1);text-align:center;
+  border-bottom:1px solid var(--gray-3);padding-bottom:1px}
+.map-help:hover{color:var(--txt);border-color:var(--gray-1)}
+.map-card.has-sel .map-hint{display:none}
+.sel-card{scroll-margin:80px 0 16px}
 @keyframes pulse{0%{opacity:.7;r:3.2}65%{opacity:0;r:16}100%{opacity:0;r:16}}
 .uf-tag{
   font-family:var(--f-cond);font-weight:800;font-size:8.5px;
@@ -300,6 +321,7 @@ footer a{color:var(--txt);border-bottom:1px solid var(--gray-3)}
     <span class="badge">Rede de Autorizados</span>
     <h1>Onde o <span class="g metal">MÉTODO CABINE BLINDADA</span>
       da Strike Details Estética Automotiva já está</h1>
+    <p class="hero-sub">Toque na unidade mais perto de você e agende direto pelo nosso WhatsApp.</p>
   </div>
 </section>
 
@@ -335,8 +357,16 @@ footer a{color:var(--txt);border-bottom:1px solid var(--gray-3)}
           <div class="sel-meta" id="selMeta"></div>
         </div>
         <button type="button" class="sel-clear" id="selClear">Limpar</button>
+        <a class="sel-go" id="selGo" href="https://wa.me/5569992823998" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 11.5a8.4 8.4 0 0 1-12.3 7.5L3 21l2-5.6A8.4 8.4 0 1 1 21 11.5z"/>
+          </svg>
+          <span id="selGoTxt">Agendar com este autorizado</span>
+        </a>
+        <p class="sel-note" id="selNote"></p>
       </div>
-      <p class="map-hint">Toque ou clique em um ponto do mapa para ver a unidade</p>
+      <p class="map-hint">Toque no ponto mais perto de você para agendar</p>
+      <a class="map-help" id="noUnit" href="https://wa.me/5569992823998" target="_blank" rel="noopener">Nenhuma unidade perto de você? Fale com a gente</a>
     </div>
   </div>
 </section>
@@ -458,7 +488,30 @@ const selCard  = document.getElementById('selCard');
 const selName  = document.getElementById('selName');
 const selMeta  = document.getElementById('selMeta');
 const selClear = document.getElementById('selClear');
+const selGo    = document.getElementById('selGo');
+const selGoTxt = document.getElementById('selGoTxt');
+const selNote  = document.getElementById('selNote');
+const mapCard  = document.getElementById('mapCard');
 let selected = null;
+
+/* ====================================================================
+   WHATSAPP DA STRIKE DETAILS - todo agendamento passa por aqui;
+   com a data marcada, o atendimento e repassado ao autorizado
+   ==================================================================== */
+const WA_NUMBER = '5569992823998';
+function waLink(msg){
+  return 'https://wa.me/' + WA_NUMBER + '?text=' + encodeURIComponent(msg);
+}
+function waMessage(u){
+  if (u.matriz){
+    return 'Olá! Vi o mapa de autorizados e gostaria de agendar o serviço na matriz da Strike Details em Jaru/RO.';
+  }
+  return 'Olá! Vi no mapa que o autorizado de ' + u.city + '/' + u.uf +
+         ' é o mais próximo de mim. Gostaria de agendar o serviço com essa unidade.';
+}
+document.getElementById('noUnit').href = waLink(
+  'Olá! Vi o mapa de autorizados e não encontrei uma unidade perto de mim. Vocês atendem na minha região? Sou de: '
+);
 
 function paintSelection(){
   document.querySelectorAll('.pin-g').forEach(function(g){
@@ -470,6 +523,7 @@ function paintSelection(){
     c.setAttribute('aria-pressed', on ? 'true' : 'false');
   });
   mapSvg.classList.toggle('has-sel', selected !== null);
+  mapCard.classList.toggle('has-sel', selected !== null);
 
   if (selected === null){
     selCard.classList.remove('on','matriz');
@@ -483,6 +537,11 @@ function paintSelection(){
   if (!meta.length) meta.push('Unidade autorizada');
   meta.push(STATE_NAMES[u.uf] || u.uf);
   selMeta.textContent = meta.join(' · ');
+  selGo.href = waLink(waMessage(u));
+  selGoTxt.textContent = u.matriz ? 'Agendar na matriz' : 'Agendar com este autorizado';
+  selNote.textContent = u.matriz
+    ? 'Você será direcionado ao nosso WhatsApp com a mensagem pronta.'
+    : 'O agendamento é feito pela Strike Details no WhatsApp. Com a data marcada, repassamos o atendimento para o autorizado de ' + u.city + '/' + u.uf + '.';
   selCard.classList.add('on');
   selCard.classList.toggle('matriz', !!u.matriz);
 }
@@ -518,7 +577,8 @@ groupsEl.addEventListener('click', function(e){
   if (!t) return;
   selectCity(parseInt(t.getAttribute('data-i'), 10));
   if (selected !== null){
-    document.getElementById('mapa').scrollIntoView({ behavior:'smooth', block:'start' });
+    /* leva ate o cartao com o botao de agendar, mantendo o mapa acima dele */
+    selCard.scrollIntoView({ behavior:'smooth', block:'end' });
   }
 });
 
