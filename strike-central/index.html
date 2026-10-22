@@ -176,6 +176,32 @@ input:focus,select:focus,textarea:focus{
 .err{display:none;font-size:.76rem;color:var(--red);margin-top:.35rem;letter-spacing:.2px}
 .err.on{display:block}
 
+/* WhatsApp: dado principal do cadastro, fica em destaque */
+.field-zap{
+  padding:.95rem .95rem 1rem;margin-bottom:1.15rem;
+  border:1px solid rgba(255,255,255,.24);border-radius:14px;
+  background:rgba(255,255,255,.035);
+}
+.field-zap label{color:var(--txt)}
+.field-zap .tag{
+  display:inline-block;margin-left:.35rem;padding:.1rem .45rem;border-radius:100px;
+  background:var(--txt);color:#0f0f11;font-size:.58rem;letter-spacing:.8px;vertical-align:1px;
+}
+.zap-in{position:relative;display:flex}
+.zap-in .ddi{
+  display:flex;align-items:center;padding:0 .8rem;flex-shrink:0;
+  background:#1d1d20;color:var(--gray-1);font-size:16px;font-weight:600;
+  border:1px solid var(--line);border-right:none;border-radius:12px 0 0 12px;
+  transition:border-color .15s;
+}
+.zap-in input{border-radius:0 12px 12px 0;font-size:18px;font-weight:600;letter-spacing:.4px;padding-right:2.6rem}
+.zap-in:focus-within .ddi{border-color:var(--gray-1)}
+.zap-in .ok-ico{position:absolute;right:.85rem;top:50%;transform:translateY(-50%);opacity:0;transition:opacity .15s;pointer-events:none}
+.field-zap.valid .ok-ico{opacity:1}
+.field-zap.valid input,.field-zap.valid .ddi{border-color:var(--gray-1)}
+.field-zap.bad input,.field-zap.bad .ddi{border-color:var(--red)}
+.field-zap .hint{font-size:.74rem;color:var(--txt-2);margin-top:.5rem;line-height:1.45}
+
 .consent{
   display:flex;gap:.7rem;align-items:flex-start;
   background:rgba(255,255,255,.02);border:1px solid var(--line-2);
@@ -298,9 +324,14 @@ footer img.f-logo{width:120px;opacity:.9;margin-bottom:.9rem}
           <div class="err" id="err-nome">Escreva seu nome completo.</div>
         </div>
 
-        <div class="field">
-          <label for="whatsapp">WhatsApp <b>*</b></label>
-          <input id="whatsapp" type="tel" inputmode="numeric" autocomplete="tel" placeholder="(69) 99999-9999" maxlength="16">
+        <div class="field field-zap" id="fieldZap">
+          <label for="whatsapp">WhatsApp <b>*</b> <span class="tag">Contato principal</span></label>
+          <div class="zap-in">
+            <span class="ddi" aria-hidden="true">+55</span>
+            <input id="whatsapp" type="tel" inputmode="numeric" autocomplete="tel-national" placeholder="(69) 99999-9999" aria-describedby="hint-whatsapp">
+            <svg class="ok-ico" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#f4f4f2" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>
+          </div>
+          <div class="hint" id="hint-whatsapp">Digite DDD + número, sem o 55. Confira com atenção: é por esse número que a nossa equipe fala com você.</div>
           <div class="err" id="err-whatsapp">Informe um WhatsApp com DDD.</div>
         </div>
 
@@ -373,7 +404,7 @@ footer img.f-logo{width:120px;opacity:.9;margin-bottom:.9rem}
         <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M4 12.5l5.5 5.5L20 7" stroke="#050505" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </div>
       <h2 class="metal">Cadastro recebido</h2>
-      <p>Seus dados foram registrados na Strike Details. Nossa equipe entra em contato pelo seu WhatsApp.</p>
+      <p>Seus dados foram registrados na Strike Details. Nossa equipe entra em contato pelo WhatsApp <b id="doneZap" style="color:var(--txt);white-space:nowrap"></b>. Se o número estiver errado, chame a matriz pelo botão abaixo.</p>
       <a class="btn btn-ghost" id="zap" target="_blank" rel="noopener">Falar com a matriz agora</a>
     </div>
 
@@ -423,14 +454,51 @@ selUf.addEventListener('change', async () => {
   } catch { inpCidade.placeholder = 'Digite sua cidade'; }
 });
 
-/* --- máscaras --- */
-$('whatsapp').addEventListener('input', e => {
-  let v = e.target.value.replace(/\D/g, '').slice(0, 11);
-  if (v.length > 6)      v = `(${v.slice(0,2)}) ${v.slice(2,7)}-${v.slice(7)}`;
-  else if (v.length > 2) v = `(${v.slice(0,2)}) ${v.slice(2)}`;
-  else if (v.length)     v = `(${v}`;
-  e.target.value = v;
+/* --- WhatsApp: dado principal, é por ele que a equipe entra em contato ---
+   Antes a máscara cortava em 11 dígitos: quem digitava (ou o celular
+   preenchia) com +55 perdia os 2 últimos números. Agora o 55 e o 0 da
+   frente são removidos, e só passa número com DDD válido e completo.   */
+const DDDS = new Set(('11 12 13 14 15 16 17 18 19 21 22 24 27 28 31 32 33 34 35 37 38 ' +
+  '41 42 43 44 45 46 47 48 49 51 53 54 55 61 62 63 64 65 66 67 68 69 71 73 74 75 77 79 ' +
+  '81 82 83 84 85 86 87 88 89 91 92 93 94 95 96 97 98 99').split(' '));
+
+function zapBR(v) {
+  let d = String(v ?? '').replace(/\D/g, '').replace(/^0+/, '');
+  if (d.length > 11 && d.startsWith('55')) d = d.slice(2);   // +55 digitado ou preenchido pelo navegador
+  d = d.slice(0, 11);
+  let erro = '';
+  if (d.length < 10)                       erro = 'Número incompleto. Coloque DDD + número, ex.: (69) 99999-9999.';
+  else if (!DDDS.has(d.slice(0, 2)))       erro = 'DDD inválido. Confira os dois primeiros números.';
+  else if (d.length === 11 && d[2] !== '9') erro = d.startsWith('55')
+    ? 'Parece que o número começou com 55 (código do Brasil). Digite só DDD + número.'
+    : 'Confira o número: celular tem 9 dígitos depois do DDD, começando com 9.';
+  else if (d.length === 10 && !/[2-5]/.test(d[2])) erro = 'Faltou um número. Celular tem 9 dígitos depois do DDD.';
+  return { d, erro };
+}
+const fmtZap = d => d.length > 10 ? `(${d.slice(0,2)}) ${d.slice(2,7)}-${d.slice(7)}`
+                  : d.length > 6  ? `(${d.slice(0,2)}) ${d.slice(2,6)}-${d.slice(6)}`
+                  : d.length > 2  ? `(${d.slice(0,2)}) ${d.slice(2)}`
+                  : d.length      ? `(${d}` : '';
+
+const inZap = $('whatsapp'), boxZap = $('fieldZap');
+function checaZap(mostrarErro) {
+  const z = zapBR(inZap.value);
+  inZap.value = fmtZap(z.d);
+  boxZap.classList.toggle('valid', !z.erro);
+  if (mostrarErro) {
+    $('err-whatsapp').textContent = z.erro;
+    $('err-whatsapp').classList.toggle('on', !!z.erro);
+    boxZap.classList.toggle('bad', !!z.erro);
+  }
+  return z;
+}
+inZap.addEventListener('input', () => {
+  checaZap(false);
+  $('err-whatsapp').classList.remove('on'); boxZap.classList.remove('bad');
 });
+inZap.addEventListener('blur', () => { if (inZap.value) checaZap(true); });
+
+/* --- máscaras --- */
 $('placa').addEventListener('input', e => {
   e.target.value = e.target.value.toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 7);
 });
@@ -445,7 +513,7 @@ $('zap').href = `https://wa.me/${CFG.WHATSAPP_MATRIZ}`;
 
 /* --- validação --- */
 const mark = (id, ok) => { $('err-' + id).classList.toggle('on', !ok); return ok; };
-['nome','whatsapp','email','cidade'].forEach(id => $(id).addEventListener('input', () => {
+['nome','email','cidade'].forEach(id => $(id).addEventListener('input', () => {
   $('err-' + (id === 'cidade' ? 'local' : id)).classList.remove('on');
 }));
 $('consent').addEventListener('change', () => $('err-consent').classList.remove('on'));
@@ -456,14 +524,15 @@ $('form').addEventListener('submit', async e => {
   if (e.target.empresa_site.value) return;
 
   const nome   = $('nome').value.trim();
-  const zap    = $('whatsapp').value.replace(/\D/g, '');
+  const zapChk = checaZap(true);
+  const zap    = zapChk.d;
   const email  = $('email').value.trim();
   const uf     = selUf.value;
   const cidade = inpCidade.value.trim();
 
   let ok = true;
   ok = mark('nome', nome.length >= 3 && nome.includes(' ')) && ok;
-  ok = mark('whatsapp', zap.length >= 10) && ok;
+  ok = !zapChk.erro && ok;
   ok = mark('email', !email || /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) && ok;
   ok = mark('local', !!uf && cidade.length >= 2) && ok;
   ok = mark('consent', $('consent').checked) && ok;
@@ -490,6 +559,7 @@ $('form').addEventListener('submit', async e => {
     return;
   }
 
+  $('doneZap').textContent = fmtZap(zap);
   $('cardForm').style.display = 'none';
   $('done').classList.add('on');
   const h1 = document.querySelector('.hero h1');

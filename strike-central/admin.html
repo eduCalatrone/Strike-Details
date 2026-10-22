@@ -214,6 +214,12 @@ main{max-width:1180px;margin:0 auto;padding:1.3rem var(--pad) 4rem}
 .dl{display:grid;grid-template-columns:92px 1fr;gap:.45rem .8rem;font-size:.86rem;margin-bottom:1.2rem}
 .dl dt{font-family:var(--f-cond);font-weight:700;font-size:.68rem;letter-spacing:.8px;text-transform:uppercase;color:var(--txt-3);padding-top:.18rem}
 .dl dd{word-break:break-word}
+.zapbox{border:1px solid rgba(255,255,255,.24);background:rgba(255,255,255,.035);border-radius:12px;padding:.8rem .95rem;margin-bottom:1.1rem}
+.zapbox span{display:block;font-family:var(--f-cond);font-weight:700;font-size:.68rem;letter-spacing:.8px;text-transform:uppercase;color:var(--txt-3);margin-bottom:.15rem}
+.zapbox b{display:block;font-family:var(--f-title);font-size:1.45rem;letter-spacing:.5px;color:var(--txt);word-break:break-all}
+.zapbox p{font-size:.78rem;color:var(--red);margin-top:.4rem;line-height:1.45}
+.zapbox.bad{border-color:rgba(224,82,82,.55);background:rgba(224,82,82,.07)}
+.zap-bad{color:var(--red);font-weight:600}
 .sep{height:1px;background:var(--line-2);margin:1.2rem 0}
 .acts{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1.1rem}
 .acts .btn{flex:1;min-width:130px;font-size:.8rem;min-height:42px}
@@ -295,6 +301,7 @@ main{max-width:1180px;margin:0 auto;padding:1.3rem var(--pad) 4rem}
     <button class="x" data-close aria-label="Fechar">&times;</button>
   </div>
   <div class="dr-body">
+    <div class="zapbox" id="drZap"></div>
     <dl class="dl" id="drDados"></dl>
 
     <div class="acts">
@@ -485,7 +492,7 @@ function renderLeads() {
     <article class="lead" data-id="${esc(l.id)}">
       <span class="uf-badge" title="${esc(UF_NOME[l.uf]||'')}">${esc(l.uf)}</span>
       <h3>${esc(l.nome)}</h3>
-      <div class="meta">${esc(l.cidade)} — ${esc(UF_NOME[l.uf]||l.uf)} <i>·</i> ${esc(fone(l.whatsapp))}${l.autorizado ? ` <i>·</i> ${esc(l.autorizado.nome)}` : ''}</div>
+      <div class="meta">${esc(l.cidade)} — ${esc(UF_NOME[l.uf]||l.uf)} <i>·</i> ${zapLista(l.whatsapp)}${l.autorizado ? ` <i>·</i> ${esc(l.autorizado.nome)}` : ''}</div>
       <div class="right">
         <span class="pill p-${esc(l.status)}">${esc(LABEL[l.status] || l.status)}</span>
         <span class="when">${data(l.created_at)}</span>
@@ -499,8 +506,11 @@ function abrirLead(id) {
   atual = LEADS.find(l => l.id === id);
   const l = atual;
   $('drNome').textContent = l.nome;
+  const z = zapBR(l.whatsapp);
+  $('drZap').classList.toggle('bad', !z.ok);
+  $('drZap').innerHTML = `<span>WhatsApp · contato principal</span><b>${esc(fone(l.whatsapp))}</b>`
+    + (z.ok ? '' : `<p>Número incompleto ou inválido (${z.d.length} dígitos).${z.d.startsWith('55') ? ' O cliente digitou com 55 na frente e o final foi cortado.' : ''} Confira por outro contato${l.email ? ' (e-mail)' : ''}.</p>`);
   $('drDados').innerHTML = linhas([
-    ['WhatsApp', fone(l.whatsapp)],
     ['E-mail', l.email],
     ['Cidade', `${l.cidade} — ${UF_NOME[l.uf] || l.uf} (${l.uf})`],
     ['Endereço', l.endereco],
@@ -526,7 +536,7 @@ function abrirLead(id) {
 
   $('drStatus').value = l.status;
   $('drNota').value = l.nota_interna || '';
-  $('drZapCliente').href = `https://wa.me/55${l.whatsapp.replace(/\D/g,'').replace(/^55/,'')}`;
+  $('drZapCliente').href = `https://wa.me/55${z.d}`;
   $('drMsg').classList.remove('on');
   atualizarZapAut();
   carregarHistorico(l.id);
@@ -692,10 +702,26 @@ document.querySelectorAll('[data-close]').forEach(b => b.addEventListener('click
 document.addEventListener('keydown', e => e.key === 'Escape' && fechar());
 
 function esc(s) { return String(s ?? '').replace(/[&<>"'`]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;','`':'&#96;'}[c])); }
+/* WhatsApp BR: tira +55/0 da frente (só quando sobra dígito, pra não
+   comer o DDD 55) e diz se o número está completo. */
+const DDDS = new Set(('11 12 13 14 15 16 17 18 19 21 22 24 27 28 31 32 33 34 35 37 38 ' +
+  '41 42 43 44 45 46 47 48 49 51 53 54 55 61 62 63 64 65 66 67 68 69 71 73 74 75 77 79 ' +
+  '81 82 83 84 85 86 87 88 89 91 92 93 94 95 96 97 98 99').split(' '));
+function zapBR(v) {
+  let d = String(v ?? '').replace(/\D/g,'').replace(/^0+/,'');
+  if (d.length > 11 && d.startsWith('55')) d = d.slice(2);
+  const ok = DDDS.has(d.slice(0,2)) &&
+    ((d.length === 11 && d[2] === '9') || (d.length === 10 && /[2-5]/.test(d[2])));
+  return { d, ok };
+}
 function fone(v) {
-  const d = String(v || '').replace(/\D/g,'').replace(/^55/,'');
+  const { d } = zapBR(v);
   return d.length === 11 ? `(${d.slice(0,2)}) ${d.slice(2,7)}-${d.slice(7)}`
        : d.length === 10 ? `(${d.slice(0,2)}) ${d.slice(2,6)}-${d.slice(6)}` : String(v ?? '');
+}
+function zapLista(v) {
+  return zapBR(v).ok ? esc(fone(v))
+    : `<span class="zap-bad" title="Número incompleto ou inválido">⚠ ${esc(fone(v))}</span>`;
 }
 function data(iso, completo) {
   const d = new Date(iso);
