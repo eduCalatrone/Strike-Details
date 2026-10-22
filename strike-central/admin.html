@@ -145,6 +145,12 @@ textarea.inp{resize:vertical;min-height:76px;line-height:1.5}
   font-family:var(--f-cond);font-weight:700;text-transform:uppercase;font-size:.82rem;letter-spacing:.8px;
 }
 .tab.on{color:var(--txt);border-bottom-color:var(--gray-1)}
+.tab i{font-style:normal;font-family:var(--f-body);font-weight:600;font-size:.66rem;letter-spacing:0;margin-left:.35rem;padding:.08rem .45rem;border-radius:100px;background:rgba(255,255,255,.07);color:var(--txt-2)}
+.tab.on i{background:rgba(255,255,255,.14);color:var(--txt)}
+
+/* cor da situação: barra lateral dos cards e dos contadores */
+.s-novo{--st:#f4f4f2} .s-em_contato{--st:var(--amber)} .s-encaminhado{--st:var(--blue)}
+.s-convertido{--st:var(--success-hi)} .s-perdido{--st:var(--gray-3)}
 
 main{max-width:1180px;margin:0 auto;padding:1.3rem var(--pad) 4rem}
 
@@ -153,8 +159,9 @@ main{max-width:1180px;margin:0 auto;padding:1.3rem var(--pad) 4rem}
   background:var(--bg-2);color:var(--txt);border:1px solid var(--line-2);border-left:3px solid var(--line);
   border-radius:12px;padding:.7rem .8rem;cursor:pointer;text-align:left;transition:border-color .15s,background .15s;
 }
-.stat:hover{border-left-color:var(--gray-1)}
-.stat.on{border-left-color:#fff;background:linear-gradient(160deg,rgba(255,255,255,.06),var(--bg-2))}
+.stat{border-left-color:var(--st,var(--line))}
+.stat:hover{background:linear-gradient(160deg,rgba(255,255,255,.04),var(--bg-2))}
+.stat.on{border-color:rgba(255,255,255,.3);border-left-color:var(--st,#fff);background:linear-gradient(160deg,rgba(255,255,255,.08),var(--bg-2))}
 .stat b{display:block;font-family:var(--f-tech);font-size:1.3rem;font-weight:400;letter-spacing:-.5px;color:var(--gray-1);line-height:1.2;-webkit-text-stroke:.35px currentColor;paint-order:stroke fill}
 .stat span{display:block;font-size:.63rem;letter-spacing:.8px;text-transform:uppercase;color:var(--txt-2);margin-top:.15rem}
 
@@ -169,7 +176,19 @@ main{max-width:1180px;margin:0 auto;padding:1.3rem var(--pad) 4rem}
   display:grid;grid-template-columns:auto 1fr auto;gap:.25rem;align-items:center;
   transition:border-color .15s,background .15s;
 }
-.lead:hover{border-left-color:var(--gray-1);background:linear-gradient(160deg,rgba(255,255,255,.045),var(--bg-2))}
+.lead{border-left-color:var(--st,var(--line))}
+.lead:hover{border-color:rgba(255,255,255,.16);border-left-color:var(--st,var(--gray-1));background:linear-gradient(160deg,rgba(255,255,255,.045),var(--bg-2))}
+.lead.s-novo h3::after{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:#fff;margin-left:.45rem;vertical-align:3px;box-shadow:0 0 8px rgba(255,255,255,.6)}
+
+/* botão rápido de WhatsApp no card */
+.zap-go{
+  grid-column:4;grid-row:1/3;align-self:center;margin-left:.8rem;
+  display:grid;place-items:center;width:40px;height:40px;border-radius:11px;
+  border:1px solid var(--line);color:var(--gray-1);background:rgba(255,255,255,.03);
+  transition:border-color .15s,color .15s,background .15s;
+}
+.zap-go:hover{border-color:#fff;color:#fff;background:rgba(255,255,255,.08)}
+.zap-go.off{opacity:.25;pointer-events:none}
 .uf-badge{
   grid-column:1;grid-row:1/3;align-self:center;margin-right:.85rem;
   font-family:var(--f-tech);font-size:.8rem;letter-spacing:0;
@@ -181,7 +200,7 @@ main{max-width:1180px;margin:0 auto;padding:1.3rem var(--pad) 4rem}
 .lead h3{grid-column:2;font-size:.98rem;color:var(--txt)}
 .lead .meta{grid-column:2;font-size:.78rem;color:var(--txt-2)}
 .lead .meta i{font-style:normal;opacity:.45}
-.lead .right{grid-column:3;grid-row:1/3;display:flex;flex-direction:column;align-items:flex-end;gap:.35rem}
+.lead .right{grid-column:3;grid-row:1/3;display:flex;flex-direction:column;align-items:flex-end;gap:.35rem;margin-left:.6rem}
 .lead .when{font-size:.66rem;color:var(--txt-3);letter-spacing:.3px}
 
 .pill{
@@ -229,9 +248,16 @@ main{max-width:1180px;margin:0 auto;padding:1.3rem var(--pad) 4rem}
 .hist-item b{color:var(--txt);font-weight:600}
 
 @media (max-width:560px){
-  .lead{grid-template-columns:auto 1fr}
+  .lead{grid-template-columns:auto 1fr auto}
   .uf-badge{grid-row:1/4}
-  .lead .right{grid-column:2;grid-row:auto;flex-direction:row;align-items:center;justify-content:space-between;margin-top:.3rem}
+  .lead .right{grid-column:2;grid-row:auto;flex-direction:row;align-items:center;justify-content:space-between;margin:.3rem 0 0}
+  .zap-go{grid-column:3;grid-row:1/4}
+  .stats{grid-template-columns:1fr 1fr}
+  .stat:first-child{grid-column:1/-1;display:flex;align-items:baseline;gap:.6rem}
+  .filters{display:grid;grid-template-columns:1fr 1fr}
+  .filters .inp,.filters select.inp{min-width:0;width:100%}
+  .filters #fBusca,.filters #btnCsv{grid-column:1/-1}
+  .filters > :only-child{grid-column:1/-1}
 }
 </style>
 </head>
@@ -266,8 +292,8 @@ main{max-width:1180px;margin:0 auto;padding:1.3rem var(--pad) 4rem}
       <button class="btn btn-sm" id="btnSair">Sair</button>
     </div>
     <div class="tabs">
-      <button class="tab on" data-tab="clientes">Clientes</button>
-      <button class="tab" data-tab="autorizados">Rede</button>
+      <button class="tab on" data-tab="clientes">Clientes<i id="nLeads"></i></button>
+      <button class="tab" data-tab="autorizados">Autorizados<i id="nAuts"></i></button>
     </div>
   </div>
 
@@ -349,7 +375,7 @@ main{max-width:1180px;margin:0 auto;padding:1.3rem var(--pad) 4rem}
 <aside class="drawer" id="drAutorizado">
   <div class="dr-head">
     <div style="flex:1">
-      <span class="eyebrow" style="margin-bottom:.35rem">Rede de autorizados</span>
+      <span class="eyebrow" style="margin-bottom:.35rem">Autorizado</span>
       <h2 id="daTitulo">Autorizado</h2>
     </div>
     <button class="x" data-close aria-label="Fechar">&times;</button>
@@ -479,7 +505,8 @@ function renderLeads() {
     ['em_contato', 'Em contato', c('em_contato')],
     ['encaminhado', 'Encaminhados', c('encaminhado')],
     ['convertido', 'Fecharam', c('convertido')]
-  ].map(([s, rot, n]) => `<button class="stat ${s === filtroStatus ? 'on' : ''}" data-status="${s}"><b>${n}</b><span>${rot}</span></button>`).join('');
+  ].map(([s, rot, n]) => `<button class="stat ${s ? 's-' + s : ''} ${s === filtroStatus ? 'on' : ''}" data-status="${s}"><b>${n}</b><span>${rot}</span></button>`).join('');
+  $('nLeads').textContent = LEADS.length;
   document.querySelectorAll('.stat').forEach(b => b.addEventListener('click', () => {
     filtroStatus = b.dataset.status === filtroStatus ? '' : b.dataset.status;
     renderLeads();
@@ -491,16 +518,19 @@ function renderLeads() {
     return;
   }
   $('listaLeads').innerHTML = list.map(l => `
-    <article class="lead" data-id="${esc(l.id)}">
+    <article class="lead s-${esc(l.status)}" data-id="${esc(l.id)}">
       <span class="uf-badge" title="${esc(UF_NOME[l.uf]||'')}">${esc(l.uf)}</span>
       <h3>${esc(l.nome)}</h3>
       <div class="meta">${esc(l.cidade)} — ${esc(UF_NOME[l.uf]||l.uf)} <i>·</i> ${zapLista(l.whatsapp)}${l.autorizado ? ` <i>·</i> ${esc(l.autorizado.nome)}` : ''}</div>
       <div class="right">
         <span class="pill p-${esc(l.status)}">${esc(LABEL[l.status] || l.status)}</span>
-        <span class="when">${data(l.created_at)}</span>
+        <span class="when">${quando(l.created_at)}</span>
       </div>
+      ${zapBotao(l)}
     </article>`).join('');
-  document.querySelectorAll('.lead[data-id]').forEach(el => el.addEventListener('click', () => abrirLead(el.dataset.id)));
+  document.querySelectorAll('.lead[data-id]').forEach(el => el.addEventListener('click', e => {
+    if (!e.target.closest('.zap-go')) abrirLead(el.dataset.id);
+  }));
 }
 
 /* ================= DRAWER DO LEAD ================= */
@@ -622,15 +652,16 @@ async function carregarHistorico(leadId) {
 
 /* ================= AUTORIZADOS ================= */
 function renderAutorizados() {
+  $('nAuts').textContent = AUTS.length;
   if (!AUTS.length) {
-    $('listaAut').innerHTML = '<div class="empty"><b>Rede vazia</b>Cadastre a matriz e os parceiros para poder encaminhar clientes.</div>';
+    $('listaAut').innerHTML = '<div class="empty"><b>Nenhum autorizado ainda</b>Cadastre a matriz e os autorizados para poder encaminhar clientes.</div>';
     return;
   }
   $('listaAut').innerHTML = AUTS.map(a => `
     <article class="lead" data-aut="${esc(a.id)}">
       <span class="uf-badge" title="${esc(UF_NOME[a.uf]||'')}">${esc(a.uf)}</span>
       <h3>${esc(a.nome)}${a.matriz ? ' <span class="pill p-novo">matriz</span>' : ''}</h3>
-      <div class="meta">${esc(a.empresa||'—')} <i>·</i> ${esc(a.cidade)} — ${esc(UF_NOME[a.uf]||a.uf)}${a.whatsapp ? ` <i>·</i> ${esc(fone(a.whatsapp))}` : ''}</div>
+      <div class="meta">${esc(a.empresa||'—')} <i>·</i> ${esc(a.cidade)} — ${esc(UF_NOME[a.uf]||a.uf)}${a.whatsapp ? ` <i>·</i> <span class="zap-num">${esc(fone(a.whatsapp))}</span>` : ''}</div>
       <div class="right"><span class="pill ${a.ativo ? 'p-convertido' : 'p-perdido'}">${a.ativo ? 'ativo' : 'inativo'}</span></div>
     </article>`).join('');
   document.querySelectorAll('[data-aut]').forEach(el => el.addEventListener('click', () => abrirAutorizado(el.dataset.aut)));
@@ -711,6 +742,20 @@ function fone(v) { return TEL.lerSalvo(v).texto; }
 function zapLista(v) {
   return TEL.lerSalvo(v).ok ? `<span class="zap-num">${esc(fone(v))}</span>`
     : `<span class="zap-bad" title="Número incompleto ou inválido">⚠ ${esc(fone(v))}</span>`;
+}
+const ICON_ZAP = '<svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/><path d="M15.6 14.1l-1.3-.5a.8.8 0 0 0-.8.2l-.5.6a5.6 5.6 0 0 1-2.4-2.4l.6-.5a.8.8 0 0 0 .2-.8l-.5-1.3a.8.8 0 0 0-.8-.5H9a.8.8 0 0 0-.8.9 6.9 6.9 0 0 0 6.6 6.6.8.8 0 0 0 .9-.8v-1.1a.8.8 0 0 0-.1-.4z" fill="currentColor" stroke="none"/></svg>';
+function zapBotao(l) {
+  const z = TEL.lerSalvo(l.whatsapp);
+  return z.ok
+    ? `<a class="zap-go" href="https://wa.me/${esc(z.wa)}" target="_blank" rel="noopener" title="Abrir WhatsApp" aria-label="Abrir WhatsApp de ${esc(l.nome)}">${ICON_ZAP}</a>`
+    : `<span class="zap-go off" title="Número incompleto">${ICON_ZAP}</span>`;
+}
+/* "Hoje, 11:14" · "Ontem, 18:02" · "3 dias atrás" · "14 de out." */
+function quando(iso) {
+  const d = new Date(iso);
+  const dias = Math.round((new Date(new Date().toDateString()) - new Date(d.toDateString())) / 864e5);
+  const hora = d.toLocaleTimeString('pt-BR', { hour:'2-digit', minute:'2-digit' });
+  return dias <= 0 ? `Hoje, ${hora}` : dias === 1 ? `Ontem, ${hora}` : dias < 7 ? `${dias} dias atrás` : data(iso);
 }
 function data(iso, completo) {
   const d = new Date(iso);
