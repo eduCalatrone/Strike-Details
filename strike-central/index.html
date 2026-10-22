@@ -178,7 +178,7 @@ input:focus,select:focus,textarea:focus{
 
 /* WhatsApp: dado principal do cadastro, fica em destaque */
 .field-zap{
-  padding:.95rem .95rem 1rem;margin-bottom:1.15rem;
+  padding:.9rem .8rem 1rem;margin-bottom:1.15rem;
   border:1px solid rgba(255,255,255,.24);border-radius:14px;
   background:rgba(255,255,255,.035);
 }
@@ -189,17 +189,31 @@ input:focus,select:focus,textarea:focus{
 }
 .zap-in{position:relative;display:flex}
 .zap-in .ddi{
-  display:flex;align-items:center;padding:0 .8rem;flex-shrink:0;
-  background:#1d1d20;color:var(--gray-1);font-size:16px;font-weight:600;
+  display:flex;align-items:center;gap:.3rem;padding:0 .5rem 0 .6rem;flex-shrink:0;cursor:pointer;
+  background:#1d1d20;color:var(--gray-1);font-size:15px;font-weight:600;
   border:1px solid var(--line);border-right:none;border-radius:12px 0 0 12px;
   transition:border-color .15s;
 }
-.zap-in input{border-radius:0 12px 12px 0;font-size:18px;font-weight:600;letter-spacing:.4px;padding-right:2.6rem}
+.ddi .flag{display:flex;width:28px;height:20px;flex-shrink:0;border-radius:3px;overflow:hidden;box-shadow:0 0 0 1px rgba(255,255,255,.14)}
+.ddi .flag svg,.ddi .flag img{display:block;width:28px;height:20px;object-fit:cover}
+.ddi .flag-txt{display:flex;align-items:center;justify-content:center;width:100%;background:#2a2a2e;color:var(--txt);font-size:10px;letter-spacing:.5px}
+.ddi-btn{all:unset;display:flex;align-items:center;gap:.3rem;cursor:pointer;color:var(--gray-1)}
+.ddi-btn:focus-visible{outline:2px solid #fff;outline-offset:4px;border-radius:4px}
+.ddi-btn svg{opacity:.75}
+.ddi-edit{display:none;align-items:center;gap:.1rem;font-size:16px}
+.ddi-edit input{
+  width:3.3em;padding:.3rem .2rem;background:transparent;border:none;border-bottom:1px solid var(--gray-1);
+  border-radius:0;font-size:16px;font-weight:600;box-shadow:none;
+}
+.ddi-edit input:focus{box-shadow:none}
+.ddi.editando .ddi-btn{display:none}
+.ddi.editando .ddi-edit{display:flex}
+.zap-in > input{min-width:0;border-radius:0 12px 12px 0;font-size:17px;font-weight:600;padding-left:.7rem;padding-right:2.1rem}
 .zap-in:focus-within .ddi{border-color:var(--gray-1)}
-.zap-in .ok-ico{position:absolute;right:.85rem;top:50%;transform:translateY(-50%);opacity:0;transition:opacity .15s;pointer-events:none}
+.zap-in .ok-ico{position:absolute;right:.7rem;top:50%;transform:translateY(-50%);opacity:0;transition:opacity .15s;pointer-events:none}
 .field-zap.valid .ok-ico{opacity:1}
-.field-zap.valid input,.field-zap.valid .ddi{border-color:var(--gray-1)}
-.field-zap.bad input,.field-zap.bad .ddi{border-color:var(--red)}
+.field-zap.valid .zap-in > input,.field-zap.valid .ddi{border-color:var(--gray-1)}
+.field-zap.bad .zap-in > input,.field-zap.bad .ddi{border-color:var(--red)}
 .field-zap .hint{font-size:.74rem;color:var(--txt-2);margin-top:.5rem;line-height:1.45}
 
 .consent{
@@ -327,11 +341,18 @@ footer img.f-logo{width:120px;opacity:.9;margin-bottom:.9rem}
         <div class="field field-zap" id="fieldZap">
           <label for="whatsapp">WhatsApp <b>*</b> <span class="tag">Contato principal</span></label>
           <div class="zap-in">
-            <span class="ddi" aria-hidden="true">+55</span>
-            <input id="whatsapp" type="tel" inputmode="numeric" autocomplete="tel-national" placeholder="(69) 99999-9999" aria-describedby="hint-whatsapp">
+            <div class="ddi" id="ddi">
+              <span class="flag" id="ddiFlag"></span>
+              <button type="button" class="ddi-btn" id="ddiBtn" aria-label="País do número: Brasil. Toque para trocar">
+                <span id="ddiCc"></span>
+                <svg width="10" height="7" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+              </button>
+              <span class="ddi-edit">+<input id="ddiCode" type="tel" inputmode="numeric" maxlength="3" autocomplete="off" aria-label="Código do país"></span>
+            </div>
+            <input id="whatsapp" type="tel" inputmode="numeric" autocomplete="tel" placeholder="(69) 99999-9999" aria-describedby="hint-whatsapp">
             <svg class="ok-ico" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#f4f4f2" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>
           </div>
-          <div class="hint" id="hint-whatsapp">Digite DDD + número, sem o 55. Confira com atenção: é por esse número que a nossa equipe fala com você.</div>
+          <div class="hint" id="hint-whatsapp">Digite DDD + número. Se o seu número for de outro país, toque na bandeira. Confira com atenção: é por esse número que a nossa equipe fala com você.</div>
           <div class="err" id="err-whatsapp">Informe um WhatsApp com DDD.</div>
         </div>
 
@@ -428,6 +449,7 @@ footer img.f-logo{width:120px;opacity:.9;margin-bottom:.9rem}
 </footer>
 
 <script src="/strike-central/config.js"></script>
+<script src="/strike-central/telefone.js"></script>
 <script type="module">
 import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.112.4/+esm';
 
@@ -455,35 +477,73 @@ selUf.addEventListener('change', async () => {
 });
 
 /* --- WhatsApp: dado principal, é por ele que a equipe entra em contato ---
-   Antes a máscara cortava em 11 dígitos: quem digitava (ou o celular
-   preenchia) com +55 perdia os 2 últimos números. Agora o 55 e o 0 da
-   frente são removidos, e só passa número com DDD válido e completo.   */
-const DDDS = new Set(('11 12 13 14 15 16 17 18 19 21 22 24 27 28 31 32 33 34 35 37 38 ' +
-  '41 42 43 44 45 46 47 48 49 51 53 54 55 61 62 63 64 65 66 67 68 69 71 73 74 75 77 79 ' +
-  '81 82 83 84 85 86 87 88 89 91 92 93 94 95 96 97 98 99').split(' '));
+   Regras em /strike-central/telefone.js. Brasil é o padrão (bandeira).
+   Tocando na bandeira, a pessoa digita o código do país dela e a
+   bandeira muda na hora, pra ela confirmar que está certo.           */
+const T = window.STRIKE_TEL;
+const inZap = $('whatsapp'), boxZap = $('fieldZap'), ddi = $('ddi'), inCc = $('ddiCode'), hintZap = $('hint-whatsapp');
+const CONFIRA = 'Confira com atenção: é por esse número que a nossa equipe fala com você.';
+let PAIS = '55';
 
-function zapBR(v) {
-  let d = String(v ?? '').replace(/\D/g, '').replace(/^0+/, '');
-  if (d.length > 11 && d.startsWith('55')) d = d.slice(2);   // +55 digitado ou preenchido pelo navegador
-  d = d.slice(0, 11);
-  let erro = '';
-  if (d.length < 10)                       erro = 'Número incompleto. Coloque DDD + número, ex.: (69) 99999-9999.';
-  else if (!DDDS.has(d.slice(0, 2)))       erro = 'DDD inválido. Confira os dois primeiros números.';
-  else if (d.length === 11 && d[2] !== '9') erro = d.startsWith('55')
-    ? 'Parece que o número começou com 55 (código do Brasil). Digite só DDD + número.'
-    : 'Confira o número: celular tem 9 dígitos depois do DDD, começando com 9.';
-  else if (d.length === 10 && !/[2-5]/.test(d[2])) erro = 'Faltou um número. Celular tem 9 dígitos depois do DDD.';
-  return { d, erro };
+const mostraBandeira = cc => {
+  const p = T.pais(cc), el = $('ddiFlag');
+  el.innerHTML = T.bandeira(p?.iso);
+  const img = el.querySelector('img');   // se a imagem da bandeira não carregar, mostra a sigla
+  if (img) img.onerror = () => { el.innerHTML = `<b class="flag-txt">${p.iso.toUpperCase()}</b>`; };
+  return p;
+};
+function setPais(cc) {
+  PAIS = cc || '55';
+  const p = mostraBandeira(PAIS), br = PAIS === '55';
+  $('ddiCc').textContent = br ? '' : '+' + PAIS;
+  $('ddiBtn').setAttribute('aria-label', `País do número: ${p ? p.nome : '+' + PAIS}. Toque para trocar`);
+  inZap.placeholder = br ? '(69) 99999-9999' : PAIS === '1' ? '(555) 123-4567' : 'Número com código de área';
+  hintZap.textContent = br
+    ? `Digite DDD + número. Se o seu número for de outro país, toque na bandeira. ${CONFIRA}`
+    : `${p ? p.nome : 'Outro país'} (+${PAIS}): digite o número completo, com código de área. ${CONFIRA}`;
 }
-const fmtZap = d => d.length > 10 ? `(${d.slice(0,2)}) ${d.slice(2,7)}-${d.slice(7)}`
-                  : d.length > 6  ? `(${d.slice(0,2)}) ${d.slice(2,6)}-${d.slice(6)}`
-                  : d.length > 2  ? `(${d.slice(0,2)}) ${d.slice(2)}`
-                  : d.length      ? `(${d}` : '';
+setPais('55');
 
-const inZap = $('whatsapp'), boxZap = $('fieldZap');
+function editaPais() {
+  if (ddi.classList.contains('editando')) return;
+  ddi.classList.add('editando');
+  inCc.value = PAIS;
+  inCc.focus(); inCc.select();
+  hintZap.textContent = 'Digite o código do seu país. Ex.: 595 Paraguai, 1 Estados Unidos, 351 Portugal.';
+}
+function confirmaPais() {
+  if (!ddi.classList.contains('editando')) return;
+  ddi.classList.remove('editando');
+  setPais(inCc.value);
+  if (inZap.value) checaZap(true);
+}
+ddi.addEventListener('click', editaPais);
+ddi.addEventListener('mousedown', e => { if (ddi.classList.contains('editando') && e.target !== inCc) e.preventDefault(); });
+inCc.addEventListener('input', () => {
+  inCc.value = inCc.value.replace(/\D/g, '').slice(0, 3);
+  const p = mostraBandeira(inCc.value);
+  if (p) { confirmaPais(); inZap.focus(); return; }   // códigos não se sobrepõem: achou, é esse
+  hintZap.textContent = inCc.value.length === 3
+    ? 'Código não encontrado. Confira o código do seu país.'
+    : 'Digite o código do seu país. Ex.: 595 Paraguai, 1 Estados Unidos, 351 Portugal.';
+});
+inCc.addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); confirmaPais(); inZap.focus(); } });
+inCc.addEventListener('blur', confirmaPais);
+
 function checaZap(mostrarErro) {
-  const z = zapBR(inZap.value);
-  inZap.value = fmtZap(z.d);
+  let z;
+  const raw = inZap.value.trim();
+  const dig = raw.replace(/\D/g, '');
+  const p = raw.startsWith('+') ? T.separaPais(dig) : null;
+  if (raw.startsWith('+') && !p) {
+    // ainda digitando o +código (ou código que não existe)
+    inZap.value = '+' + dig.slice(0, 3);
+    z = { d: '', erro: 'Código do país não reconhecido. Toque na bandeira e escolha o país.' };
+  } else {
+    if (p) { if (p.cc !== PAIS) setPais(p.cc); inZap.value = p.resto; }   // colou/preencheu com +código
+    z = PAIS === '55' ? T.br(inZap.value) : T.intl(PAIS, inZap.value);
+    inZap.value = PAIS === '55' ? T.fmtBR(z.d) : T.fmtIntl(PAIS, z.d);
+  }
   boxZap.classList.toggle('valid', !z.erro);
   if (mostrarErro) {
     $('err-whatsapp').textContent = z.erro;
@@ -525,7 +585,7 @@ $('form').addEventListener('submit', async e => {
 
   const nome   = $('nome').value.trim();
   const zapChk = checaZap(true);
-  const zap    = zapChk.d;
+  const zap    = T.paraSalvar(PAIS, zapChk.d);
   const email  = $('email').value.trim();
   const uf     = selUf.value;
   const cidade = inpCidade.value.trim();
@@ -559,7 +619,7 @@ $('form').addEventListener('submit', async e => {
     return;
   }
 
-  $('doneZap').textContent = fmtZap(zap);
+  $('doneZap').textContent = PAIS === '55' ? T.fmtBR(zapChk.d) : `+${PAIS} ${T.fmtIntl(PAIS, zapChk.d)}`;
   $('cardForm').style.display = 'none';
   $('done').classList.add('on');
   const h1 = document.querySelector('.hero h1');
