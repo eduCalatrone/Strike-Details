@@ -15,7 +15,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Jost:wght@400;500&family=Great+Vibes&display=swap" rel="stylesheet">
-<link rel="preload" as="image" href="/media/poster.jpg">
+
 <style>
   html, body { margin: 0; height: 100%; background: #1E1710; }
   * { -webkit-tap-highlight-color: transparent; }
@@ -42,7 +42,7 @@
 <body>
 <div id="root" style="position: relative; width: 100%; height: 100vh; height: 100dvh; min-height: 620px; overflow: hidden; background: #2B241C; font-family: 'Jost', system-ui, sans-serif; color: #FFFFFF">
 
-<video id="video" src="/media/praia-1080.mp4" poster="/media/poster.jpg" muted loop playsinline preload="auto" aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 100%; height: 100%; object-fit: cover; object-position: 49% 60%; display: block"></video>
+<video id="video" muted loop playsinline preload="auto" aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 100%; height: 100%; object-fit: cover; object-position: 49% 60%; display: block"></video>
 
 <canvas id="canvas" aria-hidden="true" data-tpl-style="position: absolute; left: 0; top: 0; width: 100%; height: 100%; display: block; opacity: {{canvasOpacity}}; transition: opacity 0.8s ease"></canvas>
 
@@ -157,7 +157,9 @@ class Component extends DCLogic {
   media() {
     return {
       v1080: '/media/praia-1080.mp4',
-      v720: '/media/praia-720.mp4',
+      vertical: '/media/praia-vertical.mp4',
+      posterVertical: '/media/poster-vertical.jpg',
+      poster: '/media/poster.jpg',
       music: '/media/musica.m4a'
     };
   }
@@ -175,8 +177,20 @@ class Component extends DCLogic {
       v.muted = true;
       v.defaultMuted = true;
       v.setAttribute('muted', '');
-      const small = Math.min(window.innerWidth, window.innerHeight) < 700 || window.innerWidth < 900;
-      if (small) v.src = this.media().v720;
+      // Celular em pé: vídeo vertical próprio (arco nítido em 1080x1920); deitado ou computador: 1080p.
+      const escolher = () => {
+        const m = this.media(), emPe = window.innerHeight > window.innerWidth;
+        const src = emPe ? m.vertical : m.v1080;
+        if (this.srcAtual === src) return;
+        this.srcAtual = src; this.localTried = false; this.glBlocked = false; this.hasFrame = false;
+        v.poster = emPe ? m.posterVertical : m.poster;
+        v.src = src; this.playVideo();
+      };
+      escolher();
+      if (window.matchMedia) {
+        const mq = window.matchMedia('(orientation: portrait)');
+        if (mq.addEventListener) mq.addEventListener('change', escolher); else if (mq.addListener) mq.addListener(escolher);
+      }
       this.playVideo();
     }
     this.initScene();
@@ -286,7 +300,7 @@ void main(){
   float vg = length((uv - vec2(0.5, 0.52))*vec2(asp*0.8, 1.0));
   col *= 1.0 - 0.34*smoothstep(0.35, 1.15, vg);
   col = min(col, vec3(0.8)) + 0.2*(1.0 - exp(-max(col - 0.8, 0.0)/0.2));
-  col += (hash(gl_FragCoord.xy + fract(t*7.0)*91.0) - 0.5) * 0.04;
+  col += (hash(gl_FragCoord.xy + fract(t*7.0)*91.0) - 0.5) * 0.018;
   gl_FragColor = vec4(clamp(col, 0.0, 1.0), 1.0);
 }`;
   }
@@ -371,7 +385,7 @@ void main(){
     if (!cv || !gl) return;
     const r = cv.getBoundingClientRect();
     if (!r.width || !r.height) return;
-    const d = Math.min(window.devicePixelRatio || 1, 1.75) * this.quality;
+    const d = Math.min(window.devicePixelRatio || 1, 2) * this.quality;
     const W = Math.max(2, Math.round(r.width * d)), H = Math.max(2, Math.round(r.height * d));
     if (cv.width !== W || cv.height !== H) { cv.width = W; cv.height = H; }
     this.dpr = W / r.width;
@@ -387,8 +401,8 @@ void main(){
     if (this.last) {
       const dt = now - this.last;
       this.ema = this.ema ? this.ema * 0.95 + dt * 0.05 : dt;
-      if (!this.fixedQuality && now - this.t0 > 2500 && this.ema > 34 && this.quality > 0.55 && now - (this.lastAdapt || 0) > 1500) {
-        this.quality *= 0.8; this.lastAdapt = now; this.resize();
+      if (!this.fixedQuality && now - this.t0 > 2500 && this.ema > 40 && this.quality > 0.8 && now - (this.lastAdapt || 0) > 1500) {
+        this.quality = Math.max(0.8, this.quality * 0.9); this.lastAdapt = now; this.resize();
       }
     }
     this.last = now;
