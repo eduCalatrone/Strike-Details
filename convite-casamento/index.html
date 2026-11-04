@@ -1,0 +1,701 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Petherson &amp; Anna · Convite de casamento</title>
+<meta name="description" content="Você recebeu um convite especial de Petherson e Anna.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Petherson &amp; Anna · Convite de casamento">
+<meta property="og:description" content="Você recebeu um convite especial. Toque para abrir.">
+<meta property="og:image" content="/media/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="theme-color" content="#1E1710">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Jost:wght@400;500&family=Great+Vibes&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="/media/poster.jpg">
+<style>
+  html, body { margin: 0; height: 100%; background: #1E1710; }
+  * { -webkit-tap-highlight-color: transparent; }
+  button:focus-visible { outline: 2px solid #F6EBDD; outline-offset: 3px; }
+  button[disabled] { opacity: 0.6; cursor: default; }
+  .link { background: none; border: 0; padding: 10px 12px; min-height: 44px; font-family: 'Jost', sans-serif; font-size: 14px; letter-spacing: 0.06em; color: #EADBC6; text-decoration: underline; text-underline-offset: 4px; cursor: pointer; text-shadow: 0 1px 8px rgba(0, 0, 0, 0.5); }
+</style>
+</head>
+<body>
+<div id="root" style="position: relative; width: 100%; height: 100vh; height: 100dvh; min-height: 620px; overflow: hidden; background: #2B241C; font-family: 'Jost', system-ui, sans-serif; color: #FFFFFF">
+
+<video id="video" src="/media/praia-1080.mp4" poster="/media/poster.jpg" muted loop playsinline preload="auto" aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 100%; height: 100%; object-fit: cover; object-position: 49% 60%; display: block"></video>
+
+<canvas id="canvas" aria-hidden="true" data-tpl-style="position: absolute; left: 0; top: 0; width: 100%; height: 100%; display: block; opacity: {{canvasOpacity}}; transition: opacity 0.8s ease"></canvas>
+
+<div aria-hidden="true" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; background: radial-gradient(ellipse 85% 75% at 50% 42%, rgba(0, 0, 0, 0) 55%, rgba(12, 8, 4, 0.5) 100%); pointer-events: none"></div>
+<div aria-hidden="true" style="position: absolute; left: 0; right: 0; bottom: 0; height: 62%; background: linear-gradient(180deg, rgba(22, 15, 9, 0) 0%, rgba(22, 15, 9, 0.36) 40%, rgba(16, 11, 7, 0.8) 100%); pointer-events: none"></div>
+
+<!-- CONVITE -->
+<main data-tpl-style="position: absolute; left: 0; right: 0; bottom: 0; box-sizing: border-box; padding: 0 20px max(28px, 5vh); padding-bottom: max(28px, 5vh, env(safe-area-inset-bottom)); display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center; opacity: {{contentOpacity}}; transform: translateY({{contentShift}}); transition: opacity 1.8s ease 0.9s, transform 2.2s ease 0.9s">
+<p data-if="temConvidados" style="margin: 0; font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 500; font-size: clamp(24px, 3.6vw, 34px); line-height: 1.15; color: #F6EBDD; text-shadow: 0 1px 12px rgba(0, 0, 0, 0.45)"><span data-t="convidados"></span>,</p>
+<h1 style="margin: 0; font-family: 'Great Vibes', cursive; font-weight: 400; font-size: clamp(46px, 12.5vw, 116px); line-height: 1.05; white-space: nowrap; word-spacing: 0.12em; color: #FFFFFF; text-shadow: 0 0 28px rgba(255, 214, 160, 0.45), 0 2px 18px rgba(0, 0, 0, 0.4)">Petherson &amp; Anna</h1>
+<p style="margin: 0; max-width: 620px; font-family: 'Cormorant Garamond', serif; font-weight: 500; font-size: clamp(20px, 2.6vw, 26px); line-height: 1.3; color: #F6EBDD; text-shadow: 0 1px 12px rgba(0, 0, 0, 0.5)">
+<span data-if="ehPadrinhos">convidam vocês para serem nossos padrinhos</span>
+<span data-if="ehConvidados">convidam vocês para celebrar o nosso casamento</span>
+<span data-if="semConvidados">vão se casar e querem você por perto</span>
+</p>
+<div style="margin-top: 4px; display: flex; flex-direction: column; gap: 3px; font-size: 13px; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase; color: #EADBC6; text-shadow: 0 1px 8px rgba(0, 0, 0, 0.5)">
+<span>14 de março de 2027 · 16h30</span>
+<span>Praia dos Coqueiros · [Cidade, UF]</span>
+</div>
+
+<div data-if="podeResponder" style="margin-top: 12px; min-height: 96px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px">
+<div data-if="semResposta" style="display: flex; flex-direction: column; align-items: center; gap: 4px">
+<button data-on="aceitar" data-tpl-disabled="{{enviando}}" style="min-height: 52px; padding: 0 34px; border: 0; border-radius: 999px; background: #F6EBDD; color: #2B2016; font-family: 'Jost', sans-serif; font-size: 14px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; cursor: pointer; box-shadow: 0 0 30px rgba(255, 214, 160, 0.3), 0 10px 24px rgba(0, 0, 0, 0.3)">
+<span data-if="ehPadrinhos">Aceitamos o convite</span><span data-if="ehConvidados">Confirmar presença</span>
+</button>
+<button class="link" data-on="recusar" data-tpl-disabled="{{enviando}}">Infelizmente não poderemos ir</button>
+</div>
+<div data-if="respondeuSim" style="display: flex; flex-direction: column; align-items: center; gap: 2px">
+<p style="margin: 0; font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 600; font-size: 26px; color: #FFFFFF; text-shadow: 0 1px 12px rgba(0, 0, 0, 0.5)">Que alegria! Recebemos a sua confirmação.</p>
+<button class="link" data-on="alterar">Alterar resposta</button>
+</div>
+<div data-if="respondeuNao" style="display: flex; flex-direction: column; align-items: center; gap: 2px">
+<p style="margin: 0; font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 600; font-size: 26px; color: #FFFFFF; text-shadow: 0 1px 12px rgba(0, 0, 0, 0.5)">Que pena! Obrigado por nos avisar.</p>
+<button class="link" data-on="alterar">Alterar resposta</button>
+</div>
+<p data-if="erro" role="alert" style="margin: 0; font-size: 14px; color: #FFD9C7; text-shadow: 0 1px 8px rgba(0, 0, 0, 0.6)">Não foi possível enviar agora. Verifique a internet e tente de novo.</p>
+</div>
+</main>
+
+<!-- SOM -->
+<button data-if="showSom" data-on="toggleSom" data-tpl-aria-label="{{somLabel}}" style="position: absolute; right: 16px; top: max(16px, env(safe-area-inset-top)); width: 48px; height: 48px; padding: 0; display: flex; align-items: center; justify-content: center; border-radius: 999px; border: 1px solid rgba(255, 255, 255, 0.45); background: rgba(30, 22, 14, 0.42); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); cursor: pointer">
+<svg data-if="notMuted" aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z"/><path d="M15.5 9a4 4 0 0 1 0 6"/><path d="M18 6.5a7.500 7.500 0 0 1 0 11"/></svg>
+<svg data-if="muted" aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z"/><path d="M16 9.5l5 5M21 9.5l-5 5"/></svg>
+</button>
+
+<!-- ABERTURA -->
+<div data-tpl-style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; box-sizing: border-box; padding: 24px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 18px; text-align: center; background: linear-gradient(180deg, rgba(30, 22, 14, 0.42) 0%, rgba(24, 17, 11, 0.6) 55%, rgba(18, 13, 8, 0.74) 100%); backdrop-filter: blur(16px) saturate(1.1); -webkit-backdrop-filter: blur(16px) saturate(1.1); opacity: {{overlayOpacity}}; visibility: {{overlayVis}}; pointer-events: {{overlayPE}}; transition: opacity 1.6s ease, visibility 0s linear 1.6s">
+<div data-if="naoEncontrado" style="display: flex; flex-direction: column; align-items: center; gap: 14px; max-width: 420px">
+<p style="margin: 0; font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 500; font-size: 40px; line-height: 1.1">Convite não encontrado</p>
+<p style="margin: 0; font-size: 16px; line-height: 1.5; color: #EDE3D3">Confira se o link está completo, do jeito que os noivos enviaram.</p>
+</div>
+<div data-if="mostrarAbrir" style="display: flex; flex-direction: column; align-items: center; gap: 18px">
+<p style="margin: 0; font-size: 13px; font-weight: 500; letter-spacing: 0.34em; text-transform: uppercase; color: #F1E6D4"><span data-if="temConvidados">Um convite especial para</span><span data-if="semConvidados">Você recebeu um convite</span></p>
+<p style="margin: 0; font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 500; font-size: clamp(42px, 8vw, 76px); line-height: 1.05; color: #FFFFFF"><span data-if="temConvidados" data-t="convidados"></span><span data-if="semConvidados">Petherson &amp; Anna</span></p>
+<div style="width: 56px; height: 1px; background: rgba(255, 255, 255, 0.6)"></div>
+<button data-on="abrir" data-tpl-disabled="{{carregando}}" style="min-height: 52px; padding: 0 36px; border: 1px solid rgba(255, 255, 255, 0.85); border-radius: 999px; background: rgba(255, 255, 255, 0.14); color: #FFFFFF; font-family: 'Jost', sans-serif; font-size: 14px; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase; cursor: pointer"><span data-t="abrirLabel"></span></button>
+<p style="margin: 0; display: flex; align-items: center; gap: 8px; font-size: 14px; color: #EDE3D3">
+<svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#EDE3D3" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z"/><path d="M15.5 9a4 4 0 0 1 0 6"/><path d="M18 6.5a7.500 7.500 0 0 1 0 11"/></svg>
+Ative o som para ouvir o mar
+</p>
+</div>
+</div>
+
+</div>
+
+<script>
+class DCLogic {
+  constructor(props) { this.props = props || {}; this.state = {}; }
+  setState(s) { Object.assign(this.state, s); if (window.__renderConvite) window.__renderConvite(); }
+}
+
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { opened: false, muted: true, confirmed: false, glReady: false };
+    this.setCanvas = (el) => { this.cv = el; };
+    this.setRoot = (el) => { this.root = el; };
+    this.setVideo = (el) => { this.video = el; };
+    this.abrir = () => {
+      this.setState({ opened: true, muted: false });
+      this.playVideo();
+      this.startAudio();
+    };
+    this.toggleSom = () => {
+      if (this.state.muted) { this.setState({ muted: false }); this.startAudio(); }
+      else { this.setState({ muted: true }); this.setMaster(0); }
+    };
+    this.confirmar = () => this.setState({ confirmed: true });
+    this.loop = this.loop.bind(this);
+  }
+
+  /* Arquivos: vídeo em 1080p (computador) e 720p (celular), e a música de fundo. */
+  media() {
+    return {
+      v1080: '/media/praia-1080.mp4',
+      v720: '/media/praia-720.mp4',
+      music: '/media/musica.m4a'
+    };
+  }
+
+  /* Enquadramento: ponto de foco do arco, e no celular quanto da largura do vídeo aparece e onde fica a base dele. */
+  scene() {
+    return { focus: [0.49, 0.58], fitWidth: 0.64, fitBottom: 0.62, sun: [0.05, 0.0], glow: 0.55, bloom: 0.55, warm: 0.3, contrast: 1.05, expo: 1.0 };
+  }
+
+  isOpen() { return this.state.opened || this.props.abertura === false; }
+
+  componentDidMount() {
+    const v = this.video;
+    if (v) {
+      v.muted = true;
+      v.defaultMuted = true;
+      v.setAttribute('muted', '');
+      const small = Math.min(window.innerWidth, window.innerHeight) < 700 || window.innerWidth < 900;
+      if (small) v.src = this.media().v720;
+      this.playVideo();
+    }
+    this.initScene();
+  }
+  componentWillUnmount() {
+    this.dead = true;
+    cancelAnimationFrame(this.raf);
+    clearTimeout(this.gullT);
+    clearTimeout(this.musicT);
+    if (this.ro) this.ro.disconnect();
+    if (this.objUrl) URL.revokeObjectURL(this.objUrl);
+    if (this.audio) { try { this.audio.ctx.close(); } catch (e) {} }
+  }
+
+  playVideo() {
+    const v = this.video;
+    if (!v) return;
+    const p = v.play();
+    if (p && p.catch) p.catch(() => {});
+  }
+
+  fragSrc() {
+    return `precision highp float;
+uniform sampler2D uTex;
+uniform vec2 uRes, uOff, uSize, uTexel, uSun;
+uniform float uTime, uDpr, uWarm, uImgAsp, uGlowK, uBloomK, uContrast, uExpo;
+
+float hash(vec2 p){ vec3 p3 = fract(vec3(p.xyx) * 0.1031); p3 += dot(p3, p3.yzx + 33.33); return fract((p3.x + p3.y) * p3.z); }
+
+vec3 tap(vec2 q){ return texture2D(uTex, clamp(q, vec2(0.001), vec2(0.999))).rgb; }
+
+/* fora do quadro do vídeo (celular em pé): espelha o mar e a areia e desfoca */
+vec3 samp(vec2 q){
+  float over = 0.0;
+  if (q.y < 0.0) {
+    over = -q.y;
+    vec3 mir = tap(vec2(q.x, min(over, 0.06)));
+    vec3 haze = vec3(0.0);
+    for (int i = 0; i < 8; i++){
+      float fx = (float(i) - 3.5) / 3.5;
+      haze += tap(vec2(q.x + fx*0.16, 0.012 + 0.03*abs(fx))) * 0.125;
+    }
+    vec3 c = mix(mir, haze, smoothstep(0.0, 0.07, over));
+    return c * (1.0 - min(over*0.6, 0.35));
+  }
+  else if (q.y > 1.0) { over = q.y - 1.0; q.y = 2.0 - q.y; }
+  if (over <= 0.0) return tap(q);
+  float r = min(over*0.14, 0.06);
+  vec3 c = tap(q)*0.2;
+  for (int i = 0; i < 8; i++){
+    float a = float(i)*0.785398 + 0.4;
+    c += tap(q + vec2(cos(a), sin(a)*uImgAsp)*r)*0.1;
+  }
+  return c * (1.0 - min(over*0.9, 0.5));
+}
+
+void main(){
+  vec2 uv = gl_FragCoord.xy / uRes;
+  float asp = uRes.x / uRes.y;
+  vec2 iuv = uOff + vec2(uv.x, 1.0 - uv.y) * uSize;
+  float t = uTime;
+  vec3 col = samp(iuv);
+
+  /* brilho nas luzes fortes (reflexos do sol na água) */
+  vec3 bl = vec3(0.0);
+  for (int i = 0; i < 8; i++){
+    float a = float(i)*0.785398 + 0.3;
+    vec2 o = vec2(cos(a), sin(a)) * uTexel;
+    bl += max(tap(iuv + o*5.0) - 0.7, 0.0) + max(tap(iuv + o*14.0) - 0.68, 0.0)*0.7;
+  }
+  col += bl / 8.0 * vec3(1.0, 0.85, 0.62) * 1.3 * uBloomK;
+
+  /* sol baixo de fim de tarde e vazamentos de luz */
+  vec2 sv = (iuv - uSun) * vec2(uImgAsp, 1.0);
+  float sd = length(sv);
+  float glow = (exp(-sd*2.6)*0.22 + exp(-sd*8.0)*0.12) * uGlowK * (1.0 + 0.06*sin(t*0.45));
+  vec3 warmC = vec3(1.0, 0.72, 0.42);
+  col += warmC * glow;
+  vec2 l1 = vec2(0.06 + 0.05*sin(t*0.071), 0.92 + 0.05*sin(t*0.053 + 1.0));
+  vec2 l2 = vec2(0.96 + 0.03*sin(t*0.061 + 2.0), 0.2 + 0.12*sin(t*0.043));
+  float leak1 = exp(-length((uv - l1)*vec2(asp, 1.0))*2.4);
+  float leak2 = exp(-length((uv - l2)*vec2(asp, 1.0))*3.2);
+  col += vec3(1.0, 0.55, 0.25) * leak1 * (0.16 + 0.05*sin(t*0.31));
+  col += vec3(1.0, 0.45, 0.5) * leak2 * (0.06 + 0.03*sin(t*0.27 + 1.0));
+
+  /* poeira dourada no ar */
+  vec2 css = gl_FragCoord.xy / uDpr;
+  float motes = 0.0;
+  for (int k = 0; k < 3; k++){
+    float fl = float(k);
+    float cell = 110.0 + fl*80.0;
+    vec2 p = css + vec2(sin(t*0.18 + fl*2.0)*24.0 + t*(2.0 + fl), -t*(5.0 + fl*4.0));
+    vec2 id = floor(p / cell);
+    vec2 f = fract(p / cell) - 0.5;
+    float r = hash(id + fl*13.1);
+    vec2 c = (vec2(hash(id + 1.3 + fl), hash(id + 2.7 + fl)) - 0.5) * 0.7;
+    float sz = (0.012 + 0.03*hash(id + 4.1)) * (1.0 + fl*0.7);
+    float tw = 0.5 + 0.5*sin(t*(0.5 + r) + r*30.0);
+    motes += step(0.64, r) * smoothstep(sz, sz*0.25, length(f - c)) * tw * (0.2 - fl*0.05);
+  }
+  col += vec3(1.0, 0.88, 0.68) * motes * (0.35 + 1.5*glow + 0.8*leak1);
+
+  /* cor, vinheta, contraste suave e grão de filme */
+  col = ((col - 0.5)*uContrast + 0.5) * uExpo;
+  float lumC = dot(col, vec3(0.299, 0.587, 0.114));
+  col = mix(col, col*vec3(1.05, 1.0, 0.93) + vec3(0.025, 0.012, 0.0)*lumC, uWarm);
+  float vg = length((uv - vec2(0.5, 0.52))*vec2(asp*0.8, 1.0));
+  col *= 1.0 - 0.34*smoothstep(0.35, 1.15, vg);
+  col = min(col, vec3(0.8)) + 0.2*(1.0 - exp(-max(col - 0.8, 0.0)/0.2));
+  col += (hash(gl_FragCoord.xy + fract(t*7.0)*91.0) - 0.5) * 0.04;
+  gl_FragColor = vec4(clamp(col, 0.0, 1.0), 1.0);
+}`;
+  }
+
+  initScene() {
+    const cv = this.cv;
+    if (!cv || !this.video) return;
+    const gl = cv.getContext('webgl', { antialias: false, alpha: false });
+    if (!gl) return;
+    const mk = (type, src) => {
+      const s = gl.createShader(type); gl.shaderSource(s, src); gl.compileShader(s);
+      if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) { console.warn(gl.getShaderInfoLog(s)); return null; }
+      return s;
+    };
+    const vs = mk(gl.VERTEX_SHADER, 'attribute vec2 p; void main(){ gl_Position = vec4(p, 0.0, 1.0); }');
+    const fs = mk(gl.FRAGMENT_SHADER, this.fragSrc());
+    if (!vs || !fs) return;
+    const pr = gl.createProgram(); gl.attachShader(pr, vs); gl.attachShader(pr, fs); gl.linkProgram(pr);
+    if (!gl.getProgramParameter(pr, gl.LINK_STATUS)) { console.warn(gl.getProgramInfoLog(pr)); return; }
+    gl.useProgram(pr);
+    const buf = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), gl.STATIC_DRAW);
+    const loc = gl.getAttribLocation(pr, 'p'); gl.enableVertexAttribArray(loc); gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
+    this.u = {};
+    ['uTex', 'uRes', 'uOff', 'uSize', 'uTexel', 'uSun', 'uTime', 'uDpr', 'uWarm', 'uImgAsp', 'uGlowK', 'uBloomK', 'uContrast', 'uExpo']
+      .forEach((k) => { this.u[k] = gl.getUniformLocation(pr, k); });
+    this.tex = gl.createTexture();
+    gl.bindTexture(gl.TEXTURE_2D, this.tex);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+    gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, false);
+    gl.uniform1i(this.u.uTex, 0);
+    this.gl = gl;
+    this.quality = 1;
+    this.t0 = performance.now();
+    this.reduced = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+    this.resize();
+    if (window.ResizeObserver) { this.ro = new ResizeObserver(() => this.resize()); this.ro.observe(cv); }
+    else window.addEventListener('resize', () => this.resize());
+    this.raf = requestAnimationFrame(this.loop);
+  }
+
+  /* Se o navegador não deixar usar o vídeo direto no efeito, baixa o arquivo e usa uma cópia local. */
+  useLocalCopy() {
+    if (this.localTried || !window.fetch) { this.glBlocked = true; return; }
+    this.localTried = true;
+    const v = this.video;
+    const src = v.currentSrc || v.src;
+    fetch(src)
+      .then((r) => (r.ok ? r.blob() : Promise.reject(r.status)))
+      .then((b) => {
+        if (this.dead) return;
+        this.objUrl = URL.createObjectURL(b);
+        v.src = this.objUrl;
+        this.playVideo();
+      })
+      .catch(() => { this.glBlocked = true; });
+  }
+
+  uploadFrame() {
+    const gl = this.gl, v = this.video;
+    if (this.glBlocked || !v || v.readyState < 2 || !v.videoWidth) return false;
+    if (this.lastVT === v.currentTime && this.hasFrame) return true;
+    try {
+      gl.bindTexture(gl.TEXTURE_2D, this.tex);
+      gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, v);
+    } catch (e) {
+      this.hasFrame = false;
+      this.useLocalCopy();
+      return false;
+    }
+    this.lastVT = v.currentTime;
+    this.iw = v.videoWidth; this.ih = v.videoHeight;
+    if (!this.hasFrame) { this.hasFrame = true; this.setState({ glReady: true }); }
+    return true;
+  }
+
+  resize() {
+    const cv = this.cv, gl = this.gl;
+    if (!cv || !gl) return;
+    const r = cv.getBoundingClientRect();
+    if (!r.width || !r.height) return;
+    const d = Math.min(window.devicePixelRatio || 1, 1.75) * this.quality;
+    const W = Math.max(2, Math.round(r.width * d)), H = Math.max(2, Math.round(r.height * d));
+    if (cv.width !== W || cv.height !== H) { cv.width = W; cv.height = H; }
+    this.dpr = W / r.width;
+    gl.viewport(0, 0, W, H);
+  }
+
+  loop(now) {
+    if (this.dead) return;
+    this.raf = requestAnimationFrame(this.loop);
+    const gl = this.gl;
+    if (!gl || document.hidden) return;
+    if (!this.uploadFrame()) return;
+    if (this.last) {
+      const dt = now - this.last;
+      this.ema = this.ema ? this.ema * 0.95 + dt * 0.05 : dt;
+      if (!this.fixedQuality && now - this.t0 > 2500 && this.ema > 34 && this.quality > 0.55 && now - (this.lastAdapt || 0) > 1500) {
+        this.quality *= 0.8; this.lastAdapt = now; this.resize();
+      }
+    }
+    this.last = now;
+    const sc = this.scene();
+    const t = (now - this.t0) / 1000 * (this.reduced ? 0.35 : 1);
+
+    if (this.isOpen() && !this.openAt) this.openAt = now;
+    const k = this.openAt ? Math.min(1, (now - this.openAt) / 6000) : 0;
+    const settle = 1 - Math.pow(1 - k, 3);
+    const zoom = 1.0 + 0.07 * (1 - settle) + 0.02 * (0.5 - 0.5 * Math.cos(t * 6.2832 / 40));
+
+    const W = this.cv.width, H = this.cv.height;
+    const sA = W / H, iA = this.iw / this.ih;
+    const clamp01 = (x, m) => Math.min(1 - m, Math.max(0, x));
+    let sx, sy, ox, oy;
+    if (sA < iA && sA / iA < sc.fitWidth) {
+      sx = sc.fitWidth / zoom;
+      sy = sx * iA / sA;
+      ox = clamp01(sc.focus[0] - sx / 2, sx);
+      oy = 1 - sc.fitBottom * sy;
+    } else {
+      sx = 1; sy = 1;
+      if (sA > iA) sy = iA / sA; else sx = sA / iA;
+      sx /= zoom; sy /= zoom;
+      ox = clamp01(sc.focus[0] - sx / 2, sx);
+      oy = clamp01(sc.focus[1] - sy / 2, sy);
+    }
+
+    const u = this.u;
+    gl.uniform2f(u.uRes, W, H);
+    gl.uniform2f(u.uOff, ox, oy);
+    gl.uniform2f(u.uSize, sx, sy);
+    gl.uniform2f(u.uTexel, 1 / this.iw, 1 / this.ih);
+    gl.uniform2f(u.uSun, sc.sun[0], sc.sun[1]);
+    gl.uniform1f(u.uTime, t);
+    gl.uniform1f(u.uDpr, this.dpr || 1);
+    gl.uniform1f(u.uWarm, sc.warm);
+    gl.uniform1f(u.uImgAsp, iA);
+    gl.uniform1f(u.uGlowK, sc.glow);
+    gl.uniform1f(u.uBloomK, sc.bloom);
+    gl.uniform1f(u.uContrast, sc.contrast);
+    gl.uniform1f(u.uExpo, sc.expo);
+    gl.activeTexture(gl.TEXTURE0);
+    gl.bindTexture(gl.TEXTURE_2D, this.tex);
+    gl.drawArrays(gl.TRIANGLES, 0, 3);
+    if (this.audio && now - (this.lastAudio || 0) > 45) { this.lastAudio = now; this.updateAudio(t); }
+  }
+
+  setMaster(v) {
+    const A = this.audio;
+    if (!A) return;
+    A.master.gain.setTargetAtTime(v, A.ctx.currentTime, 0.25);
+  }
+
+  startAudio() {
+    if (this.audio) {
+      if (this.audio.ctx.state === 'suspended') this.audio.ctx.resume();
+      this.setMaster(0.9);
+      return;
+    }
+    const AC = window.AudioContext || window.webkitAudioContext;
+    if (!AC) return;
+    const ctx = new AC();
+    const sr = ctx.sampleRate;
+    const mkBuf = (secs, fill) => {
+      const b = ctx.createBuffer(2, Math.floor(sr * secs), sr);
+      for (let c = 0; c < 2; c++) fill(b.getChannelData(c));
+      return b;
+    };
+    const brown = mkBuf(8, (d) => { let l = 0; for (let i = 0; i < d.length; i++) { const w = Math.random() * 2 - 1; l = (l + 0.02 * w) / 1.02; d[i] = l * 3.5; } });
+    const pink = mkBuf(8, (d) => {
+      let b0 = 0, b1 = 0, b2 = 0, b3 = 0, b4 = 0, b5 = 0, b6 = 0;
+      for (let i = 0; i < d.length; i++) {
+        const w = Math.random() * 2 - 1;
+        b0 = 0.99886 * b0 + w * 0.0555179; b1 = 0.99332 * b1 + w * 0.0750759; b2 = 0.969 * b2 + w * 0.153852;
+        b3 = 0.8665 * b3 + w * 0.3104856; b4 = 0.55 * b4 + w * 0.5329522; b5 = -0.7616 * b5 - w * 0.016898;
+        d[i] = (b0 + b1 + b2 + b3 + b4 + b5 + b6 + w * 0.5362) * 0.11; b6 = w * 0.115926;
+      }
+    });
+    const src = (b, off) => { const s = ctx.createBufferSource(); s.buffer = b; s.loop = true; s.start(0, off); return s; };
+    const filt = (type, f, q) => { const n = ctx.createBiquadFilter(); n.type = type; n.frequency.value = f; if (q) n.Q.value = q; return n; };
+    const gain = (v) => { const g = ctx.createGain(); g.gain.value = v; return g; };
+    const chain = (nodes) => { for (let i = 0; i < nodes.length - 1; i++) nodes[i].connect(nodes[i + 1]); };
+
+    const master = gain(0);
+    const comp = ctx.createDynamicsCompressor();
+    chain([master, comp, ctx.destination]);
+
+    /* mar suave ao fundo */
+    const sea = gain(0.62);
+    sea.connect(master);
+    const bedF = filt('lowpass', 190), bedG = gain(0.42);
+    chain([src(brown, 3.1), bedF, bedG, sea]);
+    const rumF = filt('lowpass', 260), rumG = gain(0);
+    chain([src(brown, 0.4), rumF, rumG, sea]);
+    const washH = filt('highpass', 380), washF = filt('lowpass', 1200, 0.4), washG = gain(0);
+    const pan = ctx.createStereoPanner ? ctx.createStereoPanner() : null;
+    if (pan) chain([src(pink, 1.7), washH, washF, washG, pan, sea]);
+    else chain([src(pink, 1.7), washH, washF, washG, sea]);
+
+    /* música de fundo: volume baixo e agudos suavizados */
+    const musicLp = filt('lowpass', 9000, 0.5);
+    const music = gain(0.36);
+    chain([musicLp, music, master]);
+
+    this.audio = { ctx, master, rumF, rumG, washF, washG, pan, musicIn: musicLp };
+    if (ctx.state === 'suspended') ctx.resume();
+    this.setMaster(0.9);
+    this.scheduleGull();
+    this.loadMusic();
+  }
+
+  loadMusic() {
+    const A = this.audio;
+    if (!A || !window.fetch) return;
+    fetch(this.media().music)
+      .then((r) => (r.ok ? r.arrayBuffer() : Promise.reject(r.status)))
+      .then((ab) => new Promise((res, rej) => A.ctx.decodeAudioData(ab, res, rej)))
+      .then((buf) => { if (!this.dead) { A.musicBuf = buf; this.playMusic(1.2); } })
+      .catch((e) => console.warn('música', e));
+  }
+
+  /* Toca a faixa inteira, faz uma pausa de 8 s ouvindo só o mar e recomeça. */
+  playMusic(delay) {
+    const A = this.audio;
+    if (!A || !A.musicBuf || this.dead) return;
+    const s = A.ctx.createBufferSource();
+    s.buffer = A.musicBuf;
+    s.connect(A.musicIn);
+    s.start(A.ctx.currentTime + delay);
+    clearTimeout(this.musicT);
+    this.musicT = setTimeout(() => this.playMusic(0.1), (delay + A.musicBuf.duration + 8) * 1000);
+  }
+
+  waveAt(t) {
+    const T = 9.0;
+    const cyc = Math.floor(t / T), ph = t / T - cyc;
+    const amp = 0.78 + 0.22 * Math.sin(cyc * 2.17 + 1.0);
+    return { ph, amp };
+  }
+
+  updateAudio(t) {
+    const A = this.audio, now = A.ctx.currentTime;
+    const wv = this.waveAt(t);
+    const sm = (a, b, x) => { const q = Math.min(1, Math.max(0, (x - a) / (b - a))); return q * q * (3 - 2 * q); };
+    const ph = wv.ph;
+    const cd = Math.min(Math.abs(ph - 0.02), 1 - Math.abs(ph - 0.02));
+    const crash = Math.exp(-Math.pow(cd / 0.075, 2));
+    const rush = sm(0.0, 0.06, ph) * (1 - sm(0.16, 0.34, ph));
+    const fizz = sm(0.26, 0.4, ph) * (1 - sm(0.62, 0.92, ph));
+    A.rumG.gain.setTargetAtTime((0.15 + 0.85 * crash) * wv.amp * 0.55, now, 0.08);
+    A.rumF.frequency.setTargetAtTime(200 + 420 * crash, now, 0.1);
+    A.washG.gain.setTargetAtTime((0.03 + 0.28 * rush + 0.14 * fizz) * wv.amp, now, 0.1);
+    A.washF.frequency.setTargetAtTime(700 + 2400 * rush + 1200 * fizz, now, 0.12);
+    if (A.pan) A.pan.pan.setTargetAtTime(Math.sin(ph * 6.283) * 0.25, now, 0.2);
+  }
+
+  scheduleGull() {
+    clearTimeout(this.gullT);
+    this.gullT = setTimeout(() => {
+      if (this.dead) return;
+      if (this.audio && !this.state.muted) this.gull();
+      this.scheduleGull();
+    }, 20000 + Math.random() * 25000);
+  }
+
+  gull() {
+    const A = this.audio, ctx = A.ctx;
+    const t0 = ctx.currentTime + 0.05;
+    const n = 2 + Math.floor(Math.random() * 3);
+    const base = 1250 + Math.random() * 250;
+    const bp = ctx.createBiquadFilter(); bp.type = 'bandpass'; bp.frequency.value = 2100; bp.Q.value = 1.2;
+    const out = ctx.createGain(); out.gain.value = 0.028;
+    const dl = ctx.createDelay(); dl.delayTime.value = 0.19;
+    const fb = ctx.createGain(); fb.gain.value = 0.22;
+    bp.connect(out);
+    let dest = A.master;
+    if (ctx.createStereoPanner) { const p = ctx.createStereoPanner(); p.pan.value = (Math.random() * 2 - 1) * 0.7; p.connect(A.master); dest = p; }
+    out.connect(dest); out.connect(dl); dl.connect(fb); fb.connect(dl); dl.connect(dest);
+    for (let k = 0; k < n; k++) {
+      const ts = t0 + k * (0.36 + Math.random() * 0.08);
+      const f = base * (1 - k * 0.04);
+      const o = ctx.createOscillator(); o.type = 'sawtooth';
+      o.frequency.setValueAtTime(f * 0.8, ts);
+      o.frequency.linearRampToValueAtTime(f * 1.15, ts + 0.05);
+      o.frequency.exponentialRampToValueAtTime(f * 0.62, ts + 0.32);
+      const v = ctx.createOscillator(); v.frequency.value = 32;
+      const vg = ctx.createGain(); vg.gain.value = f * 0.03;
+      v.connect(vg); vg.connect(o.frequency);
+      const g = ctx.createGain();
+      g.gain.setValueAtTime(0.0001, ts);
+      g.gain.exponentialRampToValueAtTime(1.0, ts + 0.035);
+      g.gain.exponentialRampToValueAtTime(0.0001, ts + 0.34);
+      o.connect(g); g.connect(bp);
+      o.start(ts); o.stop(ts + 0.4); v.start(ts); v.stop(ts + 0.4);
+    }
+  }
+
+  renderVals() {
+    const s = this.state;
+    const papel = this.props.papel ?? 'Padrinhos';
+    const open = this.isOpen();
+    return {
+      convidados: this.props.convidados ?? 'Carlos & Juliana',
+      ehPadrinhos: papel === 'Padrinhos',
+      ehConvidados: papel !== 'Padrinhos',
+      setCanvas: this.setCanvas,
+      setRoot: this.setRoot,
+      setVideo: this.setVideo,
+      abrir: this.abrir,
+      toggleSom: this.toggleSom,
+      confirmar: this.confirmar,
+      canvasOpacity: s.glReady ? '1' : '0',
+      contentOpacity: open ? '1' : '0',
+      contentShift: open ? '0px' : '18px',
+      overlayOpacity: open ? '0' : '1',
+      overlayVis: open ? 'hidden' : 'visible',
+      overlayPE: open ? 'none' : 'auto',
+      showSom: open,
+      muted: s.muted,
+      notMuted: !s.muted,
+      somLabel: s.muted ? 'Ligar o som do mar' : 'Desligar o som do mar',
+      confirmed: s.confirmed,
+      notConfirmed: !s.confirmed
+    };
+  }
+}
+
+
+(function () {
+  var SB_URL = 'https://afngfcclipuuptskoowh.supabase.co';
+  var SB_KEY = 'sb_publishable_erohIsYujk3va_V9v5RjRA_PnxYIzIc';
+  function rpc(fn, body) {
+    return fetch(SB_URL + '/rest/v1/rpc/' + fn, {
+      method: 'POST',
+      headers: { apikey: SB_KEY, 'Content-Type': 'application/json' },
+      body: JSON.stringify(body)
+    }).then(function (r) { return r.ok ? r.json() : Promise.reject(r.status); });
+  }
+
+  var slug = '';
+  try { slug = decodeURIComponent(location.pathname).replace(/^\/+|\/+$/g, '').toLowerCase(); } catch (e) {}
+  if (!/^[a-z0-9]+(-[a-z0-9]+)*$/.test(slug)) slug = slug ? '!invalido' : '';
+
+  var comp = new Component({ convidados: '', papel: 'Convidados', abertura: true });
+  var x = { carregando: !!slug, encontrado: false, naoEncontrado: false, resposta: null, editando: false, enviando: false, erro: false };
+
+  function responder(r) {
+    if (x.enviando) return;
+    x.enviando = true; x.erro = false; render();
+    rpc('cv_responder', { p_slug: slug, p_resposta: r })
+      .then(function (ok) {
+        x.enviando = false;
+        if (ok) { x.resposta = r; x.editando = false; } else x.erro = true;
+        render();
+      })
+      .catch(function () { x.enviando = false; x.erro = true; render(); });
+  }
+  var handlers = {
+    aceitar: function () { responder('sim'); },
+    recusar: function () { responder('nao'); },
+    alterar: function () { x.editando = true; x.erro = false; render(); }
+  };
+
+  function vals() {
+    var v = comp.renderVals();
+    var temC = !!comp.props.convidados;
+    v.temConvidados = temC;
+    v.semConvidados = !temC;
+    v.ehPadrinhos = temC && v.ehPadrinhos;
+    v.ehConvidados = temC && v.ehConvidados;
+    v.carregando = x.carregando;
+    v.abrirLabel = x.carregando ? 'Carregando…' : 'Abrir convite';
+    v.naoEncontrado = x.naoEncontrado;
+    v.mostrarAbrir = !x.naoEncontrado;
+    v.podeResponder = x.encontrado;
+    v.semResposta = x.encontrado && (!x.resposta || x.editando);
+    v.respondeuSim = x.encontrado && x.resposta === 'sim' && !x.editando;
+    v.respondeuNao = x.encontrado && x.resposta === 'nao' && !x.editando;
+    v.enviando = x.enviando;
+    v.erro = x.erro;
+    return v;
+  }
+
+  var tplEls = [];
+  document.querySelectorAll('*').forEach(function (el) {
+    for (var i = 0; i < el.attributes.length; i++) {
+      var a = el.attributes[i];
+      if (a.name.indexOf('data-tpl-') === 0) tplEls.push({ el: el, attr: a.name.slice(9), tpl: a.value });
+    }
+  });
+  function fill(tpl, v) { return tpl.replace(/\{\{\s*(\w+)\s*\}\}/g, function (_, k) { return v[k] == null ? '' : String(v[k]); }); }
+
+  function render() {
+    var v = vals();
+    tplEls.forEach(function (t) {
+      var val = fill(t.tpl, v);
+      if (t.attr === 'disabled') { t.el.disabled = val === 'true'; }
+      else t.el.setAttribute(t.attr, val);
+    });
+    document.querySelectorAll('[data-if]').forEach(function (el) {
+      if (!('disp' in el.dataset)) el.dataset.disp = el.style.display || '';
+      el.style.display = v[el.dataset.if] ? el.dataset.disp : 'none';
+    });
+    document.querySelectorAll('[data-t]').forEach(function (el) { el.textContent = v[el.dataset.t] == null ? '' : v[el.dataset.t]; });
+  }
+  window.__renderConvite = render;
+
+  document.querySelectorAll('[data-on]').forEach(function (el) {
+    el.addEventListener('click', function () {
+      var k = el.dataset.on;
+      if (handlers[k]) handlers[k]();
+      else if (typeof comp[k] === 'function') comp[k]();
+    });
+  });
+
+  comp.setRoot(document.getElementById('root'));
+  comp.setCanvas(document.getElementById('canvas'));
+  comp.setVideo(document.getElementById('video'));
+  render();
+  comp.componentDidMount();
+
+  if (slug === '!invalido') { x.carregando = false; x.naoEncontrado = true; render(); }
+  else if (slug) {
+    rpc('cv_abrir', { p_slug: slug })
+      .then(function (rows) {
+        x.carregando = false;
+        var c = rows && rows[0];
+        if (!c) { x.naoEncontrado = true; }
+        else {
+          x.encontrado = true;
+          x.resposta = c.resposta;
+          comp.props.convidados = c.convidados;
+          comp.props.papel = c.papel;
+          document.title = c.convidados + ' · Convite de Petherson & Anna';
+        }
+        render();
+      })
+      .catch(function () { x.carregando = false; render(); });
+  }
+})();
+</script>
+</body>
+</html>
