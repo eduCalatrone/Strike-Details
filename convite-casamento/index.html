@@ -28,10 +28,13 @@
   .campo input:focus { border-color: #F6EBDD; background: rgba(255, 255, 255, 0.16); }
   .campo .tirar { width: 44px; height: 44px; flex: none; border: 0; border-radius: 999px; background: rgba(255, 255, 255, 0.1); color: #FFFFFF; font-size: 22px; line-height: 1; cursor: pointer; }
   .campo-sel { display: grid; gap: 6px; margin-top: 4px; }
-  .campo-sel label { font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: #EADBC6; }
-  .campo-sel select { height: 48px; box-sizing: border-box; padding: 0 14px; border-radius: 14px; border: 1px solid rgba(255, 255, 255, 0.28); background: rgba(255, 255, 255, 0.1); color: #FFFFFF; font-family: 'Jost', sans-serif; font-size: 16px; outline: none; -webkit-appearance: none; appearance: none; background-image: linear-gradient(45deg, transparent 50%, #EADBC6 50%), linear-gradient(135deg, #EADBC6 50%, transparent 50%); background-position: calc(100% - 20px) 21px, calc(100% - 15px) 21px; background-size: 5px 5px; background-repeat: no-repeat; }
-  .campo-sel select:focus { border-color: #F6EBDD; }
-  .campo-sel option { color: #2B2016; }
+  .campo-sel .rot { font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: #EADBC6; text-align: center; }
+  .opcoes { display: grid; gap: 8px; }
+  .opcao { display: flex; align-items: center; gap: 12px; min-height: 48px; padding: 0 16px; border-radius: 14px; border: 1px solid rgba(255, 255, 255, 0.28); background: rgba(255, 255, 255, 0.08); color: #FFFFFF; font-family: 'Jost', sans-serif; font-size: 16px; text-align: left; cursor: pointer; transition: background 0.2s ease, border-color 0.2s ease; }
+  .opcao::before { content: ""; flex: none; width: 18px; height: 18px; border-radius: 50%; border: 1.5px solid rgba(255, 255, 255, 0.6); box-sizing: border-box; transition: border-width 0.2s ease, border-color 0.2s ease; }
+  .opcao[aria-checked="true"] { background: rgba(246, 235, 221, 0.2); border-color: #F6EBDD; }
+  .opcao[aria-checked="true"]::before { border: 5px solid #F6EBDD; }
+  .opcao .sub { margin-left: auto; font-size: 13px; color: rgba(255, 255, 255, 0.6); }
   @keyframes flash { 0% { opacity: 0; } 18% { opacity: 1; } 100% { opacity: 0; } }
   .link { background: none; border: 0; padding: 10px 12px; min-height: 44px; font-family: 'Jost', sans-serif; font-size: 14px; letter-spacing: 0.06em; color: #EADBC6; text-decoration: underline; text-underline-offset: 4px; cursor: pointer; text-shadow: 0 1px 8px rgba(0, 0, 0, 0.5); }
 </style>
@@ -85,8 +88,8 @@
 <div id="lista-pessoas" style="display: flex; flex-direction: column; gap: 10px"></div>
 <button type="button" class="link" id="add-pessoa" data-if="podeAdicionar" style="align-self: center">+ Adicionar pessoa</button>
 <div data-if="modoConvidados" class="campo-sel">
-<label for="quem-convidou">Quem convidou vocês?</label>
-<select id="quem-convidou"></select>
+<span class="rot" id="quem-rot">Quem convidou vocês?</span>
+<div id="quem-convidou" class="opcoes" role="radiogroup" aria-labelledby="quem-rot"></div>
 </div>
 <p data-if="erro" role="alert" style="margin: 0; font-size: 14px; color: #FFD9C7; text-align: center" data-t="erroTexto"></p>
 <button type="submit" data-tpl-disabled="{{enviando}}" style="margin-top: 4px; min-height: 52px; border: 0; border-radius: 999px; background: #F6EBDD; color: #2B2016; font-family: 'Jost', sans-serif; font-size: 14px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; cursor: pointer; box-shadow: 0 0 30px rgba(255, 214, 160, 0.3)"><span data-t="confirmarLabel"></span></button>
@@ -637,7 +640,7 @@ void main(){
   var MAX = 4;
   var x = { carregando: !!slug, encontrado: false, naoEncontrado: false, resposta: null, pessoas: [], lista: false, enviando: false, erro: '', padrinhos: [], padrinho: null, confId: null, abertoEm: null };
 
-  /* Lista de quem vai: até 4 nomes, já vem com os nomes do convite ("Carlos & Juliana" vira Carlos e Juliana). */
+  /* Lista de quem vai (padrinhos: até 4 nomes; convidados: o nome e o acompanhante), já vem com os nomes do convite ("Carlos & Juliana" vira Carlos e Juliana). */
   var listaEl = document.getElementById('lista-pessoas');
   function nomesDoConvite() {
     return String(comp.props.convidados || '').split(/\s*(?:&|,|\be\b)\s*/i).map(function (s) { return s.trim(); }).filter(Boolean).slice(0, MAX);
@@ -655,7 +658,7 @@ void main(){
       inp.autocomplete = 'name'; inp.placeholder = i === 0 ? (modoConv ? 'Seu nome completo' : 'Nome completo') : (modoConv && i === 1 ? 'Acompanhante (opcional)' : 'Nome da pessoa ' + (i + 1));
       inp.addEventListener('input', function () { if (x.erro) { x.erro = ''; render(); } });
       linha.appendChild(lb); linha.appendChild(inp);
-      if (nomes.length > 1) {
+      if (nomes.length > 1 && !modoConv) {
         var tirar = document.createElement('button'); tirar.type = 'button'; tirar.className = 'tirar'; tirar.textContent = '×';
         tirar.setAttribute('aria-label', 'Tirar ' + (nome || 'pessoa ' + (i + 1)));
         tirar.addEventListener('click', function () { var n = lerNomes(); n.splice(i, 1); desenharLista(n); render(); });
@@ -671,6 +674,7 @@ void main(){
   });
   function abrirLista() {
     var base = x.pessoas.length ? x.pessoas.slice() : (modoConv ? ['', ''] : nomesDoConvite());
+    if (modoConv) { base = base.slice(0, 2); while (base.length < 2) base.push(''); }
     desenharLista(base.length ? base : ['']);
     if (modoConv) desenharPadrinhos();
     x.lista = true; x.erro = ''; render();
@@ -681,8 +685,8 @@ void main(){
     if (x.enviando) return;
     var nomes = lerNomes().map(function (s) { return s.trim(); }).filter(Boolean).slice(0, MAX);
     if (!nomes.length) { x.erro = 'Escreva pelo menos um nome.'; render(); return; }
-    var pad = modoConv ? selPad.value : null;
-    if (modoConv && pad === '') { x.erro = 'Escolha quem convidou vocês.'; render(); selPad.focus(); return; }
+    var pad = modoConv ? (x.escolha || '') : null;
+    if (modoConv && pad === '') { x.erro = 'Escolha quem convidou vocês.'; render(); var o1 = selPad.querySelector('.opcao'); if (o1) o1.focus(); return; }
     x.enviando = true; x.erro = ''; render();
     coletarMeta().then(function (meta) {
       return modoConv
@@ -705,13 +709,22 @@ void main(){
   var selPad = document.getElementById('quem-convidou');
   function desenharPadrinhos() {
     var atual = x.padrinho || '';
+    x.escolha = atual && (atual === 'noivos' || x.padrinhos.some(function (p) { return p.slug === atual; })) ? atual : '';
     selPad.textContent = '';
-    var op0 = document.createElement('option'); op0.value = ''; op0.textContent = 'Escolha os padrinhos'; op0.disabled = true; selPad.appendChild(op0);
-    x.padrinhos.forEach(function (p) { var o = document.createElement('option'); o.value = p.slug; o.textContent = p.convidados; selPad.appendChild(o); });
-    var on = document.createElement('option'); on.value = 'noivos'; on.textContent = 'Os noivos (Petherson & Anna)'; selPad.appendChild(on);
-    selPad.value = atual && (atual === 'noivos' || x.padrinhos.some(function (p) { return p.slug === atual; })) ? atual : '';
+    var lista = x.padrinhos.map(function (p) { return { v: p.slug, t: p.convidados }; }).concat([{ v: 'noivos', t: 'Os noivos', sub: 'Petherson & Anna' }]);
+    lista.forEach(function (o) {
+      var b = document.createElement('button'); b.type = 'button'; b.className = 'opcao'; b.setAttribute('role', 'radio');
+      b.setAttribute('aria-checked', String(x.escolha === o.v)); b.dataset.v = o.v;
+      var t = document.createElement('span'); t.textContent = o.t; b.appendChild(t);
+      if (o.sub) { var sb = document.createElement('span'); sb.className = 'sub'; sb.textContent = o.sub; b.appendChild(sb); }
+      b.addEventListener('click', function () {
+        x.escolha = o.v; if (x.erro) x.erro = '';
+        selPad.querySelectorAll('.opcao').forEach(function (e) { e.setAttribute('aria-checked', String(e.dataset.v === o.v)); });
+        render();
+      });
+      selPad.appendChild(b);
+    });
   }
-  selPad.addEventListener('change', function () { if (x.erro) { x.erro = ''; render(); } });
 
   /* Dados de quem confirmou, para os noivos terem certeza de que o link chegou às pessoas certas:
      hora do aparelho, modelo e sistema, navegador (WhatsApp, Instagram...), tela, idioma, fuso e cidade aproximada pelo IP. */
@@ -822,11 +835,11 @@ void main(){
     v.respondeuSim = pode && x.resposta === 'sim';
     var nomePad = modoConv && x.padrinho ? (x.padrinho === 'noivos' ? 'pelos noivos' : 'por ' + ((x.padrinhos.find(function (p) { return p.slug === x.padrinho; }) || {}).convidados || 'padrinhos')) : '';
     v.nomesConfirmados = x.pessoas.join(', ') + (nomePad ? ' · convidados ' + nomePad : '');
-    v.sheetSub = modoConv ? 'Escreva o nome de quem vai (até 4) e quem convidou vocês.' : 'Confirme o nome de cada pessoa deste convite (até 4).';
+    v.sheetSub = modoConv ? 'Escreva o seu nome e o do seu acompanhante, e quem convidou vocês.' : 'Confirme o nome de cada pessoa deste convite.';
     v.enviando = x.enviando;
     v.erro = !!x.erro;
     v.erroTexto = x.erro;
-    v.podeAdicionar = listaEl.querySelectorAll('input').length < MAX;
+    v.podeAdicionar = !modoConv && listaEl.querySelectorAll('input').length < MAX;
     v.confirmarLabel = x.enviando ? 'Enviando…' : (x.pessoas.length && x.resposta === 'sim' ? 'Salvar nomes' : 'Confirmar presença');
     v.sheetOpacity = x.lista ? '1' : '0';
     v.sheetVis = x.lista ? 'visible' : 'hidden';

@@ -2,7 +2,7 @@
 
 Página única (index.html) com vídeo de fundo, efeitos em WebGL e som.
 Padrinhos: cada casal tem um link próprio, `https://<dominio>/<nome-do-casal>` (ex.: `/alexandre-e-laiany`).
-Convidados: um link só para todos, o endereço principal (`https://<dominio>/`, também `/convidados`); o convidado escreve os nomes (até 4) e escolhe os padrinhos que o convidaram.
+Convidados: um link só para todos, o endereço principal (`https://<dominio>/`, também `/convidados`); o convidado escreve o próprio nome e o do acompanhante e escolhe os padrinhos que o convidaram.
 Perfil de teste: `/teste` (Casal Teste) nunca grava a confirmação, serve para ver as animações.
 
 ## Dados (Supabase · Strike Details DATABASE)
