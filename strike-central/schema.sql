@@ -56,6 +56,9 @@ create table if not exists public.historico (
   created_at timestamptz not null default now()
 );
 
+-- Quilometragem do veículo (0 = zero km, protocolo diferente).
+alter table public.leads add column if not exists quilometragem integer;
+
 create index if not exists leads_created_at_idx on public.leads (created_at desc);
 create index if not exists leads_status_idx     on public.leads (status);
 create index if not exists historico_lead_idx   on public.historico (lead_id, created_at desc);
@@ -100,6 +103,11 @@ do $$ begin
   );
 exception when duplicate_object then null; end $$;
 
+do $$ begin
+  alter table public.leads add constraint leads_quilometragem_valida
+    check (quilometragem is null or quilometragem between 0 and 2000000);
+exception when duplicate_object then null; end $$;
+
 -- WhatsApp só dígitos.
 do $$ begin
   alter table public.leads add constraint leads_whatsapp_numerico
@@ -123,7 +131,7 @@ revoke all on public.autorizados from anon;
 revoke all on public.historico   from anon;
 
 grant insert (nome, whatsapp, email, uf, cidade, endereco, veiculo,
-              placa, servico_interesse, observacoes, origem, consentimento_lgpd)
+              placa, quilometragem, servico_interesse, observacoes, origem, consentimento_lgpd)
   on public.leads to anon;
 
 grant select, insert, update, delete on public.leads       to authenticated;

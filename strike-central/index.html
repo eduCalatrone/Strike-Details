@@ -214,7 +214,7 @@ input:focus,select:focus,textarea:focus{
 .field-zap.valid .ok-ico{opacity:1}
 .field-zap.valid .zap-in > input,.field-zap.valid .ddi{border-color:var(--gray-1)}
 .field-zap.bad .zap-in > input,.field-zap.bad .ddi{border-color:var(--red)}
-.field-zap .hint{font-size:.74rem;color:var(--txt-2);margin-top:.5rem;line-height:1.45}
+.field-zap .hint,.field-km .hint{font-size:.74rem;color:var(--txt-2);margin-top:.5rem;line-height:1.45}
 
 .consent{
   display:flex;gap:.7rem;align-items:flex-start;
@@ -390,6 +390,12 @@ footer img.f-logo{width:120px;opacity:.9;margin-bottom:.9rem}
           <input id="placa" type="text" autocapitalize="characters" autocorrect="off" spellcheck="false" placeholder="ABC1D23" maxlength="8" style="text-transform:uppercase;font-family:var(--f-tech);letter-spacing:1px;font-size:15px">
         </div>
 
+        <div class="field field-km">
+          <label for="km">Quilometragem</label>
+          <input id="km" type="text" inputmode="numeric" autocomplete="off" placeholder="Ex.: 45.000" maxlength="9" aria-describedby="hint-km">
+          <div class="hint" id="hint-km">Quantos km o veículo tem rodados. Se for zero km, digite 0.</div>
+        </div>
+
         <div class="field">
           <label for="servico">Serviço de interesse</label>
           <select id="servico">
@@ -562,6 +568,10 @@ inZap.addEventListener('blur', () => { if (inZap.value) checaZap(true); });
 $('placa').addEventListener('input', e => {
   e.target.value = e.target.value.toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 7);
 });
+$('km').addEventListener('input', e => {
+  const d = e.target.value.replace(/\D/g, '').replace(/^0+(?=\d)/, '').slice(0, 7);
+  e.target.value = d ? Number(d).toLocaleString('pt-BR') : '';
+});
 
 /* --- origem --- */
 const qs = new URLSearchParams(location.search);
@@ -606,6 +616,7 @@ $('form').addEventListener('submit', async e => {
     endereco: $('endereco').value.trim() || null,
     veiculo: $('veiculo').value.trim() || null,
     placa: $('placa').value.trim().toUpperCase() || null,
+    quilometragem: $('km').value ? Number($('km').value.replace(/\D/g, '')) : null,
     servico_interesse: $('servico').value || null,
     observacoes: $('observacoes').value.trim() || null,
     origem, consentimento_lgpd: true

@@ -549,6 +549,7 @@ function abrirLead(id) {
     ['Endereço', l.endereco],
     ['Veículo', l.veiculo],
     ['Placa', l.placa],
+    ['Quilometragem', kmTxt(l.quilometragem)],
     ['Serviço', l.servico_interesse],
     ['Recado', l.observacoes],
     ['Origem', l.origem],
@@ -591,6 +592,7 @@ function atualizarZapAut() {
     l.endereco ? `Endereço: ${l.endereco}` : '',
     l.veiculo ? `Veículo: ${l.veiculo}` : '',
     l.placa ? `Placa: ${l.placa}` : '',
+    l.quilometragem != null ? `Quilometragem: ${kmTxt(l.quilometragem)}` : '',
     l.servico_interesse ? `Serviço: ${l.servico_interesse}` : '',
     l.observacoes ? `Recado: ${l.observacoes}` : '',
     '', 'Entre em contato e depois retorne pra gente.'
@@ -603,7 +605,7 @@ function atualizarZapAut() {
 $('drCopiar').addEventListener('click', async () => {
   const l = atual;
   await navigator.clipboard.writeText(
-    `${l.nome}\n${fone(l.whatsapp)}\n${l.cidade} - ${UF_NOME[l.uf]||l.uf}\n${l.endereco||''}\n${l.veiculo||''} ${l.placa||''}\n${l.servico_interesse||''}`.trim()
+    `${l.nome}\n${fone(l.whatsapp)}\n${l.cidade} - ${UF_NOME[l.uf]||l.uf}\n${l.endereco||''}\n${l.veiculo||''} ${l.placa||''}\n${kmTxt(l.quilometragem)||''}\n${l.servico_interesse||''}`.trim()
   );
   $('drCopiar').textContent = 'Copiado';
   setTimeout(() => $('drCopiar').textContent = 'Copiar dados', 1600);
@@ -712,10 +714,10 @@ $('daExcluir').addEventListener('click', async () => {
 
 /* ================= CSV ================= */
 $('btnCsv').addEventListener('click', () => {
-  const cols = ['Nome','WhatsApp','E-mail','Cidade','UF','Estado','Endereço','Veículo','Placa','Serviço','Recado','Situação','Autorizado','Origem','Cadastro'];
+  const cols = ['Nome','WhatsApp','E-mail','Cidade','UF','Estado','Endereço','Veículo','Placa','Quilometragem','Serviço','Recado','Situação','Autorizado','Origem','Cadastro'];
   const rows = filtrados().map(l => [
     l.nome, fone(l.whatsapp), l.email, l.cidade, l.uf, UF_NOME[l.uf], l.endereco,
-    l.veiculo, l.placa, l.servico_interesse, l.observacoes,
+    l.veiculo, l.placa, l.quilometragem, l.servico_interesse, l.observacoes,
     LABEL[l.status], l.autorizado?.nome, l.origem, data(l.created_at, true)
   ]);
   const csv = [cols, ...rows].map(r => r.map(v => `"${String(v ?? '').replace(/"/g,'""')}"`).join(';')).join('\r\n');
@@ -761,6 +763,10 @@ function data(iso, completo) {
   const d = new Date(iso);
   return completo ? d.toLocaleString('pt-BR', { dateStyle:'short', timeStyle:'short' })
                   : d.toLocaleDateString('pt-BR', { day:'2-digit', month:'short' });
+}
+function kmTxt(v) {
+  if (v == null) return null;
+  return v === 0 ? '0 km (zero km)' : `${Number(v).toLocaleString('pt-BR')} km`;
 }
 function linhas(pares) {
   return pares.filter(([, v]) => v).map(([k, v]) => `<dt>${k}</dt><dd>${esc(v)}</dd>`).join('');
